@@ -55,6 +55,7 @@ BaseGfxApp::BaseGfxApp(int argc, char* argv[], int width, int height, int x, int
 BaseGfxApp::~BaseGfxApp() {
 	s_currentApp = NULL;
 	glutDestroyWindow(m_glutWindowHandle);
+	delete m_glui;
 }
 
 void BaseGfxApp::setCaption(const std::string& caption) {

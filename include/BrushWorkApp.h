@@ -11,6 +11,7 @@
 
 class ColorData;
 class PixelBuffer;
+class Tool;
 
 
 /** This is the main class for BrushWork.  It is a graphics app that derives from BaseGfxApp.
@@ -34,7 +35,7 @@ public:
 	
 	
 private:
-
+    
 	// GLUI INTERFACE ELEMENTS
 	enum UIControlType 
 	{
@@ -63,6 +64,11 @@ private:
 	
 	// These are used to store the selections from the GLUI user interface
 	int m_curTool;
+    Tool **m_tools;
+    
+    // Previous mouse coordinates for interpolating mouse moves
+    int m_mouseLastX, m_mouseLastY;
+
 	float m_curColorRed, m_curColorGreen, m_curColorBlue;
 	GLUI_Spinner *m_spinnerR;
 	GLUI_Spinner *m_spinnerG;
