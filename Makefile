@@ -6,12 +6,17 @@
 # Original Author : jharwell
 #
 # Note: This file is -j (parallel build) safe, provided you don't mess with it
-# too much
+# too much.
 #
 #  Products:
 #  Make Target     Product                  Description
 #  ===========     =======                  ===================
-#
+#  all             bin/BrushWorks           The main executable
+#  clean           N/A                      Removes excutable, all .o,
+#                                           .preproc files
+#  veryclean       N/A                      Everything clean removes, +
+#                                           the external libraries and the
+#                                           results of ALL analyses.
 ################################################################################
 
 ###############################################################################

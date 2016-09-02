@@ -56,17 +56,15 @@ CPPFILES += glui_filebrowser.cpp
 
 SOURCES=$(addprefix ./src/,  $(CPPFILES))
 
-OBJECTS = $(addprefix ./build/,  $(CPPFILES:.cpp=.o)) 
+OBJECTS = $(addprefix ./build/,  $(CPPFILES:.cpp=.o))
 
 GLUI_LIB = lib/libglui.a
 
-all: setup $(GLUI_LIB) 
+all: $(GLUI_LIB)
 
-setup: build lib
-
-build:
-	mkdir -p build
-	mkdir -p lib
+$(OBJECTS): build lib
+build lib:
+	mkdir -p $@
 
 $(GLUI_LIB): $(OBJECTS)
 	ar -r $(GLUI_LIB) $(OBJECTS)
