@@ -27,16 +27,13 @@
 # bin/      - Directory where all executables are built
 # tests/    - Root directory of all test code for the project
 # obj/      - Directory where all object files are built
-# lst/      - Direcory where all assembly listing (.lst) files are built
 # analysis/ - Root directory for all code analysis that are run
 
 SRCDIR          = ./src
-LIBDIR          = ./lib
 BINDIR          = ./bin
 TESTDIR         = ./tests
 OBJDIR          = ./obj
 PREPROCDIR      = ./preproc
-LSTDIR          = ./lst
 ANALYSIS_DIR    = ./analysis
 SCANDIR         = $(ANALYSIS_DIR)/scan
 EXTDIR          = ./ext
@@ -64,7 +61,7 @@ CXXSYS_INCDIRS := $(addprefix -isystem,$(call inc-query,$(CXX)))
 ###############################################################################
 # C++ Compilation Options
 ###############################################################################
-CXXLIBDIRS ?= -L$(LIBDIR) -L$(GLUIDIR)/lib
+CXXLIBDIRS ?= -L$(GLUIDIR)/lib
 
 
 # We don't have control over GLUI, so suppress all compiler warnings its
@@ -219,7 +216,7 @@ ifneq "$MAKECMDGOALS" "clean"
 endif
 
 # The Target Executable
-$(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR) $(LSTDIR)
+$(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
 $(TARGET): glui $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR)
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(CTEST_HARNESS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
 
@@ -231,7 +228,7 @@ glui:
 # files/directories that have to be present in order for a given target build
 # to succeed, but that make knows do not need to be remade each time their
 # modification time is updated and they are newer than the target being built.
-$(LIBDIR) $(BINDIR)  $(OBJDIR) $(PREPROCDIR) $(LSTDIR) $(ANALYSIS_DIR) $(SCANDIR):
+$(BINDIR)  $(OBJDIR) $(PREPROCDIR) $(ANALYSIS_DIR) $(SCANDIR):
 	@mkdir -p $@
 
 # The Helpful Preprocessor
@@ -240,7 +237,7 @@ preprocessor: $(PREPROC_OBJECTS)
 
 # The Cleaner
 clean:
-	@rm -rf $(LIBDIR) $(BINDIR) $(OBJDIR) $(PREPROCDIR) $(LSTDIR) $(TESTS)
+	@rm -rf $(BINDIR) $(OBJDIR) $(PREPROCDIR) $(TESTS)
 
 # The Super Cleaner
 veryclean: clean
