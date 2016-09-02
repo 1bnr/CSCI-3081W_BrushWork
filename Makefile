@@ -46,6 +46,22 @@ GLUIDIR         = $(EXTDIR)/glui
 # Tell make we want to execute all commands using bash (otherwise it uses sh)
 SHELL           = bash
 
+# Tell make we want to:
+# 0 - Redirect results to a file--nothing is printed on stdout.
+# 1 - Dump results to stdout, AND redirect them to a file.
+#
+STDOUT_REDIRECT ?= 1
+
+ifeq ($(STDOUT_REDIRECT),0)
+REDIRECT1 = >
+REDIRECT2 = 2>&1
+else
+REDIRECT1 = | tee
+REDIRECT2 = 2>&1
+endif
+
+DATE = $(shell date --iso=seconds)
+
 ###############################################################################
 # Library Directories
 ###############################################################################
@@ -134,23 +150,90 @@ rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2)  $(filter $(subst
 #
 make-depend-cxx=$(CXX) -MM -MF $3 -MP -MT $2 $(CXXFLAGS) $1
 
+# cppcheck analyzer: An analyzer that sometimes reports different things than the
+# clang static checker. Sometimes it reports the same stuff too. This command
+# redirects the output of all issues found to a file rather than reporting them
+# to stdout.
+#
+# usage: $(call analyze-cppcheck-cmd,lang-type)
+#
+# lang-type must be either C or CXX, and there must be the following variables defined
+# elsewhere in the Makefile for the analyzer to give accurate results:
+# ANALYZE_SRC_[C,CXX],
+# [C,CXX]MODULE,
+# [C,CXX]INCDIRS,
+# [C,CXX]SYS_INCDIRS,
+# [C,CXX]DEBUG
 define analyze-cppcheck-cmd
 cppcheck --enable=all $($(addprefix ANALYZE_SRC_,$1)) $($(addprefix $1,MODULE)) \
 $($(addprefix $1,INCDIRS)) $($(addprefix $1,SYS_INCDIRS)) $($(addprefix $1,DEBUG)) \
-> $(ANALYSIS_DIR)/cppcheck-analysis-$(shell date --iso=seconds).txt 2>&1
+$(REDIRECT1) $(ANALYSIS_DIR)/cppcheck-analysis-$(DATE).txt $(REDIRECT2)
 endef
 
+# clang-syntax: A VERY verbose set of compiler warnings (way more than
+# gcc/g++), which can be helpful at times. This command redirects all reported
+# warnings to a file rather than reporting them to stdout.
+#
+# usage: $(call analyze-clang-syntax-cmd,lang-type)
+#
+# lang-type must be either C or CXX, and there must be the following variables defined
+# elsewhere in the Makefile for the analyzer to give accurate results:
+# ANALYZE_SRC_[C,CXX],
+# [C,CXX]INCDIRS,
+# [C,CXX]SYS_INCDIRS,
+# [C,CXX]FLAGS
 define analyze-clang-syntax-cmd
 clang -fsyntax-only -fcolor-diagnostics -Weverything -Wno-undef -Wno-pedantic\
 -Wno-padded -Wno-packed -Wno-gnu-zero-variadic-macro-arguments \
 $($(addprefix $1,FLAGS)) $($(addprefix $1,SYS_INCDIRS)) \
-$($(addprefix ANALYZE_SRC_,$1)) > $(ANALYSIS_DIR)/clang-syntax-analysis-$(shell date --iso=seconds).txt 2>&1
+$($(addprefix ANALYZE_SRC_,$1)) $(REDIRECT1)  $(ANALYSIS_DIR)/clang-syntax-analysis-$(DATE).txt $(REDIRECT2)
 endef
 
+# clang-check: A very good static analyzer for all types of
+# bugs/ambiguities. This command redirects all reported warnings to a file
+# rather than reporting them to stdout.
+#
+# usage: $(call analyze-clang-check-cmd,lang-type)
+#
+# lang-type must be either C or CXX, and there must be the following variables defined
+# elsewhere in the Makefile for the analyzer to give accurate results:
+# ANALYZE_SRC_[C,CXX],
+# [C,CXX]SYS_INCDIRS,
+# [C,CXX]FLAGS
 define analyze-clang-static-cmd
 clang-check -analyze $($(addprefix ANALYZE_SRC_,$1)) -ast-dump -- $($(addprefix $1,FLAGS)) \
-$($(addprefix $1,SYS_INCDIRS)) -fcolor-diagnostics >& \
-$(ANALYSIS_DIR)/clang-static-analysis-$(shell date --iso=seconds).txt
+$($(addprefix $1,SYS_INCDIRS)) -fcolor-diagnostics $(REDIRECT1) $(ANALYSIS_DIR)/clang-static-analysis-$(DATE).txt $(REDIRECT2)
+endef
+
+# clang-tidy-check: Check your code for adherence to a given coding standard, flag
+# potential readability issues, etc. This command redirects all reported
+# issues to a file rather than reporting them to stdout.
+#
+# usage: $(call check-clang-tidy-cmd,lang-type)
+#
+# lang-type must be either C or CXX, and there must be the following variables defined
+# elsewhere in the Makefile for the analyzer to give accurate results:
+# ANALYZE_SRC_[C,CXX],
+# [C,CXX]SYS_INCDIRS
+# [C,CXX]FLAGS
+define check-clang-tidy-cmd
+clang-tidy -checks=\* $($(addprefix ANALYZE_SRC_,$1)) -- $($(addprefix $1,FLAGS)) \
+$($(addprefix $1,SYS_INCDIRS)) $(REDIRECT1) $(ANALYSIS_DIR)/clang-tidy-analysis-$(DATE).txt $(REDIRECT2)
+endef
+
+# clang-tidy-fix: Same as clang-tidy-check, but automatically fix the issues
+# instead of reporting them.
+#
+# usage: $(call fix-clang-tidy-cmd,lang-type)
+#
+# lang-type must be either C or CXX, and there must be the following variables defined
+# elsewhere in the Makefile for the analyzer to give accurate results:
+# ANALYZE_SRC_[C,CXX],
+# [C,CXX]SYS_INCDIRS
+# [C,CXX]FLAGS
+define fix-clang-tidy-cmd
+clang-tidy -checks=\* $($(addprefix ANALYZE_SRC_,$1)) -- $($(addprefix $1,FLAGS)) \
+$($(addprefix $1,SYS_INCDIRS)) > /dev/null 2>&1
 endef
 
 ###############################################################################
@@ -202,6 +285,7 @@ endef
 # Phony targets: targets of this type will be run everytime by make (i.e. make
 # does not assume that the target recipe will build the target name)
 .PHONY: analyze-c++ analyze-cppcheck-c++ syntax-analyze-clang-c++ static-analyze-clang-c++
+.PHONY: check-clang-tidy-c++ fix-clang-tidy-c++
 .PHONY: analyze-scan clean veryclean scan
 .PHONY: glui
 
@@ -245,16 +329,7 @@ veryclean: clean
 	@$(MAKE) -C$(GLUIDIR) clean
 
 # The Analyzers
-#
-# cppcheck     - An analyzer that sometimes reports different things than the
-#                clang static checker. Sometimes it reports the same stuff
-#                too.
-# clang-check  - A very good static analyzer for all types of bugs/ambiguities
-# clang-syntax - A VERY verbose set of compiler warnings (way more than
-#                gcc/g++), which can be helpful at times.
-#
 analyze-c++: analyze-cppcheck-c++ analyze-clang-syntax-c++ analyze-clang-static-c++
-
 analyze-cppcheck-c++: | $(ANALYSIS_DIR)
 	$(call analyze-cppcheck-cmd,CXX)
 analyze-clang-syntax-c++: | $(ANALYSIS_DIR)
@@ -271,6 +346,14 @@ analyze-clang-static-c++: | $(ANALYSIS_DIR)
 # your build process.
 analyze-scan: | $(SCANDIR)
 	scan-build -V --use-c++=$(CXX) -o $(SCANDIR) -analyze-headers -enable-checker core -enable-checker unix -enable-checker security -enable-checker llvm -enable-checker alpha -disable-checker alpha.core.CastToStruct $(MAKE)
+
+# The Tidy Checker
+check-clang-tidy-c++: | $(ANALYSIS_DIR)
+	$(call check-clang-tidy-cmd,CXX)
+
+# The Tidy Fixer
+fix-clang-tidy-c++: | $(ANALYSIS_DIR)
+	$(call fix-clang-tidy-cmd,CXX)
 
 ###############################################################################
 # Pattern Rules
