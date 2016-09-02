@@ -47,12 +47,12 @@ GLUIDIR         = $(EXTDIR)/glui
 SHELL           = bash
 
 # Tell make we want to:
-# 0 - Redirect results to a file--nothing is printed on stdout.
-# 1 - Dump results to stdout, AND redirect them to a file.
+# 1 - Redirect results to a file--nothing is printed on stdout.
+# 0 - Dump results to stdout, AND redirect them to a file.
 #
-STDOUT_REDIRECT ?= 1
+NO_STDOUT ?= 1
 
-ifeq ($(STDOUT_REDIRECT),0)
+ifeq ($(NO_STDOUT),1)
 REDIRECT1 = >
 REDIRECT2 = 2>&1
 else
