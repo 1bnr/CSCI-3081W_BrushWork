@@ -180,12 +180,11 @@ endef
 # elsewhere in the Makefile for the analyzer to give accurate results:
 # ANALYZE_SRC_[C,CXX],
 # [C,CXX]INCDIRS,
-# [C,CXX]SYS_INCDIRS,
-# [C,CXX]FLAGS
+# [C,CXX]SYS_INCDIRS
 define analyze-clang-syntax-cmd
 clang -fsyntax-only -fcolor-diagnostics -Weverything -Wno-undef -Wno-pedantic\
--Wno-padded -Wno-packed -Wno-gnu-zero-variadic-macro-arguments \
-$($(addprefix $1,FLAGS)) $($(addprefix $1,SYS_INCDIRS)) \
+-Wno-padded -Wno-packed -Wno-unused-parameter -Wno-gnu-zero-variadic-macro-arguments \
+$($(addprefix $1,INCDIRS)) $($(addprefix $1,SYS_INCDIRS)) \
 $($(addprefix ANALYZE_SRC_,$1)) $(REDIRECT1)  $(ANALYSIS_DIR)/clang-syntax-analysis-$(DATE).txt $(REDIRECT2)
 endef
 
@@ -199,9 +198,9 @@ endef
 # elsewhere in the Makefile for the analyzer to give accurate results:
 # ANALYZE_SRC_[C,CXX],
 # [C,CXX]SYS_INCDIRS,
-# [C,CXX]FLAGS
+# [C,CXX]INCDIRS
 define analyze-clang-static-cmd
-clang-check -analyze $($(addprefix ANALYZE_SRC_,$1)) -ast-dump -- $($(addprefix $1,FLAGS)) \
+clang-check -analyze $($(addprefix ANALYZE_SRC_,$1)) -ast-dump -- $($(addprefix $1,INCDIRS)) \
 $($(addprefix $1,SYS_INCDIRS)) -fcolor-diagnostics $(REDIRECT1) $(ANALYSIS_DIR)/clang-static-analysis-$(DATE).txt $(REDIRECT2)
 endef
 
