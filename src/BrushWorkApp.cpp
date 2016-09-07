@@ -77,7 +77,7 @@ BrushWorkApp::~BrushWorkApp() {
 		}
 
 		delete [] m_tools;
-	}
+        }
 }
 
 
@@ -98,16 +98,14 @@ void BrushWorkApp::mouseDragged(int x, int y) {
 	// Calculate the min number of steps necesary to fill
 	// completely between the two event locations.
 	float pixelsBetween = fmax(abs(delta_x), abs(delta_y));
-	int step_count = pixelsBetween;
-	int step_size = 1;
+        int step_size = 1;
 
 	// Optimize by maxing out at the max_steps,
 	// and fill evenly between
         if (pixelsBetween > max_steps)
 	{
 		step_size = pixelsBetween/max_steps;
-		step_count = max_steps;
-	}
+        }
 
 	// Iterate between the event locations
         for (int i = 0; i < pixelsBetween; i+=step_size)

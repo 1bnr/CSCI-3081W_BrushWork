@@ -5,8 +5,6 @@ CC = g++
 OPTS=-g
 OPTS=-O0
 
-
-
 CPPFLAGS += $(OPTS) -Wall
 CPPFLAGS += -I./ -I./include
 
