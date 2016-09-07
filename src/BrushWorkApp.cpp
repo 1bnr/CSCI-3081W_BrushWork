@@ -33,6 +33,9 @@ BrushWorkApp::BrushWorkApp(int argc,
                  50),
       m_displayBuffer(nullptr),
       m_curTool(0.0),
+      m_tools(new Tool* [ToolFactory::getNumTools()]),
+      m_mouseLastX(0),
+      m_mouseLastY(0),
       m_curColorRed(0.0),
       m_curColorGreen(0.0),
       m_curColorBlue(0.0),
@@ -48,7 +51,6 @@ BrushWorkApp::BrushWorkApp(int argc,
     initializeBuffers(backgroundColor, width, height);
 
     // Create array of tools and populate
-    m_tools = new Tool* [ToolFactory::getNumTools()];
     for (int i = 0; i < ToolFactory::getNumTools(); i++) {
         m_tools[i] = ToolFactory::createTool(i);
     }

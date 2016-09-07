@@ -7,21 +7,22 @@
 //
 //  MOval is a Mask in the shape of an ellipse with an orientation.
 //  It takes an angle in degrees, and a ratio between height and width.
-//  It is of constant fill. 
+//  It is of constant fill.
 
 #ifndef MOVAL_H
 #define MOVAL_H
 
 #include "Mask.h"
 
-class MOval : public Mask 
+class MOval : public Mask
 {
 public:
-	MOval(float radius, float opacity, float angle, float ratio);
+    MOval(float radius, float opacity, float angle, float ratio);
+    virtual ~MOval() {}
 protected:
-	float getIntensity(int x, int y, float radius);
-	float m_angle;
-	float m_ratio;
+    float getIntensity(int x, int y, float radius);
+    float m_angle;
+    float m_ratio;
 };
 
 #endif

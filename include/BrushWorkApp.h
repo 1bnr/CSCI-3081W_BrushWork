@@ -36,43 +36,44 @@ public:
 
 private:
 
-	// GLUI INTERFACE ELEMENTS
-        enum UIControlType
-	{
-		UI_TOOLTYPE,
-		UI_COLOR_R,
-		UI_COLOR_G,
-		UI_COLOR_B,
-		UI_PRESET_RED,
-		UI_PRESET_ORANGE,
-		UI_PRESET_YELLOW,
-		UI_PRESET_GREEN,
-		UI_PRESET_BLUE,
-		UI_PRESET_PURPLE,
-		UI_PRESET_WHITE,
-		UI_PRESET_BLACK,
-		UI_QUIT
-	};
+    // GLUI INTERFACE ELEMENTS
+    enum UIControlType
+    {
+        UI_TOOLTYPE,
+        UI_COLOR_R,
+        UI_COLOR_G,
+        UI_COLOR_B,
+        UI_PRESET_RED,
+        UI_PRESET_ORANGE,
+        UI_PRESET_YELLOW,
+        UI_PRESET_GREEN,
+        UI_PRESET_BLUE,
+        UI_PRESET_PURPLE,
+        UI_PRESET_WHITE,
+        UI_PRESET_BLACK,
+        UI_QUIT
+    };
 
-	// BrushWork-specific functions
-	void initGlui();
-	void initGraphics();
-	void initializeBuffers(ColorData initialColor, int width, int height);
+    // BrushWork-specific functions
+    void initGlui();
+    void initGraphics();
+    void initializeBuffers(ColorData initialColor, int width, int height);
 
-	// This is the pointer to the buffer where the display PixelBuffer is stored
-	PixelBuffer* m_displayBuffer;
+    // This is the pointer to the buffer where the display PixelBuffer is stored
+    PixelBuffer* m_displayBuffer;
 
-	// These are used to store the selections from the GLUI user interface
-	int m_curTool;
+    // These are used to store the selections from the GLUI user interface
+    int m_curTool;
     Tool **m_tools;
 
     // Previous mouse coordinates for interpolating mouse moves
-    int m_mouseLastX, m_mouseLastY;
+    int m_mouseLastX;
+    int m_mouseLastY;
 
-	float m_curColorRed, m_curColorGreen, m_curColorBlue;
-	GLUI_Spinner *m_spinnerR;
-	GLUI_Spinner *m_spinnerG;
-	GLUI_Spinner *m_spinnerB;
+    float m_curColorRed, m_curColorGreen, m_curColorBlue;
+    GLUI_Spinner *m_spinnerR;
+    GLUI_Spinner *m_spinnerG;
+    GLUI_Spinner *m_spinnerB;
 
 private:
     BrushWorkApp(const BrushWorkApp &rhs) = delete;

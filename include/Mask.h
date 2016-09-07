@@ -12,25 +12,29 @@
 #ifndef MASK_H
 #define MASK_H
 
-class Mask 
+class Mask
 {
 public:
-	Mask(float radius, float opacity);
-	Mask();
-	~Mask();
-	float const *getFloatArray() const { return m_maskArray; }
-	int getWidth() const { return m_width;}
-	int getHeight() const {return m_height;}
-	float getValue(int x, int y) const;
+    Mask(float radius, float opacity);
+    Mask();
+    virtual ~Mask();
+    float const *getFloatArray() const { return m_maskArray; }
+    int getWidth() const { return m_width;}
+    int getHeight() const {return m_height;}
+    float getValue(int x, int y) const;
 protected:
-	float m_radius;
-	float m_opacity;
-	int m_height;
-	int m_width;
-	float *m_maskArray;
-	void setValue(int x, int y, float v);
-	void generateMask();
-	virtual float getIntensity(int x, int y, float radius) = 0;
+    float m_radius;
+    float m_opacity;
+    int m_height;
+    int m_width;
+    float *m_maskArray;
+    void setValue(int x, int y, float v);
+    void generateMask();
+    virtual float getIntensity(int x, int y, float radius) = 0;
+
+private:
+    Mask(const Mask& rhs) = delete;
+    Mask& operator=(const Mask& rhs) = delete;
 };
 
 #endif

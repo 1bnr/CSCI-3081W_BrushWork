@@ -286,7 +286,6 @@ endef
 .PHONY: analyze-c++ analyze-cppcheck-c++ syntax-analyze-clang-c++ static-analyze-clang-c++
 .PHONY: check-clang-tidy-c++ fix-clang-tidy-c++
 .PHONY: analyze-scan clean veryclean scan
-.PHONY: glui
 
 # The default target
 all: $(TARGET)
@@ -300,11 +299,11 @@ endif
 
 # The Target Executable
 $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
-$(TARGET): glui $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR)
+$(TARGET): $(GLUIDIR)/lib/libglui.a $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR)
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(CTEST_HARNESS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
 
 # GLUI
-glui:
+$(GLUIDIR)/lib/libglui.a:
 	$(MAKE) -C$(GLUIDIR)
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,

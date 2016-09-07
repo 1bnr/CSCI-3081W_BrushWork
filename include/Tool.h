@@ -12,7 +12,7 @@
 
 
 #ifndef TOOL_H
-#define TOOL_H 
+#define TOOL_H
 
 #include <string>
 
@@ -21,18 +21,22 @@ class ColorData;
 class Mask;
 
 /// This is the superclass for Tools.
-class Tool 
+class Tool
 {
 public:
 	Tool();
 	virtual ~Tool();
-	
+
 	virtual void applyToBuffer(int toolX, int toolY, ColorData toolColor, PixelBuffer* buffer);
 	virtual std::string getName() = 0;
-	
+
 protected:
 	virtual ColorData colorBlendMath(float mask, ColorData toolColor, ColorData canvasColor, ColorData backgroundColor);
-	Mask *m_mask;
+        Mask *m_mask;
+
+private:
+    Tool(const Tool& rhs) = delete;
+    Tool& operator=(const Tool& rhs) = delete;
 };
 
 #endif
