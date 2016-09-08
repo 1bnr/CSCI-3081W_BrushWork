@@ -13,11 +13,10 @@
 #ifndef INCLUDE_TOOL_H_
 #define INCLUDE_TOOL_H_
 
+#include "PixelBuffer.h"
+#include "ColorData.h"
+#include "Mask.h"
 #include <string>
-
-class PixelBuffer;
-class ColorData;
-class Mask;
 
 /// This is the superclass for Tools.
 class Tool {

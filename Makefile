@@ -23,19 +23,12 @@
 # Directory Definitions
 ###############################################################################
 # src/      - Root of the source tree for the project
-# lib/      - Directory where libraries are built, if applicable
 # bin/      - Directory where all executables are built
-# tests/    - Root directory of all test code for the project
 # obj/      - Directory where all object files are built
-# analysis/ - Root directory for all code analysis that are run
 
 SRCDIR          = ./src
 BINDIR          = ./bin
-TESTDIR         = ./tests
 OBJDIR          = ./obj
-PREPROCDIR      = ./preproc
-ANALYSIS_DIR    = ./analysis
-SCANDIR         = $(ANALYSIS_DIR)/scan
 EXTDIR          = ./ext
 GLUIDIR         = $(EXTDIR)/glui
 
@@ -96,13 +89,6 @@ OPT         = -O0
 ###############################################################################
 # Functions
 ###############################################################################
-# Compiler query: Get the list of built in system include directories
-# by querying the gcc-ish compiler. Not necessary for compilation
-# (obviously), but needed for some of the analysis tools to work.
-# usage: $(call inc-query,compiler-name)
-#
-inc-query=$(shell echo | $(1) -xc -E -v - |& grep  '^ ' |grep include | sed 's/ //g'))
-
 # Recursive wildcard: search a list of directories for all files that match a pattern
 # usage: $(call rwildcard, $(DIRS1) $(DIRS2) ..., pattern)
 #
@@ -128,11 +114,11 @@ make-depend-cxx=$(CXX) -MM -MF $3 -MP -MT $2 $(CXXFLAGS) $1
 SOURCES    = $(SRCDIR)
 
 # Define the list of files to compile for this project
-SRC_CXX    = $(call rwildcard,$(SOURCES),*.cpp)
+SRC_CXX    = $(call rwildcard,$(SOURCES),*.cc)
 
-# For each of the .cpp files found above, determine the name of the
+# For each of the .cc files found above, determine the name of the
 # corresponding .o file to create.
-OBJECTS_CXX  = $(notdir $(patsubst %.cpp,%.o,$(SRC_CXX)))
+OBJECTS_CXX  = $(notdir $(patsubst %.cc,%.o,$(SRC_CXX)))
 
 # The target executable (what you are building)
 TARGET = $(BINDIR)/BrushWork
@@ -143,13 +129,13 @@ TARGET = $(BINDIR)/BrushWork
 
 # Phony targets: targets of this type will be run everytime by make (i.e. make
 # does not assume that the target recipe will build the target name)
-.PHONY: clean veryclean
+.PHONY: clean veryclean all
 
 # The default target
 all: $(TARGET)
 
 # Unless invoked with make clean, include generated dependencies. This makes
-# it so that anytime you make an edit in a .h file, all .cpp files that
+# it so that anytime you make an edit in a .h file, all .cc files that
 # include it will automatically be recompiled.
 ifneq "$MAKECMDGOALS" "clean"
 -include $(addprefix $(OBJDIR)/,$(OBJECTS_CXX:.o=.d))
@@ -158,7 +144,7 @@ endif
 # The Target Executable
 $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
 $(TARGET): $(GLUIDIR)/lib/libglui.a $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR)
-	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(CTEST_HARNESS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
+	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
 
 # GLUI
 $(GLUIDIR)/lib/libglui.a:
@@ -168,16 +154,15 @@ $(GLUIDIR)/lib/libglui.a:
 # files/directories that have to be present in order for a given target build
 # to succeed, but that make knows do not need to be remade each time their
 # modification time is updated and they are newer than the target being built.
-$(BINDIR)  $(OBJDIR) $(PREPROCDIR) $(ANALYSIS_DIR) $(SCANDIR):
+$(BINDIR)  $(OBJDIR):
 	@mkdir -p $@
 
 # The Cleaner
 clean:
-	@rm -rf $(BINDIR) $(OBJDIR) $(PREPROCDIR) $(TESTS)
+	@rm -rf $(BINDIR) $(OBJDIR)
 
 # The Super Cleaner
 veryclean: clean
-	@rm -rf $(ANALYSIS_DIR)
 	@$(MAKE) -C$(GLUIDIR) clean
 
 ###############################################################################
@@ -185,10 +170,6 @@ veryclean: clean
 ###############################################################################
 # For compiling the C++ source. Specify that any .o file in the object
 # directory can be build
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+$(OBJDIR)/%.o: $(SRCDIR)/%.cc
 	@$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) -c -o  $@ $<
-
-# For getting preprocessor C++ output
-$(PREPROCDIR)/%.preproc:: %.cpp
-	$(CXX) $(CXXFLAGS) $(CXXINCDIRS) -E $< -o $@

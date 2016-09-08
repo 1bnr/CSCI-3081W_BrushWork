@@ -9,9 +9,8 @@
 #ifndef INCLUDE_TOOLFACTORY_H_
 #define INCLUDE_TOOLFACTORY_H_
 
+#include "Tool.h"
 #include <vector>
-
-class Tool;
 
 class ToolFactory {
  public:

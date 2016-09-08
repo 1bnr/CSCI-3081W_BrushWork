@@ -8,10 +8,7 @@
 #define INCLUDE_BRUSHWORKAPP_H_
 
 #include "BaseGfxApp.h"
-
-class ColorData;
-class PixelBuffer;
-class Tool;
+#include "Tool.h"
 
 
 /** This is the main class for BrushWork.  It is a graphics app that derives from BaseGfxApp.

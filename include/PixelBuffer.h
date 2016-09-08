@@ -6,7 +6,7 @@
 #ifndef INCLUDE_PIXELBUFFER_H_
 #define INCLUDE_PIXELBUFFER_H_
 
-class ColorData;
+#include "ColorData.h"
 
 /** The PixelBuffer class stores an array of ColorData, such as an image that
     can be drawn to the screen. */
