@@ -8,13 +8,12 @@
 
 #include "TCalligraphyPen.h"
 #include "MOval.h"
+#include <string>
 
-TCalligraphyPen::TCalligraphyPen() 
-{
-	m_mask = new MOval(7.0, 1.0, 70.0, 0.333);
+TCalligraphyPen::TCalligraphyPen() {
+        m_mask = new MOval(7.0, 1.0, 70.0, 0.333);
 }
 
-std::string TCalligraphyPen::getName() 
-{
-	return "Caligraphy Pen";
+std::string TCalligraphyPen::getName() {
+        return "Caligraphy Pen";
 }

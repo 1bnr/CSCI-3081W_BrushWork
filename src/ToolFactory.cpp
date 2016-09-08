@@ -16,39 +16,37 @@
 #include "TChalk.h"
 
 
-int ToolFactory::getNumTools() 
-{
-	return NUMTOOLS;
+int ToolFactory::getNumTools() {
+        return NUMTOOLS;
 }
 
 
-Tool* ToolFactory::createTool(int toolID) 
-{
-	Tool* tool = NULL;
-	
-	switch (toolID) {
-		case TOOL_PEN:
-			tool = new TPen();
-			break;
-		case TOOL_ERASER:
-			tool = new TEraser();
-			break;
-		case TOOL_SPRAYCAN:
-			tool = new TSprayCan();
-			break;
-		case TOOL_CALLIGRAPHYPEN:
-			tool = new TCalligraphyPen();
-			break;
-		case TOOL_HIGHLIGHTER:
-			tool = new THighlighter();
-			break;
-		case TOOL_CHALK:
-			tool = new TChalk();
-			break;
-		default:
-			tool = NULL;
-			break;
-	}
-	
-	return tool;
+Tool* ToolFactory::createTool(int toolID) {
+        Tool* tool = NULL;
+
+        switch (toolID) {
+                case TOOL_PEN:
+                        tool = new TPen();
+                        break;
+                case TOOL_ERASER:
+                        tool = new TEraser();
+                        break;
+                case TOOL_SPRAYCAN:
+                        tool = new TSprayCan();
+                        break;
+                case TOOL_CALLIGRAPHYPEN:
+                        tool = new TCalligraphyPen();
+                        break;
+                case TOOL_HIGHLIGHTER:
+                        tool = new THighlighter();
+                        break;
+                case TOOL_CHALK:
+                        tool = new TChalk();
+                        break;
+                default:
+                        tool = NULL;
+                        break;
+        }
+
+        return tool;
 }

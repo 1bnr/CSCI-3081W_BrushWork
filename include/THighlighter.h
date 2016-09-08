@@ -10,20 +10,24 @@
 //  (semi-transparent), an angle of 90 degrees counter-clockwise from the x-axis,
 //  and an elongation ratio of 0.3
 
-#ifndef THIGHLIGHTER_H
-#define THIGHLIGHTER_H
+#ifndef INCLUDE_THIGHLIGHTER_H_
+#define INCLUDE_THIGHLIGHTER_H_
 
 #include "Tool.h"
+#include <string>
 
-class THighlighter : public Tool 
-{
-public:
-	THighlighter();
-	
-	// overrides super's implementation
-	ColorData colorBlendMath(float mask, ColorData toolColor, ColorData canvasColor, ColorData backgroundColor);
-	
-	std::string getName();
+class THighlighter : public Tool {
+ public:
+        THighlighter();
+
+        // overrides super's implementation
+        ColorData colorBlendMath(
+            float mask,
+            ColorData toolColor,
+            ColorData canvasColor,
+            ColorData backgroundColor);
+
+        std::string getName();
 };
 
-#endif
+#endif  // INCLUDE_THIGHLIGHTER_H_

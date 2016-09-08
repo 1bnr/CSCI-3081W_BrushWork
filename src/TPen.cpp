@@ -9,13 +9,12 @@
 
 #include "TPen.h"
 #include "MConstant.h"
+#include <string>
 
-TPen::TPen() 
-{
-	m_mask = new MConstant(1.0, 1.0);
+TPen::TPen() {
+        m_mask = new MConstant(1.0, 1.0);
 }
 
-std::string TPen::getName() 
-{
-	return "Pen";
+std::string TPen::getName() {
+        return "Pen";
 }

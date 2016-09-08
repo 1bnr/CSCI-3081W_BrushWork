@@ -9,12 +9,11 @@
 //  a tool. It is pure virtual, because a mask does not inherently have
 //  a shape. Shapes are defined implicitly with getIntensity().
 
-#ifndef MASK_H
-#define MASK_H
+#ifndef INCLUDE_MASK_H_
+#define INCLUDE_MASK_H_
 
-class Mask
-{
-public:
+class Mask {
+ public:
     Mask(float radius, float opacity);
     Mask();
     virtual ~Mask();
@@ -22,7 +21,8 @@ public:
     int getWidth() const { return m_width;}
     int getHeight() const {return m_height;}
     float getValue(int x, int y) const;
-protected:
+
+ protected:
     float m_radius;
     float m_opacity;
     int m_height;
@@ -32,9 +32,9 @@ protected:
     void generateMask();
     virtual float getIntensity(int x, int y, float radius) = 0;
 
-private:
+ private:
     Mask(const Mask& rhs) = delete;
     Mask& operator=(const Mask& rhs) = delete;
 };
 
-#endif
+#endif  // INCLUDE_MASK_H_

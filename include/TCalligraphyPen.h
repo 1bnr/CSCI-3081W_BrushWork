@@ -8,20 +8,20 @@
 //  This tool simulates the usage of a Calligraphy Pen.
 //
 //  It has a MOval mask with a radius of 7.0 (diameter of 15), an opacity of 1.0
-//  (completely opaque), an angle of 70 degrees counter-clockwise from the x-axis,
-//  and an elongation ratio of 0.333
+//  (completely opaque), an angle of 70 degrees counter-clockwise from the
+//  x-axis, and an elongation ratio of 0.333
 
-#ifndef TCALLIGRAPHYPEN_H
-#define TCALLIGRAPHYPEN_H
+#ifndef INCLUDE_TCALLIGRAPHYPEN_H_
+#define INCLUDE_TCALLIGRAPHYPEN_H_
 
 #include "Tool.h"
+#include <string>
 
-class TCalligraphyPen : public Tool 
-{
-public:
-	TCalligraphyPen();
-	
-	std::string getName();
+class TCalligraphyPen : public Tool {
+ public:
+        TCalligraphyPen();
+
+        std::string getName();
 };
 
-#endif
+#endif  // INCLUDE_TCALLIGRAPHYPEN_H_

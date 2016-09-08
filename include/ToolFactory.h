@@ -6,29 +6,27 @@
 //  Copyright (c) 2015 Seth Johnson. All rights reserved.
 //
 
-#ifndef TOOLFACTORY_H
-#define TOOLFACTORY_H
+#ifndef INCLUDE_TOOLFACTORY_H_
+#define INCLUDE_TOOLFACTORY_H_
 
 #include <vector>
 
 class Tool;
 
-class ToolFactory 
-{
-public:
-	enum TOOLS 
-	{
-		TOOL_PEN = 0,
-		TOOL_ERASER = 1,
-		TOOL_SPRAYCAN = 2,
-		TOOL_CALLIGRAPHYPEN = 3,
-		TOOL_HIGHLIGHTER = 4,
-		TOOL_CHALK = 5,
-		NUMTOOLS = 6
-	};
-	
-	static int getNumTools();
-	static Tool* createTool(int toolID);
+class ToolFactory {
+ public:
+        enum TOOLS {
+                TOOL_PEN = 0,
+                TOOL_ERASER = 1,
+                TOOL_SPRAYCAN = 2,
+                TOOL_CALLIGRAPHYPEN = 3,
+                TOOL_HIGHLIGHTER = 4,
+                TOOL_CHALK = 5,
+                NUMTOOLS = 6
+        };
+
+        static int getNumTools();
+        static Tool* createTool(int toolID);
 };
 
-#endif
+#endif  // INCLUDE_TOOLFACTORY_H_

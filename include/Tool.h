@@ -10,9 +10,8 @@
 //  Tools inherited from this class should provide a name and a mask.
 //  Inherited classes may optionally override the default colorBlendMath.
 
-
-#ifndef TOOL_H
-#define TOOL_H
+#ifndef INCLUDE_TOOL_H_
+#define INCLUDE_TOOL_H_
 
 #include <string>
 
@@ -21,22 +20,29 @@ class ColorData;
 class Mask;
 
 /// This is the superclass for Tools.
-class Tool
-{
-public:
-	Tool();
-	virtual ~Tool();
+class Tool {
+ public:
+        Tool();
+        virtual ~Tool();
 
-	virtual void applyToBuffer(int toolX, int toolY, ColorData toolColor, PixelBuffer* buffer);
-	virtual std::string getName() = 0;
+        virtual void applyToBuffer(
+            int toolX,
+            int toolY,
+            ColorData toolColor,
+            PixelBuffer* buffer);
+        virtual std::string getName() = 0;
 
-protected:
-	virtual ColorData colorBlendMath(float mask, ColorData toolColor, ColorData canvasColor, ColorData backgroundColor);
+ protected:
+        virtual ColorData colorBlendMath(
+            float mask,
+            ColorData toolColor,
+            ColorData canvasColor,
+            ColorData backgroundColor);
         Mask *m_mask;
 
-private:
+ private:
     Tool(const Tool& rhs) = delete;
     Tool& operator=(const Tool& rhs) = delete;
 };
 
-#endif
+#endif  // INCLUDE_TOOL_H_

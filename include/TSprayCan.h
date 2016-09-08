@@ -6,17 +6,17 @@
 //  Copyright (c) 2015 Seth Johnson. All rights reserved.
 //
 
-#ifndef TSPRAYCAN_H
-#define TSPRAYCAN_H
+#ifndef INCLUDE_TSPRAYCAN_H_
+#define INCLUDE_TSPRAYCAN_H_
 
 #include "Tool.h"
+#include <string>
 
-class TSprayCan : public Tool 
-{
-public:
-	TSprayCan();
-	
-	std::string getName();
+class TSprayCan : public Tool {
+ public:
+        TSprayCan();
+
+        std::string getName();
 };
 
-#endif
+#endif  // INCLUDE_TSPRAYCAN_H_

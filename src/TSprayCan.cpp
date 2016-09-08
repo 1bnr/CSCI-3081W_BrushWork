@@ -8,15 +8,13 @@
 
 #include "TSprayCan.h"
 #include "MLinear.h"
+#include <string>
 
-TSprayCan::TSprayCan() 
-{
-	m_mask = new MLinear(30, 0.2);
-	
+TSprayCan::TSprayCan() {
+        m_mask = new MLinear(30, 0.2);
 }
 
 
-std::string TSprayCan::getName() 
-{
-	return "Spray Can";
+std::string TSprayCan::getName() {
+        return "Spray Can";
 }

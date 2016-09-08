@@ -6,20 +6,20 @@
 //  Copyright (c) 2015 Seth Johnson. All rights reserved.
 //
 //  MConstant is a Mask that is round, with a constant fill
-//  value.  
+//  value.
 
 
-#ifndef MCONSTANT_H
-#define MCONSTANT_H
+#ifndef INCLUDE_MCONSTANT_H_
+#define INCLUDE_MCONSTANT_H_
 
 #include "Mask.h"
 
-class MConstant : public Mask 
-{
-public:
-	MConstant(float radius, float opacity);
-protected:
-	float getIntensity(int x, int y, float radius);
+class MConstant : public Mask {
+ public:
+        MConstant(float radius, float opacity);
+
+ protected:
+        float getIntensity(int x, int y, float radius);
 };
 
-#endif
+#endif  // INCLUDE_MCONSTANT_H_

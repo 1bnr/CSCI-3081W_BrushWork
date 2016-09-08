@@ -26,8 +26,7 @@ BaseGfxApp::BaseGfxApp(int argc,
       m_drag(false),
       m_width(width),
       m_height(height),
-      m_milliseconds(0)
-{
+      m_milliseconds(0) {
     s_currentApp = this;
 
     // Set window size and position
@@ -65,8 +64,8 @@ BaseGfxApp::BaseGfxApp(int argc,
 
 BaseGfxApp::~BaseGfxApp() {
         s_currentApp = NULL;
-	glutDestroyWindow(m_glutWindowHandle);
-	delete m_glui;
+        glutDestroyWindow(m_glutWindowHandle);
+        delete m_glui;
 }
 
 void BaseGfxApp::setCaption(const std::string& caption) {

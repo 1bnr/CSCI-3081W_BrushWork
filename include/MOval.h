@@ -9,20 +9,20 @@
 //  It takes an angle in degrees, and a ratio between height and width.
 //  It is of constant fill.
 
-#ifndef MOVAL_H
-#define MOVAL_H
+#ifndef INCLUDE_MOVAL_H_
+#define INCLUDE_MOVAL_H_
 
 #include "Mask.h"
 
-class MOval : public Mask
-{
-public:
+class MOval : public Mask {
+ public:
     MOval(float radius, float opacity, float angle, float ratio);
     virtual ~MOval() {}
-protected:
+
+ protected:
     float getIntensity(int x, int y, float radius);
     float m_angle;
     float m_ratio;
 };
 
-#endif
+#endif  // INCLUDE_MOVAL_H_
