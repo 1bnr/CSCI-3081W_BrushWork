@@ -46,39 +46,10 @@ GLUIDIR         = $(EXTDIR)/glui
 # Tell make we want to execute all commands using bash (otherwise it uses sh)
 SHELL           = bash
 
-# Tell make we want to:
-# 1 - Redirect results to a file--nothing is printed on stdout.
-# 0 - Dump results to stdout, AND redirect them to a file.
-#
-NO_STDOUT ?= 1
-
-ifeq ($(NO_STDOUT),1)
-REDIRECT1 = >
-REDIRECT2 = 2>&1
-else
-REDIRECT1 = | tee
-REDIRECT2 = 2>&1
-endif
-
-DATE = $(shell date --iso=seconds)
-
-###############################################################################
-# Library Directories
-###############################################################################
-
-###############################################################################
-# Include Directories
-###############################################################################
-# Query the gcc-ish compiler and build a list of the system includes. Not
-# necessary for compilation (obviously), but needed for some of the analysis
-# tools to work.
-CXXSYS_INCDIRS := $(addprefix -isystem,$(call inc-query,$(CXX)))
-
 ###############################################################################
 # C++ Compilation Options
 ###############################################################################
 CXXLIBDIRS ?= -L$(GLUIDIR)/lib
-
 
 # We don't have control over GLUI, so suppress all compiler warnings its
 # headers may generate
@@ -87,7 +58,7 @@ define CXXINCDIRS
 -isystem$(GLUIDIR)/include
 endef
 
-CXXFLAGS    = $(OPT) -g -D__linux__ -W -Wall -Wextra -Weffc++ -std=gnu++11 -fmessage-length=0 $(CXXINCDIRS)
+CXXFLAGS = $(OPT) -W -Wall -Wextra -Weffc++ -std=gnu++11 -Wno-unused-parameter $(CXXINCDIRS)
 
 # In general, note that the order libraries are specified to the linker
 # MATTERS. If a library is specified too early on the command line, which can
@@ -150,93 +121,6 @@ rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2)  $(filter $(subst
 #
 make-depend-cxx=$(CXX) -MM -MF $3 -MP -MT $2 $(CXXFLAGS) $1
 
-# cppcheck analyzer: An analyzer that sometimes reports different things than the
-# clang static checker. Sometimes it reports the same stuff too. This command
-# redirects the output of all issues found to a file rather than reporting them
-# to stdout.
-#
-# usage: $(call analyze-cppcheck-cmd,lang-type)
-#
-# lang-type must be either C or CXX, and there must be the following variables defined
-# elsewhere in the Makefile for the analyzer to give accurate results:
-# ANALYZE_SRC_[C,CXX],
-# [C,CXX]MODULE,
-# [C,CXX]INCDIRS,
-# [C,CXX]SYS_INCDIRS,
-# [C,CXX]DEBUG
-define analyze-cppcheck-cmd
-cppcheck --enable=all $($(addprefix ANALYZE_SRC_,$1)) $($(addprefix $1,MODULE)) \
-$($(addprefix $1,INCDIRS)) $($(addprefix $1,SYS_INCDIRS)) $($(addprefix $1,DEBUG)) \
-$(REDIRECT1) $(ANALYSIS_DIR)/cppcheck-analysis-$(DATE).txt $(REDIRECT2)
-endef
-
-# clang-syntax: A VERY verbose set of compiler warnings (way more than
-# gcc/g++), which can be helpful at times. This command redirects all reported
-# warnings to a file rather than reporting them to stdout.
-#
-# usage: $(call analyze-clang-syntax-cmd,lang-type)
-#
-# lang-type must be either C or CXX, and there must be the following variables defined
-# elsewhere in the Makefile for the analyzer to give accurate results:
-# ANALYZE_SRC_[C,CXX],
-# [C,CXX]INCDIRS,
-# [C,CXX]FLAGS,
-# [C,CXX]SYS_INCDIRS
-define analyze-clang-syntax-cmd
-clang -fsyntax-only -fcolor-diagnostics -Weverything -Wno-undef -Wno-pedantic\
--Wno-padded -Wno-packed -Wno-unused-parameter -Wno-gnu-zero-variadic-macro-arguments \
-$($(addprefix $1,INCDIRS)) $($(addprefix $1,SYS_INCDIRS)) $($(addprefix $1,FLAGS)) \
-$($(addprefix ANALYZE_SRC_,$1)) $(REDIRECT1)  $(ANALYSIS_DIR)/clang-syntax-analysis-$(DATE).txt $(REDIRECT2)
-endef
-
-# clang-check: A very good static analyzer for all types of
-# bugs/ambiguities. This command redirects all reported warnings to a file
-# rather than reporting them to stdout.
-#
-# usage: $(call analyze-clang-check-cmd,lang-type)
-#
-# lang-type must be either C or CXX, and there must be the following variables defined
-# elsewhere in the Makefile for the analyzer to give accurate results:
-# ANALYZE_SRC_[C,CXX],
-# [C,CXX]SYS_INCDIRS,
-# [C,CXX]FLAGS,
-# [C,CXX]INCDIRS
-define analyze-clang-static-cmd
-clang-check -analyze $($(addprefix ANALYZE_SRC_,$1)) -ast-dump -- $($(addprefix $1,INCDIRS)) $($(addprefix $1,FLAGS)) \
-$($(addprefix $1,SYS_INCDIRS)) -fcolor-diagnostics $(REDIRECT1) $(ANALYSIS_DIR)/clang-static-analysis-$(DATE).txt $(REDIRECT2)
-endef
-
-# clang-tidy-check: Check your code for adherence to a given coding standard, flag
-# potential readability issues, etc. This command redirects all reported
-# issues to a file rather than reporting them to stdout.
-#
-# usage: $(call check-clang-tidy-cmd,lang-type)
-#
-# lang-type must be either C or CXX, and there must be the following variables defined
-# elsewhere in the Makefile for the analyzer to give accurate results:
-# ANALYZE_SRC_[C,CXX],
-# [C,CXX]SYS_INCDIRS
-# [C,CXX]FLAGS
-define check-clang-tidy-cmd
-clang-tidy -checks=\* $($(addprefix ANALYZE_SRC_,$1)) -- $($(addprefix $1,FLAGS)) \
-$($(addprefix $1,SYS_INCDIRS)) $(REDIRECT1) $(ANALYSIS_DIR)/clang-tidy-analysis-$(DATE).txt $(REDIRECT2)
-endef
-
-# clang-tidy-fix: Same as clang-tidy-check, but automatically fix the issues
-# instead of reporting them.
-#
-# usage: $(call fix-clang-tidy-cmd,lang-type)
-#
-# lang-type must be either C or CXX, and there must be the following variables defined
-# elsewhere in the Makefile for the analyzer to give accurate results:
-# ANALYZE_SRC_[C,CXX],
-# [C,CXX]SYS_INCDIRS
-# [C,CXX]FLAGS
-define fix-clang-tidy-cmd
-clang-tidy -checks=\* $($(addprefix ANALYZE_SRC_,$1)) -- $($(addprefix $1,FLAGS)) \
-$($(addprefix $1,SYS_INCDIRS)) > /dev/null 2>&1
-endef
-
 ###############################################################################
 # Target Definitions
 ###############################################################################
@@ -246,38 +130,12 @@ SOURCES    = $(SRCDIR)
 # Define the list of files to compile for this project
 SRC_CXX    = $(call rwildcard,$(SOURCES),*.cpp)
 
-# Define the list of files to target in an analysis, if one of those targets
-# is built. Defaults to all source files (override this on the command line if
-# you only want to analyze a smaller number/single file).
-ANALYZE_SRC_CXX ?= $(SRC_CXX)
-
 # For each of the .cpp files found above, determine the name of the
 # corresponding .o file to create.
 OBJECTS_CXX  = $(notdir $(patsubst %.cpp,%.o,$(SRC_CXX)))
 
-# Tell make to search the source and test directories when looking for matches
-# in pattern rules. For example, when building obj/foo.o from the pattern rule
-# below, make will look ONLY in obj/ for foo.cpp. Adding the source directory
-# to the VPATH list fixes this.
-VPATH        = $(SRCDIR):$(TESTDIR)
-
 # The target executable (what you are building)
 TARGET = $(BINDIR)/BrushWork
-
-# The built-in C tests. My convention is that all tests will end in -test, and
-# that all test harness files will end in _test.
-TEST_SOURCES = $(TESTDIR)
-
-CXXTEST_SRC = $(notdir $(call rwildcard,$(TEST_SOURCES),*-test.cpp))
-CXXTEST_HARNESS = $(strip $(call rwildcard,$(TEST_SOURCES),*_test.cpp))
-CXXTESTS = $(patsubst %.cpp,$(BINDIR)/%,$(CXXTEST_SRC))
-
-# Preprocessor output for source code, test code, and test harness. Very
-# useful for debugging strange compilation errors, because you can see EXACTLY
-# what you are handing to the compiler after all includes and macros are expanded.
-define PREPROC_OBJECTS
-$(addprefix $(PREPROCDIR)/,$(addsuffix .preproc, $(basename $(notdir $(call rwildcard, $(CXXTEST_SOURCES) $(SOURCES),*.cpp)))))
-endef
 
 ###############################################################################
 # All targets
@@ -285,9 +143,7 @@ endef
 
 # Phony targets: targets of this type will be run everytime by make (i.e. make
 # does not assume that the target recipe will build the target name)
-.PHONY: analyze-c++ analyze-cppcheck-c++ syntax-analyze-clang-c++ static-analyze-clang-c++
-.PHONY: check-clang-tidy-c++ fix-clang-tidy-c++
-.PHONY: analyze-scan clean veryclean scan
+.PHONY: clean veryclean
 
 # The default target
 all: $(TARGET)
@@ -306,7 +162,7 @@ $(TARGET): $(GLUIDIR)/lib/libglui.a $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(
 
 # GLUI
 $(GLUIDIR)/lib/libglui.a:
-	$(MAKE) -C$(GLUIDIR)
+	@$(MAKE) -C$(GLUIDIR)
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build
@@ -314,10 +170,6 @@ $(GLUIDIR)/lib/libglui.a:
 # modification time is updated and they are newer than the target being built.
 $(BINDIR)  $(OBJDIR) $(PREPROCDIR) $(ANALYSIS_DIR) $(SCANDIR):
 	@mkdir -p $@
-
-# The Helpful Preprocessor
-$(PREPROC_OBJECTS): | $(PREPROCDIR)
-preprocessor: $(PREPROC_OBJECTS)
 
 # The Cleaner
 clean:
@@ -328,40 +180,13 @@ veryclean: clean
 	@rm -rf $(ANALYSIS_DIR)
 	@$(MAKE) -C$(GLUIDIR) clean
 
-# The Analyzers
-analyze-c++: analyze-cppcheck-c++ analyze-clang-syntax-c++ analyze-clang-static-c++
-analyze-cppcheck-c++: | $(ANALYSIS_DIR)
-	$(call analyze-cppcheck-cmd,CXX)
-analyze-clang-syntax-c++: | $(ANALYSIS_DIR)
-	$(call analyze-clang-syntax-cmd,CXX)
-
-analyze-clang-static-c++: | $(ANALYSIS_DIR)
-	$(call analyze-clang-static-cmd,CXX)
-	@rm -rf *.plist
-
-# The Scanner
-#
-# Presents the results of the clang static analyzer in a nice GUI/webpage. To
-# use this target, you must run 'make clean' first, so scan-build can hook into
-# your build process.
-analyze-scan: | $(SCANDIR)
-	scan-build -V --use-c++=$(CXX) -o $(SCANDIR) -analyze-headers -enable-checker core -enable-checker unix -enable-checker security -enable-checker llvm -enable-checker alpha -disable-checker alpha.core.CastToStruct $(MAKE)
-
-# The Tidy Checker
-check-clang-tidy-c++: | $(ANALYSIS_DIR)
-	$(call check-clang-tidy-cmd,CXX)
-
-# The Tidy Fixer
-fix-clang-tidy-c++: | $(ANALYSIS_DIR)
-	$(call fix-clang-tidy-cmd,CXX)
-
 ###############################################################################
 # Pattern Rules
 ###############################################################################
 # For compiling the C++ source. Specify that any .o file in the object
 # directory can be build
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
-	$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
+	@$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) -c -o  $@ $<
 
 # For getting preprocessor C++ output
