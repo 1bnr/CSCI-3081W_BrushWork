@@ -15,6 +15,7 @@
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 #include "PixelBuffer.h"
+#include "ToolFactory.h"
 
 #include <cmath>
 #include <iostream>
@@ -45,25 +46,43 @@ BrushWorkApp::BrushWorkApp(int argc,
                  50),
       display_buffer_(nullptr),
       cur_tool_(0.0),
+      tools_(new Tool *[ToolFactory::getNumTools()]),
+      mouse_last_x_(0),
+      mouse_last_y_(0),
       cur_color_red_(0.0),
       cur_color_green_(0.0),
       cur_color_blue_(0.0),
       spinner_r_(nullptr),
       spinner_g_(nullptr),
       spinner_b_(nullptr) {
+
     // Set the name of the window
     set_caption("BrushWork");
 
     // Initialize Interface
     initializeBuffers(backgroundColor, width, height);
 
+    // Create array of tools and populate
+    for (int i = 0; i < ToolFactory::getNumTools(); i++) {
+        tools_[i] = ToolFactory::createTool(i);
+    }
+
     initGlui();
     initGraphics();
 }
 
-BrushWorkApp::~BrushWorkApp(void) {
-    if (display_buffer_) {
-        delete display_buffer_;
+BrushWorkApp::~BrushWorkApp() {
+    // Delete each of the tools before deleting the list of tool pointers.
+    if (tools_) {
+        Tool ** toolsEnd =  tools_ + ToolFactory::getNumTools();
+        for (Tool ** tool_i = tools_; tool_i < toolsEnd; tool_i++) {
+            Tool* tool = *tool_i;
+            if (tool) {
+                delete tool;
+            }
+        }
+
+        delete [] tools_;
     }
 }
 
@@ -73,16 +92,66 @@ BrushWorkApp::~BrushWorkApp(void) {
 void BrushWorkApp::display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->getData());
 }
-void BrushWorkApp::mouseDragged(int x, int y) {}
+
+void BrushWorkApp::mouseDragged(int x, int y) {
+        int max_steps = 30;
+
+        // We implimented a smoothing feature by interpolating between
+        // mouse events. This is at the expense of processing, though,
+        // because we just "stamp" the tool many times between the two
+        // even locations. you can reduce max_steps until it runs
+        // smoothly on your machine.
+
+        // Get the differences between the events
+        // in each direction
+        int delta_x = x-mouse_last_x_;
+        int delta_y = y-mouse_last_y_;
+
+        // Calculate the min number of steps necesary to fill
+        // completely between the two event locations.
+        float pixelsBetween = fmax(abs(delta_x), abs(delta_y));
+        int step_size = 1;
+
+        // Optimize by maxing out at the max_steps,
+        // and fill evenly between
+        if (pixelsBetween > max_steps) {
+                step_size = pixelsBetween/max_steps;
+        }
+
+        // Iterate between the event locations
+        for (int i = 0; i < pixelsBetween; i+=step_size) {
+                int x = mouse_last_x_+(i*delta_x/pixelsBetween);
+                int y = mouse_last_y_+(i*delta_y/pixelsBetween);
+
+                tools_[cur_tool_]->applyToBuffer(x, height()-y,
+                                                  ColorData(cur_color_red_,
+                                                            cur_color_green_,
+                                                            cur_color_blue_),
+                                                  display_buffer_);
+        }
+
+        // let the previous point catch up with the current.
+        mouse_last_x_ = x;
+        mouse_last_y_ = y;
+}
 void BrushWorkApp::mouseMoved(int x, int y) {}
 
+
 void BrushWorkApp::leftMouseDown(int x, int y) {
-    std::cout << "mousePressed " << x << " " << y << std::endl;
+    tools_[cur_tool_]->applyToBuffer(x, height()-y,
+                                          ColorData(cur_color_red_,
+                                                    cur_color_green_,
+                                                    cur_color_blue_),
+                                          display_buffer_);
+
+        mouse_last_x_ = x;
+        mouse_last_y_ = y;
 }
 
 void BrushWorkApp::leftMouseUp(int x, int y) {
     std::cout << "mouseReleased " << x << " " << y << std::endl;
 }
+
 
 void BrushWorkApp::initializeBuffers(
     ColorData backgroundColor,
@@ -101,12 +170,10 @@ void BrushWorkApp::initGlui(void) {
                                                  UI_TOOLTYPE,
                                                  s_gluicallback);
 
-    // Create interface buttons for different tools:
-    new GLUI_RadioButton(radio, "Pen");
-    new GLUI_RadioButton(radio, "Eraser");
-    new GLUI_RadioButton(radio, "Spray Can");
-    new GLUI_RadioButton(radio, "Caligraphy Pen");
-    new GLUI_RadioButton(radio, "Highlighter");
+        // Create interface buttons for different tools:
+        for (int i = 0; i < ToolFactory::getNumTools(); i++) {
+            new GLUI_RadioButton(radio, tools_[i]->getName().c_str());
+        }
 
     GLUI_Panel *colPanel = new GLUI_Panel(glui(), "Tool Color");
 
