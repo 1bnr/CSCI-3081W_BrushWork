@@ -16,6 +16,7 @@
  * Includes
  ******************************************************************************/
 #include "BaseGfxApp.h"
+#include "Tool.h"
 
 /*******************************************************************************
  * Forward Declarations
@@ -76,8 +77,13 @@ class BrushWorkApp : public BaseGfxApp {
     // This is the pointer to the buffer where the display PixelBuffer is stored
     PixelBuffer *display_buffer_;
 
-    // These are used to store the selections from the GLUI user interface
+    int mouse_last_x_;
+    int mouse_last_y_;
+
+    Tool **tools_;
     int cur_tool_;
+
+    // These are used to store the selections from the GLUI user interface
     float cur_color_red_, cur_color_green_, cur_color_blue_;
     GLUI_Spinner *spinner_r_;
     GLUI_Spinner *spinner_g_;
