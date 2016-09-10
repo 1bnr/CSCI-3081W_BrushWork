@@ -25,7 +25,7 @@ ColorData THighlighter::colorBlendMath(float mask,
                                        ColorData toolColor,
                                        ColorData canvasColor,
                                        ColorData backgroundColor) {
-        float L = canvasColor.getLuminance();
+        float L = canvasColor.get_luminance();
         float intensity = mask*L;
         return toolColor*intensity + canvasColor*(1.0-intensity);
 }

@@ -1,56 +1,41 @@
-/*******************************************************************************
- * Name            : PixelBuffer.h
- * Project         : BrushWork
- * Module          : ??
- * Description     : Class definition for Pixel buffers, which stores an array
- *                   of ColorData
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+//
+//  PixelBuffer.h
+//  Copyright 2016 CSCI3081W TAs
+//
 
 #ifndef INCLUDE_PIXELBUFFER_H_
 #define INCLUDE_PIXELBUFFER_H_
 
-/*******************************************************************************
- * Forward Declarations
- ******************************************************************************/
 class ColorData;
 
-/*******************************************************************************
- * Class Definitions
- ******************************************************************************/
-/**
- * The PixelBuffer class stores an array of ColorData, such as an image that
- * can be drawn to the screen.
- **/
+/** The PixelBuffer class stores an array of ColorData, such as an image that
+    can be drawn to the screen. */
 class PixelBuffer {
  public:
     PixelBuffer(int w, int h, ColorData background_color);
     virtual ~PixelBuffer(void);
 
     // Sets the color of a specific pixel
-    void setPixel(int x, int y, const ColorData& color);
+    void set_pixel(int x, int y, const ColorData& color);
 
     // Fills the enitre pixel buffer with the specified color
-    void fillPixelBufferWithColor(ColorData color);
+    void FillPixelBufferWithColor(ColorData color);
 
 
     // Returns the color of a specific pixel
-    ColorData getPixel(int x, int y) const;
+    ColorData get_pixel(int x, int y) const;
 
     // Returns a pointer to the raw ColorData array for fast access to ColorData
-    ColorData const * getData(void) const;
+    ColorData const * get_data(void) const;
 
     // Returns the background color that was used to initialize the PixelBuffer
-    ColorData getBackgroundColor(void);
+    ColorData get_background_color(void);
 
-    int getHeight(void) const;
-    int getWidth(void) const;
+    int get_height(void) const;
+    int get_width(void) const;
 
     // A static method to copy one pixel buffer to another
-    static void copyPixelBuffer(
+    static void CopyPixelBuffer(
         PixelBuffer *sourceBuffer,
         PixelBuffer *destinationBuffer);
 
@@ -65,6 +50,7 @@ class PixelBuffer {
     // Pointer to the single color used as the "background color" to initialize
     // the PixelBuffer
     ColorData * background_color_;
+
 
     PixelBuffer(const PixelBuffer&rhs) = delete;
     PixelBuffer& operator=(const PixelBuffer&rhs) = delete;

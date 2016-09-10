@@ -35,17 +35,17 @@ void Tool::applyToBuffer(int toolX,
 
     int left_bound = std::max(toolX-m_mask->getWidth()/2, 0);
     int right_bound = std::min(toolX+m_mask->getWidth()/2,
-                               buffer->getWidth()-1);
+                               buffer->get_width()-1);
     int lower_bound = std::max(toolY-m_mask->getHeight()/2, 0);
     int upper_bound = std::min(toolY+m_mask->getHeight()/2,
-                               buffer->getHeight()-1);
+                               buffer->get_height()-1);
 
     for (int y = lower_bound; y <= upper_bound; y++) {
         for (int x = left_bound; x <= right_bound; x++) {
             int mask_x = x - (toolX-m_mask->getWidth()/2);
             int mask_y = y - (toolY-m_mask->getHeight()/2);
             float mask_value = m_mask->getValue(mask_x, mask_y);
-            ColorData current = buffer->getPixel(x, y);
+            ColorData current = buffer->get_pixel(x, y);
 
             // Because we interpolate the pixels, colors overlap
             // and increase intensity quickly. We found that cubing
@@ -55,9 +55,9 @@ void Tool::applyToBuffer(int toolX,
             ColorData c = colorBlendMath(slimmed_mask_value,
                                          toolColor,
                                          current,
-                                         buffer->getBackgroundColor());
+                                         buffer->get_background_color());
 
-            buffer->setPixel(x, y, c);
+            buffer->set_pixel(x, y, c);
         }
     }
 }

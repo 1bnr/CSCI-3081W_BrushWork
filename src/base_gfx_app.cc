@@ -1,32 +1,16 @@
-/*******************************************************************************
- * Name            : base_gfx_app.cc
- * Project         : BrushWork
- * Module          : ??
- * Description     : Implementation of common behaviors for all apps built on
- *                   GLUI/GLUT toolkits
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+//
+//  BaseGfxApp.cpp
+//  Copyright 2016 CSci-3081W TAs.
+//
 
-/*******************************************************************************
- * Includes
- ******************************************************************************/
 #include "BaseGfxApp.h"
 #include <assert.h>
 #include <iostream>
 #include <string>
 
-/*******************************************************************************
- * Global Variables
- ******************************************************************************/
-BaseGfxApp* BaseGfxApp::s_current_app_ = nullptr;
+BaseGfxApp* BaseGfxApp::s_current_app_ = NULL;
 bool BaseGfxApp::s_glut_initialized_ = false;
 
-/*******************************************************************************
- * Constructors/Destructors
- ******************************************************************************/
 BaseGfxApp::BaseGfxApp(int argc,
                        char* argv[],
                        int width,
@@ -74,18 +58,15 @@ BaseGfxApp::BaseGfxApp(int argc,
         glui_->set_main_gfx_window(glut_window_handle_);
         // Note: if using a glut idle func, it may need to be registered
         // with glui rather than glut.
-        GLUI_Master.set_glutIdleFunc(nullptr);
+        GLUI_Master.set_glutIdleFunc(NULL);
     }
 }
 
-BaseGfxApp::~BaseGfxApp(void) {
-    s_current_app_ = nullptr;
+BaseGfxApp::~BaseGfxApp() {
+    s_current_app_ = NULL;
     glutDestroyWindow(glut_window_handle_);
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
 void BaseGfxApp::set_caption(const std::string& caption) {
     glutSetWindowTitle(caption.c_str());
     glutSetIconTitle(caption.c_str());
@@ -94,6 +75,8 @@ void BaseGfxApp::set_caption(const std::string& caption) {
 void BaseGfxApp::RunMainLoop(void) {
     glutMainLoop();
 }
+
+
 
 void BaseGfxApp::Reshape(int width, int height) {
     // This code essentially disables the ability to interactively resize
@@ -126,66 +109,59 @@ void BaseGfxApp::DrawPixels(int start_x, int start_y, int width,
     }
 }
 
+
+
 int BaseGfxApp::width(void) const { return width_; }
 int BaseGfxApp::height(void) const { return height_; }
 
-void BaseGfxApp::SetWindowDimensions(int width, int height) {
-    height_ = height;
-    width_ = width;
-    glutReshapeWindow(width_, height_);
-}
-
-/*******************************************************************************
- * Static Member Functions
- ******************************************************************************/
 void BaseGfxApp::s_reshape(int width, int height) {
     s_current_app_->Reshape(width, height);
 }
 
 void BaseGfxApp::s_keyboard(unsigned char c, int x, int y) {
-    s_current_app_->keyboard(c, x, y);
+    s_current_app_->Keyboard(c, x, y);
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_keyboardspecial(int key, int x, int y) {
-    s_current_app_->keyboardSpecial(key, x, y);
+    s_current_app_->KeyboardSpecial(key, x, y);
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_keyboardup(unsigned char c, int x, int y) {
-    s_current_app_->keyboardUp(c, x, y);
+    s_current_app_->KeyboardUp(c, x, y);
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_keyboardspecialup(int key, int x, int y) {
-    s_current_app_->keyboardSpecialUp(key, x, y);
+    s_current_app_->KeyboardSpecialUp(key, x, y);
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_mousemotion(int x, int y) {
     if (s_current_app_->drag_ == true) {
-        s_current_app_->mouseDragged(x, y);
+        s_current_app_->MouseDragged(x, y);
     } else {
-        s_current_app_->mouseMoved(x, y);
+        s_current_app_->MouseMoved(x, y);
     }
     glutPostRedisplay();
 }
 
 void BaseGfxApp::s_mousebtn(int b, int s, int x, int y) {
     if ((b == GLUT_LEFT_BUTTON) && (s == GLUT_UP)) {
-        s_current_app_->leftMouseUp(x, y);
+        s_current_app_->LeftMouseUp(x, y);
         s_current_app_->drag_ = false;
     } else if ((b == GLUT_LEFT_BUTTON) && (s == GLUT_DOWN)) {
-        s_current_app_->leftMouseDown(x, y);
+        s_current_app_->LeftMouseDown(x, y);
         s_current_app_->drag_ = true;
     } else if ((b == GLUT_RIGHT_BUTTON) && (s == GLUT_UP)) {
-        s_current_app_->rightMouseUp(x, y);
+        s_current_app_->RightMouseUp(x, y);
     } else if ((b == GLUT_RIGHT_BUTTON) && (s == GLUT_DOWN)) {
-        s_current_app_->rightMouseDown(x, y);
+        s_current_app_->RightMouseDown(x, y);
     } else if ((b == GLUT_MIDDLE_BUTTON) && (s == GLUT_UP)) {
-        s_current_app_->middleMouseUp(x, y);
+        s_current_app_->MiddleMouseUp(x, y);
     } else if ((b == GLUT_MIDDLE_BUTTON) && (s == GLUT_DOWN)) {
-        s_current_app_->middleMouseDown(x, y);
+        s_current_app_->MiddleMouseDown(x, y);
     }
     glutPostRedisplay();
 }
@@ -195,7 +171,7 @@ void BaseGfxApp::s_draw(void) {
 }
 
 void BaseGfxApp::s_gluicallback(int controlID) {
-    s_current_app_->gluiControl(controlID);
+    s_current_app_->GluiControl(controlID);
 }
 
 void BaseGfxApp::s_idle(void) {
@@ -203,6 +179,12 @@ void BaseGfxApp::s_idle(void) {
     int delta = timeSinceStart - s_current_app_->milliseconds_;
     if (delta > 0) {
         s_current_app_->milliseconds_ = timeSinceStart;
-        s_current_app_->update(delta);
+        s_current_app_->Update(delta);
     }
+}
+
+void BaseGfxApp::SetWindowDimensions(int width, int height) {
+    height_ = height;
+    width_ = width;
+    glutReshapeWindow(width_, height_);
 }

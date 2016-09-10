@@ -1,39 +1,27 @@
-/*******************************************************************************
- * Name            : BaseGfxApp.h
- * Project         : BrushWork
- * Module          : ??
- * Description     : Base class for  graphics applications built on top of
- *                   GLUI/GLUT toolkits
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
+//
+//  BaseGfxApp.h
+//  Copyright 2016 CSCI3081W TAs
+//  Originally created by the CSci-3081W TAs.
+//
 
 #ifndef INCLUDE_BASEGFXAPP_H_
 #define INCLUDE_BASEGFXAPP_H_
 
-/*******************************************************************************
- * Includes
- ******************************************************************************/
 #include <string>
 
 // The GLUI library, which in turn will include gl.h and glut.h
 #include "GL/glui.h"
 
-/*******************************************************************************
- * Class Definitions
- ******************************************************************************/
-/**
- * This is a base class for graphics applications built on top of the GLUT and
- * GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
- * is to wrap the funcationality they provide in a class structure that lends
- * itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
- * render graphics and respond to user interface events, simply override the
- * virtual methods in this class within your own subclass.
- **/
+
+/** This is a base class for graphics applications built on top of the GLUT and
+    GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
+    is to wrap the funcationality they provide in a class structure that lends
+    itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
+    render graphics and respond to user interface events, simply override the
+    virtual methods in this class within your own subclass.
+*/
 class BaseGfxApp {
- public:
+public:
     BaseGfxApp(
         int argc,
         char* argv[],
@@ -69,28 +57,28 @@ class BaseGfxApp {
 
     // It can be useful to override this method when doing animation.  The
     // argument tells you the time since the last redraw of the screen.
-    virtual void update(int delta_time_ms) {}
+    virtual void Update(int delta_time_ms) {}
 
     // The following functions provide callbacks for user interface events
     // in the GLUT window.
-    virtual void mouseMoved(int x, int y) {}
-    virtual void mouseDragged(int x, int y) {}
+    virtual void MouseMoved(int x, int y) {}
+    virtual void MouseDragged(int x, int y) {}
 
-    virtual void leftMouseDown(int x, int y) {}
-    virtual void leftMouseUp(int x, int y) {}
-    virtual void rightMouseDown(int x, int y) {}
-    virtual void rightMouseUp(int x, int y) {}
-    virtual void middleMouseDown(int x, int y) {}
-    virtual void middleMouseUp(int x, int y) {}
+    virtual void LeftMouseDown(int x, int y) {}
+    virtual void LeftMouseUp(int x, int y) {}
+    virtual void RightMouseDown(int x, int y) {}
+    virtual void RightMouseUp(int x, int y) {}
+    virtual void MiddleMouseDown(int x, int y) {}
+    virtual void MiddleMouseUp(int x, int y) {}
 
-    virtual void keyboard(unsigned char c, int x, int y) {}
-    virtual void keyboardSpecial(int key, int x, int y) {}
-    virtual void keyboardUp(unsigned char c, int x, int y) {}
-    virtual void keyboardSpecialUp(int key, int x, int y) {}
+    virtual void Keyboard(unsigned char c, int x, int y) {}
+    virtual void KeyboardSpecial(int key, int x, int y) {}
+    virtual void KeyboardUp(unsigned char c, int x, int y) {}
+    virtual void KeyboardSpecialUp(int key, int x, int y) {}
 
     // This is the callback that tells you when the user has interacted with
     // a GLUI widget
-    virtual void gluiControl(int controlID) {}
+    virtual void GluiControl(int controlID) {}
 
 
     // Glut calls this when the user resizes the graphics window by dragging
@@ -111,6 +99,7 @@ class BaseGfxApp {
     GLUI* glui(void) { return glui_; }
 
  protected:
+
     // Glut callbacks:
     static void s_reshape(int width, int height);
     static void s_keyboard(unsigned char c, int x, int y);
@@ -123,11 +112,11 @@ class BaseGfxApp {
     static void s_gluicallback(int controlID);
     static void s_idle(void);
 
-    bool drag(void) { return drag_; }
-    int width(void) { return width_; }
-    int height(void) { return height_; }
-    int milliseconds(void) { return milliseconds_; }
-    BaseGfxApp* s_current_app(void) { return s_current_app_; }
+    bool drag(void) { return drag_; };
+    int width(void) { return width_; };
+    int height(void) { return height_; };
+    int milliseconds(void) { return milliseconds_; };
+    BaseGfxApp* s_current_app(void) { return s_current_app_; };
 
  private:
     // Underlying glut window handle
@@ -150,7 +139,7 @@ class BaseGfxApp {
     static BaseGfxApp *s_current_app_;
 
     // Has glutInit been called? (only allowed once per program)
-    static bool s_glut_initialized_;
+    static bool     s_glut_initialized_;
 
  private:
     BaseGfxApp(const BaseGfxApp &rhs) = delete;

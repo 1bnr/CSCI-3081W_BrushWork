@@ -1,34 +1,17 @@
-/*******************************************************************************
- * Name            : pixel_buffer.cc
- * Project         : BrushWork
- * Module          : ??
- * Description     : Implementationo of a collection rectangular array of pixels
- *                   for the graphics application
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
- * Creation Date   : 2/15/15
- * Original Author : Seth Johnson
- *
- ******************************************************************************/
-
-/*******************************************************************************
- * Includes
- ******************************************************************************/
+//
+//  PixelBuffer.cpp
+//  Copyright 2016 CSci-3081W TAs.
+//
 #include "PixelBuffer.h"
 #include "ColorData.h"
 
 #include <iostream>
 #include <cstring>
 
-/*******************************************************************************
- * Namespace Definitions
- ******************************************************************************/
 using std::cerr;
 using std::endl;
 using std::fill;
 
-/*******************************************************************************
- * Constructors/Destructors
- ******************************************************************************/
 PixelBuffer::PixelBuffer(int w,
                          int h,
                          ColorData backgroundColor)
@@ -36,7 +19,7 @@ PixelBuffer::PixelBuffer(int w,
       height_(h),
       pixels_(new ColorData[w*h]),
       background_color_(new ColorData(backgroundColor)) {
-    fillPixelBufferWithColor(backgroundColor);
+    FillPixelBufferWithColor(backgroundColor);
 }
 
 PixelBuffer::~PixelBuffer(void) {
@@ -44,10 +27,7 @@ PixelBuffer::~PixelBuffer(void) {
     delete background_color_;
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
-ColorData PixelBuffer::getPixel(int x, int y) const {
+ColorData PixelBuffer::get_pixel(int x, int y) const {
     ColorData pixelData;
 
     if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
@@ -59,7 +39,7 @@ ColorData PixelBuffer::getPixel(int x, int y) const {
     return pixelData;
 }
 
-void PixelBuffer::setPixel(int x, int y, const ColorData& newPixel) {
+void PixelBuffer::set_pixel(int x, int y, const ColorData& newPixel) {
     if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
         cerr << "setPixel: x,y out of range: " << x << " " << y << endl;
     } else {
@@ -68,20 +48,20 @@ void PixelBuffer::setPixel(int x, int y, const ColorData& newPixel) {
     }
 }
 
-ColorData const * PixelBuffer::getData(void) const { return pixels_; }
-int PixelBuffer::getHeight(void) const { return height_; }
-int PixelBuffer::getWidth(void) const { return width_; }
-ColorData PixelBuffer::getBackgroundColor(void) { return *background_color_; }
+ColorData const * PixelBuffer::get_data(void) const { return pixels_; }
+int PixelBuffer::get_height(void) const { return height_; }
+int PixelBuffer::get_width(void) const { return width_; }
+ColorData PixelBuffer::get_background_color(void) { return *background_color_; }
 
-void PixelBuffer::fillPixelBufferWithColor(ColorData color) {
+void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
     fill(pixels_, pixels_+width_*height_, color);
 }
 
-void PixelBuffer::copyPixelBuffer(
+void PixelBuffer::CopyPixelBuffer(
     PixelBuffer *sourceBuffer,
     PixelBuffer *destBuffer) {
-    if (destBuffer->getWidth() != sourceBuffer->getWidth() ||
-        destBuffer->getHeight() != sourceBuffer->getHeight()) {
+    if (destBuffer->get_width() != sourceBuffer->get_width() ||
+        destBuffer->get_height() != sourceBuffer->get_height()) {
         cerr << "copyPixelBuffer: " << "dimension mismatch" << endl;
     } else {
         memcpy(reinterpret_cast<void*>(destBuffer->pixels_),
