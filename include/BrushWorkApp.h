@@ -2,12 +2,13 @@
  * Name            : BrushWorkApp.h
  * Project         : BrushWork
  * Module          : ??
- * Description     : Main class for BrushWork
+ * Description     : Header file for BrushWork application.
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
+
 
 #ifndef INCLUDE_BRUSHWORKAPP_H_
 #define INCLUDE_BRUSHWORKAPP_H_
@@ -16,7 +17,6 @@
  * Includes
  ******************************************************************************/
 #include "BaseGfxApp.h"
-#include "Tool.h"
 
 /*******************************************************************************
  * Forward Declarations
@@ -28,7 +28,7 @@ class PixelBuffer;
  * Class Definitions
  ******************************************************************************/
 /**
- * This is the main class for BrushWork. It is a graphics app that derives
+ * This is the main class for BrushWork.  It is a graphics app that derives
  * from BaseGfxApp. It creates two graphics windows, one for 2D painting and
  * one for the buttons and other UI widgets to control the brushes.
  **/
@@ -77,13 +77,8 @@ class BrushWorkApp : public BaseGfxApp {
     // This is the pointer to the buffer where the display PixelBuffer is stored
     PixelBuffer *display_buffer_;
 
-    int mouse_last_x_;
-    int mouse_last_y_;
-
-    Tool **tools_;
-    int cur_tool_;
-
     // These are used to store the selections from the GLUI user interface
+    int cur_tool_;
     float cur_color_red_, cur_color_green_, cur_color_blue_;
     GLUI_Spinner *spinner_r_;
     GLUI_Spinner *spinner_g_;

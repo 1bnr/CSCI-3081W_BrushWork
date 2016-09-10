@@ -2,7 +2,7 @@
  * Name            : brushwork_app.cc
  * Project         : BrushWork
  * Module          : ??
- * Description     : Bare bones implementation of BrushWork app
+ * Description     : Implementation of BrushWrok
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
@@ -15,7 +15,6 @@
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 #include "PixelBuffer.h"
-#include "ToolFactory.h"
 
 #include <cmath>
 #include <iostream>
@@ -45,25 +44,20 @@ BrushWorkApp::BrushWorkApp(int argc,
                  width+51,
                  50),
       display_buffer_(nullptr),
-      tools_(new Tool*[ToolFactory::getNumTools()]),
       cur_tool_(0.0),
       cur_color_red_(0.0),
       cur_color_green_(0.0),
       cur_color_blue_(0.0),
       spinner_r_(nullptr),
       spinner_g_(nullptr),
-      spinner_b_(nullptr) {
+      spinner_b_(nullptr)
 
+{
     // Set the name of the window
     set_caption("BrushWork");
 
     // Initialize Interface
     InitializeBuffers(backgroundColor, width, height);
-
-    // Create array of tools and populate
-    for (int i = 0; i < ToolFactory::getNumTools(); i++) {
-        tools_[i] = ToolFactory::createTool(i);
-    } /* for(i..) */
 
     InitGlui();
     InitGraphics();
@@ -81,67 +75,14 @@ BrushWorkApp::~BrushWorkApp(void) {
     }
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
 
+void BrushWorkApp::MouseDragged(int x, int y) {}
 
-void BrushWorkApp::MouseDragged(int x, int y) {
-    int max_steps = 30;
-
-    // We implimented a smoothing feature by interpolating between
-    // mouse events. This is at the expense of processing, though,
-    // because we just "stamp" the tool many times between the two
-    // even locations. you can reduce max_steps until it runs
-    // smoothly on your machine.
-
-    // Get the differences between the events
-    // in each direction
-    int delta_x = x-mouse_last_x_;
-    int delta_y = y-mouse_last_y_;
-
-    // Calculate the min number of steps necesary to fill
-    // completely between the two event locations.
-    float pixelsBetween = fmax(abs(delta_x), abs(delta_y));
-    int step_count = pixelsBetween;
-    int step_size = 1;
-
-    // Optimize by maxing out at the max_steps,
-    // and fill evenly between
-    if (pixelsBetween > max_steps)
-    {
-        step_size = pixelsBetween/max_steps;
-        step_count = max_steps;
-    }
-
-    // Iterate between the event locations
-    for (int i = 0; i < pixelsBetween; i+=step_size)
-    {
-        int x = mouse_last_x_+(i*delta_x/pixelsBetween);
-        int y = mouse_last_y_+(i*delta_y/pixelsBetween);
-
-        tools_[cur_tool_]->applyToBuffer(x, height()-y, ColorData(cur_color_red_,
-                                                                  cur_color_green_,
-                                                                  cur_color_blue_),
-                                       display_buffer_);
-    }
-
-    // let the previous point catch up with the current.
-    mouse_last_x_ = x;
-    mouse_last_y_ = y;
-}
 void BrushWorkApp::MouseMoved(int x, int y) {}
 
+
 void BrushWorkApp::LeftMouseDown(int x, int y) {
-    tools_[cur_tool_]->applyToBuffer(x, height()-y,
-                                    ColorData(cur_color_red_,
-                                              cur_color_green_,
-                                              cur_color_blue_),
-                                     display_buffer_);
-
-    mouse_last_x_ = x;
-    mouse_last_y_ = y;
-
+    std::cout << "mousePressed " << x << " " << y << std::endl;
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
