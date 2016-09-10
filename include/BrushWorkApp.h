@@ -1,20 +1,36 @@
-//
-//  BrushWorkApp.h
-//  Copyright 2016 CSCI3081W TAs
-//
-
+/*******************************************************************************
+ * Name            : BrushWorkApp.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Main class for BrushWork
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_BRUSHWORKAPP_H_
 #define INCLUDE_BRUSHWORKAPP_H_
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "BaseGfxApp.h"
-#include "Tool.h"
 
+/*******************************************************************************
+ * Forward Declarations
+ ******************************************************************************/
+class ColorData;
+class PixelBuffer;
 
-/** This is the main class for BrushWork.  It is a graphics app that derives from BaseGfxApp.
-    It creates two graphics windows, one for 2D painting and one for the buttons and other
-    UI widgets to control the brushes.
-*/
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
+/**
+ * This is the main class for BrushWork. It is a graphics app that derives
+ * from BaseGfxApp. It creates two graphics windows, one for 2D painting and
+ * one for the buttons and other UI widgets to control the brushes.
+ **/
 class BrushWorkApp : public BaseGfxApp {
  public:
     BrushWorkApp(
@@ -33,8 +49,12 @@ class BrushWorkApp : public BaseGfxApp {
     void display();
     void gluiControl(int controlID);
 
-
  private:
+    // BrushWork-specific functions
+    void initGlui(void);
+    void initGraphics(void);
+    void initializeBuffers(ColorData initialColor, int width, int height);
+
     // GLUI INTERFACE ELEMENTS
     enum UIControlType {
         UI_TOOLTYPE,
@@ -58,20 +78,14 @@ class BrushWorkApp : public BaseGfxApp {
     void initializeBuffers(ColorData initialColor, int width, int height);
 
     // This is the pointer to the buffer where the display PixelBuffer is stored
-    PixelBuffer* m_displayBuffer;
+    PixelBuffer *display_buffer_;
 
     // These are used to store the selections from the GLUI user interface
-    int m_curTool;
-    Tool **m_tools;
-
-    // Previous mouse coordinates for interpolating mouse moves
-    int m_mouseLastX;
-    int m_mouseLastY;
-
-    float m_curColorRed, m_curColorGreen, m_curColorBlue;
-    GLUI_Spinner *m_spinnerR;
-    GLUI_Spinner *m_spinnerG;
-    GLUI_Spinner *m_spinnerB;
+    int cur_tool_;
+    float cur_color_red_, cur_color_green_, cur_color_blue_;
+    GLUI_Spinner *spinner_r_;
+    GLUI_Spinner *spinner_g_;
+    GLUI_Spinner *spinner_b_;
 
  private:
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
