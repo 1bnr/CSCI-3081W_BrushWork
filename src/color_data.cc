@@ -33,32 +33,32 @@ ColorData::ColorData(float r, float g, float b, float a)
  * Member Functions
  ******************************************************************************/
 float ColorData::get_luminance(void) const {
-    return static_cast<float>(0.2126)*red_ +
-        static_cast<float>(0.7152)*green_ +
-        static_cast<float>(0.0722)*blue_;
+  return static_cast<float>(0.2126)*red_ +
+      static_cast<float>(0.7152)*green_ +
+      static_cast<float>(0.0722)*blue_;
 }
 
 ColorData ColorData::clamped_color(void) const {
-        float clampedRed = ColorData::clampValue(this->red(), 0.f, 1.f);
-        float clampedGreen = ColorData::clampValue(this->green(), 0.f, 1.f);
-        float clampedBlue = ColorData::clampValue(this->blue(), 0.f, 1.f);
-        float clampedAlpha = ColorData::clampValue(this->alpha(), 0.f, 1.f);
+  float clampedRed = ColorData::clampValue(this->red(), 0.f, 1.f);
+  float clampedGreen = ColorData::clampValue(this->green(), 0.f, 1.f);
+  float clampedBlue = ColorData::clampValue(this->blue(), 0.f, 1.f);
+  float clampedAlpha = ColorData::clampValue(this->alpha(), 0.f, 1.f);
 
-        return ColorData(clampedRed, clampedGreen, clampedBlue, clampedAlpha);
+  return ColorData(clampedRed, clampedGreen, clampedBlue, clampedAlpha);
 }
 
 // Apply component-wise arithmatic operations
 ColorData operator* (const ColorData& a, float f) {
-    return ColorData(a.red_*f, a.green_*f, a.blue_*f, a.alpha_*f);
+  return ColorData(a.red_*f, a.green_*f, a.blue_*f, a.alpha_*f);
 }
 
 ColorData operator+ (const ColorData& a, const ColorData& b) {
-        return ColorData(a.red_ + b.red_, a.green_ + b.green_,
-                         a.blue_ + b.blue_, a.alpha_ + b.alpha_);
+  return ColorData(a.red_ + b.red_, a.green_ + b.green_,
+                   a.blue_ + b.blue_, a.alpha_ + b.alpha_);
 }
 
 ColorData operator- (const ColorData& a, const ColorData& b) {
-        return ColorData(a.red_ - b.red_, a.green_ - b.green_,
-                         a.blue_ - b.blue_, a.alpha_ - b.alpha_);
+  return ColorData(a.red_ - b.red_, a.green_ - b.green_,
+                   a.blue_ - b.blue_, a.alpha_ - b.alpha_);
 }
 }

@@ -27,7 +27,7 @@ namespace csci3081 {
  * Constructors/Destructors
  ******************************************************************************/
 THighlighter::THighlighter() {
-        m_mask = new MOval(7.0, 0.4, 90, 0.3);
+  m_mask = new MOval(7.0, 0.4, 90, 0.3);
 }
 
 /*******************************************************************************
@@ -39,9 +39,9 @@ ColorData THighlighter::colorBlendMath(float mask,
                                        ColorData toolColor,
                                        ColorData canvasColor,
                                        ColorData backgroundColor) {
-        float L = canvasColor.get_luminance();
-        float intensity = mask*L;
-        return toolColor*intensity + canvasColor*(1.0-intensity);
+  float L = canvasColor.get_luminance();
+  float intensity = mask*L;
+  return toolColor*intensity + canvasColor*(1.0-intensity);
 }
 
 }  // namespace csci3081

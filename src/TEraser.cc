@@ -27,7 +27,7 @@ namespace csci3081 {
  * Constructors/Destructor
  ******************************************************************************/
 TEraser::TEraser() {
-        m_mask = new MConstant(10.0, 1.0);
+  m_mask = new MConstant(10.0, 1.0);
 }
 
 /*******************************************************************************
@@ -39,7 +39,7 @@ ColorData TEraser::colorBlendMath(float mask,
                                   ColorData toolColor,
                                   ColorData canvasColor,
                                   ColorData backgroundColor) {
-        return backgroundColor*mask + canvasColor*(1-mask);
+  return backgroundColor*mask + canvasColor*(1-mask);
 }
 
 }  // namespace csci3081

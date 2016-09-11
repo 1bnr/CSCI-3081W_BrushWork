@@ -38,8 +38,8 @@ class ToolFactory {
                 NUMTOOLS = 6
         };
 
-        static int getNumTools(void);
-        static Tool* createTool(int toolID);
+    static int num_tools(void) { return NUMTOOLS; }
+    static Tool* CreateTool(int toolID);
 };
 }  // namespace csci3081
 

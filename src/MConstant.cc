@@ -24,18 +24,18 @@ namespace csci3081 {
  * Constructors/Destructor
  ******************************************************************************/
 MConstant::MConstant(float radius, float opacity) : Mask(radius, opacity) {
-        generateMask();
+  generateMask();
 }
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
 float MConstant::getIntensity(int x, int y, float radius) {
-        float hyp = sqrt(x*x + y*y);
-        if (hyp > radius) {
-                return 0.0;
-        } else {
-                return 1.0;
-        }
+  float hyp = sqrt(x*x + y*y);
+  if (hyp > radius) {
+    return 0.0;
+  } else {
+    return 1.0;
+  }
 }
 }  // namespace csci3081
