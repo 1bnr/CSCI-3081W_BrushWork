@@ -1,17 +1,31 @@
-//
-//  ToolFactory.h
-//  Student Support
-//
-//  Created by Seth Johnson on 2/6/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
+/*******************************************************************************
+ * Name            : ToolFactory.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Header file for ToolFactory
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_TOOLFACTORY_H_
 #define INCLUDE_TOOLFACTORY_H_
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "Tool.h"
 #include <vector>
 
+/*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
 class ToolFactory {
  public:
         enum TOOLS {
@@ -27,5 +41,6 @@ class ToolFactory {
         static int getNumTools();
         static Tool* createTool(int toolID);
 };
+}  // namespace csci3081
 
 #endif  // INCLUDE_TOOLFACTORY_H_

@@ -1,24 +1,40 @@
-//
-//  Tool.h
-//  Student Support
-//
-//  Created by Seth Johnson on 2/6/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
-//  Tool is the representation of a particular PaintShop tool.
-//  This baseclass is abstract and does not provide a default mask.
-//  Tools inherited from this class should provide a name and a mask.
-//  Inherited classes may optionally override the default colorBlendMath.
+/*******************************************************************************
+ * Name            : Tool.h
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Header file for Tool abstract class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_TOOL_H_
 #define INCLUDE_TOOL_H_
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "PixelBuffer.h"
 #include "ColorData.h"
 #include "Mask.h"
+
 #include <string>
 
-/// This is the superclass for Tools.
+/*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
+/**
+ * Tool is the representation of a particular PaintShop tool.
+ * This baseclass is abstract and does not provide a default mask.
+ * Tools inherited from this class should provide a name and a mask.
+ * Inherited classes may optionally override the default colorBlendMath.
+ **/
 class Tool {
  public:
         Tool();
@@ -43,5 +59,5 @@ class Tool {
     Tool(const Tool& rhs) = delete;
     Tool& operator=(const Tool& rhs) = delete;
 };
-
+}  // namespace csci3081
 #endif  // INCLUDE_TOOL_H_
