@@ -99,7 +99,6 @@ class BaseGfxApp {
     // a GLUI widget
     virtual void GluiControl(int controlID) {}
 
-
     // Glut calls this when the user resizes the graphics window by dragging
     // on it with the mouse. The default implementation in BaseGfxApp is to
     // ignore this interaction and force the window to remain the same size.
@@ -164,7 +163,11 @@ class BaseGfxApp {
     // Has glutInit been called? (only allowed once per program)
     static bool s_glut_initialized_;
 
+<<<<<<< HEAD
+ private:
+=======
     // Copy assignment/construction is disallowed
+>>>>>>> iter1-base
     BaseGfxApp(const BaseGfxApp &rhs) = delete;
     BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };

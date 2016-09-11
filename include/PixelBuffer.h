@@ -13,9 +13,14 @@
 #define INCLUDE_PIXELBUFFER_H_
 
 /*******************************************************************************
- * Forward Declarations
+ * Includes
  ******************************************************************************/
-class ColorData;
+#include "ColorData.h"
+
+/*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
+namespace csci3081 {
 
 /*******************************************************************************
  * Class Definitions
@@ -32,26 +37,20 @@ class PixelBuffer {
     // Sets the color of a specific pixel
     void set_pixel(int x, int y, const ColorData& color);
 
+    // Returns a pointer to the raw ColorData array for fast access to ColorData
+    inline ColorData const * get_data(void) const { return pixels_; }
+    inline int height(void) const { return height_; }
+    inline int width(void) const { return width_; }
+
+    // Returns the background color that was used to initialize the PixelBuffer
+    ColorData get_background_color(void) { return *background_color_; }
+
     // Fills the enitre pixel buffer with the specified color
     void FillPixelBufferWithColor(ColorData color);
-
 
     // Returns the color of a specific pixel
     ColorData get_pixel(int x, int y) const;
 
-    // Returns a pointer to the raw ColorData array for fast access to ColorData
-    ColorData const * get_data(void) const;
-
-    // Returns the background color that was used to initialize the PixelBuffer
-    ColorData get_background_color(void);
-
-    int get_height(void) const;
-    int get_width(void) const;
-
-    // A static method to copy one pixel buffer to another
-    static void CopyPixelBuffer(
-        PixelBuffer *sourceBuffer,
-        PixelBuffer *destinationBuffer);
 
  private:
     // Dimensions
@@ -59,15 +58,15 @@ class PixelBuffer {
     const int height_;
 
     // Array of pixel colors
-    ColorData * pixels_;
+    ColorData *pixels_;
 
     // Pointer to the single color used as the "background color" to initialize
     // the PixelBuffer
-    ColorData * background_color_;
+    ColorData *background_color_;
 
 
     PixelBuffer(const PixelBuffer&rhs) = delete;
-    PixelBuffer& operator=(const PixelBuffer&rhs) = delete;
+    PixelBuffer& operator=(const PixelBuffer &rhs);
 };
-
+}  // namespace csci3081
 #endif  // INCLUDE_PIXELBUFFER_H_

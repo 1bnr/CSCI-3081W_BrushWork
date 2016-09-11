@@ -17,29 +17,30 @@
  * Includes
  ******************************************************************************/
 #include "BaseGfxApp.h"
+#include "ColorData.h"
+#include "PixelBuffer.h"
 
 /*******************************************************************************
- * Forward Declarations
+ * Namespace Definitions
  ******************************************************************************/
-class ColorData;
-class PixelBuffer;
+namespace csci3081 {
+namespace brushwork {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
+
 /**
  * This is the main class for BrushWork.  It is a graphics app that derives
  * from BaseGfxApp. It creates two graphics windows, one for 2D painting and
  * one for the buttons and other UI widgets to control the brushes.
  **/
-class BrushWorkApp : public BaseGfxApp {
+class BrushWorkApp : public csci3081::BaseGfxApp {
  public:
     BrushWorkApp(
-        int argc,
-        char* argv[],
         int width,
-        int height,
-        ColorData backgroundColor);
+        int height);
+
     virtual ~BrushWorkApp(void);
 
     // Glut overrided function
@@ -50,11 +51,18 @@ class BrushWorkApp : public BaseGfxApp {
     void Display(void);
     void GluiControl(int controlID);
 
+    virtual void Init(
+        int argc,
+        char* argv[],
+        int x,
+        int y,
+        ::csci3081::ColorData backgroundColor);
+
  private:
     // BrushWork-specific functions
     void InitGlui(void);
     void InitGraphics(void);
-    void InitializeBuffers(ColorData initialColor, int width, int height);
+    void InitializeBuffers(::csci3081::ColorData initialColor, int width, int height);
 
     // GLUI INTERFACE ELEMENTS
     enum UIControlType {
@@ -73,19 +81,30 @@ class BrushWorkApp : public BaseGfxApp {
         UI_QUIT
     };
 
-
-    // This is the pointer to the buffer where the display PixelBuffer is stored
-    PixelBuffer *display_buffer_;
+    // Pointer to the buffer where the display PixelBuffer is stored
+    ::csci3081::PixelBuffer *display_buffer_;
 
     // These are used to store the selections from the GLUI user interface
+    // These are used to store the selections from the GLUI user interface
     int cur_tool_;
-    float cur_color_red_, cur_color_green_, cur_color_blue_;
+    Tool **tools_;
+
+    // Previous mouse coordinates for interpreting mouse moves
+    int mouse_last_x_;
+    int mouse_last_y_;
+
+    float cur_color_red_;
+    float cur_color_green_;
+    float cur_color_blue_;
     GLUI_Spinner *spinner_r_;
     GLUI_Spinner *spinner_g_;
     GLUI_Spinner *spinner_b_;
 
+    // Copy assignment/construction disallowed
     BrushWorkApp(const BrushWorkApp &rhs) = delete;
     BrushWorkApp& operator=(const BrushWorkApp &rhs) = delete;
 };
+}  // namespace brushwork
+}  // namespace csci3081
 
 #endif  // INCLUDE_BRUSHWORKAPP_H_

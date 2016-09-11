@@ -13,6 +13,11 @@
 #define INCLUDE_COLORDATA_H_
 
 /*******************************************************************************
+ * Namespace Definitions
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
@@ -25,15 +30,14 @@ class ColorData {
     ColorData(float r, float g, float b);
     ColorData(float r, float g, float b, float a);
 
-    void set_red(float r);
-    void set_blue(float b);
-    void set_green(float g);
-    void set_alpha(float a);
-
-    float get_red(void) const;
-    float get_blue(void) const;
-    float get_green(void) const;
-    float get_alpha(void) const;
+    inline void red(float r) { red_ = r; }
+    inline void green(float g) { green_ = g; }
+    inline void blue(float b) { blue_ = b; }
+    inline void alpha(float a) { alpha_ = a; }
+    inline float red(void) const { return red_; }
+    inline float green(void) const { return green_; }
+    inline float blue(void) const { return blue_; }
+    inline float alpha(void) const { return alpha_;}
 
     // Returns the "brightness" of the color according to a perceptual metric
     // that weights the red, green, and blue components of the color
@@ -41,7 +45,7 @@ class ColorData {
     float get_luminance(void) const;
 
     // Return a clamped version of this ColorData
-    ColorData clamped_color(void) const;
+    inline ColorData clamped_color(void) const;
 
     // Arithmatic operators (friends so that non-member functions can access
     // private variables)
@@ -59,5 +63,6 @@ class ColorData {
     float blue_;
     float alpha_;
 };
+}  // namespace csci3081
 
 #endif  // INCLUDE_COLORDATA_H_
