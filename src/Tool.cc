@@ -51,18 +51,18 @@ void Tool::applyToBuffer(int toolX,
         return;
     }
 
-    int left_bound = std::max(toolX-m_mask->getWidth()/2, 0);
-    int right_bound = std::min(toolX+m_mask->getWidth()/2,
+    int left_bound = std::max(toolX-m_mask->width()/2, 0);
+    int right_bound = std::min(toolX+m_mask->width()/2,
                                buffer->width()-1);
-    int lower_bound = std::max(toolY-m_mask->getHeight()/2, 0);
-    int upper_bound = std::min(toolY+m_mask->getHeight()/2,
+    int lower_bound = std::max(toolY-m_mask->height()/2, 0);
+    int upper_bound = std::min(toolY+m_mask->height()/2,
                                buffer->height()-1);
 
     for (int y = lower_bound; y <= upper_bound; y++) {
         for (int x = left_bound; x <= right_bound; x++) {
-            int mask_x = x - (toolX-m_mask->getWidth()/2);
-            int mask_y = y - (toolY-m_mask->getHeight()/2);
-            float mask_value = m_mask->getValue(mask_x, mask_y);
+            int mask_x = x - (toolX-m_mask->width()/2);
+            int mask_y = y - (toolY-m_mask->height()/2);
+            float mask_value = m_mask->value(mask_x, mask_y);
             ColorData current = buffer->get_pixel(x, y);
 
             // Because we interpolate the pixels, colors overlap

@@ -31,8 +31,8 @@ namespace csci3081 {
 
 class TPen : public Tool {
  public:
-        TPen();
-        std::string getName();
+        TPen(void);
+    std::string name(void) { return "Pen"; }
 };
 }  // namespace csci3081
 

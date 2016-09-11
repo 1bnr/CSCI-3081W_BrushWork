@@ -38,7 +38,7 @@ class ToolFactory {
                 NUMTOOLS = 6
         };
 
-        static int getNumTools();
+        static int getNumTools(void);
         static Tool* createTool(int toolID);
 };
 }  // namespace csci3081

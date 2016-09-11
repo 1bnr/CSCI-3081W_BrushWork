@@ -33,7 +33,7 @@ namespace csci3081 {
 class MOval : public Mask {
  public:
     MOval(float radius, float opacity, float angle, float ratio);
-    virtual ~MOval() {}
+    virtual ~MOval(void) {}
 
  protected:
     float getIntensity(int x, int y, float radius);

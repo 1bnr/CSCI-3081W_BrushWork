@@ -33,10 +33,6 @@ TEraser::TEraser() {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-std::string TEraser::getName() {
-        return "Eraser";
-}
-
 // Eraser does not blend colors with the toolColor.  Here we are overriding the
 // superclass's colorBlendMath to set the canvasColor to the backgroundColor.
 ColorData TEraser::colorBlendMath(float mask,

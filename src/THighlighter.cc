@@ -33,10 +33,6 @@ THighlighter::THighlighter() {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-std::string THighlighter::getName() {
-        return "Highlighter";
-}
-
 // Overrides the super's function to include the luminance of the canvasColor
 // in the calculation of the tool's intensity
 ColorData THighlighter::colorBlendMath(float mask,

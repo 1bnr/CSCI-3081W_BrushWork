@@ -29,9 +29,9 @@ namespace csci3081 {
 
 class TSprayCan : public Tool {
  public:
-        TSprayCan();
+        TSprayCan(void);
 
-        std::string getName();
+    std::string name(void) { return "Spray Can"; }
 };
 }  // namespace csci3081
 

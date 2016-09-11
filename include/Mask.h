@@ -26,12 +26,12 @@ namespace csci3081 {
 class Mask {
  public:
     Mask(float radius, float opacity);
-    Mask();
-    virtual ~Mask();
-    float const *getFloatArray() const { return m_maskArray; }
-    int getWidth() const { return m_width;}
-    int getHeight() const {return m_height;}
-    float getValue(int x, int y) const;
+    Mask(void);
+    virtual ~Mask(void);
+    float const *getFloatArray(void) const { return m_maskArray; }
+    int width(void) const { return m_width;}
+    int height(void) const {return m_height;}
+    float value(int x, int y) const;
 
  protected:
     float m_radius;
@@ -39,8 +39,8 @@ class Mask {
     int m_height;
     int m_width;
     float *m_maskArray;
-    void setValue(int x, int y, float v);
-    void generateMask();
+    void value(int x, int y, float v);
+    void generateMask(void);
     virtual float getIntensity(int x, int y, float radius) = 0;
 
  private:

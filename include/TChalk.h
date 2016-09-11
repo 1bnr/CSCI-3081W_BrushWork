@@ -33,7 +33,7 @@ namespace csci3081 {
 //  tool's intensity at a pixel
 class TChalk : public Tool {
  public:
-        TChalk();
+        TChalk(void);
 
         // overrides super's implementation
         ColorData colorBlendMath(
@@ -42,7 +42,7 @@ class TChalk : public Tool {
             ColorData canvasColor,
             ColorData backgroundColor);
 
-        std::string getName();
+    std::string name(void) { return "Chalk"; }
 
  private:
     unsigned m_rand_seed;

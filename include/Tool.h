@@ -37,15 +37,15 @@ namespace csci3081 {
  **/
 class Tool {
  public:
-        Tool();
-        virtual ~Tool();
+        Tool(void);
+        virtual ~Tool(void);
 
         virtual void applyToBuffer(
             int toolX,
             int toolY,
             ColorData toolColor,
             PixelBuffer* buffer);
-        virtual std::string getName() = 0;
+        virtual std::string name(void) = 0;
 
  protected:
         virtual ColorData colorBlendMath(

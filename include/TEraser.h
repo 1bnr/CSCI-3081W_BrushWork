@@ -32,7 +32,7 @@ namespace csci3081 {
 //  special eraser functionality
 class TEraser : public Tool {
  public:
-        TEraser();
+        TEraser(void);
 
         // overrides super's implementation
         ColorData colorBlendMath(
@@ -41,7 +41,7 @@ class TEraser : public Tool {
             ColorData canvasColor,
             ColorData backgroundColor);
 
-        std::string getName();
+    std::string name(void) { return "Eraser"; }
 };
 }  // namespace csci3081
 

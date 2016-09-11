@@ -35,9 +35,6 @@ TChalk::TChalk() : m_rand_seed(0) {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-std::string TChalk::getName() {
-        return "Chalk";
-}
 
 //  A random number between 0.0 and 1.0 is multiplied by a brightened_mask to
 //      vary the intensity used in the blending math

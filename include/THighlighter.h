@@ -33,7 +33,7 @@ namespace csci3081 {
 
 class THighlighter : public Tool {
  public:
-        THighlighter();
+        THighlighter(void);
 
         // overrides super's implementation
         ColorData colorBlendMath(
@@ -42,7 +42,7 @@ class THighlighter : public Tool {
             ColorData canvasColor,
             ColorData backgroundColor);
 
-        std::string getName();
+    std::string name(void) { return "Highlighter"; }
 };
 }  // namespace csci3081
 

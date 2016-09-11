@@ -30,11 +30,4 @@ TSprayCan::TSprayCan() {
         m_mask = new MLinear(30, 0.2);
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
-std::string TSprayCan::getName() {
-        return "Spray Can";
-}
-
 }  // namespace csci3081
