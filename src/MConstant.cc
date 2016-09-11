@@ -1,18 +1,35 @@
-//
-//  MConstant.cpp
-//  Student Support
-//
-//  Created by Seth Johnson on 2/9/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
+/*******************************************************************************
+ * Name            : MConstant.cc
+ * Project         : csci3081
+ * Module          : ??
+ * Description     : Implementation of Constant mask class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "MConstant.h"
 #include <cmath>
 
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Constructors/Destructor
+ ******************************************************************************/
 MConstant::MConstant(float radius, float opacity) : Mask(radius, opacity) {
         generateMask();
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 float MConstant::getIntensity(int x, int y, float radius) {
         float hyp = sqrt(x*x + y*y);
         if (hyp > radius) {
@@ -21,3 +38,4 @@ float MConstant::getIntensity(int x, int y, float radius) {
                 return 1.0;
         }
 }
+}  // namespace csci3081

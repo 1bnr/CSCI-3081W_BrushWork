@@ -1,18 +1,36 @@
-//
-//  MOval.cpp
-//  Student Support
-//
-//  Created by Seth Johnson on 2/9/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
+/*******************************************************************************
+ * Name            : MOval.cc
+ * Project         : csci3081
+ * Module          : ??
+ * Description     : Implementation of Oval mask class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "MOval.h"
 #include <cmath>
+
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Constructors/Destructor
+ ******************************************************************************/
 MOval::MOval(float radius, float opacity, float angle, float ratio)
     : Mask(radius, opacity), m_angle(angle), m_ratio(ratio) {
     generateMask();
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 float MOval::getIntensity(int x, int y, float radius) {
     float a = radius;
     float b = m_ratio*radius;
@@ -25,3 +43,5 @@ float MOval::getIntensity(int x, int y, float radius) {
     else
         return 0.0;
 }
+
+}  // namespace csci3081

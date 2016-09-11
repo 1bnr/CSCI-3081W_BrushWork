@@ -1,17 +1,28 @@
-//
-//  Mask.h
-//  Student Support
-//
-//  Created by Seth Johnson on 2/9/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
-//  Mask is a wrapper for the array of floats representing the shape of
-//  a tool. It is pure virtual, because a mask does not inherently have
-//  a shape. Shapes are defined implicitly with getIntensity().
+/*******************************************************************************
+ * Name            : Mask.h
+ * Project         : csci3081
+ * Module          : ??
+ * Description     : Header file for Mask base class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
 #ifndef INCLUDE_MASK_H_
 #define INCLUDE_MASK_H_
 
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Class Definitions
+ ******************************************************************************/
+//  Mask is a wrapper for the array of floats representing the shape of
+//  a tool. It is pure virtual, because a mask does not inherently have
+//  a shape. Shapes are defined implicitly with getIntensity().
 class Mask {
  public:
     Mask(float radius, float opacity);
@@ -36,5 +47,7 @@ class Mask {
     Mask(const Mask& rhs) = delete;
     Mask& operator=(const Mask& rhs) = delete;
 };
+
+}  // namespace csci3081
 
 #endif  // INCLUDE_MASK_H_

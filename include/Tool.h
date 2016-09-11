@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : Tool.h
- * Project         : BrushWork
+ * Project         : csci3081
  * Module          : ??
  * Description     : Header file for Tool abstract class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

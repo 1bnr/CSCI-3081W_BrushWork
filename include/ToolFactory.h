@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : ToolFactory.h
- * Project         : BrushWork
+ * Project         : csci3081
  * Module          : ??
  * Description     : Header file for ToolFactory
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

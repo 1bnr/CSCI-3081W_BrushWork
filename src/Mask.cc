@@ -1,17 +1,30 @@
-//
-//  Mask.cpp
-//  Student Support
-//
-//  Created by Seth Johnson on 2/9/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
+/*******************************************************************************
+ * Name            : Mask.cc
+ * Project         : csci3081
+ * Module          : ??
+ * Description     : Implementation of Mask class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "Mask.h"
 #include <cmath>
 #include <iostream>
 
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
 using std::fill;
+namespace csci3081 {
 
+/*******************************************************************************
+ * Constructors/Destructor
+ ******************************************************************************/
 Mask::Mask() : m_radius(0.0),
                m_opacity(0.0),
                m_height(0),
@@ -30,6 +43,10 @@ Mask::Mask(float radius, float opacity)
 Mask::~Mask() {
     delete [] m_maskArray;
 }
+
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 
 float Mask::getValue(int x, int y) const {
         if (m_maskArray == nullptr || x < 0 || x > m_width ||
@@ -58,3 +75,5 @@ void Mask::generateMask() {
         }
     }
 }
+
+}  // namespace csci3081
