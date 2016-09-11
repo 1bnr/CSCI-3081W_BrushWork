@@ -29,10 +29,10 @@ namespace csci3081 {
 //  value.
 class MConstant : public Mask {
  public:
-        MConstant(float radius, float opacity);
+  MConstant(float radius, float opacity);
 
  protected:
-        float getIntensity(int x, int y, float radius);
+  float getIntensity(int x, int y, float radius);
 };
 
 }  // namespace csci3081

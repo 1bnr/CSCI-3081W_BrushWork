@@ -36,26 +36,26 @@ namespace csci3081 {
  * Inherited classes may optionally override the default colorBlendMath.
  **/
 class Tool {
- public:
-        Tool(void);
-        virtual ~Tool(void);
+public:
+    Tool(void);
+    virtual ~Tool(void);
 
-        virtual void applyToBuffer(
-            int toolX,
-            int toolY,
-            ColorData toolColor,
-            PixelBuffer* buffer);
-        virtual std::string name(void) = 0;
+    virtual void applyToBuffer(
+        int toolX,
+        int toolY,
+        ColorData toolColor,
+        PixelBuffer* buffer);
+    virtual std::string name(void) = 0;
 
- protected:
-        virtual ColorData colorBlendMath(
-            float mask,
-            ColorData toolColor,
-            ColorData canvasColor,
-            ColorData backgroundColor);
-        Mask *m_mask;
+protected:
+    virtual ColorData colorBlendMath(
+        float mask,
+        ColorData toolColor,
+        ColorData canvasColor,
+        ColorData backgroundColor);
+    Mask *m_mask;
 
- private:
+private:
     Tool(const Tool& rhs) = delete;
     Tool& operator=(const Tool& rhs) = delete;
 };

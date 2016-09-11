@@ -26,12 +26,11 @@ namespace csci3081 {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-
 class TSprayCan : public Tool {
  public:
-        TSprayCan(void);
+  TSprayCan(void);
 
-    std::string name(void) { return "Spray Can"; }
+  std::string name(void) { return "Spray Can"; }
 };
 }  // namespace csci3081
 

@@ -32,13 +32,15 @@ namespace csci3081 {
 //  It is of constant fill.
 class MOval : public Mask {
  public:
-    MOval(float radius, float opacity, float angle, float ratio);
-    virtual ~MOval(void) {}
+  MOval(float radius, float opacity, float angle, float ratio);
+  virtual ~MOval(void) {}
 
  protected:
-    float getIntensity(int x, int y, float radius);
-    float m_angle;
-    float m_ratio;
+  float getIntensity(int x, int y, float radius);
+
+ private:
+  float m_angle;
+  float m_ratio;
 };
 
 }  // namespace csci3081

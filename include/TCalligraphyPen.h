@@ -33,7 +33,7 @@ namespace csci3081 {
 //  x-axis, and an elongation ratio of 0.333
 class TCalligraphyPen : public Tool {
  public:
-        TCalligraphyPen(void);
+    TCalligraphyPen(void);
 
     std::string name(void) { return "Caligraphy Pen"; }
 };

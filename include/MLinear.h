@@ -30,10 +30,10 @@ namespace csci3081 {
 //  extremity.
 class MLinear : public Mask {
  public:
-        MLinear(float radius, float opacity);
+  MLinear(float radius, float opacity);
 
  protected:
-        float getIntensity(int x, int y, float radius);
+  float getIntensity(int x, int y, float radius);
 };
 
 }  // namespace csci3081

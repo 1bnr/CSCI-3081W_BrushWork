@@ -33,16 +33,16 @@ namespace csci3081 {
 
 class THighlighter : public Tool {
  public:
-        THighlighter(void);
+  THighlighter(void);
 
-        // overrides super's implementation
-        ColorData colorBlendMath(
-            float mask,
-            ColorData toolColor,
-            ColorData canvasColor,
-            ColorData backgroundColor);
+  // overrides super's implementation
+  ColorData colorBlendMath(
+      float mask,
+      ColorData toolColor,
+      ColorData canvasColor,
+      ColorData backgroundColor);
 
-    std::string name(void) { return "Highlighter"; }
+  std::string name(void) { return "Highlighter"; }
 };
 }  // namespace csci3081
 

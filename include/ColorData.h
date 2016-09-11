@@ -7,7 +7,7 @@
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
-******************************************************************************/
+ ******************************************************************************/
 
 #ifndef INCLUDE_COLORDATA_H_
 #define INCLUDE_COLORDATA_H_
@@ -26,42 +26,42 @@ namespace csci3081 {
  **/
 class ColorData {
  public:
-    ColorData(void);
-    ColorData(float r, float g, float b);
-    ColorData(float r, float g, float b, float a);
+  ColorData(void);
+  ColorData(float r, float g, float b);
+  ColorData(float r, float g, float b, float a);
 
-    inline void red(float r) { red_ = r; }
-    inline void green(float g) { green_ = g; }
-    inline void blue(float b) { blue_ = b; }
-    inline void alpha(float a) { alpha_ = a; }
-    inline float red(void) const { return red_; }
-    inline float green(void) const { return green_; }
-    inline float blue(void) const { return blue_; }
-    inline float alpha(void) const { return alpha_;}
+  inline void red(float r) { red_ = r; }
+  inline void green(float g) { green_ = g; }
+  inline void blue(float b) { blue_ = b; }
+  inline void alpha(float a) { alpha_ = a; }
+  inline float red(void) const { return red_; }
+  inline float green(void) const { return green_; }
+  inline float blue(void) const { return blue_; }
+  inline float alpha(void) const { return alpha_;}
 
-    // Returns the "brightness" of the color according to a perceptual metric
-    // that weights the red, green, and blue components of the color
-    // non-uniformly.
-    float get_luminance(void) const;
+  // Returns the "brightness" of the color according to a perceptual metric
+  // that weights the red, green, and blue components of the color
+  // non-uniformly.
+  float get_luminance(void) const;
 
-    // Return a clamped version of this ColorData
-    inline ColorData clamped_color(void) const;
+  // Return a clamped version of this ColorData
+  inline ColorData clamped_color(void) const;
 
-    // Arithmatic operators (friends so that non-member functions can access
-    // private variables)
-    friend ColorData operator* (const ColorData& a, float f);
-    friend ColorData operator+ (const ColorData& a, const ColorData& b);
-    friend ColorData operator- (const ColorData& a, const ColorData& b);
+  // Arithmatic operators (friends so that non-member functions can access
+  // private variables)
+  friend ColorData operator* (const ColorData& a, float f);
+  friend ColorData operator+ (const ColorData& a, const ColorData& b);
+  friend ColorData operator- (const ColorData& a, const ColorData& b);
 
  private:
-    // General helper function for clamping values between 0 and 1
-    static inline float clampValue(float input, float a, float b)
-        { return input < a ? a : (input > b ? b : input);}
+  // General helper function for clamping values between 0 and 1
+  static inline float clampValue(float input, float a, float b)
+  { return input < a ? a : (input > b ? b : input);}
 
-    float red_;
-    float green_;
-    float blue_;
-    float alpha_;
+  float red_;
+  float green_;
+  float blue_;
+  float alpha_;
 };
 }  // namespace csci3081
 
