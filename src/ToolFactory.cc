@@ -34,7 +34,7 @@ int ToolFactory::getNumTools() {
 }
 
 Tool* ToolFactory::createTool(int toolID) {
-        Tool* tool = NULL;
+        Tool* tool = nullptr;
 
         switch (toolID) {
                 case TOOL_PEN:
@@ -56,7 +56,7 @@ Tool* ToolFactory::createTool(int toolID) {
                         tool = new TChalk();
                         break;
                 default:
-                        tool = NULL;
+                        tool = nullptr;
                         break;
         }
 

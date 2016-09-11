@@ -25,7 +25,7 @@
 /*******************************************************************************
  * Global Variables
  ******************************************************************************/
-csci3081::BaseGfxApp* csci3081::BaseGfxApp::s_current_app_ = NULL;
+csci3081::BaseGfxApp* csci3081::BaseGfxApp::s_current_app_ = nullptr;
 bool csci3081::BaseGfxApp::s_glut_initialized_ = false;
 
 /*******************************************************************************
@@ -43,7 +43,7 @@ csci3081::BaseGfxApp::BaseGfxApp(int width,
 }
 
 csci3081::BaseGfxApp::~BaseGfxApp(void) {
-    s_current_app_ = NULL;
+    s_current_app_ = nullptr;
     glutDestroyWindow(glut_window_handle_);
 }
 
@@ -87,7 +87,7 @@ void csci3081::BaseGfxApp::Init(int argc,
         glui_->set_main_gfx_window(glut_window_handle_);
         // Note: if using a glut idle func, it may need to be registered
         // with glui rather than glut.
-        GLUI_Master.set_glutIdleFunc(NULL);
+        GLUI_Master.set_glutIdleFunc(nullptr);
     }
 }
 void csci3081::BaseGfxApp::set_caption(const std::string& caption) {

@@ -47,7 +47,7 @@ void Tool::applyToBuffer(int toolX,
                          int toolY,
                          ColorData toolColor,
                          PixelBuffer* buffer) {
-    if (m_mask == NULL) {
+    if (m_mask == nullptr) {
         return;
     }
 

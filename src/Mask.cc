@@ -58,7 +58,7 @@ float Mask::value(int x, int y) const {
 }
 
 void Mask::value(int x, int y, float v) {
-    if (m_maskArray == NULL || x < 0 || x > m_width || y < 0 || y > m_width) {
+    if (m_maskArray == nullptr || x < 0 || x > m_width || y < 0 || y > m_width) {
         return;
     } else {
         m_maskArray[y*m_width + x] = v;
