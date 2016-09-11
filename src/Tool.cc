@@ -27,8 +27,8 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-Tool::Tool() : m_mask(nullptr) {}
-Tool::~Tool() {
+Tool::Tool(void) : m_mask(nullptr) {}
+Tool::~Tool(void) {
   delete m_mask;
 }
 

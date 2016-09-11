@@ -28,7 +28,7 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-TChalk::TChalk() : m_rand_seed(0) {
+TChalk::TChalk(void) : m_rand_seed(0) {
   m_mask = new MLinear(5.0, 1.0);
 }
 

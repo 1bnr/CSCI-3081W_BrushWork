@@ -26,7 +26,7 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
-THighlighter::THighlighter() {
+THighlighter::THighlighter(void) {
   m_mask = new MOval(7.0, 0.4, 90, 0.3);
 }
 

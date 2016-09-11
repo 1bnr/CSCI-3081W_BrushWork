@@ -26,7 +26,7 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-TSprayCan::TSprayCan() {
+TSprayCan::TSprayCan(void) {
   m_mask = new MLinear(30, 0.2);
 }
 
