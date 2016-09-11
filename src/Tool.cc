@@ -28,10 +28,10 @@ namespace csci3081 {
  * Constructors/Destructor
  ******************************************************************************/
 Tool::Tool(void) : m_mask(nullptr) {}
+
 Tool::~Tool(void) {
   delete m_mask;
 }
-
 
 /*******************************************************************************
  * Member Functions

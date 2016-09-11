@@ -37,7 +37,7 @@ brushwork::BrushWorkApp::BrushWorkApp(int width,
                  height),
       display_buffer_(nullptr),
       cur_tool_(0.0),
-      tools_(new Tool*[ToolFactory::getNumTools()]),
+      tools_(new Tool*[ToolFactory::num_tools()]),
       cur_color_red_(0.0),
       cur_color_green_(0.0),
       cur_color_blue_(0.0),
@@ -48,7 +48,7 @@ brushwork::BrushWorkApp::BrushWorkApp(int width,
 brushwork::BrushWorkApp::~BrushWorkApp(void) {
   // Delete each of the tools before deleting the list of tool pointers.
   if (tools_) {
-    Tool ** toolsEnd =  tools_ + ToolFactory::getNumTools();
+    Tool ** toolsEnd =  tools_ + ToolFactory::num_tools();
     for (Tool ** tool_i = tools_; tool_i < toolsEnd; tool_i++) {
       Tool* tool = *tool_i;
       if (tool) {
@@ -86,8 +86,8 @@ void brushwork::BrushWorkApp::Init(
   InitializeBuffers(backgroundColor, width(), height());
 
   // Create array of tools and populate
-  for (int i = 0; i < ToolFactory::getNumTools(); i++) {
-    tools_[i] = ToolFactory::createTool(i);
+  for (int i = 0; i < ToolFactory::num_tools(); i++) {
+    tools_[i] = ToolFactory::CreateTool(i);
   }
   InitGlui();
   InitGraphics();
