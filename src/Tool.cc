@@ -1,11 +1,17 @@
-//
-//  Tool.cpp
-//  Student Support
-//
-//  Created by Seth Johnson on 2/6/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
+/*******************************************************************************
+ * Name            : tool.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of Tool base class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "Tool.h"
 #include "ColorData.h"
 #include "Mask.h"
@@ -13,11 +19,23 @@
 #include <cmath>
 #include <algorithm>
 
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Constructors/Destructor
+ ******************************************************************************/
 Tool::Tool() : m_mask(nullptr) {}
 Tool::~Tool() {
     delete m_mask;
 }
 
+
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 ColorData Tool::colorBlendMath(float mask,
                                ColorData toolColor,
                                ColorData canvasColor,
@@ -35,10 +53,10 @@ void Tool::applyToBuffer(int toolX,
 
     int left_bound = std::max(toolX-m_mask->getWidth()/2, 0);
     int right_bound = std::min(toolX+m_mask->getWidth()/2,
-                               buffer->get_width()-1);
+                               buffer->width()-1);
     int lower_bound = std::max(toolY-m_mask->getHeight()/2, 0);
     int upper_bound = std::min(toolY+m_mask->getHeight()/2,
-                               buffer->get_height()-1);
+                               buffer->height()-1);
 
     for (int y = lower_bound; y <= upper_bound; y++) {
         for (int x = left_bound; x <= right_bound; x++) {
@@ -61,3 +79,5 @@ void Tool::applyToBuffer(int toolX,
         }
     }
 }
+
+}  // namespace csci3081

@@ -26,7 +26,11 @@ namespace csci3081 {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-
+//  This tool simulates the usage of Chalk.
+//
+//  It has an MLinear mask with a radius of 5.0 (diameter of 11), an opacity of
+//  1.0 (completely opaque).  colorBlendMath is overriden to randomly change the
+//  tool's intensity at a pixel
 class TChalk : public Tool {
  public:
         TChalk();

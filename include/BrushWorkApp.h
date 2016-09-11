@@ -19,6 +19,7 @@
 #include "BaseGfxApp.h"
 #include "ColorData.h"
 #include "PixelBuffer.h"
+#include "Tool.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -82,12 +83,12 @@ class BrushWorkApp : public csci3081::BaseGfxApp {
     };
 
     // Pointer to the buffer where the display PixelBuffer is stored
-    ::csci3081::PixelBuffer *display_buffer_;
+    csci3081::PixelBuffer *display_buffer_;
 
     // These are used to store the selections from the GLUI user interface
     // These are used to store the selections from the GLUI user interface
     int cur_tool_;
-    Tool **tools_;
+    csci3081::Tool **tools_;
 
     // Previous mouse coordinates for interpreting mouse moves
     int mouse_last_x_;

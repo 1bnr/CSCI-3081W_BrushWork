@@ -1,20 +1,38 @@
-//
-//  TEraser.cpp
-//  Student Support
-//
-//  Created by Seth Johnson on 2/6/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
+/*******************************************************************************
+ * Name            : TEraser.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of eraser tool class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "TEraser.h"
 #include "MConstant.h"
 #include "ColorData.h"
+
 #include <string>
 
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Constructors/Destructor
+ ******************************************************************************/
 TEraser::TEraser() {
         m_mask = new MConstant(10.0, 1.0);
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 std::string TEraser::getName() {
         return "Eraser";
 }
@@ -27,3 +45,5 @@ ColorData TEraser::colorBlendMath(float mask,
                                   ColorData backgroundColor) {
         return backgroundColor*mask + canvasColor*(1-mask);
 }
+
+}  // namespace csci3081

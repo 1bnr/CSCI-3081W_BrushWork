@@ -1,15 +1,17 @@
-//
-//  TChalk.cpp
-//  PaintShopTester
-//
-//  Created by Seth Johnson on 2/26/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
-//  This tool simulates the usage of Chalk.
-//
-//  It has an MLinear mask with a radius of 5.0 (diameter of 11), an opacity of
-//  1.0 (completely opaque).  colorBlendMath is overriden to randomly change the
-//  tool's intensity at a pixel
+/*******************************************************************************
+ * Name            : TChalk.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of chalk tool class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
+
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 
 #include "TChalk.h"
 #include "MLinear.h"
@@ -18,10 +20,21 @@
 #include <cstdlib>
 #include <string>
 
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Constructors/Destructor
+ ******************************************************************************/
 TChalk::TChalk() : m_rand_seed(0) {
         m_mask = new MLinear(5.0, 1.0);
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 std::string TChalk::getName() {
         return "Chalk";
 }
@@ -37,3 +50,5 @@ ColorData TChalk::colorBlendMath(float mask,
         float intensity = round(brightened_mask*r);
         return toolColor*intensity + canvasColor*(1.0-intensity);
 }
+
+}  // namespace csci3081

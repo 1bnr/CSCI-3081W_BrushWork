@@ -1,20 +1,38 @@
-//
-//  THighlighter.cpp
-//  Student Support
-//
-//  Created by Seth Johnson on 2/6/15.
-//  Copyright (c) 2015 Seth Johnson. All rights reserved.
-//
+/*******************************************************************************
+ * Name            : THighlighter.cc
+ * Project         : BrushWork
+ * Module          : ??
+ * Description     : Implementation of highlighter tool class
+ * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Creation Date   : 2/15/15
+ * Original Author : Seth Johnson
+ *
+ ******************************************************************************/
 
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
 #include "THighlighter.h"
 #include "MOval.h"
 #include "ColorData.h"
+
 #include <string>
 
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
+namespace csci3081 {
+
+/*******************************************************************************
+ * Constructors/Destructors
+ ******************************************************************************/
 THighlighter::THighlighter() {
         m_mask = new MOval(7.0, 0.4, 90, 0.3);
 }
 
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 std::string THighlighter::getName() {
         return "Highlighter";
 }
@@ -29,3 +47,5 @@ ColorData THighlighter::colorBlendMath(float mask,
         float intensity = mask*L;
         return toolColor*intensity + canvasColor*(1.0-intensity);
 }
+
+}  // namespace csci3081

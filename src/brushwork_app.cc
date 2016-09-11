@@ -46,6 +46,17 @@ brushwork::BrushWorkApp::BrushWorkApp(int width,
       spinner_b_(nullptr) {}
 
 brushwork::BrushWorkApp::~BrushWorkApp(void) {
+    // Delete each of the tools before deleting the list of tool pointers.
+    if (tools_) {
+        Tool ** toolsEnd =  tools_ + ToolFactory::getNumTools();
+        for (Tool ** tool_i = tools_; tool_i < toolsEnd; tool_i++) {
+            Tool* tool = *tool_i;
+            if (tool) {
+                delete tool;
+            }
+        }
+
+        delete [] tools_;}
     if (display_buffer_) {
         delete display_buffer_;
     }
@@ -85,28 +96,14 @@ void brushwork::BrushWorkApp::Init(
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-brushwork::BrushWorkApp::~BrushWorkApp(void) {
-    // Delete each of the tools before deleting the list of tool pointers.
-        if (tools_) {
-                Tool ** toolsEnd =  tools_ + ToolFactory::getNumTools();
-                for (Tool ** tool_i = tools_; tool_i < toolsEnd; tool_i++) {
-                        Tool* tool = *tool_i;
-                        if (tool) {
-                                delete tool;
-                            }
-                    }
-
-                delete [] tools_;}
-        if (display_buffer_) {
-            delete display_buffer_;
-        }
-}
 
 void brushwork::BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
 }
 
-void brushwork::BrushWorkApp::mouseDragged(int x, int y) {
+void brushwork::BrushWorkApp::MouseMoved(int x, int y) {}
+
+void brushwork::BrushWorkApp::MouseDragged(int x, int y) {
     int max_steps = 30;
 
     // We implimented a smoothing feature by interpolating between
@@ -147,12 +144,12 @@ void brushwork::BrushWorkApp::mouseDragged(int x, int y) {
     mouse_last_x_ = x;
     mouse_last_y_ = y;
 }
-void brushwork::BrushWorkApp::leftMouseDown(int x, int y) {
-    tools_[cur_tool_]>applyToBuffer(x, height()y,
-                                    ColorData(cur_color_red_,
-                                              cur_color_green_,
-                                              cur_color_blue_),
-                                    display_buffer_);
+void brushwork::BrushWorkApp::LeftMouseDown(int x, int y) {
+    tools_[cur_tool_]->applyToBuffer(x, y,
+                                     ColorData(cur_color_red_,
+                                               cur_color_green_,
+                                               cur_color_blue_),
+                                     display_buffer_);
 }
 
 void brushwork::BrushWorkApp::LeftMouseUp(int x, int y) {
