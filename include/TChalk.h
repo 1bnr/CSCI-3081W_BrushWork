@@ -45,7 +45,7 @@ class TChalk : public Tool {
   std::string name(void) { return "Chalk"; }
 
  private:
-  unsigned m_rand_seed;
+  unsigned seed_;
 };
 }  // namespace csci3081
 

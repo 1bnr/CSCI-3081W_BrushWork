@@ -27,10 +27,10 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-Tool::Tool(void) : m_mask(nullptr) {}
+Tool::Tool(void) : mask_(nullptr) {}
 
 Tool::~Tool(void) {
-  delete m_mask;
+  delete mask_;
 }
 
 /*******************************************************************************
@@ -47,22 +47,22 @@ void Tool::ApplyToBuffer(int toolX,
                          int toolY,
                          ColorData toolColor,
                          PixelBuffer* buffer) {
-  if (m_mask == nullptr) {
+  if (mask_ == nullptr) {
     return;
   }
 
-  int left_bound = std::max(toolX-m_mask->width()/2, 0);
-  int right_bound = std::min(toolX+m_mask->width()/2,
+  int left_bound = std::max(toolX-mask_->width()/2, 0);
+  int right_bound = std::min(toolX+mask_->width()/2,
                              buffer->width()-1);
-  int lower_bound = std::max(toolY-m_mask->height()/2, 0);
-  int upper_bound = std::min(toolY+m_mask->height()/2,
+  int lower_bound = std::max(toolY-mask_->height()/2, 0);
+  int upper_bound = std::min(toolY+mask_->height()/2,
                              buffer->height()-1);
 
   for (int y = lower_bound; y <= upper_bound; y++) {
     for (int x = left_bound; x <= right_bound; x++) {
-      int mask_x = x - (toolX-m_mask->width()/2);
-      int mask_y = y - (toolY-m_mask->height()/2);
-      float mask_value = m_mask->value(mask_x, mask_y);
+      int mask_x = x - (toolX-mask_->width()/2);
+      int mask_y = y - (toolY-mask_->height()/2);
+      float mask_value = mask_->value(mask_x, mask_y);
       ColorData current = buffer->get_pixel(x, y);
 
       // Because we interpolate the pixels, colors overlap

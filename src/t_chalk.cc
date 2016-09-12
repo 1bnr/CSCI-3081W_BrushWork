@@ -28,7 +28,7 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-    TChalk::TChalk(void) : m_rand_seed(0) { mask(new MLinear(5.0, 1.0)); }
+    TChalk::TChalk(void) : seed_(0) { mask(new MLinear(5.0, 1.0)); }
 
 /*******************************************************************************
  * Member Functions
@@ -39,7 +39,7 @@ ColorData TChalk::color_blend_math(float mask,
                                  ColorData toolColor,
                                  ColorData canvasColor,
                                  ColorData backgroundColor) {
-  float r = static_cast<float>(rand_r(&m_rand_seed))/static_cast <float>(RAND_MAX);
+  float r = static_cast<float>(rand_r(&seed_))/static_cast <float>(RAND_MAX);
   float brightened_mask = (mask/2+0.5);
   float intensity = round(brightened_mask*r);
   return toolColor*intensity + canvasColor*(1.0-intensity);

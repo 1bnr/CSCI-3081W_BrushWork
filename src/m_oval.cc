@@ -24,7 +24,7 @@ namespace csci3081 {
  * Constructors/Destructor
  ******************************************************************************/
 MOval::MOval(float radius, float opacity, float angle, float ratio)
-    : Mask(radius, opacity), m_angle(angle), m_ratio(ratio) {
+    : Mask(radius, opacity), angle_(angle), ratio_(ratio) {
   generateMask();
 }
 
@@ -33,8 +33,8 @@ MOval::MOval(float radius, float opacity, float angle, float ratio)
  ******************************************************************************/
 float MOval::get_intensity(int x, int y, float radius) {
   float a = radius;
-  float b = m_ratio*radius;
-  float theta = m_angle/180*M_PI;
+  float b = ratio_*radius;
+  float theta = angle_/180*M_PI;
 
   float h = powf(x*cos(theta)+y*sin(theta), 2)/powf(a, 2) +
             powf(x*sin(theta) - y*cos(theta), 2)/powf(b, 2);

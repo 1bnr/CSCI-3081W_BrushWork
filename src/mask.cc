@@ -19,29 +19,28 @@
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-using std::fill;
 namespace csci3081 {
 
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-Mask::Mask(void) : m_radius(0.0),
-               m_opacity(0.0),
-               m_height(0),
-               m_width(0),
-               m_maskArray(nullptr) {}
+Mask::Mask(void) : radius_(0.0),
+               opacity_(0.0),
+               height_(0),
+               width_(0),
+               mask_array_(nullptr) {}
 
 Mask::Mask(float radius, float opacity)
-    : m_radius(radius),
-      m_opacity(opacity),
-      m_height(ceil(radius)*2+1),
-      m_width(ceil(radius)*2+1),
-      m_maskArray(new float[m_width*m_height]) {
-  fill(m_maskArray, m_maskArray+m_width*m_height, 1.f);
+    : radius_(radius),
+      opacity_(opacity),
+      height_(ceil(radius)*2+1),
+      width_(ceil(radius)*2+1),
+      mask_array_(new float[width_*height_]) {
+    std::fill(mask_array_, mask_array_+width_*height_, 1.f);
 }
 
 Mask::~Mask(void) {
-  delete [] m_maskArray;
+  delete [] mask_array_;
 }
 
 /*******************************************************************************
@@ -49,19 +48,19 @@ Mask::~Mask(void) {
  ******************************************************************************/
 
 float Mask::value(int x, int y) const {
-  if (m_maskArray == nullptr || x < 0 || x > m_width ||
-      y < 0 || y > m_width) {
+  if (mask_array_ == nullptr || x < 0 || x > width_ ||
+      y < 0 || y > width_) {
     return 0.f;
   } else {
-    return m_maskArray[y*m_width + x];
+    return mask_array_[y*width_ + x];
   }
 }
 
 void Mask::value(int x, int y, float v) {
-  if (m_maskArray == nullptr || x < 0 || x > m_width || y < 0 || y > m_width) {
+  if (mask_array_ == nullptr || x < 0 || x > width_ || y < 0 || y > width_) {
     return;
   } else {
-    m_maskArray[y*m_width + x] = v;
+    mask_array_[y*width_ + x] = v;
   }
 }
 
@@ -70,7 +69,7 @@ void Mask::generateMask(void) {
     for (int i = 0; i < width(); i++) {
       int x = i-width()/2;
       int y = j-height()/2;
-      float intensity = m_opacity*get_intensity(x, y, m_radius);
+      float intensity = opacity_*get_intensity(x, y, radius_);
       value(i, j, intensity);
     }
   }

@@ -39,8 +39,8 @@ class MOval : public Mask {
   float get_intensity(int x, int y, float radius);
 
  private:
-  float m_angle;
-  float m_ratio;
+  float angle_;
+  float ratio_;
 };
 
 }  // namespace csci3081

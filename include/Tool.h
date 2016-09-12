@@ -53,14 +53,14 @@ protected:
         ColorData toolColor,
         ColorData canvasColor,
         ColorData backgroundColor);
-    Mask* mask(void) { return m_mask; }
-    void mask(Mask* mask) { m_mask = mask; }
+    Mask* mask(void) { return mask_; }
+    void mask(Mask* mask) { mask_ = mask; }
 
 private:
     Tool(const Tool& rhs) = delete;
     Tool& operator=(const Tool& rhs) = delete;
 
-    Mask *m_mask;
+    Mask *mask_;
 };
 }  // namespace csci3081
 #endif  // INCLUDE_TOOL_H_

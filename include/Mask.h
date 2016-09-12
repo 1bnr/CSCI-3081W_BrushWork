@@ -28,9 +28,9 @@ class Mask {
   Mask(float radius, float opacity);
   Mask(void);
   virtual ~Mask(void);
-  float const *getFloatArray(void) const { return m_maskArray; }
-  int width(void) const { return m_width;}
-  int height(void) const {return m_height;}
+  float const *getFloatArray(void) const { return mask_array_; }
+  int width(void) const { return width_;}
+  int height(void) const {return height_;}
   float value(int x, int y) const;
 
  protected:
@@ -42,11 +42,11 @@ class Mask {
   Mask(const Mask& rhs) = delete;
   Mask& operator=(const Mask& rhs) = delete;
 
-  float m_radius;
-  float m_opacity;
-  int m_height;
-  int m_width;
-  float *m_maskArray;
+  float radius_;
+  float opacity_;
+  int height_;
+  int width_;
+  float *mask_array_;
 
 };
 
