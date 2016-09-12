@@ -25,13 +25,14 @@
 # src/      - Root of the source tree for the project
 # bin/      - Directory where all executables are built
 # obj/      - Directory where all object files are built
+# doc/      - Directory where all documentation lives
 
 SRCDIR          = ./src
 BINDIR          = ./bin
 OBJDIR          = ./obj
 EXTDIR          = ./ext
 GLUIDIR         = $(EXTDIR)/glui
-
+DOCDIR          = ./doc
 ###############################################################################
 # Definitions
 ###############################################################################
@@ -129,7 +130,7 @@ TARGET = $(BINDIR)/BrushWork
 
 # Phony targets: targets of this type will be run everytime by make (i.e. make
 # does not assume that the target recipe will build the target name)
-.PHONY: clean veryclean all
+.PHONY: clean veryclean all documentation
 
 # The default target
 all: $(TARGET)
@@ -164,6 +165,11 @@ clean:
 # The Super Cleaner
 veryclean: clean
 	@$(MAKE) -C$(GLUIDIR) clean
+
+# The Documenter
+documentation:
+	cd $(DOCDIR) && doxygen Doxyfile
+	cd ..
 
 ###############################################################################
 # Pattern Rules
