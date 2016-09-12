@@ -15,7 +15,6 @@
 #include "BrushWorkApp.h"
 #include "ColorData.h"
 #include "PixelBuffer.h"
-#include "Tool.h"
 #include "ToolFactory.h"
 
 #include <assert.h>
@@ -23,7 +22,7 @@
 #include <iostream>
 
 /*******************************************************************************
- * Namespace Definitions
+ * Namespaces
  ******************************************************************************/
 using std::cout;
 using std::endl;
@@ -33,7 +32,7 @@ namespace brushwork = csci3081::brushwork;
  * Constructors/Destructors
  ******************************************************************************/
 brushwork::BrushWorkApp::BrushWorkApp(int width,
-                                      int height)
+                           int height)
     : BaseGfxApp(width,
                  height),
       display_buffer_(nullptr),
@@ -47,20 +46,9 @@ brushwork::BrushWorkApp::BrushWorkApp(int width,
       spinner_b_(nullptr) {}
 
 brushwork::BrushWorkApp::~BrushWorkApp(void) {
-  // Delete each of the tools before deleting the list of tool pointers.
-  if (tools_) {
-    Tool ** toolsEnd =  tools_ + ToolFactory::num_tools();
-    for (Tool ** tool_i = tools_; tool_i < toolsEnd; tool_i++) {
-      Tool* tool = *tool_i;
-      if (tool) {
-        delete tool;
-      }
+    if (display_buffer_) {
+        delete display_buffer_;
     }
-
-    delete [] tools_;}
-  if (display_buffer_) {
-    delete display_buffer_;
-  }
 }
 
 /*******************************************************************************
@@ -73,12 +61,12 @@ void brushwork::BrushWorkApp::Init(
     int y,
     ColorData backgroundColor) {
 
-  BaseGfxApp::Init(argc,argv,
-                   x,y,
-                   GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
-                   true,
-                   width()+51,
-                   50);
+    BaseGfxApp::Init(argc, argv,
+                     x, y,
+                     GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
+                     true,
+                     width()+51,
+                     50);
 
   // Set the name of the window
   set_caption("BrushWork");
@@ -96,12 +84,8 @@ void brushwork::BrushWorkApp::Init(
   InitGraphics();
 }
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
-
 void brushwork::BrushWorkApp::Display(void) {
-  DrawPixels(0, 0, width(), height(), display_buffer_->get_data());
+    DrawPixels(0, 0, width(), height(), display_buffer_->data());
 }
 
 void brushwork::BrushWorkApp::MouseMoved(int x, int y) {}

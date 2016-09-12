@@ -7,13 +7,13 @@
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
- ******************************************************************************/
+******************************************************************************/
 
 #ifndef INCLUDE_COLORDATA_H_
 #define INCLUDE_COLORDATA_H_
 
 /*******************************************************************************
- * Namespace Definitions
+ * Namespaces
  ******************************************************************************/
 namespace csci3081 {
 
@@ -21,9 +21,9 @@ namespace csci3081 {
  * Class Definitions
  ******************************************************************************/
 /**
- * This color data class stores color in floating point format.
+ * @brief This color data class stores color in floating point format.
  * The Red, Green, Blue, and Alpha channels range from 0.0 to 1.0.
- **/
+ */
 class ColorData {
  public:
   ColorData(void);
@@ -39,22 +39,28 @@ class ColorData {
   inline float blue(void) const { return blue_; }
   inline float alpha(void) const { return alpha_;}
 
-  // Returns the "brightness" of the color according to a perceptual metric
-  // that weights the red, green, and blue components of the color
-  // non-uniformly.
+  /**
+   * @brief Get the "brightness" of the color according to a perceptual metric
+   * that weights the red, green, and blue components of the color
+   * non-uniformly.
+   */
   float luminance(void) const;
 
-  // Return a clamped version of this ColorData
+  /**
+   * @brief Return a clamped version of a ColorData instance
+   * All colors and the alpha value are restricted to [0.0,1.0]
+   */
   inline ColorData clamped_color(void) const;
 
-  // Arithmatic operators (friends so that non-member functions can access
-  // private variables)
+  /*
+   * Arithmetic operators (friends so that non-member functions can access
+   * private variables)
+   */
   friend ColorData operator* (const ColorData& a, float f);
   friend ColorData operator+ (const ColorData& a, const ColorData& b);
   friend ColorData operator- (const ColorData& a, const ColorData& b);
 
  private:
-  // General helper function for clamping values between 0 and 1
   static inline float clamp_value(float input, float a, float b)
   { return input < a ? a : (input > b ? b : input);}
 

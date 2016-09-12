@@ -19,13 +19,9 @@
 #include <string>
 
 /*******************************************************************************
- * Namespace Definitions
- ******************************************************************************/
-
-/*******************************************************************************
  * Global Variables
  ******************************************************************************/
-csci3081::BaseGfxApp* csci3081::BaseGfxApp::s_current_app_ = nullptr;
+csci3081::BaseGfxApp* csci3081::BaseGfxApp::s_current_app_ = NULL;
 bool csci3081::BaseGfxApp::s_glut_initialized_ = false;
 
 /*******************************************************************************
@@ -59,8 +55,8 @@ void csci3081::BaseGfxApp::Init(int argc,
                                 int gluiWinX,
                                 int gluiWinY) {
   // Set window size and position
-  glutInitWindowSize(width_,height_);
-  glutInitWindowPosition(x,y);
+  glutInitWindowSize(width_, height_);
+  glutInitWindowPosition(x, y);
   glutInitDisplayMode(glutFlags);
 
   if (!s_glut_initialized_) {
@@ -101,8 +97,8 @@ void csci3081::BaseGfxApp::RunMainLoop(void) {
 
 void csci3081::BaseGfxApp::Reshape(int width, int height) {
   // This code essentially disables the ability to interactively resize
-  // the graphics window. csci3081::BaseGfxApp defaults to a window that cannot be
-  // resized by dragging the corner with the mouse.
+  // the graphics window. csci3081::BaseGfxApp defaults to a window that
+  // cannot be resized by dragging the corner with the mouse.
   if (s_current_app_->width() != width ||
       s_current_app_->height() != height) {
     glutReshapeWindow(s_current_app_->width(), s_current_app_->height());

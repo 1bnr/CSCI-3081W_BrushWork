@@ -69,11 +69,10 @@ void Tool::ApplyToBuffer(int toolX,
       // and increase intensity quickly. We found that cubing
       // the mask intensity compensated for this.
       float slimmed_mask_value = powf(mask_value, 3);
-
       ColorData c = color_blend_math(slimmed_mask_value,
                                    toolColor,
                                    current,
-                                   buffer->get_background_color());
+                                   buffer->background_color());
 
       buffer->set_pixel(x, y, c);
     }
