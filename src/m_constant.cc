@@ -24,7 +24,7 @@ namespace csci3081 {
  * Constructors/Destructor
  ******************************************************************************/
 MConstant::MConstant(float radius, float opacity) : Mask(radius, opacity) {
-  generateMask();
+  GenerateMask();
 }
 
 /*******************************************************************************

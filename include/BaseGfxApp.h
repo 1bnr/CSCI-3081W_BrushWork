@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : BaseGfxApp.h
  * Project         : BrushWork
- * Module          : ??
+ * Module          : App
  * Description     : Base class for  graphics applications built on top of
  *                   GLUI/GLUT toolkits
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
@@ -16,10 +16,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-
 #include <string>
 
-// The GLUI library, which in turn will include gl.h and glut.h
 #include "GL/glui.h"
 
 /*******************************************************************************
@@ -28,13 +26,14 @@
 namespace csci3081 {
 
 /**
- * This is a base class for graphics applications built on top of the GLUT and
- * GLUI toolkits. GLUT and GLUI are C libraries, so one function of this class
- * is to wrap the funcationality they provide in a class structure that lends
- * itself to C++.  To receive callbaks from GLUT and GLUI that allow you to
- * render graphics and respond to user interface events, simply override the
- * virtual methods in this class within your own subclass.
- **/
+ * @brief This is a base class for graphics applications built on top of the
+ * GLUT and GLUI toolkits.
+ * GLUT and GLUI are C libraries, so one function of this class is to wrap the
+ * funcationality they provide in a class structure that lends  itself to C++.
+ * To receive callbaks from GLUT and GLUI that allow you to render graphics and
+ * respond to user interface events, simply override the  virtual methods in
+ * this class within your own subclass.
+ */
 class BaseGfxApp {
  public:
   BaseGfxApp(
@@ -42,6 +41,12 @@ class BaseGfxApp {
       int height);
   virtual ~BaseGfxApp(void);
 
+  /**
+   * @brief Initialize the the application.
+   * This is separate from construction, which is only intended to put the
+   * object in a valid state. If you override this, be sure to still call the
+   * super class version.
+   */
   virtual void Init(int argc,
                     char* argv[],
                     int x,
@@ -51,78 +56,167 @@ class BaseGfxApp {
                     int gluiWinX,
                     int gluiWinY);
 
-  // Set the window/icon title for the application
+  /**
+   * @brief Set the window/icon title for the application
+   */
   void set_caption(const std::string& caption);
 
-  // Set the dimensions of the application window.
+  /**
+   * @brief Set the dimensions of the application window.
+   */
   void SetWindowDimensions(int width, int height);
 
-  // Call this function to start the program.  It will not return until
-  // the graphics window is closed.
+  /*
+   * @brief Start the program.
+   * This function will not return until the graphics window is closed (unless
+   * you segfault).
+   */
   void RunMainLoop(void);
 
-  // Subclasses should override this method in order to draw graphics to
-  // the screen.
-  virtual void Display(void) {}
+  /*
+   * @brief Draw graphics on the screen.
+   * Subclasses MUST provide this method.
+   */
+  virtual void Display(void) = 0;
 
-  // This is a convenience function that draws an array of pixel data to
-  // the screen.
+  /**
+   * @brief Draw an array of pixel data on the screen.
+   */
   void DrawPixels(
       int start_x,
       int start_y,
       int width,
       int height,
-      void const * const pixels);
+      void const *const pixels);
 
-  // It can be useful to override this method when doing animation.  The
-  // argument tells you the time since the last redraw of the screen.
+  /**
+   * @brief Redraw the screen.
+   * @param[in] delta_time_ms Milliseconds since the last redraw of the screen
+   */
   virtual void Update(int delta_time_ms) {}
 
-  // The following functions provide callbacks for user interface events
-  // in the GLUT window.
+  /**
+   * @brief Callback for mouse moving interface event in the GLUT window
+   */
   virtual void MouseMoved(int x, int y) {}
+
+  /**
+   * @brief Callback for mouse dragged interface event in the GLUT window
+   */
   virtual void MouseDragged(int x, int y) {}
 
+  /**
+   * @brief Callback for left mouse click interface event in the GLUT window
+   */
   virtual void LeftMouseDown(int x, int y) {}
+
+  /**
+   * @brief Callback for left mouse click release interface event in the GLUT
+   * window
+   */
   virtual void LeftMouseUp(int x, int y) {}
+
+  /**
+   * @brief Callback for right mouse click interface event in the GLUT window
+   */
   virtual void RightMouseDown(int x, int y) {}
+
+  /**
+   * @brief Callback for right mouse click release interface event in the GLUT
+   * window
+   */
   virtual void RightMouseUp(int x, int y) {}
+
+  /**
+   * @brief Callback for middle mouse click interface event in the GLUT window
+   */
   virtual void MiddleMouseDown(int x, int y) {}
+
+  /**
+   * @brief Callback for middle mouse click release interface event in the GLUT
+   * window
+   */
   virtual void MiddleMouseUp(int x, int y) {}
 
+  /**
+   * @brief Callback for keyboard key press interface event in the GLUT window
+   */
   virtual void Keyboard(unsigned char c, int x, int y) {}
+
+  /**
+   * @brief Callback for keyboard special key press interface event in the GLUT
+   * window
+   */
   virtual void KeyboardSpecial(int key, int x, int y) {}
+
+  /**
+   * @brief Callback for keyboard key press release mouse moving interface event
+   * in the GLUT window
+   */
   virtual void KeyboardUp(unsigned char c, int x, int y) {}
+
+  /**
+   * @brief Callback for keyboard special key press release interface  event in
+   * the GLUT window
+   */
   virtual void KeyboardSpecialUp(int key, int x, int y) {}
 
-  // This is the callback that tells you when the user has interacted with
-  // a GLUI widget
+  /**
+   * @brief Callback that tells you when the user has interacted with a GLUI
+   * widget
+   */
   virtual void GluiControl(int controlID) {}
 
+  /**
+   * @brief resize the graphics window on the screen.
+   * GLUT calls this when the user resizes the graphics window by dragging on it
+   * with the mouse. The default implementation in BaseGfxApp is to ignore this
+   * interaction and force the window to remain the same size. But, if desired,
+   * subclasses can override this method and implement the logic to allow for
+   * interactive resizing of windows.
+   */
+   virtual void Reshape(int width, int height);
 
-  // Glut calls this when the user resizes the graphics window by dragging
-  // on it with the mouse. The default implementation in BaseGfxApp is to
-  // ignore this interaction and force the window to remain the same size.
-  // But, if desired, subclasses can override this method and implement
-  // the logic to allow for interactive resizing of windows.
-  virtual void Reshape(int width, int height);
-
-  // Clears the screen and calls display(). Subclasses would only need to
-  // override this method if they need direct control over clearing the
-  // screen, which is usually not the case.
+  /**
+   * @brief Clear the screen and call display().
+   * Subclasses would only need to override this method if they need direct
+   * control over clearing the the screen, which is usually not the case.
+   */
   virtual void RenderOneFrame(void);
 
-  // Get the width/height of the application
-  int width(void) const { return width_; }
-  int height(void) const { return height_; }
+  /**
+   * @brief Get the width of the application
+   * @return The width
+   */
+  inline int width(void) const { return width_; }
 
-  // Get handles on object internals
-  int handle(void) { return glut_window_handle_; }
-  GLUI* glui(void) { return glui_; }
+  /**
+   * @brief Get the height of the application
+   * @return The height
+   */
+  inline int height(void) const { return height_; }
+
+  /**
+   * @brief Get the handle for the GLUI window
+   * @return The handle
+   */
+  inline int handle(void) { return glut_window_handle_; }
+
+  /**
+   * @brief Get the handle for the GLUI
+   * @return The GLUI handle
+   */
+  inline GLUI* glui(void) { return glui_; }
 
  protected:
-
-  // Glut callbacks:
+  /**
+   * GLUT and GLUI event callbacks are sent to the current
+   * window/app. Right now, there is only one window anyway (not counting
+   * the GLUI UI window.. in the future could be extended to support more
+   * windows.  In any case, some structure like this is always needed when
+   * using glut with C++, since the glut callbacks must be either global or
+   * static functions.
+   **/
   static void s_reshape(int width, int height);
   static void s_keyboard(unsigned char c, int x, int y);
   static void s_keyboardspecial(int key, int x, int y);
@@ -134,37 +228,46 @@ class BaseGfxApp {
   static void s_gluicallback(int controlID);
   static void s_idle(void);
 
+  /**
+   * @brief Get the drag
+   * @return The drag
+   */
   inline bool drag(void) { return drag_; }
+
+  /**
+   * @brief Get the width
+   * @return The width
+   */
   inline int width(void) { return width_; }
+
+  /**
+   * @brief Get the height
+   * @return The height
+   */
   inline int height(void) { return height_; }
-  inline int milliseconds(void) { return milliseconds_; }
+
+  /**
+   * @brief Get a handle on the application
+   * @return The application handle
+   */
   inline BaseGfxApp* s_current_app(void) { return s_current_app_; }
 
  private:
-  // Underlying glut window handle
-  int glut_window_handle_;
+  int glut_window_handle_; /** Underlying glut window handle */
 
-  // Pointer to GLUI master
-  GLUI *glui_;
+  GLUI *glui_; /** Pointer to GLUI master */
 
-  bool drag_;
+  bool drag_; /** SETH FILL THIS IN  */
   int width_;
   int height_;
-  int milliseconds_;
-  /**
-   * GLUT and GLUI event callbacks are sent to the current
-   * window/app. Right now, there is only one window anyway (not counting
-   * the GLUI UI window.. in the future could be extended to support more
-   * windows.  In any case, some structure like this is always needed when
-   * using glut with C++, since the glut callbacks must be either global or
-   * static functions.
-   **/
+  int milliseconds_; /** ms since last update  */
+
   static BaseGfxApp *s_current_app_;
 
-  // Has glutInit been called? (only allowed once per program)
+  /* Has glutInit been called? (only allowed once per program) */
   static bool s_glut_initialized_;
 
-  // Copy assignment/construction is disallowed
+  /* Copy assignment/construction is disallowed */
   BaseGfxApp(const BaseGfxApp &rhs) = delete;
   BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };

@@ -24,7 +24,7 @@ namespace csci3081 {
  * Constructors/Destructor
  ******************************************************************************/
 MLinear::MLinear(float radius, float opacity) : Mask(radius, opacity) {
-  generateMask();
+  GenerateMask();
 }
 
 /*******************************************************************************

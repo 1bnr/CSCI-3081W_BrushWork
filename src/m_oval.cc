@@ -25,7 +25,7 @@ namespace csci3081 {
  ******************************************************************************/
 MOval::MOval(float radius, float opacity, float angle, float ratio)
     : Mask(radius, opacity), angle_(angle), ratio_(ratio) {
-  generateMask();
+  GenerateMask();
 }
 
 /*******************************************************************************
