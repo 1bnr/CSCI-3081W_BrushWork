@@ -148,11 +148,13 @@ void brushwork::BrushWorkApp::MouseDragged(int x, int y) {
   mouse_last_y_ = y;
 }
 void brushwork::BrushWorkApp::LeftMouseDown(int x, int y) {
-  tools_[cur_tool_]->ApplyToBuffer(x, y,
+  tools_[cur_tool_]->ApplyToBuffer(x, height()-y,
                                    ColorData(cur_color_red_,
                                              cur_color_green_,
                                              cur_color_blue_),
                                    display_buffer_);
+  mouse_last_x_ = x;
+  mouse_last_y_ = y;
 }
 
 void brushwork::BrushWorkApp::LeftMouseUp(int x, int y) {
