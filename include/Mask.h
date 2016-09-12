@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : Mask.h
  * Project         : csci3081
- * Module          : ??
+ * Module          : Mask
  * Description     : Header file for Mask base class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -20,32 +20,75 @@ namespace csci3081 {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-//  Mask is a wrapper for the array of floats representing the shape of
-//  a tool. It is pure virtual, because a mask does not inherently have
-//  a shape. Shapes are defined implicitly with getIntensity().
+/**
+ * @brief Base class for representing the shape of a tool.
+ * Mask is a wrapper for the array of floats representing the shape of a
+ * tool. It does not have a shape; shapes are defined implicitly with
+ * get_intensity().
+ */
 class Mask {
  public:
   Mask(float radius, float opacity);
   Mask(void);
   virtual ~Mask(void);
-  float const *getFloatArray(void) const { return mask_array_; }
+
+  /**
+   * @brief Get a handle on the underlying array of float values representing
+   * the shape of the tool
+   * @return The float array
+   */
+  float const *float_array(void) const { return mask_array_; }
+
+  /**
+   * @brief Get the width of the tool shape (radius)
+   * @brief The width
+   */
   int width(void) const { return width_;}
+
+  /**
+   * @brief Get the height of the tool shape (radius)
+   * @brief The height
+   */
   int height(void) const {return height_;}
+
+  /**
+   * @brief Get the value of the mask at (x,y) with the radius of the tool shape
+   * @return The value
+   */
   float value(int x, int y) const;
 
  protected:
+
+  /**
+   * @brief Set the value of the mask at (x,y) with the radius of the tool shape
+   */
   void value(int x, int y, float v);
-  void generateMask(void);
+
+  /**
+   * @brief Generate the intensity value array that defines the shape and effect
+   * of the tool.
+   * Relies on the derived class implementation of get_intensity to do so.
+   */
+  void GenerateMask(void);
+
+  /**
+   * @brief Define the shape of the mask.
+   * @param x The X coordinate of the tool/mouse location
+   * @param y The Y coordinate of the tool/mouse location
+   * @param radius Distance from (x,y) tool/mouse location to compute intensity
+   * at
+   */
   virtual float get_intensity(int x, int y, float radius) = 0;
 
  private:
+  /* Copy/move assignment/construction are disallowed */
   Mask(const Mask& rhs) = delete;
   Mask& operator=(const Mask& rhs) = delete;
 
-  float radius_;
+  float radius_; /** SETH FILL THIS IN  */
   float opacity_;
-  int height_;
-  int width_;
+  int height_; /** SETH FILL THIS IN  */
+  int width_; /** SETH FILE THIS IN  */
   float *mask_array_;
 
 };

@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : TChalk.h
  * Project         : csci3081
- * Module          : ??
+ * Module          : Tool
  * Description     : Header file for Chalk class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15

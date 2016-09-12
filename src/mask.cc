@@ -48,8 +48,7 @@ Mask::~Mask(void) {
  ******************************************************************************/
 
 float Mask::value(int x, int y) const {
-  if (mask_array_ == nullptr || x < 0 || x > width_ ||
-      y < 0 || y > width_) {
+  if (mask_array_ == nullptr || x < 0 || x > width_ || y < 0 || y > width_) {
     return 0.f;
   } else {
     return mask_array_[y*width_ + x];
@@ -64,7 +63,7 @@ void Mask::value(int x, int y, float v) {
   }
 }
 
-void Mask::generateMask(void) {
+void Mask::GenerateMask(void) {
   for (int j = 0; j < height(); j++) {
     for (int i = 0; i < width(); i++) {
       int x = i-width()/2;
