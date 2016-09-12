@@ -25,8 +25,6 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-TPen::TPen(void) {
-  m_mask = new MConstant(1.0, 1.0);
-}
+TPen::TPen(void) { mask(new MConstant(1.0, 1.0)); }
 
 }  // namespace csci3081

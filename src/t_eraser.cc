@@ -26,16 +26,14 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-TEraser::TEraser(void) {
-  m_mask = new MConstant(10.0, 1.0);
-}
+TEraser::TEraser(void) { mask(new MConstant(10.0, 1.0)); }
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
 // Eraser does not blend colors with the toolColor.  Here we are overriding the
 // superclass's colorBlendMath to set the canvasColor to the backgroundColor.
-ColorData TEraser::colorBlendMath(float mask,
+ColorData TEraser::color_blend_math(float mask,
                                   ColorData toolColor,
                                   ColorData canvasColor,
                                   ColorData backgroundColor) {

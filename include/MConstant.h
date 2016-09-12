@@ -32,7 +32,7 @@ class MConstant : public Mask {
   MConstant(float radius, float opacity);
 
  protected:
-  float getIntensity(int x, int y, float radius);
+  float get_intensity(int x, int y, float radius);
 };
 
 }  // namespace csci3081

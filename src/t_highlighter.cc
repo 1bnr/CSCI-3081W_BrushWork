@@ -27,7 +27,7 @@ namespace csci3081 {
  * Constructors/Destructors
  ******************************************************************************/
 THighlighter::THighlighter(void) {
-  m_mask = new MOval(7.0, 0.4, 90, 0.3);
+    mask(new MOval(7.0, 0.4, 90, 0.3));
 }
 
 /*******************************************************************************
@@ -35,11 +35,11 @@ THighlighter::THighlighter(void) {
  ******************************************************************************/
 // Overrides the super's function to include the luminance of the canvasColor
 // in the calculation of the tool's intensity
-ColorData THighlighter::colorBlendMath(float mask,
+    ColorData THighlighter::color_blend_math(float mask,
                                        ColorData toolColor,
                                        ColorData canvasColor,
                                        ColorData backgroundColor) {
-  float L = canvasColor.get_luminance();
+  float L = canvasColor.luminance();
   float intensity = mask*L;
   return toolColor*intensity + canvasColor*(1.0-intensity);
 }

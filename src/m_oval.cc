@@ -31,7 +31,7 @@ MOval::MOval(float radius, float opacity, float angle, float ratio)
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-float MOval::getIntensity(int x, int y, float radius) {
+float MOval::get_intensity(int x, int y, float radius) {
   float a = radius;
   float b = m_ratio*radius;
   float theta = m_angle/180*M_PI;

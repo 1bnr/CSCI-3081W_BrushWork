@@ -30,7 +30,7 @@ MLinear::MLinear(float radius, float opacity) : Mask(radius, opacity) {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-float MLinear::getIntensity(int x, int y, float radius) {
+float MLinear::get_intensity(int x, int y, float radius) {
   float hyp = sqrt(x*x + y*y);
 
   if (hyp <= radius) {

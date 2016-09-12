@@ -36,7 +36,7 @@ class TChalk : public Tool {
   TChalk(void);
 
   // overrides super's implementation
-  ColorData colorBlendMath(
+  ColorData color_blend_math(
       float mask,
       ColorData toolColor,
       ColorData canvasColor,

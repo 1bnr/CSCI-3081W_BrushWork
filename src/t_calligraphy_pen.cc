@@ -26,7 +26,7 @@ namespace csci3081 {
  * Constructors/Destructors
  ******************************************************************************/
 TCalligraphyPen::TCalligraphyPen(void) {
-  m_mask = new MOval(7.0, 1.0, 70.0, 0.333);
+    mask(new MOval(7.0, 1.0, 70.0, 0.333));
 }
 
 }  // namespace csci3081

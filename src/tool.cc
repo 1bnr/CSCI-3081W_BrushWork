@@ -36,14 +36,14 @@ Tool::~Tool(void) {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-ColorData Tool::colorBlendMath(float mask,
+ColorData Tool::color_blend_math(float mask,
                                ColorData toolColor,
                                ColorData canvasColor,
                                ColorData backgroundColor) {
   return toolColor*mask + canvasColor*(1.0-mask);
 }
 
-void Tool::applyToBuffer(int toolX,
+void Tool::ApplyToBuffer(int toolX,
                          int toolY,
                          ColorData toolColor,
                          PixelBuffer* buffer) {
@@ -70,7 +70,7 @@ void Tool::applyToBuffer(int toolX,
       // the mask intensity compensated for this.
       float slimmed_mask_value = powf(mask_value, 3);
 
-      ColorData c = colorBlendMath(slimmed_mask_value,
+      ColorData c = color_blend_math(slimmed_mask_value,
                                    toolColor,
                                    current,
                                    buffer->get_background_color());

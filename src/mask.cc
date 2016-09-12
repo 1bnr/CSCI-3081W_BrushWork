@@ -70,7 +70,7 @@ void Mask::generateMask(void) {
     for (int i = 0; i < width(); i++) {
       int x = i-width()/2;
       int y = j-height()/2;
-      float intensity = m_opacity*getIntensity(x, y, m_radius);
+      float intensity = m_opacity*get_intensity(x, y, m_radius);
       value(i, j, intensity);
     }
   }

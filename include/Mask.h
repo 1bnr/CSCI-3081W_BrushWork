@@ -36,7 +36,7 @@ class Mask {
  protected:
   void value(int x, int y, float v);
   void generateMask(void);
-  virtual float getIntensity(int x, int y, float radius) = 0;
+  virtual float get_intensity(int x, int y, float radius) = 0;
 
  private:
   Mask(const Mask& rhs) = delete;

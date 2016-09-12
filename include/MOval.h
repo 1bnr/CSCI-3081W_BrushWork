@@ -36,7 +36,7 @@ class MOval : public Mask {
   virtual ~MOval(void) {}
 
  protected:
-  float getIntensity(int x, int y, float radius);
+  float get_intensity(int x, int y, float radius);
 
  private:
   float m_angle;

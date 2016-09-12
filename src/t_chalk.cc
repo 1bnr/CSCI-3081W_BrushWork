@@ -28,16 +28,14 @@ namespace csci3081 {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-TChalk::TChalk(void) : m_rand_seed(0) {
-  m_mask = new MLinear(5.0, 1.0);
-}
+    TChalk::TChalk(void) : m_rand_seed(0) { mask(new MLinear(5.0, 1.0)); }
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
 //  A random number between 0.0 and 1.0 is multiplied by a brightened_mask to
 //      vary the intensity used in the blending math
-ColorData TChalk::colorBlendMath(float mask,
+ColorData TChalk::color_blend_math(float mask,
                                  ColorData toolColor,
                                  ColorData canvasColor,
                                  ColorData backgroundColor) {

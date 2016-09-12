@@ -40,7 +40,7 @@ public:
     Tool(void);
     virtual ~Tool(void);
 
-    virtual void applyToBuffer(
+    virtual void ApplyToBuffer(
         int toolX,
         int toolY,
         ColorData toolColor,
@@ -48,16 +48,19 @@ public:
     virtual std::string name(void) = 0;
 
 protected:
-    virtual ColorData colorBlendMath(
+    virtual ColorData color_blend_math(
         float mask,
         ColorData toolColor,
         ColorData canvasColor,
         ColorData backgroundColor);
-    Mask *m_mask;
+    Mask* mask(void) { return m_mask; }
+    void mask(Mask* mask) { m_mask = mask; }
 
 private:
     Tool(const Tool& rhs) = delete;
     Tool& operator=(const Tool& rhs) = delete;
+
+    Mask *m_mask;
 };
 }  // namespace csci3081
 #endif  // INCLUDE_TOOL_H_
