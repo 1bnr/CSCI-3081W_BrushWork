@@ -25,13 +25,15 @@ namespace csci3081 {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-//  This tool simulates the usage of a Pen.
-//  It has a MConstant mask with a radius of 1.0 (diameter of 3) and an opacity
-//  of 1.0
-
+/**
+ * @brief This tool simulates the usage of a Pen.
+ * It has a MConstant mask with a radius of 1.0 (diameter of 3) and an opacity
+ * of 1.0
+ */
 class TPen : public Tool {
  public:
   TPen(void);
+
   std::string name(void) { return "Pen"; }
 };
 }  // namespace csci3081

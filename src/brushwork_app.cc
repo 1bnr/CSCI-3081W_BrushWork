@@ -18,6 +18,7 @@
 #include "Tool.h"
 #include "ToolFactory.h"
 
+#include <assert.h>
 #include <cmath>
 #include <iostream>
 
@@ -87,7 +88,9 @@ void brushwork::BrushWorkApp::Init(
 
   // Create array of tools and populate
   for (int i = 0; i < ToolFactory::num_tools(); i++) {
-    tools_[i] = ToolFactory::CreateTool(i);
+    Tool* t = ToolFactory::CreateTool(i);
+    assert(t);
+    tools_[i] = t;
   }
   InitGlui();
   InitGraphics();

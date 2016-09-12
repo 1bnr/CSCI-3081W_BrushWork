@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : TEraser.h
  * Project         : csci3081
- * Module          : ??
+ * Module          : Tool
  * Description     : Header file for Eraserclass
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -26,15 +26,16 @@ namespace csci3081 {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-//  This tool simulates the usage of an Eraser.
-//  It has a MConstant mask with a radius of 10.0 (diameter of 21) and an
-//  opacity of 1.0 Eraser overrides the colorBlendMath() function to provide its
-//  special eraser functionality
+/**
+ * @brief This tool simulates the usage of an Eraser.
+ * It has a MConstant mask with a radius of 10.0 (diameter of 21) and an
+ * opacity of 1.0 Eraser overrides the colorBlendMath() function to provide its
+ * special eraser functionality.
+ */
 class TEraser : public Tool {
  public:
   TEraser(void);
 
-  // overrides super's implementation
   ColorData color_blend_math(
       float mask,
       ColorData toolColor,

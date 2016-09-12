@@ -26,11 +26,12 @@ namespace csci3081 {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-//  This tool simulates the usage of a Calligraphy Pen.
-//
-//  It has a MOval mask with a radius of 7.0 (diameter of 15), an opacity of 1.0
-//  (completely opaque), an angle of 70 degrees counter-clockwise from the
-//  x-axis, and an elongation ratio of 0.333
+/**
+ * @brief This tool simulates the usage of a Calligraphy Pen.
+ * It has a MOval mask with a radius of 7.0 (diameter of 15), an opacity of 1.0
+ * (completely opaque), an angle of 70 degrees counter-clockwise from the
+ * x-axis, and an elongation ratio of 0.333
+ */
 class TCalligraphyPen : public Tool {
  public:
     TCalligraphyPen(void);

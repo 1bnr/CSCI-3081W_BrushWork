@@ -16,6 +16,8 @@
 #include "ColorData.h"
 #include "Mask.h"
 #include "PixelBuffer.h"
+
+#include <assert.h>
 #include <cmath>
 #include <algorithm>
 
@@ -47,9 +49,7 @@ void Tool::ApplyToBuffer(int toolX,
                          int toolY,
                          ColorData toolColor,
                          PixelBuffer* buffer) {
-  if (mask_ == nullptr) {
-    return;
-  }
+  assert(mask_);
 
   int left_bound = std::max(toolX-mask_->width()/2, 0);
   int right_bound = std::min(toolX+mask_->width()/2,
