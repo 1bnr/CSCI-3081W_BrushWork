@@ -55,14 +55,14 @@ void BaseGfxApp::Init(int argc,
                                 char* argv[],
                                 int x,
                                 int y,
-                                unsigned glutFlags,
-                                bool createGLUIWin,
-                                int gluiWinX,
-                                int gluiWinY) {
+                                unsigned glut_flags,
+                                bool create_glui_win,
+                                int glui_win_x,
+                                int glui_win_y) {
   // Set window size and position
   glutInitWindowSize(width_, height_);
   glutInitWindowPosition(x, y);
-  glutInitDisplayMode(glutFlags);
+  glutInitDisplayMode(glut_flags);
 
   if (!s_glut_initialized_) {
     glutInit(&argc, argv);
@@ -82,9 +82,9 @@ void BaseGfxApp::Init(int argc,
   glutDisplayFunc(s_draw);
   glutIdleFunc(s_idle);
 
-  if (createGLUIWin) {
+  if (create_glui_win) {
     glui_ = GLUI_Master.create_glui("Controls", 0,
-                                    gluiWinX, gluiWinY);
+                                    glui_win_x, glui_win_y);
     glui_->set_main_gfx_window(glut_window_handle_);
     // Note: if using a glut idle func, it may need to be registered
     // with glui rather than glut.

@@ -54,7 +54,7 @@ class BrushWorkApp : public BaseGfxApp {
         char* argv[],
         int x,
         int y,
-        ColorData backgroundColor);
+        ColorData background_color);
 
  private:
     void InitGlui(void);
@@ -63,7 +63,7 @@ class BrushWorkApp : public BaseGfxApp {
     /**
      * @brief Initialize the buffers for the main window
      */
-    void InitializeBuffers(ColorData initialColor,
+    void InitializeBuffers(ColorData initial_color,
                            int width, int height);
 
     /**
@@ -99,9 +99,9 @@ class BrushWorkApp : public BaseGfxApp {
     float cur_color_green_;
     float cur_color_blue_;
 
-    GLUI_Spinner *spinner_r_; /**< SETH FILL THIS IN  */
-    GLUI_Spinner *spinner_g_; /**< SETH FILL THIS IN  */
-    GLUI_Spinner *spinner_b_; /**< SETH FILL THIS IN  */
+    GLUI_Spinner *spinner_r_; /**< Hook for accessing the UI red amount  */
+    GLUI_Spinner *spinner_g_; /**< Hook for accessing the UI green amount  */
+    GLUI_Spinner *spinner_b_; /**< Hook for accessing the UI blue amount  */
 
     /* Copy/move assignment/construction disallowed */
     BrushWorkApp(const BrushWorkApp &rhs) = delete;

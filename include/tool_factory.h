@@ -55,7 +55,7 @@ class ToolFactory {
    * @brief Create a tool from the list of defined tools
    * @return The initialized tool, or nullptr if an invalid index was passed
    */
-  static Tool* CreateTool(int toolID);
+  static Tool* CreateTool(int tool_id);
 };
 }  // namespace image_tools
 

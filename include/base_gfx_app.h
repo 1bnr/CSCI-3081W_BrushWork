@@ -49,14 +49,15 @@ class BaseGfxApp {
    * object in a valid state. If you override this, be sure to still call the
    * super class version.
    */
-  virtual void Init(int argc,
-                    char* argv[],
-                    int x,
-                    int y,
-                    unsigned glutFlags,
-                    bool createGLUIWin,
-                    int gluiWinX,
-                    int gluiWinY);
+  virtual void Init(
+    int argc,
+    char* argv[],
+    int x,
+    int y,
+    unsigned glut_flags,
+    bool create_glui_win,
+    int glui_win_x,
+    int glui_win_y);
 
   /**
    * @brief Set the window/icon title for the application
@@ -231,7 +232,7 @@ class BaseGfxApp {
   static void s_mousemotion(int x, int y);
   static void s_mousebtn(int b, int s, int x, int y);
   static void s_draw(void);
-  static void s_gluicallback(int controlID);
+  static void s_gluicallback(int control_id);
   static void s_idle(void);
 
   /**
@@ -263,7 +264,7 @@ class BaseGfxApp {
 
   GLUI *glui_; /**< Pointer to GLUI master */
 
-  bool drag_; /**< SETH FILL THIS IN  */
+  bool drag_; /**< Indicates whether the mouse is currently pressed  */
   int width_;
   int height_;
   int milliseconds_; /**< ms since last update  */

@@ -15,8 +15,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include <string>
 #include "include/pixel_buffer.h"
+
+#include <string>
+
 #include "include/color_data.h"
 #include "include/mask.h"
 
@@ -60,39 +62,39 @@ class Tool {
    */
   virtual std::string name(void) = 0;
 
- protected:
-  /**
-   * @brief The definition of how the tool will operate on a single pixel on
-   * the canvas when applied
-   * @param[in] mask SETH FILL THIS IN
-   * @param[in] toolColor Current color of the tool
-   * @param[in] canvasColor SETH FILL THIS IN
-   * @param[in] backgroundColor SETH FILL THIS IN
-   * @return The new color definition for the pixel
-   */
-  virtual ColorData color_blend_math(
-      float mask,
-      ColorData toolColor,
-      ColorData canvasColor,
-      ColorData backgroundColor);
+protected:
+    /**
+     * @brief The definition of how the tool will operate on a single pixel on
+     * the canvas when applied
+     * @param[in] mask_pixel_amount Value of the relevant pixal in the mask 
+     * @param[in] toolColor Current color of the tool
+     * @param[in] canvasColor Color of the background if no tool had been applied
+     * @param[in] currentColor Color present that this blend would replace
+     * @return The new color definition for the pixel
+     */
+    virtual ColorData color_blend_math(
+        float mask_pixel_amount,
+        ColorData tool_color,
+        ColorData current_color,
+        ColorData background_color);
 
-  /**
-   * @brief Get the mask associated with the tool
-   * @return The mask
-   */
-  Mask* mask(void) { return mask_; }
+    /**
+     * @brief Get the mask associated with the tool
+     * @return The mask
+     */
+    Mask* mask(void) { return mask_; }
 
-  /**
-   * Set the mask associated with the tool
-   */
-  void mask(Mask* mask) { mask_ = mask; }
+    /**
+     * Set the mask associated with the tool
+     */
+    void mask(Mask* mask) { mask_ = mask; }
 
- private:
-  /* Usage of copy/move construction or assignment is disallowed */
-  Tool(const Tool& rhs) = delete;
-  Tool& operator=(const Tool& rhs) = delete;
+private:
+    /* Usage of copy/move construction or assignment is disallowed */
+    Tool(const Tool& rhs) = delete;
+    Tool& operator=(const Tool& rhs) = delete;
 
-  Mask *mask_;
+    Mask *mask_;
 };
 }  // namespace image_tools
 #endif  // INCLUDE_TOOL_H_
