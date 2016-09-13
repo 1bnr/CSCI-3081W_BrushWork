@@ -30,11 +30,12 @@ namespace image_tools {
  ******************************************************************************/
 PixelBuffer::PixelBuffer(int w,
                          int h,
-                         ColorData backgroundColor)
+                         ColorData background_color)
     : width_(w),
       height_(h),
-      pixels_(w*h,backgroundColor),
-      background_color_(new ColorData(backgroundColor)) {}
+      pixels_(new ColorData[w*h]),
+      background_color_(new ColorData(background_color)) {
+}
 
 PixelBuffer::~PixelBuffer(void) {
   delete background_color_;
@@ -44,24 +45,24 @@ PixelBuffer::~PixelBuffer(void) {
  * Member Functions
  ******************************************************************************/
 ColorData PixelBuffer::get_pixel(int x, int y) const {
-  ColorData pixelData;
+    ColorData pixel_data;
 
-  if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
-    cerr << "getPixel: x,y out of range: " << x << " " << y << endl;
-  } else {
-    int index = x + width_*(y);
-    pixelData = pixels_[index];
-  }
-  return pixelData;
+    if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
+        cerr << "getPixel: x,y out of range: " << x << " " << y << endl;
+    } else {
+        int index = x + width_*(y);
+        pixel_data = pixels_[index];
+    }
+    return pixel_data;
 }
 
-void PixelBuffer::set_pixel(int x, int y, const ColorData& newPixel) {
-  if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
-    cerr << "setPixel: x,y out of range: " << x << " " << y << endl;
-  } else {
-    int index = x + width_*(y);  // x + width*(height-(y+1));
-    pixels_[index] = newPixel;
-  }
+void PixelBuffer::set_pixel(int x, int y, const ColorData& new_pixel) {
+    if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
+        cerr << "setPixel: x,y out of range: " << x << " " << y << endl;
+    } else {
+        int index = x + width_*(y);  // x + width*(height-(y+1));
+        pixels_[index] = new_pixel;
+    }
 }
 
 /*******************************************************************************
