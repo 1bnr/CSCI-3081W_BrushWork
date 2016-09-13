@@ -1,30 +1,40 @@
 /*******************************************************************************
- * Name            : TSprayCan.cc
- * Project         : BrushWork
- * Module          : ??
- * Description     : Implementation of SprayCan tool class
+ * Name            : m_constant.h
+ * Project         : csci3081
+ * Module          : Mask
+ * Description     : Header File for Constant Mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
+#ifndef INCLUDE_MCONSTANT_H_
+#define INCLUDE_MCONSTANT_H_
+
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool_SprayCan.h"
-#include "Mask_Linear.h"
-
-#include <string>
+#include "mask.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
- * Constructors/Destructor
+ * Class Definitions
  ******************************************************************************/
-TSprayCan::TSprayCan(void) { mask(new MLinear(30, 0.2)); }
+/**
+ * @brief MConstant is a Mask that is round, with a constant fill  value.
+ */
+class MConstant : public Mask {
+ public:
+  MConstant(float radius, float opacity);
 
-}  // namespace csci3081
+ protected:
+  float get_intensity(int x, int y, float radius);
+};
+}  // namespace image_tools
+
+#endif  // INCLUDE_MCONSTANT_H_

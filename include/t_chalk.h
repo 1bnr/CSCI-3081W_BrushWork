@@ -1,40 +1,52 @@
 /*******************************************************************************
- * Name            : MConstant.h
+ * Name            : t_chalk.h
  * Project         : csci3081
- * Module          : Mask
- * Description     : Header File for Constant Mask class
+ * Module          : Tool
+ * Description     : Header file for Chalk class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_MCONSTANT_H_
-#define INCLUDE_MCONSTANT_H_
+#ifndef INCLUDE_TCHALK_H_
+#define INCLUDE_TCHALK_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Mask.h"
+#include "tool.h"
+#include <string>
 
 /*******************************************************************************
- * Namespaces
+ * Namespace Definitions
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief MConstant is a Mask that is round, with a constant fill  value.
+ * @brief This tool simulates the usage of Chalk.
+ * It has an linear mask with a radius of 5.0 (diameter of 11), an opacity of
+ * 1.0 (completely opaque).  color_blend_math() is overriden to randomly change
+ * the tool's intensity at a pixel.
  */
-class MConstant : public Mask {
+class TChalk : public Tool {
  public:
-  MConstant(float radius, float opacity);
+  TChalk(void);
 
- protected:
-  float get_intensity(int x, int y, float radius);
+  ColorData color_blend_math(
+      float mask,
+      ColorData toolColor,
+      ColorData canvasColor,
+      ColorData backgroundColor);
+
+  std::string name(void) { return "Chalk"; }
+
+ private:
+  unsigned seed_; /** Random seed for use with color blending */
 };
-}  // namespace csci3081
+}  // namespace image_tools
 
-#endif  // INCLUDE_MCONSTANT_H_
+#endif  // INCLUDE_TCHALK_H_

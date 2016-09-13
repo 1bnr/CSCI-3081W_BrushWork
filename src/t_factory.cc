@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : ToolFactory.cc
+ * Name            : tool_factory.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : Tool
  * Description     : Implementation of factory design pattern for tools
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,19 +12,19 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "ToolFactory.h"
-#include "Tool.h"
-#include "Tool_Pen.h"
-#include "Tool_Eraser.h"
-#include "Tool_CalligraphyPen.h"
-#include "Tool_Highlighter.h"
-#include "Tool_SprayCan.h"
-#include "Tool_Chalk.h"
+#include "tool_factory.h"
+#include "tool.h"
+#include "t_pen.h"
+#include "t_eraser.h"
+#include "t_calligraphy_pen.h"
+#include "t_highlighter.h"
+#include "t_spray_can.h"
+#include "t_chalk.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Member Functions

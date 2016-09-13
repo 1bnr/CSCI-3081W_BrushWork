@@ -1,43 +1,50 @@
 /*******************************************************************************
- * Name            : TCalliggraphyPen.h
+ * Name            : t_highlighter.h
  * Project         : csci3081
- * Module          : ??
- * Description     : Header file for Calligraphy pen class
+ * Module          : Tool
+ * Description     : Header file for Highlighter class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TCALLIGRAPHYPEN_H_
-#define INCLUDE_TCALLIGRAPHYPEN_H_
+#ifndef INCLUDE_THIGHLIGHTER_H_
+#define INCLUDE_THIGHLIGHTER_H_
 
 /*******************************************************************************
- * Includes
+ * Include Definitions
  ******************************************************************************/
-#include "Tool.h"
+#include "tool.h"
 #include <string>
 
 /*******************************************************************************
  * Namespace Definitions
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This tool simulates the usage of a Calligraphy Pen.
- * It has a MOval mask with a radius of 7.0 (diameter of 15), an opacity of 1.0
- * (completely opaque), an angle of 70 degrees counter-clockwise from the
- * x-axis, and an elongation ratio of 0.333
+ * @brief This tool simulates the usage of a Highlighter.
+ * It has a oval mask with a radius of 7.0 (diameter of 15), an opacity of 0.4
+ * (semi-transparent), an angle of 90 degrees counter-clockwise from the x-axis,
+ * and an elongation ratio of 0.3
  */
-class TCalligraphyPen : public Tool {
+class THighlighter : public Tool {
  public:
-    TCalligraphyPen(void);
+  THighlighter(void);
 
-    std::string name(void) { return "Caligraphy Pen"; }
+  // overrides super's implementation
+  ColorData color_blend_math(
+      float mask,
+      ColorData toolColor,
+      ColorData canvasColor,
+      ColorData backgroundColor);
+
+  std::string name(void) { return "Highlighter"; }
 };
-}  // namespace csci3081
+}  // namespace image_tools
 
-#endif  // INCLUDE_TCALLIGRAPHYPEN_H_
+#endif  // INCLUDE_THIGHLIGHTER_H_

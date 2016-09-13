@@ -1,40 +1,32 @@
 /*******************************************************************************
- * Name            : TSprayCan.h
- * Project         : csci3081
+ * Name            : t_calligraphy_pen.cc
+ * Project         : BrushWork
  * Module          : Tool
- * Description     : Header file for SprayCan tool class
+ * Description     : Implementation of calligraphy pen  tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TSPRAYCAN_H_
-#define INCLUDE_TSPRAYCAN_H_
-
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool.h"
+#include "t_calligraphy_pen.h"
+#include "m_oval.h"
+
 #include <string>
 
 /*******************************************************************************
- * Namespace Definitions
+ * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
- * Class Definitions
+ * Constructors/Destructors
  ******************************************************************************/
-/**
- * @brief SETH FILL THIS IN
- */
-class TSprayCan : public Tool {
- public:
-  TSprayCan(void);
+TCalligraphyPen::TCalligraphyPen(void) {
+    mask(new MOval(7.0, 1.0, 70.0, 0.333));
+}
 
-  std::string name(void) { return "Spray Can"; }
-};
 }  // namespace csci3081
-
-#endif  // INCLUDE_TSPRAYCAN_H_

@@ -12,8 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "PixelBuffer.h"
-#include "ColorData.h"
+#include "pixel_buffer.h"
+#include "color_data.h"
 
 #include <iostream>
 #include <cstring>

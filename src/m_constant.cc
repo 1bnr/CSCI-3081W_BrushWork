@@ -1,8 +1,8 @@
 /*******************************************************************************
- * Name            : TEraser.cc
- * Project         : BrushWork
+ * Name            : MConstant.cc
+ * Project         : csci3081
  * Module          : ??
- * Description     : Implementation of eraser tool class
+ * Description     : Implementation of Constant mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
@@ -12,32 +12,30 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool_Eraser.h"
-#include "Mask_Constant.h"
-#include "ColorData.h"
-
-#include <string>
+#include "m_constant.h"
+#include <cmath>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-TEraser::TEraser(void) { mask(new MConstant(10.0, 1.0)); }
+MConstant::MConstant(float radius, float opacity) : Mask(radius, opacity) {
+  GenerateMask();
+}
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-// Eraser does not blend colors with the toolColor.  Here we are overriding the
-// superclass's colorBlendMath to set the canvasColor to the backgroundColor.
-ColorData TEraser::color_blend_math(float mask,
-                                  ColorData toolColor,
-                                  ColorData canvasColor,
-                                  ColorData backgroundColor) {
-  return backgroundColor*mask + canvasColor*(1-mask);
+float MConstant::get_intensity(int x, int y, float radius) {
+  float hyp = sqrt(x*x + y*y);
+  if (hyp > radius) {
+    return 0.0;
+  } else {
+    return 1.0;
+  }
 }
-
-}  // namespace csci3081
+}  // namespace image_tools

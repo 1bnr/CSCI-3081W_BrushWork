@@ -1,32 +1,42 @@
 /*******************************************************************************
- * Name            : TCalligraphyPen.cc
- * Project         : BrushWork
- * Module          : ??
- * Description     : Implementation of calligraphy pen  tool class
+ * Name            : m_linear.h
+ * Project         : csci3081
+ * Module          : Mask
+ * Description     : Header file for Linear mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
+#ifndef INCLUDE_MLINEAR_H_
+#define INCLUDE_MLINEAR_H_
+
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool_CalligraphyPen.h"
-#include "Mask_Oval.h"
-
-#include <string>
+#include "mask.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
- * Constructors/Destructors
+ * Class Definitions
  ******************************************************************************/
-TCalligraphyPen::TCalligraphyPen(void) {
-    mask(new MOval(7.0, 1.0, 70.0, 0.333));
-}
+/**
+ * @brief MLinear is a Mask that is round, with a linear fall-off from full
+ * intensity at the center to no intensity at the  extremity.
+ */
+class MLinear : public Mask {
+ public:
+  MLinear(float radius, float opacity);
 
-}  // namespace csci3081
+ protected:
+  float get_intensity(int x, int y, float radius);
+};
+
+}  // namespace image_tools
+
+#endif  // INCLUDE_MLINEAR_H_

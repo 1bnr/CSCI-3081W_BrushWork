@@ -1,43 +1,40 @@
 /*******************************************************************************
- * Name            : MLinear.cc
+ * Name            : t_spray_can.h
  * Project         : csci3081
- * Module          : ??
- * Description     : Implementation of Linear mask class
+ * Module          : Tool
+ * Description     : Header file for SprayCan tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
+#ifndef INCLUDE_TSPRAYCAN_H_
+#define INCLUDE_TSPRAYCAN_H_
+
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Mask_Linear.h"
-#include <cmath>
+#include "tool.h"
+#include <string>
 
 /*******************************************************************************
- * Namespaces
+ * Namespace Definitions
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
- * Constructors/Destructor
+ * Class Definitions
  ******************************************************************************/
-MLinear::MLinear(float radius, float opacity) : Mask(radius, opacity) {
-  GenerateMask();
-}
+/**
+ * @brief SETH FILL THIS IN
+ */
+class TSprayCan : public Tool {
+ public:
+  TSprayCan(void);
 
-/*******************************************************************************
- * Member Functions
- ******************************************************************************/
-float MLinear::get_intensity(int x, int y, float radius) {
-  float hyp = sqrt(x*x + y*y);
+  std::string name(void) { return "Spray Can"; }
+};
+}  // namespace image_tools
 
-  if (hyp <= radius) {
-    return 1 - hyp/radius;
-  } else {
-    return 0.0;
-  }
-}
-
-}  // namespace csci3081
+#endif  // INCLUDE_TSPRAYCAN_H_

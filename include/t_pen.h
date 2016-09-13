@@ -1,50 +1,41 @@
 /*******************************************************************************
- * Name            : THighlighter.h
+ * Name            : t_pen.h
  * Project         : csci3081
  * Module          : Tool
- * Description     : Header file for Highlighter class
+ * Description     : Header file for Pen tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
-
-#ifndef INCLUDE_THIGHLIGHTER_H_
-#define INCLUDE_THIGHLIGHTER_H_
+#ifndef INCLUDE_TPEN_H_
+#define INCLUDE_TPEN_H_
 
 /*******************************************************************************
- * Include Definitions
+ * Includes
  ******************************************************************************/
-#include "Tool.h"
+#include "tool.h"
 #include <string>
 
 /*******************************************************************************
  * Namespace Definitions
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This tool simulates the usage of a Highlighter.
- * It has a MOval mask with a radius of 7.0 (diameter of 15), an opacity of 0.4
- * (semi-transparent), an angle of 90 degrees counter-clockwise from the x-axis,
- * and an elongation ratio of 0.3
+ * @brief This tool simulates the usage of a Pen.
+ * It has a constant mask with a radius of 1.0 (diameter of 3) and an opacity
+ * of 1.0
  */
-class THighlighter : public Tool {
+class TPen : public Tool {
  public:
-  THighlighter(void);
+  TPen(void);
 
-  // overrides super's implementation
-  ColorData color_blend_math(
-      float mask,
-      ColorData toolColor,
-      ColorData canvasColor,
-      ColorData backgroundColor);
-
-  std::string name(void) { return "Highlighter"; }
+  std::string name(void) { return "Pen"; }
 };
-}  // namespace csci3081
+}  // namespace image_tools
 
-#endif  // INCLUDE_THIGHLIGHTER_H_
+#endif  // INCLUDE_TPEN_H_

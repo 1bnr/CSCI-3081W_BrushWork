@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : TPen.cc
+ * Name            : t_pen.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : Tool
  * Description     : Implementation of Pen tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,19 +12,19 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool_Pen.h"
-#include "Mask_Constant.h"
+#include "t_pen.h"
+#include "m_constant.h"
 
 #include <string>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
 TPen::TPen(void) { mask(new MConstant(1.0, 1.0)); }
 
-}  // namespace csci3081
+}  // namespace image_tools

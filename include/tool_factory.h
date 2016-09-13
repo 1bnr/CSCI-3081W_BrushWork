@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : ToolFactory.h
+ * Name            : tool_factory.h
  * Project         : csci3081
  * Module          : Tool
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
@@ -15,13 +15,13 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool.h"
+#include "tool.h"
 #include <vector>
 
 /*******************************************************************************
  * Namespace Definitions
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
@@ -57,6 +57,6 @@ class ToolFactory {
    */
   static Tool* CreateTool(int toolID);
 };
-}  // namespace csci3081
+}  // namespace image_tools
 
 #endif  // INCLUDE_TOOLFACTORY_H_

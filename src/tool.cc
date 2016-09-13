@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : tool.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : Tool
  * Description     : Implementation of Tool base class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,10 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool.h"
-#include "ColorData.h"
-#include "Mask.h"
-#include "PixelBuffer.h"
+#include "tool.h"
+#include "color_data.h"
+#include "mask.h"
+#include "pixel_buffer.h"
 
 #include <assert.h>
 #include <cmath>
@@ -24,7 +24,7 @@
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructor

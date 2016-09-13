@@ -1,49 +1,30 @@
 /*******************************************************************************
- * Name            : TEraser.h
- * Project         : csci3081
+ * Name            : t_spray_can.cc
+ * Project         : BrushWok
  * Module          : Tool
- * Description     : Header file for Eraserclass
+ * Description     : Implementation of SprayCan tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TERASER_H_
-#define INCLUDE_TERASER_H_
-
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool.h"
+#include "t_spray_can.h"
+#include "m_linear.h"
+
 #include <string>
 
 /*******************************************************************************
- * Namespace Definitions
+ * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
- * Class Definitions
+ * Constructors/Destructor
  ******************************************************************************/
-/**
- * @brief This tool simulates the usage of an Eraser.
- * It has a MConstant mask with a radius of 10.0 (diameter of 21) and an
- * opacity of 1.0 Eraser overrides the colorBlendMath() function to provide its
- * special eraser functionality.
- */
-class TEraser : public Tool {
- public:
-  TEraser(void);
+TSprayCan::TSprayCan(void) { mask(new MLinear(30, 0.2)); }
 
-  ColorData color_blend_math(
-      float mask,
-      ColorData toolColor,
-      ColorData canvasColor,
-      ColorData backgroundColor);
-
-  std::string name(void) { return "Eraser"; }
-};
-}  // namespace csci3081
-
-#endif  // INCLUDE_TERASER_H_
+}  // namespace image_tools

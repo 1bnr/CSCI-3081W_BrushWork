@@ -1,8 +1,8 @@
 /*******************************************************************************
- * Name            : TChalk.cc
+ * Name            : t_highlighter.cc
  * Project         : BrushWork
- * Module          : ??
- * Description     : Implementation of chalk tool class
+ * Module          : Tool
+ * Description     : Implementation of highlighter tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
@@ -12,36 +12,36 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool_Chalk.h"
-#include "Mask_Linear.h"
-#include "ColorData.h"
-#include <cmath>
-#include <cstdlib>
+#include "t_highlighter.h"
+#include "m_oval.h"
+#include "color_data.h"
+
 #include <string>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
- * Constructors/Destructor
+ * Constructors/Destructors
  ******************************************************************************/
-    TChalk::TChalk(void) : seed_(0) { mask(new MLinear(5.0, 1.0)); }
+THighlighter::THighlighter(void) {
+    mask(new MOval(7.0, 0.4, 90, 0.3));
+}
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-//  A random number between 0.0 and 1.0 is multiplied by a brightened_mask to
-//      vary the intensity used in the blending math
-ColorData TChalk::color_blend_math(float mask,
-                                 ColorData toolColor,
-                                 ColorData canvasColor,
-                                 ColorData backgroundColor) {
-  float r = static_cast<float>(rand_r(&seed_))/static_cast <float>(RAND_MAX);
-  float brightened_mask = (mask/2+0.5);
-  float intensity = round(brightened_mask*r);
+// Overrides the super's function to include the luminance of the canvasColor
+// in the calculation of the tool's intensity
+    ColorData THighlighter::color_blend_math(float mask,
+                                       ColorData toolColor,
+                                       ColorData canvasColor,
+                                       ColorData backgroundColor) {
+  float L = canvasColor.luminance();
+  float intensity = mask*L;
   return toolColor*intensity + canvasColor*(1.0-intensity);
 }
 
-}  // namespace csci3081
+}  // namespace image_tools

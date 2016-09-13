@@ -1,8 +1,8 @@
 /*******************************************************************************
- * Name            : MOval.cc
+ * Name            : MLinear.cc
  * Project         : csci3081
  * Module          : ??
- * Description     : Implementation of Oval mask class
+ * Description     : Implementation of Linear mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
@@ -12,36 +12,32 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Mask_Oval.h"
+#include "m_linear.h"
 #include <cmath>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-MOval::MOval(float radius, float opacity, float angle, float ratio)
-    : Mask(radius, opacity), angle_(angle), ratio_(ratio) {
+MLinear::MLinear(float radius, float opacity) : Mask(radius, opacity) {
   GenerateMask();
 }
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-float MOval::get_intensity(int x, int y, float radius) {
-  float a = radius;
-  float b = ratio_*radius;
-  float theta = angle_/180*M_PI;
+float MLinear::get_intensity(int x, int y, float radius) {
+  float hyp = sqrt(x*x + y*y);
 
-  float h = powf(x*cos(theta)+y*sin(theta), 2)/powf(a, 2) +
-            powf(x*sin(theta) - y*cos(theta), 2)/powf(b, 2);
-  if (h < 1)
-    return 1.0;
-  else
+  if (hyp <= radius) {
+    return 1 - hyp/radius;
+  } else {
     return 0.0;
+  }
 }
 
-}  // namespace csci3081
+}  // namespace image_tools

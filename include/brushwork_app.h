@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : BrushWorkApp.h
  * Project         : BrushWork
- * Module          : ??
+ * Module          : App
  * Description     : Header file for BrushWork application.
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -15,10 +15,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "BaseGfxApp.h"
-#include "ColorData.h"
-#include "PixelBuffer.h"
-#include "Tool.h"
+#include "base_gfx_app.h"
+#include "color_data.h"
+#include "pixel_buffer.h"
+#include "tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -90,7 +90,7 @@ class BrushWorkApp : public BaseGfxApp {
     PixelBuffer *display_buffer_;
 
     int cur_tool_; /**< Currently selected tool from UI  */
-    csci3081::Tool **tools_;
+    Tool **tools_;
 
     // Previous mouse coordinates for interpreting mouse moves
     int mouse_last_x_;
