@@ -46,10 +46,11 @@ ColorData Tool::color_blend_math(
   return tool_color*mask_pixel_amount + current_color*(1.0-mask_pixel_amount);
 }
 
-void Tool::ApplyToBuffer(int toolX,
-                         int toolY,
-                         ColorData toolColor,
-                         PixelBuffer* buffer) {
+void Tool::ApplyToBuffer(
+    int toolX,
+    int toolY,
+    ColorData tool_color,
+    PixelBuffer* buffer) {
   assert(mask_);
 
   int left_bound = std::max(toolX-mask_->width()/2, 0);
@@ -70,10 +71,11 @@ void Tool::ApplyToBuffer(int toolX,
       // and increase intensity quickly. We found that cubing
       // the mask intensity compensated for this.
       float slimmed_mask_value = powf(mask_value, 3);
-      ColorData c = color_blend_math(slimmed_mask_value,
-                                   toolColor,
-                                   current,
-                                   buffer->background_color());
+      ColorData c = color_blend_math(
+          slimmed_mask_value,
+          tool_color,
+          current,
+          buffer->background_color());
 
       buffer->set_pixel(x, y, c);
     }

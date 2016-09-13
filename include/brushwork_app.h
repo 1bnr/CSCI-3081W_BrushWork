@@ -54,7 +54,7 @@ class BrushWorkApp : public BaseGfxApp {
         char* argv[],
         int x,
         int y,
-        ColorData backgroundColor);
+        ColorData background_color);
 
  private:
     void InitGlui(void);
@@ -63,7 +63,7 @@ class BrushWorkApp : public BaseGfxApp {
     /**
      * @brief Initialize the buffers for the main window
      */
-    void InitializeBuffers(ColorData initialColor,
+    void InitializeBuffers(ColorData initial_color,
                            int width, int height);
 
     /**
