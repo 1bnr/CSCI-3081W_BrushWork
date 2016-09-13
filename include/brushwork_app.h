@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : BrushWorkApp.h
+ * Name            : brushwork_app.h
  * Project         : BrushWork
  * Module          : App
  * Description     : Header file for BrushWork application.
@@ -9,16 +9,16 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BRUSHWORKAPP_H_
-#define INCLUDE_BRUSHWORKAPP_H_
+#ifndef INCLUDE_BRUSHWORK_APP_H_
+#define INCLUDE_BRUSHWORK_APP_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "base_gfx_app.h"
-#include "color_data.h"
-#include "pixel_buffer.h"
-#include "tool.h"
+#include "include/base_gfx_app.h"
+#include "include/color_data.h"
+#include "include/pixel_buffer.h"
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespaces
