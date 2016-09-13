@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : brushwork_app.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : App
  * Description     : Implementation of BrushWrok
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,10 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "BrushWorkApp.h"
-#include "ColorData.h"
-#include "PixelBuffer.h"
-#include "ToolFactory.h"
+#include "brushwork_app.h"
+#include "color_data.h"
+#include "pixel_buffer.h"
+#include "tool_factory.h"
 
 #include <assert.h>
 #include <cmath>
@@ -26,12 +26,13 @@
  ******************************************************************************/
 using std::cout;
 using std::endl;
-namespace brushwork = csci3081::brushwork;
+
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
-brushwork::BrushWorkApp::BrushWorkApp(int width,
+BrushWorkApp::BrushWorkApp(int width,
                            int height)
     : BaseGfxApp(width,
                  height),
@@ -47,28 +48,28 @@ brushwork::BrushWorkApp::BrushWorkApp(int width,
       spinner_g_(nullptr),
       spinner_b_(nullptr) {}
 
-brushwork::BrushWorkApp::~BrushWorkApp(void) {
-    if (display_buffer_) {
-        delete display_buffer_;
-    }
+BrushWorkApp::~BrushWorkApp(void) {
+  if (display_buffer_) {
+    delete display_buffer_;
+  }
 }
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void brushwork::BrushWorkApp::Init(
+void BrushWorkApp::Init(
     int argc,
     char* argv[],
     int x,
     int y,
     ColorData backgroundColor) {
 
-    BaseGfxApp::Init(argc, argv,
-                     x, y,
-                     GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
-                     true,
-                     width()+51,
-                     50);
+  BaseGfxApp::Init(argc, argv,
+                   x, y,
+                   GLUT_RGB|GLUT_DOUBLE|GLUT_DEPTH,
+                   true,
+                   width()+51,
+                   50);
 
   // Set the name of the window
   set_caption("BrushWork");
@@ -86,13 +87,14 @@ void brushwork::BrushWorkApp::Init(
   InitGraphics();
 }
 
-void brushwork::BrushWorkApp::Display(void) {
-    DrawPixels(0, 0, width(), height(), display_buffer_->data());
+void BrushWorkApp::Display(void) {
+  DrawPixels(0, 0, width(), height(), display_buffer_->data());
 }
 
-void brushwork::BrushWorkApp::MouseMoved(int x, int y) {}
 
-void brushwork::BrushWorkApp::MouseDragged(int x, int y) {
+void BrushWorkApp::MouseMoved(int x, int y) {}
+
+void BrushWorkApp::MouseDragged(int x, int y) {
   int max_steps = 30;
 
   // We implimented a smoothing feature by interpolating between
@@ -133,7 +135,7 @@ void brushwork::BrushWorkApp::MouseDragged(int x, int y) {
   mouse_last_x_ = x;
   mouse_last_y_ = y;
 }
-void brushwork::BrushWorkApp::LeftMouseDown(int x, int y) {
+void BrushWorkApp::LeftMouseDown(int x, int y) {
   tools_[cur_tool_]->ApplyToBuffer(x, height()-y,
                                    ColorData(cur_color_red_,
                                              cur_color_green_,
@@ -143,18 +145,18 @@ void brushwork::BrushWorkApp::LeftMouseDown(int x, int y) {
   mouse_last_y_ = y;
 }
 
-void brushwork::BrushWorkApp::LeftMouseUp(int x, int y) {
+void BrushWorkApp::LeftMouseUp(int x, int y) {
   std::cout << "mouseReleased " << x << " " << y << std::endl;
 }
 
-void brushwork::BrushWorkApp::InitializeBuffers(
+void BrushWorkApp::InitializeBuffers(
     ColorData backgroundColor,
     int width,
     int height) {
   display_buffer_ = new PixelBuffer(width, height, backgroundColor);
 }
 
-void brushwork::BrushWorkApp::InitGlui(void) {
+void BrushWorkApp::InitGlui(void) {
   // Select first tool (this activates the first radio button in glui)
   cur_tool_ = 0;
 
@@ -201,7 +203,7 @@ void brushwork::BrushWorkApp::InitGlui(void) {
 }
 
 
-void brushwork::BrushWorkApp::InitGraphics(void) {
+void BrushWorkApp::InitGraphics(void) {
   // Initialize OpenGL for 2D graphics as used in the BrushWork app
   glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
   glEnable(GL_BLEND);
@@ -214,7 +216,7 @@ void brushwork::BrushWorkApp::InitGraphics(void) {
   glViewport(0, 0, width(), height());
 }
 
-void brushwork::BrushWorkApp::GluiControl(int controlID) {
+void BrushWorkApp::GluiControl(int controlID) {
   switch (controlID) {
     case UI_PRESET_RED:
       cur_color_red_ = 1;
@@ -264,3 +266,4 @@ void brushwork::BrushWorkApp::GluiControl(int controlID) {
   spinner_g_->set_float_val(cur_color_green_);
   spinner_r_->set_float_val(cur_color_red_);
 }
+}  // namespace image_tools

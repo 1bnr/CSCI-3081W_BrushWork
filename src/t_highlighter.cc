@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : THighlighter.cc
+ * Name            : t_highlighter.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : Tool
  * Description     : Implementation of highlighter tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,16 +12,16 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "THighlighter.h"
-#include "MOval.h"
-#include "ColorData.h"
+#include "t_highlighter.h"
+#include "m_oval.h"
+#include "color_data.h"
 
 #include <string>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructors
@@ -45,4 +45,4 @@ ColorData THighlighter::color_blend_math(
   return tool_color*intensity + current_color*(1.0-intensity);
 }
 
-}  // namespace csci3081
+}  // namespace image_tools

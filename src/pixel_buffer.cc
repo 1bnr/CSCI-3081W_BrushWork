@@ -12,8 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "PixelBuffer.h"
-#include "ColorData.h"
+#include "pixel_buffer.h"
+#include "color_data.h"
 
 #include <iostream>
 #include <cstring>
@@ -23,8 +23,7 @@
  ******************************************************************************/
 using std::cerr;
 using std::endl;
-using std::fill;
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructors
@@ -34,13 +33,10 @@ PixelBuffer::PixelBuffer(int w,
                          ColorData backgroundColor)
     : width_(w),
       height_(h),
-      pixels_(new ColorData[w*h]),
-      background_color_(new ColorData(backgroundColor)) {
-  FillPixelBufferWithColor(backgroundColor);
-}
+      pixels_(w*h,backgroundColor),
+      background_color_(new ColorData(backgroundColor)) {}
 
 PixelBuffer::~PixelBuffer(void) {
-  delete [] pixels_;
   delete background_color_;
 }
 
@@ -68,10 +64,6 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& newPixel) {
   }
 }
 
-void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
-  fill(pixels_, pixels_+width_*height_, color);
-}
-
 /*******************************************************************************
  * Operator Definitions
  ******************************************************************************/
@@ -85,11 +77,9 @@ PixelBuffer& PixelBuffer::operator=(
       this->height() != rhs.height()) {
     cerr << "CopyPixelBuffer: dimension mismatch" << endl;
   } else {
-    std::copy(this->pixels_,
-              this->pixels_+(sizeof(ColorData)*width_*height_),
-              rhs.pixels_);
+    this->pixels_ = rhs.pixels_;
   }
   return *this;
 } /* operator=() */
 
-}  // namespace csci3081
+}  // namespace image_tools

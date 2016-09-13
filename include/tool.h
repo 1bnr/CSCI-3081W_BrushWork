@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : Tool.h
+ * Name            : tool.h
  * Project         : csci3081
  * Module          : Tool
  * Description     : Header file for Tool base class
@@ -15,16 +15,16 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "PixelBuffer.h"
-#include "ColorData.h"
-#include "Mask.h"
+#include "pixel_buffer.h"
+#include "color_data.h"
+#include "mask.h"
 
 #include <string>
 
 /*******************************************************************************
  * Namespace Definitions
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
@@ -97,5 +97,5 @@ private:
 
     Mask *mask_;
 };
-}  // namespace csci3081
+}  // namespace image_tools
 #endif  // INCLUDE_TOOL_H_

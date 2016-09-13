@@ -1,48 +1,40 @@
 /*******************************************************************************
- * Name            : MOval.h
+ * Name            : m_constant.h
  * Project         : csci3081
  * Module          : Mask
- * Description     : Header File for Oval mask class
+ * Description     : Header File for Constant Mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_MOVAL_H_
-#define INCLUDE_MOVAL_H_
+#ifndef INCLUDE_MCONSTANT_H_
+#define INCLUDE_MCONSTANT_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Mask.h"
+#include "mask.h"
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief MOval is a Mask in the shape of an ellipse with an orientation.
- * It takes an angle in degrees, and a ratio between height and width.
- * It is of constant fill.
+ * @brief MConstant is a Mask that is round, with a constant fill  value.
  */
-class MOval : public Mask {
+class MConstant : public Mask {
  public:
-  MOval(float radius, float opacity, float angle, float ratio);
-  virtual ~MOval(void) {}
+  MConstant(float radius, float opacity);
 
  protected:
   float get_intensity(int x, int y, float radius);
-
- private:
-  float angle_;
-  float ratio_;
 };
+}  // namespace image_tools
 
-}  // namespace csci3081
-
-#endif  // INCLUDE_MOVAL_H_
+#endif  // INCLUDE_MCONSTANT_H_

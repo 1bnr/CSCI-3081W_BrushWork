@@ -1,50 +1,49 @@
 /*******************************************************************************
- * Name            : THighlighter.h
+ * Name            : t_eraser.h
  * Project         : csci3081
  * Module          : Tool
- * Description     : Header file for Highlighter class
+ * Description     : Header file for Eraserclass
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_THIGHLIGHTER_H_
-#define INCLUDE_THIGHLIGHTER_H_
+#ifndef INCLUDE_TERASER_H_
+#define INCLUDE_TERASER_H_
 
 /*******************************************************************************
- * Include Definitions
+ * Includes
  ******************************************************************************/
-#include "Tool.h"
+#include "tool.h"
 #include <string>
 
 /*******************************************************************************
  * Namespace Definitions
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This tool simulates the usage of a Highlighter.
- * It has a MOval mask with a radius of 7.0 (diameter of 15), an opacity of 0.4
- * (semi-transparent), an angle of 90 degrees counter-clockwise from the x-axis,
- * and an elongation ratio of 0.3
+ * @brief This tool simulates the usage of an Eraser.
+ * It has a constant mask with a radius of 10.0 (diameter of 21) and an
+ * opacity of 1.0 Eraser overrides the color_blend_math() function to provide its
+ * special eraser functionality.
  */
-class THighlighter : public Tool {
+class TEraser : public Tool {
  public:
-  THighlighter(void);
+  TEraser(void);
 
-  // overrides super's implementation
   ColorData color_blend_math(
       float mask_pixel_amount,
       ColorData tool_color,
       ColorData current_color,
       ColorData background_color);
 
-  std::string name(void) { return "Highlighter"; }
+  std::string name(void) { return "Eraser"; }
 };
-}  // namespace csci3081
+}  // namespace image_tools
 
-#endif  // INCLUDE_THIGHLIGHTER_H_
+#endif  // INCLUDE_TERASER_H_

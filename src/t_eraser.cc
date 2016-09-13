@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : TEraser.cc
+ * Name            : t_eraser.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : Tool
  * Description     : Implementation of eraser tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,16 +12,16 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "TEraser.h"
-#include "MConstant.h"
-#include "ColorData.h"
+#include "t_eraser.h"
+#include "m_constant.h"
+#include "color_data.h"
 
 #include <string>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructor
@@ -41,4 +41,4 @@ ColorData TEraser::color_blend_math(
   return background_color*mask_pixel_amount + current_color*(1-mask_pixel_amount);
 }
 
-}  // namespace csci3081
+}  // namespace image_tools

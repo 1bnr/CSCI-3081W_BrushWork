@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : TCalligraphyPen.cc
+ * Name            : t_calligraphy_pen.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : Tool
  * Description     : Implementation of calligraphy pen  tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,15 +12,15 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "TCalligraphyPen.h"
-#include "MOval.h"
+#include "t_calligraphy_pen.h"
+#include "m_oval.h"
 
 #include <string>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructors

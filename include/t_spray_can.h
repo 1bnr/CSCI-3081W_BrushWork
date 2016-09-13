@@ -1,42 +1,40 @@
 /*******************************************************************************
- * Name            : Mask.h
+ * Name            : t_spray_can.h
  * Project         : csci3081
- * Module          : Mask
- * Description     : Header file for Linear mask class
+ * Module          : Tool
+ * Description     : Header file for SprayCan tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_MLINEAR_H_
-#define INCLUDE_MLINEAR_H_
+#ifndef INCLUDE_TSPRAYCAN_H_
+#define INCLUDE_TSPRAYCAN_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Mask.h"
+#include "tool.h"
+#include <string>
 
 /*******************************************************************************
- * Namespaces
+ * Namespace Definitions
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief MLinear is a Mask that is round, with a linear fall-off from full
- * intensity at the center to no intensity at the  extremity.
+ * @brief SETH FILL THIS IN
  */
-class MLinear : public Mask {
+class TSprayCan : public Tool {
  public:
-  MLinear(float radius, float opacity);
+  TSprayCan(void);
 
- protected:
-  float get_intensity(int x, int y, float radius);
+  std::string name(void) { return "Spray Can"; }
 };
+}  // namespace image_tools
 
-}  // namespace csci3081
-
-#endif  // INCLUDE_MLINEAR_H_
+#endif  // INCLUDE_TSPRAYCAN_H_

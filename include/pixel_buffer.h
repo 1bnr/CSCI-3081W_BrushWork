@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : PixelBuffer.h
+ * Name            : pixel_buffer.h
  * Project         : BrushWork
- * Module          : ??
+ * Module          : utils
  * Description     : Header file for PixelBuffer class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -15,12 +15,14 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "ColorData.h"
+#include "color_data.h"
+
+#include <vector>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
@@ -43,7 +45,7 @@ class PixelBuffer {
    */
   void set_pixel(int x, int y, const ColorData& color);
 
-  inline ColorData const *data(void) const { return pixels_; }
+  inline ColorData const *data(void) const { return &pixels_[0]; }
   inline int height(void) const { return height_; }
   inline int width(void) const { return width_; }
 
@@ -52,11 +54,6 @@ class PixelBuffer {
    * @return The background color
    */
   ColorData background_color(void) { return *background_color_; }
-
-  /**
-   * @brief Fill the pixel buffer with the specified color
-   */
-  void FillPixelBufferWithColor(ColorData color);
 
   /**
    * @brief Get the color of a specific pixel
@@ -69,11 +66,11 @@ class PixelBuffer {
   const int width_; /**< X dimension--cannot be changed  */
   const int height_; /**< Y dimension--cannot be changed  */
 
-  ColorData *pixels_; /**< Raw pixel data */
+  std::vector<ColorData> pixels_; /**< Raw pixel data */
   ColorData *background_color_; /** Color used to initialize the pixel buffer */
 
   PixelBuffer(const PixelBuffer&rhs) = delete;
   PixelBuffer& operator=(const PixelBuffer &rhs);
 };
-}  // namespace csci3081
+}  // namespace image_tools
 #endif  // INCLUDE_PIXELBUFFER_H_

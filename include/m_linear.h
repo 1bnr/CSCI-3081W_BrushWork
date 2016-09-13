@@ -1,41 +1,42 @@
 /*******************************************************************************
- * Name            : TPen.h
+ * Name            : m_linear.h
  * Project         : csci3081
- * Module          : ??
- * Description     : Header file for Pen tool class
+ * Module          : Mask
+ * Description     : Header file for Linear mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
-#ifndef INCLUDE_TPEN_H_
-#define INCLUDE_TPEN_H_
+
+#ifndef INCLUDE_MLINEAR_H_
+#define INCLUDE_MLINEAR_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool.h"
-#include <string>
+#include "mask.h"
 
 /*******************************************************************************
- * Namespace Definitions
+ * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This tool simulates the usage of a Pen.
- * It has a MConstant mask with a radius of 1.0 (diameter of 3) and an opacity
- * of 1.0
+ * @brief MLinear is a Mask that is round, with a linear fall-off from full
+ * intensity at the center to no intensity at the  extremity.
  */
-class TPen : public Tool {
+class MLinear : public Mask {
  public:
-  TPen(void);
+  MLinear(float radius, float opacity);
 
-  std::string name(void) { return "Pen"; }
+ protected:
+  float get_intensity(int x, int y, float radius);
 };
-}  // namespace csci3081
 
-#endif  // INCLUDE_TPEN_H_
+}  // namespace image_tools
+
+#endif  // INCLUDE_MLINEAR_H_

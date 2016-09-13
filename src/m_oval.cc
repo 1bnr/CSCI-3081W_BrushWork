@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : MOval.cc
  * Project         : csci3081
- * Module          : ??
+ * Module          : Mask
  * Description     : Implementation of Oval mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,13 +12,13 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "MOval.h"
+#include "m_oval.h"
 #include <cmath>
 
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructor
@@ -44,4 +44,4 @@ float MOval::get_intensity(int x, int y, float radius) {
     return 0.0;
 }
 
-}  // namespace csci3081
+}  // namespace image_tools

@@ -1,52 +1,48 @@
 /*******************************************************************************
- * Name            : TChalk.h
+ * Name            : m_oval.h
  * Project         : csci3081
- * Module          : Tool
- * Description     : Header file for Chalk class
+ * Module          : Mask
+ * Description     : Header File for Oval mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TCHALK_H_
-#define INCLUDE_TCHALK_H_
+#ifndef INCLUDE_MOVAL_H_
+#define INCLUDE_MOVAL_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "Tool.h"
-#include <string>
+#include "mask.h"
 
 /*******************************************************************************
- * Namespace Definitions
+ * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This tool simulates the usage of Chalk.
- * It has an MLinear mask with a radius of 5.0 (diameter of 11), an opacity of
- * 1.0 (completely opaque).  color_blend_math is overriden to randomly change
- * the tool's intensity at a pixel.
+ * @brief MOval is a Mask in the shape of an ellipse with an orientation.
+ * It takes an angle in degrees, and a ratio between height and width.
+ * It is of constant fill.
  */
-class TChalk : public Tool {
+class MOval : public Mask {
  public:
-  TChalk(void);
+  MOval(float radius, float opacity, float angle, float ratio);
+  virtual ~MOval(void) {}
 
-  ColorData color_blend_math(
-      float mask_pixel_amount,
-      ColorData tool_color,
-      ColorData current_color,
-      ColorData background_color);
-
-  std::string name(void) { return "Chalk"; }
+ protected:
+  float get_intensity(int x, int y, float radius);
 
  private:
-  unsigned seed_; /** Random seed for use with color blending */
+  float angle_;
+  float ratio_;
 };
-}  // namespace csci3081
 
-#endif  // INCLUDE_TCHALK_H_
+}  // namespace image_tools
+
+#endif  // INCLUDE_MOVAL_H_

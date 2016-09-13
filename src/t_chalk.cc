@@ -1,7 +1,7 @@
 /*******************************************************************************
- * Name            : TChalk.cc
+ * Name            : t_chalk.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : Tool
  * Description     : Implementation of chalk tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,10 +12,9 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-
-#include "TChalk.h"
-#include "MLinear.h"
-#include "ColorData.h"
+#include "t_chalk.h"
+#include "m_linear.h"
+#include "color_data.h"
 #include <cmath>
 #include <cstdlib>
 #include <string>
@@ -23,12 +22,12 @@
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
-namespace csci3081 {
+namespace image_tools {
 
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-    TChalk::TChalk(void) : seed_(0) { mask(new MLinear(5.0, 1.0)); }
+TChalk::TChalk(void) : seed_(0) { mask(new MLinear(5.0, 1.0)); }
 
 /*******************************************************************************
  * Member Functions
@@ -46,4 +45,4 @@ ColorData TChalk::color_blend_math(
   return tool_color*intensity + current_color*(1.0-intensity);
 }
 
-}  // namespace csci3081
+}  // namespace image_tools
