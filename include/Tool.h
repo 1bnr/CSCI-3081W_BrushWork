@@ -66,17 +66,17 @@ protected:
     /**
      * @brief The definition of how the tool will operate on a single pixel on
      * the canvas when applied
-     * @param[in] mask SETH FILL THIS IN
+     * @param[in] mask_pixel_amount Value of the relevant pixal in the mask 
      * @param[in] toolColor Current color of the tool
-     * @param[in] canvasColor SETH FILL THIS IN
-     * @param[in] backgroundColor SETH FILL THIS IN
+     * @param[in] canvasColor Color of the background if no tool had been applied
+     * @param[in] currentColor Color present that this blend would replace
      * @return The new color definition for the pixel
      */
     virtual ColorData color_blend_math(
-        float mask,
-        ColorData toolColor,
-        ColorData canvasColor,
-        ColorData backgroundColor);
+        float mask_pixel_amount,
+        ColorData tool_color,
+        ColorData current_color,
+        ColorData background_color);
 
     /**
      * @brief Get the mask associated with the tool

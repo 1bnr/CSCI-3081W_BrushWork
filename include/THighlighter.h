@@ -38,10 +38,10 @@ class THighlighter : public Tool {
 
   // overrides super's implementation
   ColorData color_blend_math(
-      float mask,
-      ColorData toolColor,
-      ColorData canvasColor,
-      ColorData backgroundColor);
+      float mask_pixel_amount,
+      ColorData tool_color,
+      ColorData current_color,
+      ColorData background_color);
 
   std::string name(void) { return "Highlighter"; }
 };

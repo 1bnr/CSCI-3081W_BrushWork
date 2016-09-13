@@ -35,13 +35,14 @@ THighlighter::THighlighter(void) {
  ******************************************************************************/
 // Overrides the super's function to include the luminance of the canvasColor
 // in the calculation of the tool's intensity
-    ColorData THighlighter::color_blend_math(float mask,
-                                       ColorData toolColor,
-                                       ColorData canvasColor,
-                                       ColorData backgroundColor) {
-  float L = canvasColor.luminance();
-  float intensity = mask*L;
-  return toolColor*intensity + canvasColor*(1.0-intensity);
+ColorData THighlighter::color_blend_math(
+    float mask_pixel_amount,
+    ColorData tool_color,
+    ColorData current_color,
+    ColorData background_color) {
+  float L = current_color.luminance();
+  float intensity = mask_pixel_amount*L;
+  return tool_color*intensity + current_color*(1.0-intensity);
 }
 
 }  // namespace csci3081

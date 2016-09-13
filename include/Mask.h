@@ -85,10 +85,10 @@ class Mask {
   Mask(const Mask& rhs) = delete;
   Mask& operator=(const Mask& rhs) = delete;
 
-  float radius_; /** SETH FILL THIS IN  */
+  float radius_; /**< max distance in pixels the mask reaches from center  */
   float opacity_;
-  int height_; /** SETH FILL THIS IN  */
-  int width_; /** SETH FILE THIS IN  */
+  int height_; /**< number of pixel rows available in the mask  */
+  int width_; /**< number pixel columns available in the mask  */
   float *mask_array_;
 
 };
