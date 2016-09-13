@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : t_spray_can.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Tool
  * Description     : Header file for SprayCan tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

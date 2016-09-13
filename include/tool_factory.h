@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : tool_factory.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Tool
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Description     : Header file for ToolFactoryppp

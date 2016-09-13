@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Name            : MOval.cc
- * Project         : csci3081
+ * Name            : m_oval.cc
+ * Project         : image_tools
  * Module          : Mask
  * Description     : Implementation of Oval mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

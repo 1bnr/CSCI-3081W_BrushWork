@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : m_constant.cc
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Mask
  * Description     : Implementation of Constant mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

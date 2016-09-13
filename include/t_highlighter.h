@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : t_highlighter.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Tool
  * Description     : Header file for Highlighter class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

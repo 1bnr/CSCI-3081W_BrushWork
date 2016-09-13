@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : Mask.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Mask
  * Description     : Header file for Mask base class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

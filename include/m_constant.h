@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : m_constant.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Mask
  * Description     : Header File for Constant Mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
