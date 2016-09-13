@@ -12,9 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-
-#include "TSprayCan.h"
-#include "MLinear.h"
+#include "Tool_SprayCan.h"
+#include "Mask_Linear.h"
 
 #include <string>
 

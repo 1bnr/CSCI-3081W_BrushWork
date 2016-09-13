@@ -17,6 +17,8 @@
  ******************************************************************************/
 #include "ColorData.h"
 
+#include <vector>
+
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
@@ -43,7 +45,7 @@ class PixelBuffer {
    */
   void set_pixel(int x, int y, const ColorData& color);
 
-  inline ColorData const *data(void) const { return pixels_; }
+  inline ColorData const *data(void) const { return &pixels_[0]; }
   inline int height(void) const { return height_; }
   inline int width(void) const { return width_; }
 
@@ -52,11 +54,6 @@ class PixelBuffer {
    * @return The background color
    */
   ColorData background_color(void) { return *background_color_; }
-
-  /**
-   * @brief Fill the pixel buffer with the specified color
-   */
-  void FillPixelBufferWithColor(ColorData color);
 
   /**
    * @brief Get the color of a specific pixel
@@ -69,7 +66,7 @@ class PixelBuffer {
   const int width_; /**< X dimension--cannot be changed  */
   const int height_; /**< Y dimension--cannot be changed  */
 
-  ColorData *pixels_; /**< Raw pixel data */
+  std::vector<ColorData> pixels_; /**< Raw pixel data */
   ColorData *background_color_; /** Color used to initialize the pixel buffer */
 
   PixelBuffer(const PixelBuffer&rhs) = delete;

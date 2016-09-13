@@ -14,12 +14,12 @@
  ******************************************************************************/
 #include "ToolFactory.h"
 #include "Tool.h"
-#include "TPen.h"
-#include "TEraser.h"
-#include "TCalligraphyPen.h"
-#include "THighlighter.h"
-#include "TSprayCan.h"
-#include "TChalk.h"
+#include "Tool_Pen.h"
+#include "Tool_Eraser.h"
+#include "Tool_CalligraphyPen.h"
+#include "Tool_Highlighter.h"
+#include "Tool_SprayCan.h"
+#include "Tool_Chalk.h"
 
 /*******************************************************************************
  * Namespaces

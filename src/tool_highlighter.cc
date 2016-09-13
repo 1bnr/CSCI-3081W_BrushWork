@@ -12,8 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "THighlighter.h"
-#include "MOval.h"
+#include "Tool_Highlighter.h"
+#include "Mask_Oval.h"
 #include "ColorData.h"
 
 #include <string>

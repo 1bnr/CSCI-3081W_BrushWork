@@ -12,9 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-
-#include "TChalk.h"
-#include "MLinear.h"
+#include "Tool_Chalk.h"
+#include "Mask_Linear.h"
 #include "ColorData.h"
 #include <cmath>
 #include <cstdlib>

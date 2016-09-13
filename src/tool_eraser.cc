@@ -12,8 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "TEraser.h"
-#include "MConstant.h"
+#include "Tool_Eraser.h"
+#include "Mask_Constant.h"
 #include "ColorData.h"
 
 #include <string>

@@ -12,8 +12,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "TCalligraphyPen.h"
-#include "MOval.h"
+#include "Tool_CalligraphyPen.h"
+#include "Mask_Oval.h"
 
 #include <string>
 
