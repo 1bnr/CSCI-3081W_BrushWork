@@ -12,14 +12,13 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "brushwork_app.h"
-#include "color_data.h"
-#include "pixel_buffer.h"
-#include "tool_factory.h"
-
+#include "include/brushwork_app.h"
 #include <assert.h>
 #include <cmath>
 #include <iostream>
+#include "include/color_data.h"
+#include "include/pixel_buffer.h"
+#include "include/tool_factory.h"
 
 /*******************************************************************************
  * Namespaces

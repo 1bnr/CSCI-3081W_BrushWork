@@ -15,11 +15,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "pixel_buffer.h"
-#include "color_data.h"
-#include "mask.h"
-
 #include <string>
+#include "include/pixel_buffer.h"
+#include "include/color_data.h"
+#include "include/mask.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -38,64 +37,62 @@ namespace image_tools {
  * Inherited classes may optionally override the default color_blend_math().
  */
 class Tool {
-public:
-    Tool(void);
-    virtual ~Tool(void);
+ public:
+  Tool(void);
+  virtual ~Tool(void);
 
-    /**
-     * @brief Apply the selected tool to the buffer
-     * @param[in] toolX The X coordinate of current tool location
-     * @param[in] toolY The Y coordinate of current tool location
-     * @param[in] toolColor The current color of the tool
-     * @param buffer The buffer of pixels to apply the tool to
-     */
-    virtual void ApplyToBuffer(
-        int toolX,
-        int toolY,
-        ColorData toolColor,
-        PixelBuffer* buffer);
+  /**
+   * @brief Apply the selected tool to the buffer
+   * @param[in] toolX The X coordinate of current tool location
+   * @param[in] toolY The Y coordinate of current tool location
+   * @param[in] toolColor The current color of the tool
+   * @param buffer The buffer of pixels to apply the tool to
+   */
+  virtual void ApplyToBuffer(
+      int toolX,
+      int toolY,
+      ColorData toolColor,
+      PixelBuffer* buffer);
 
-    /**
-     * @brief The name of the tool
-     * @return
-     */
-    virtual std::string name(void) = 0;
+  /**
+   * @brief The name of the tool
+   * @return
+   */
+  virtual std::string name(void) = 0;
 
-protected:
+ protected:
+  /**
+   * @brief The definition of how the tool will operate on a single pixel on
+   * the canvas when applied
+   * @param[in] mask SETH FILL THIS IN
+   * @param[in] toolColor Current color of the tool
+   * @param[in] canvasColor SETH FILL THIS IN
+   * @param[in] backgroundColor SETH FILL THIS IN
+   * @return The new color definition for the pixel
+   */
+  virtual ColorData color_blend_math(
+      float mask,
+      ColorData toolColor,
+      ColorData canvasColor,
+      ColorData backgroundColor);
 
-    /**
-     * @brief The definition of how the tool will operate on a single pixel on
-     * the canvas when applied
-     * @param[in] mask SETH FILL THIS IN
-     * @param[in] toolColor Current color of the tool
-     * @param[in] canvasColor SETH FILL THIS IN
-     * @param[in] backgroundColor SETH FILL THIS IN
-     * @return The new color definition for the pixel
-     */
-    virtual ColorData color_blend_math(
-        float mask,
-        ColorData toolColor,
-        ColorData canvasColor,
-        ColorData backgroundColor);
+  /**
+   * @brief Get the mask associated with the tool
+   * @return The mask
+   */
+  Mask* mask(void) { return mask_; }
 
-    /**
-     * @brief Get the mask associated with the tool
-     * @return The mask
-     */
-    Mask* mask(void) { return mask_; }
+  /**
+   * Set the mask associated with the tool
+   */
+  void mask(Mask* mask) { mask_ = mask; }
 
-    /**
-     * Set the mask associated with the tool
-     */
-    void mask(Mask* mask) { mask_ = mask; }
+ private:
+  /* Usage of copy/move construction or assignment is disallowed */
+  Tool(const Tool& rhs) = delete;
+  Tool& operator=(const Tool& rhs) = delete;
 
-private:
-
-    /* Usage of copy/move construction or assignment is disallowed */
-    Tool(const Tool& rhs) = delete;
-    Tool& operator=(const Tool& rhs) = delete;
-
-    Mask *mask_;
+  Mask *mask_;
 };
 }  // namespace image_tools
 #endif  // INCLUDE_TOOL_H_

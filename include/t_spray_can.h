@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TSPRAYCAN_H_
-#define INCLUDE_TSPRAYCAN_H_
+#ifndef INCLUDE_T_SPRAY_CAN_H_
+#define INCLUDE_T_SPRAY_CAN_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "tool.h"
 #include <string>
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -37,4 +37,4 @@ class TSprayCan : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_TSPRAYCAN_H_
+#endif  // INCLUDE_T_SPRAY_CAN_H_

@@ -12,14 +12,14 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "tool_factory.h"
-#include "tool.h"
-#include "t_pen.h"
-#include "t_eraser.h"
-#include "t_calligraphy_pen.h"
-#include "t_highlighter.h"
-#include "t_spray_can.h"
-#include "t_chalk.h"
+#include "include/tool_factory.h"
+#include "include/tool.h"
+#include "include/t_pen.h"
+#include "include/t_eraser.h"
+#include "include/t_calligraphy_pen.h"
+#include "include/t_highlighter.h"
+#include "include/t_spray_can.h"
+#include "include/t_chalk.h"
 
 /*******************************************************************************
  * Namespaces
@@ -59,4 +59,4 @@ Tool* ToolFactory::CreateTool(int toolID) {
   return tool;
 }
 
-}  // namespace csci3081
+}  // namespace image_tools

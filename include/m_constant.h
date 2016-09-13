@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_MCONSTANT_H_
-#define INCLUDE_MCONSTANT_H_
+#ifndef INCLUDE_M_CONSTANT_H_
+#define INCLUDE_M_CONSTANT_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "mask.h"
+#include "include/mask.h"
 
 /*******************************************************************************
  * Namespaces
@@ -37,4 +37,4 @@ class MConstant : public Mask {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_MCONSTANT_H_
+#endif  // INCLUDE_M_CONSTANT_H_

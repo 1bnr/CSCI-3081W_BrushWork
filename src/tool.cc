@@ -12,14 +12,13 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "tool.h"
-#include "color_data.h"
-#include "mask.h"
-#include "pixel_buffer.h"
-
+#include "include/tool.h"
 #include <assert.h>
 #include <cmath>
 #include <algorithm>
+#include "include/color_data.h"
+#include "include/mask.h"
+#include "include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -79,4 +78,4 @@ void Tool::ApplyToBuffer(int toolX,
   }
 }
 
-}  // namespace csci3081
+}  // namespace image_tools

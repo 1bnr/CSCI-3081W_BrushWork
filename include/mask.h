@@ -58,7 +58,6 @@ class Mask {
   float value(int x, int y) const;
 
  protected:
-
   /**
    * @brief Set the value of the mask at (x,y) with the radius of the tool shape
    */
@@ -90,9 +89,7 @@ class Mask {
   int height_; /** SETH FILL THIS IN  */
   int width_; /** SETH FILE THIS IN  */
   float *mask_array_;
-
 };
-
 }  // namespace image_tools
 
 #endif  // INCLUDE_MASK_H_

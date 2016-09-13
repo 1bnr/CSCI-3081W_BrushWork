@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : pixel_buffer.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : utils
  * Description     : Implementation of PixelBuffer class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,11 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "pixel_buffer.h"
-#include "color_data.h"
-
+#include "include/pixel_buffer.h"
 #include <iostream>
 #include <cstring>
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -33,7 +32,7 @@ PixelBuffer::PixelBuffer(int w,
                          ColorData backgroundColor)
     : width_(w),
       height_(h),
-      pixels_(w*h,backgroundColor),
+      pixels_(w*h, backgroundColor),
       background_color_(new ColorData(backgroundColor)) {}
 
 PixelBuffer::~PixelBuffer(void) {

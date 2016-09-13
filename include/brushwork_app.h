@@ -109,4 +109,4 @@ class BrushWorkApp : public BaseGfxApp {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_BRUSHWORKAPP_H_
+#endif  // INCLUDE_BRUSHWORK_APP_H_

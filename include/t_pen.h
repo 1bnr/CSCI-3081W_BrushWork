@@ -8,14 +8,15 @@
  * Original Author : Seth Johnson
  *
  ******************************************************************************/
-#ifndef INCLUDE_TPEN_H_
-#define INCLUDE_TPEN_H_
+
+#ifndef INCLUDE_T_PEN_H_
+#define INCLUDE_T_PEN_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "tool.h"
 #include <string>
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -38,4 +39,4 @@ class TPen : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_TPEN_H_
+#endif  // INCLUDE_T_PEN_H_

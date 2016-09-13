@@ -12,11 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "t_highlighter.h"
-#include "m_oval.h"
-#include "color_data.h"
-
+#include "include/t_highlighter.h"
 #include <string>
+#include "include/m_oval.h"
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces

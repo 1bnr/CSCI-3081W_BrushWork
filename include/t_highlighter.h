@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_THIGHLIGHTER_H_
-#define INCLUDE_THIGHLIGHTER_H_
+#ifndef INCLUDE_T_HIGHLIGHTER_H_
+#define INCLUDE_T_HIGHLIGHTER_H_
 
 /*******************************************************************************
  * Include Definitions
  ******************************************************************************/
-#include "tool.h"
 #include <string>
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -47,4 +47,4 @@ class THighlighter : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_THIGHLIGHTER_H_
+#endif  // INCLUDE_T_HIGHLIGHTER_H_

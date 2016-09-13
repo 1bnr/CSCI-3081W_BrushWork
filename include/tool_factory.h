@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TOOLFACTORY_H_
-#define INCLUDE_TOOLFACTORY_H_
+#ifndef INCLUDE_TOOL_FACTORY_H_
+#define INCLUDE_TOOL_FACTORY_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "tool.h"
 #include <vector>
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -59,4 +59,4 @@ class ToolFactory {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_TOOLFACTORY_H_
+#endif  // INCLUDE_TOOL_FACTORY_H_

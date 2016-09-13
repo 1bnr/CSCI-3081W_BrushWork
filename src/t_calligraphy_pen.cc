@@ -12,10 +12,9 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "t_calligraphy_pen.h"
-#include "m_oval.h"
-
+#include "include/t_calligraphy_pen.h"
 #include <string>
+#include "include/m_oval.h"
 
 /*******************************************************************************
  * Namespaces
@@ -29,4 +28,4 @@ TCalligraphyPen::TCalligraphyPen(void) {
     mask(new MOval(7.0, 1.0, 70.0, 0.333));
 }
 
-}  // namespace csci3081
+}  // namespace image_tools

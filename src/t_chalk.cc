@@ -12,12 +12,12 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "t_chalk.h"
-#include "m_linear.h"
-#include "color_data.h"
+#include "include/t_chalk.h"
 #include <cmath>
 #include <cstdlib>
 #include <string>
+#include "include/m_linear.h"
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces

@@ -12,11 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "t_eraser.h"
-#include "m_constant.h"
-#include "color_data.h"
-
+#include "include/t_eraser.h"
 #include <string>
+#include "include/m_constant.h"
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces
