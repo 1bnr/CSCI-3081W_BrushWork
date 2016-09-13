@@ -64,7 +64,7 @@ CXXFLAGS = $(OPT) -g -W -Wall -Wextra -Weffc++ -std=gnu++11 -Wno-unused-paramete
 #
 # In both these cases the linker will "drop" the library and you will see
 # unresolved reference errors.
-CXXLIBS     = -lrt -lm -lpthread
+CXXLIBS     = -lm -lpthread
 
 # For graphics support, we also need to link with the Glut and OpenGL libraries.
 # This is specified differently depending on whether we are on linux or OSX.
