@@ -90,7 +90,7 @@ class BrushWorkApp : public BaseGfxApp {
     PixelBuffer *display_buffer_;
 
     int cur_tool_; /**< Currently selected tool from UI  */
-    Tool **tools_;
+    std::vector<Tool*> tools_;
 
     // Previous mouse coordinates for interpreting mouse moves
     int mouse_last_x_;

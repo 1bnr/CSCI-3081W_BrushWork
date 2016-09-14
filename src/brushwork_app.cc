@@ -36,8 +36,8 @@ BrushWorkApp::BrushWorkApp(int width,
     : BaseGfxApp(width,
                  height),
       display_buffer_(nullptr),
-      cur_tool_(0.0),
-      tools_(new Tool*[ToolFactory::num_tools()]),
+      cur_tool_(0),
+      tools_(),
       mouse_last_x_(0),
       mouse_last_y_(0),
       cur_color_red_(0.0),
@@ -80,7 +80,7 @@ void BrushWorkApp::Init(
   for (int i = 0; i < ToolFactory::num_tools(); i++) {
     Tool* t = ToolFactory::CreateTool(i);
     assert(t);
-    tools_[i] = t;
+    tools_.push_back(t);
   }
   InitGlui();
   InitGraphics();

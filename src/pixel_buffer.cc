@@ -32,8 +32,8 @@ PixelBuffer::PixelBuffer(int w,
                          ColorData background_color)
     : width_(w),
       height_(h),
-      pixels_(w*h, backgroundColor),
-      background_color_(new ColorData(backgroundColor)) {}
+      pixels_(w*h, background_color),
+      background_color_(new ColorData(background_color)) {}
 
 PixelBuffer::~PixelBuffer(void) {
     delete background_color_;
@@ -61,10 +61,6 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& new_pixel) {
         int index = x + width_*(y);  // x + width*(height-(y+1));
         pixels_[index] = new_pixel;
     }
-}
-
-void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
-    std::fill(pixels_, pixels_+width_*height_, color);
 }
 
 }  // namespace image_tools
