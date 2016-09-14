@@ -29,14 +29,14 @@ namespace image_tools {
  ******************************************************************************/
 PixelBuffer::PixelBuffer(int w,
                          int h,
-                         ColorData backgroundColor)
+                         ColorData background_color)
     : width_(w),
       height_(h),
       pixels_(w*h, backgroundColor),
       background_color_(new ColorData(backgroundColor)) {}
 
 PixelBuffer::~PixelBuffer(void) {
-  delete background_color_;
+    delete background_color_;
 }
 
 /*******************************************************************************
@@ -63,22 +63,8 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& new_pixel) {
     }
 }
 
-/*******************************************************************************
- * Operator Definitions
- ******************************************************************************/
-PixelBuffer& PixelBuffer::operator=(
-    const PixelBuffer &rhs) {
-  /* Check for self-assignment! */
-  if (this == &rhs) {
-    return *this;
-  }
-  if (this->width() != rhs.width() ||
-      this->height() != rhs.height()) {
-    cerr << "CopyPixelBuffer: dimension mismatch" << endl;
-  } else {
-    this->pixels_ = rhs.pixels_;
-  }
-  return *this;
-} /* operator=() */
+void PixelBuffer::FillPixelBufferWithColor(ColorData color) {
+    std::fill(pixels_, pixels_+width_*height_, color);
+}
 
 }  // namespace image_tools
