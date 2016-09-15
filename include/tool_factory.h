@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : tool_factory.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Tool
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Description     : Header file for ToolFactoryppp
@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TOOLFACTORY_H_
-#define INCLUDE_TOOLFACTORY_H_
+#ifndef INCLUDE_TOOL_FACTORY_H_
+#define INCLUDE_TOOL_FACTORY_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "tool.h"
 #include <vector>
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -59,4 +59,4 @@ class ToolFactory {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_TOOLFACTORY_H_
+#endif  // INCLUDE_TOOL_FACTORY_H_

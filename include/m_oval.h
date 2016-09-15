@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : m_oval.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Mask
  * Description     : Header File for Oval mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_MOVAL_H_
-#define INCLUDE_MOVAL_H_
+#ifndef INCLUDE_M_OVAL_H_
+#define INCLUDE_M_OVAL_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "mask.h"
+#include "include/mask.h"
 
 /*******************************************************************************
  * Namespaces
@@ -45,4 +45,4 @@ class MOval : public Mask {
 
 }  // namespace image_tools
 
-#endif  // INCLUDE_MOVAL_H_
+#endif  // INCLUDE_M_OVAL_H_

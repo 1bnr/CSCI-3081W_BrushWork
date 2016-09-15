@@ -13,7 +13,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "base_gfx_app.h"
+#include "include/base_gfx_app.h"
 #include <assert.h>
 #include <iostream>
 #include <string>

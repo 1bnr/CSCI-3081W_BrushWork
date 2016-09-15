@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : BrushWorkApp.h
+ * Name            : brushwork_app.h
  * Project         : BrushWork
  * Module          : App
  * Description     : Header file for BrushWork application.
@@ -9,16 +9,16 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BRUSHWORKAPP_H_
-#define INCLUDE_BRUSHWORKAPP_H_
+#ifndef INCLUDE_BRUSHWORK_APP_H_
+#define INCLUDE_BRUSHWORK_APP_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "base_gfx_app.h"
-#include "color_data.h"
-#include "pixel_buffer.h"
-#include "tool.h"
+#include "include/base_gfx_app.h"
+#include "include/color_data.h"
+#include "include/pixel_buffer.h"
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -90,7 +90,7 @@ class BrushWorkApp : public BaseGfxApp {
     PixelBuffer *display_buffer_;
 
     int cur_tool_; /**< Currently selected tool from UI  */
-    Tool **tools_;
+    std::vector<Tool*> tools_;
 
     // Previous mouse coordinates for interpreting mouse moves
     int mouse_last_x_;
@@ -109,4 +109,4 @@ class BrushWorkApp : public BaseGfxApp {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_BRUSHWORKAPP_H_
+#endif  // INCLUDE_BRUSHWORK_APP_H_

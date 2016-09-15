@@ -12,11 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "t_eraser.h"
-#include "m_constant.h"
-#include "color_data.h"
-
+#include "include/t_eraser.h"
 #include <string>
+#include "include/m_constant.h"
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces
@@ -38,7 +37,8 @@ ColorData TEraser::color_blend_math(
     ColorData tool_color,
     ColorData current_color,
     ColorData background_color) {
-  return background_color*mask_pixel_amount + current_color*(1-mask_pixel_amount);
+  return background_color*mask_pixel_amount +
+      current_color*(1-mask_pixel_amount);
 }
 
 }  // namespace image_tools

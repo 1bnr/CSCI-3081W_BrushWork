@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : Mask.cc
- * Project         : csci3081
- * Module          : ??
+ * Project         : image_tools
+ * Module          : Mask
  * Description     : Implementation of Mask class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,7 +12,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "mask.h"
+#include "include/mask.h"
 #include <cmath>
 #include <iostream>
 

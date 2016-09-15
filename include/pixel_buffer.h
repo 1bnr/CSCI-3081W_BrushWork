@@ -9,15 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_PIXELBUFFER_H_
-#define INCLUDE_PIXELBUFFER_H_
+#ifndef INCLUDE_PIXEL_BUFFER_H_
+#define INCLUDE_PIXEL_BUFFER_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "color_data.h"
-
 #include <vector>
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespaces
@@ -70,7 +69,7 @@ class PixelBuffer {
   ColorData *background_color_; /** Color used to initialize the pixel buffer */
 
   PixelBuffer(const PixelBuffer&rhs) = delete;
-  PixelBuffer& operator=(const PixelBuffer &rhs);
+  PixelBuffer& operator=(const PixelBuffer &rhs) = delete;
 };
 }  // namespace image_tools
-#endif  // INCLUDE_PIXELBUFFER_H_
+#endif  // INCLUDE_PIXEL_BUFFER_H_

@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : t_eraser.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Tool
  * Description     : Header file for Eraserclass
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TERASER_H_
-#define INCLUDE_TERASER_H_
+#ifndef INCLUDE_T_ERASER_H_
+#define INCLUDE_T_ERASER_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "tool.h"
 #include <string>
+#include "include/tool.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -46,4 +46,4 @@ class TEraser : public Tool {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_TERASER_H_
+#endif  // INCLUDE_T_ERASER_H_

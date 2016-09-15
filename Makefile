@@ -48,7 +48,7 @@ CXXLIBDIRS ?= -L$(GLUIDIR)/lib
 # We don't have control over GLUI, so suppress all compiler warnings its
 # headers may generate
 define CXXINCDIRS
--Iinclude \
+-I. \
 -isystem$(GLUIDIR)/include
 endef
 

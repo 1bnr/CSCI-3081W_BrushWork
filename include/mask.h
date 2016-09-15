@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : Mask.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Mask
  * Description     : Header file for Mask base class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
@@ -58,7 +58,6 @@ class Mask {
   float value(int x, int y) const;
 
  protected:
-
   /**
    * @brief Set the value of the mask at (x,y) with the radius of the tool shape
    */
@@ -90,9 +89,7 @@ class Mask {
   int height_; /**< number of pixel rows available in the mask  */
   int width_; /**< number pixel columns available in the mask  */
   float *mask_array_;
-
 };
-
 }  // namespace image_tools
 
 #endif  // INCLUDE_MASK_H_

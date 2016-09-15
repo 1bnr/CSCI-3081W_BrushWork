@@ -1,7 +1,7 @@
 /*******************************************************************************
  * Name            : pixel_buffer.cc
  * Project         : BrushWork
- * Module          : ??
+ * Module          : utils
  * Description     : Implementation of PixelBuffer class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 2/15/15
@@ -12,11 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "pixel_buffer.h"
-#include "color_data.h"
-
+#include "include/pixel_buffer.h"
 #include <iostream>
 #include <cstring>
+#include "include/color_data.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -33,12 +32,11 @@ PixelBuffer::PixelBuffer(int w,
                          ColorData background_color)
     : width_(w),
       height_(h),
-      pixels_(new ColorData[w*h]),
-      background_color_(new ColorData(background_color)) {
-}
+      pixels_(w*h, background_color),
+      background_color_(new ColorData(background_color)) {}
 
 PixelBuffer::~PixelBuffer(void) {
-  delete background_color_;
+    delete background_color_;
 }
 
 /*******************************************************************************
@@ -64,23 +62,5 @@ void PixelBuffer::set_pixel(int x, int y, const ColorData& new_pixel) {
         pixels_[index] = new_pixel;
     }
 }
-
-/*******************************************************************************
- * Operator Definitions
- ******************************************************************************/
-PixelBuffer& PixelBuffer::operator=(
-    const PixelBuffer &rhs) {
-  /* Check for self-assignment! */
-  if (this == &rhs) {
-    return *this;
-  }
-  if (this->width() != rhs.width() ||
-      this->height() != rhs.height()) {
-    cerr << "CopyPixelBuffer: dimension mismatch" << endl;
-  } else {
-    this->pixels_ = rhs.pixels_;
-  }
-  return *this;
-} /* operator=() */
 
 }  // namespace image_tools

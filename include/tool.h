@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : tool.h
- * Project         : csci3081
+ * Project         : image_tools
  * Module          : Tool
  * Description     : Header file for Tool base class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
@@ -15,11 +15,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "pixel_buffer.h"
-#include "color_data.h"
-#include "mask.h"
-
 #include <string>
+#include "include/pixel_buffer.h"
+#include "include/color_data.h"
+#include "include/mask.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -50,10 +49,10 @@ class Tool {
    * @param buffer The buffer of pixels to apply the tool to
    */
   virtual void ApplyToBuffer(
-    int toolX,
-    int toolY,
-    ColorData toolColor,
-    PixelBuffer* buffer);
+      int toolX,
+      int toolY,
+      ColorData toolColor,
+      PixelBuffer* buffer);
 
   /**
    * @brief The name of the tool
@@ -62,7 +61,6 @@ class Tool {
   virtual std::string name(void) = 0;
 
  protected:
-
   /**
    * @brief The definition of how the tool will operate on a single pixel on
    * the canvas when applied
@@ -73,10 +71,10 @@ class Tool {
    * @return The new color definition for the pixel
    */
   virtual ColorData color_blend_math(
-    float mask_pixel_amount,
-    ColorData tool_color,
-    ColorData current_color,
-    ColorData background_color);
+      float mask_pixel_amount,
+      ColorData tool_color,
+      ColorData current_color,
+      ColorData background_color);
 
   /**
    * @brief Get the mask associated with the tool
@@ -90,7 +88,6 @@ class Tool {
   void mask(Mask* mask) { mask_ = mask; }
 
  private:
-
   /* Usage of copy/move construction or assignment is disallowed */
   Tool(const Tool& rhs) = delete;
   Tool& operator=(const Tool& rhs) = delete;

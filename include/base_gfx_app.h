@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : BaseGfxApp.h
+ * Name            : base_gfx_app.h
  * Project         : BrushWork
  * Module          : App
  * Description     : Base class for  graphics applications built on top of
@@ -10,14 +10,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BASEGFXAPP_H_
-#define INCLUDE_BASEGFXAPP_H_
+#ifndef INCLUDE_BASE_GFX_APP_H_
+#define INCLUDE_BASE_GFX_APP_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <string>
-
 #include "GL/glui.h"
 
 /*******************************************************************************
@@ -281,4 +280,4 @@ class BaseGfxApp {
 };
 }  // namespace image_tools
 
-#endif  // INCLUDE_BASEGFXAPP_H_
+#endif  // INCLUDE_BASE_GFX_APP_H_
