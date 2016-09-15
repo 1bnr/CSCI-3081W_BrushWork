@@ -41,13 +41,13 @@ class Mask {
 
   /**
    * @brief Get the width of the tool shape (radius)
-   * @brief The width
+   * @return The width
    */
   int width(void) const { return width_;}
 
   /**
    * @brief Get the height of the tool shape (radius)
-   * @brief The height
+   * @return The height
    */
   int height(void) const {return height_;}
 
