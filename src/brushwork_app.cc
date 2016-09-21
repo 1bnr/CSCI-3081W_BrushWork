@@ -166,7 +166,11 @@ void BrushWorkApp::InitGlui(void) {
                                                s_gluicallback);
 
   // Create interface buttons for different tools:
-  new GLUI_RadioButton(radio, "Pen");
+  for (int i = 0; i < ToolFactory::num_tools(); ++i) {
+    new GLUI_RadioButton(radio, tools_[i]->name().c_str());
+  }
+
+
   new GLUI_RadioButton(radio, "Eraser");
   new GLUI_RadioButton(radio, "Spray Can");
   new GLUI_RadioButton(radio, "Caligraphy Pen");
