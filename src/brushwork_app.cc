@@ -61,7 +61,7 @@ void BrushWorkApp::Init(
     char* argv[],
     int x,
     int y,
-    ColorData backgroundColor) {
+    ColorData background_color) {
 
   BaseGfxApp::Init(argc, argv,
                    x, y,
@@ -74,7 +74,7 @@ void BrushWorkApp::Init(
   set_caption("BrushWork");
 
   // Initialize Interface
-  InitializeBuffers(backgroundColor, width(), height());
+  InitializeBuffers(background_color, width(), height());
 
   // Create array of tools and populate
   for (int i = 0; i < ToolFactory::num_tools(); i++) {
@@ -109,19 +109,19 @@ void BrushWorkApp::MouseDragged(int x, int y) {
 
   // Calculate the min number of steps necesary to fill
   // completely between the two event locations.
-  float pixelsBetween = fmax(abs(delta_x), abs(delta_y));
+  float pixels_between = fmax(abs(delta_x), abs(delta_y));
   int step_size = 1;
 
   // Optimize by maxing out at the max_steps,
   // and fill evenly between
-  if (pixelsBetween > max_steps) {
-    step_size = pixelsBetween/max_steps;
+  if (pixels_between > max_steps) {
+    step_size = pixels_between/max_steps;
   }
 
   // Iterate between the event locations
-  for (int i = 0; i < pixelsBetween; i+=step_size) {
-    int x = mouse_last_x_+(i*delta_x/pixelsBetween);
-    int y = mouse_last_y_+(i*delta_y/pixelsBetween);
+  for (int i = 0; i < pixels_between; i+=step_size) {
+    int x = mouse_last_x_+(i*delta_x/pixels_between);
+    int y = mouse_last_y_+(i*delta_y/pixels_between);
 
     tools_[cur_tool_]->ApplyToBuffer(x, height()-y,
                                      ColorData(cur_color_red_,
@@ -149,18 +149,18 @@ void BrushWorkApp::LeftMouseUp(int x, int y) {
 }
 
 void BrushWorkApp::InitializeBuffers(
-    ColorData backgroundColor,
+    ColorData background_color,
     int width,
     int height) {
-  display_buffer_ = new PixelBuffer(width, height, backgroundColor);
+  display_buffer_ = new PixelBuffer(width, height, background_color);
 }
 
 void BrushWorkApp::InitGlui(void) {
   // Select first tool (this activates the first radio button in glui)
   cur_tool_ = 0;
 
-  GLUI_Panel *toolPanel = new GLUI_Panel(glui(), "Tool Type");
-  GLUI_RadioGroup *radio = new GLUI_RadioGroup(toolPanel,
+  GLUI_Panel *tool_panel = new GLUI_Panel(glui(), "Tool Type");
+  GLUI_RadioGroup *radio = new GLUI_RadioGroup(tool_panel,
                                                &cur_tool_,
                                                UI_TOOLTYPE,
                                                s_gluicallback);
@@ -219,8 +219,8 @@ void BrushWorkApp::InitGraphics(void) {
   glViewport(0, 0, width(), height());
 }
 
-void BrushWorkApp::GluiControl(int controlID) {
-  switch (controlID) {
+void BrushWorkApp::GluiControl(int control_id) {
+  switch (control_id) {
     case UI_PRESET_RED:
       cur_color_red_ = 1;
       cur_color_green_ = 0;
