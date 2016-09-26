@@ -43,15 +43,15 @@ class Tool {
 
   /**
    * @brief Apply the selected tool to the buffer
-   * @param[in] toolX The X coordinate of current tool location
-   * @param[in] toolY The Y coordinate of current tool location
-   * @param[in] toolColor The current color of the tool
+   * @param[in] tool_x The X coordinate of current tool location
+   * @param[in] tool_y The Y coordinate of current tool location
+   * @param[in] tool_color The current color of the tool
    * @param buffer The buffer of pixels to apply the tool to
    */
   virtual void ApplyToBuffer(
-      int toolX,
-      int toolY,
-      ColorData toolColor,
+      int tool_x,
+      int tool_y,
+      ColorData tool_color,
       PixelBuffer* buffer);
 
   /**
@@ -65,9 +65,9 @@ class Tool {
    * @brief The definition of how the tool will operate on a single pixel on
    * the canvas when applied
    * @param[in] mask_pixel_amount Value of the relevant pixal in the mask
-   * @param[in] toolColor Current color of the tool
-   * @param[in] canvasColor Color of the background if no tool had been applied
-   * @param[in] currentColor Color present that this blend would replace
+   * @param[in] tool_color Current color of the tool
+   * @param[in] canvas_color Color of the background if no tool had been applied
+   * @param[in] current_color Color present that this blend would replace
    * @return The new color definition for the pixel
    */
   virtual ColorData color_blend_math(

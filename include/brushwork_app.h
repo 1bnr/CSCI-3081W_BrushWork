@@ -47,7 +47,7 @@ class BrushWorkApp : public BaseGfxApp {
     void LeftMouseDown(int x, int y);
     void LeftMouseUp(int x, int y);
     void Display(void);
-    void GluiControl(int controlID);
+    void GluiControl(int control_ID);
 
     virtual void Init(
         int argc,

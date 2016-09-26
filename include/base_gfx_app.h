@@ -172,7 +172,7 @@ class BaseGfxApp {
    * @brief Callback that tells you when the user has interacted with a GLUI
    * widget
    */
-  virtual void GluiControl(int controlID) {}
+  virtual void GluiControl(int control_id) {}
 
   /**
    * @brief resize the graphics window on the screen.

@@ -29,10 +29,10 @@ namespace image_tools {
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-Tool* ToolFactory::CreateTool(int toolID) {
+Tool* ToolFactory::CreateTool(int tool_id) {
   Tool* tool = nullptr;
 
-  switch (toolID) {
+  switch (tool_id) {
     case TOOL_PEN:
       tool = new TPen();
       break;
