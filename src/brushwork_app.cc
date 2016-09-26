@@ -171,10 +171,6 @@ void BrushWorkApp::InitGlui(void) {
   }
 
 
-  new GLUI_RadioButton(radio, "Eraser");
-  new GLUI_RadioButton(radio, "Spray Can");
-  new GLUI_RadioButton(radio, "Caligraphy Pen");
-  new GLUI_RadioButton(radio, "Highlighter");
 
   GLUI_Panel *color_panel = new GLUI_Panel(glui(), "Tool Color");
 
