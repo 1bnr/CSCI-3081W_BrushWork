@@ -11,12 +11,10 @@
 #  Products:
 #  Make Target     Product                  Description
 #  ===========     =======                  ===================
-#  all             bin/BrushWorks           The main executable
+#  all             bin/BrushWork            The main executable
 #  clean           N/A                      Removes excutable, all .o,
-#                                           .preproc files
 #  veryclean       N/A                      Everything clean removes, +
-#                                           the external libraries and the
-#                                           results of ALL analyses.
+#                                           the external libraries
 ################################################################################
 
 ###############################################################################
@@ -33,6 +31,7 @@ OBJDIR          = ./obj
 EXTDIR          = ./ext
 GLUIDIR         = $(EXTDIR)/glui
 DOCDIR          = ./doc
+
 ###############################################################################
 # Definitions
 ###############################################################################
@@ -144,7 +143,7 @@ endif
 
 # The Target Executable
 $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
-$(TARGET): $(GLUIDIR)/lib/libglui.a $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR)
+$(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(GLUIDIR)/lib/libglui.a
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
 
 # GLUI
