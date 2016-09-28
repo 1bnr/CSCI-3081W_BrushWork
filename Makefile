@@ -51,7 +51,7 @@ define CXXINCDIRS
 -isystem$(GLUIDIR)/include
 endef
 
-CXXFLAGS = $(OPT) -g -W -Wall -Wextra -Weffc++ -std=gnu++11 -Wno-unused-parameter $(CXXINCDIRS)
+CXXFLAGS = $(OPT) -g -W -Wall -Wextra -Weffc++ -Wshadow -Wfloat-equal -Wold-style-cast -Wswitch-default -std=gnu++11 -Wno-unused-parameter $(CXXINCDIRS)
 
 # In general, note that the order libraries are specified to the linker
 # MATTERS. If a library is specified too early on the command line, which can
