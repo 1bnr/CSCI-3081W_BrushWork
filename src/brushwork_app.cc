@@ -120,10 +120,10 @@ void BrushWorkApp::MouseDragged(int x, int y) {
 
   // Iterate between the event locations
   for (int i = 0; i < pixels_between; i+=step_size) {
-    int x = mouse_last_x_+(i*delta_x/pixels_between);
-    int y = mouse_last_y_+(i*delta_y/pixels_between);
+    int curr_x = mouse_last_x_+(i*delta_x/pixels_between);
+    int curr_y = mouse_last_y_+(i*delta_y/pixels_between);
 
-    tools_[cur_tool_]->ApplyToBuffer(x, height()-y,
+    tools_[cur_tool_]->ApplyToBuffer(curr_x, height()-curr_y,
                                      ColorData(cur_color_red_,
                                                cur_color_green_,
                                                cur_color_blue_),
