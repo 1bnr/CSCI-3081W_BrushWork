@@ -21,11 +21,17 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This color data class stores color in floating point format.
- * The Red, Green, Blue, and Alpha channels range from 0.0 to 1.0.
+ * @brief This Tool class is the abstract class for the type Tool.
+ * Subtypes of Tool will override and implement some of these functions.
  */
 class Tool {
  public:
+ 	//Default constructor for a tool.
+ 	Tool();
+ 	virtual ~Tool();
+
+ 	//Discussed possible ways to implement draw function with group
+ 	PixelBuffer Draw(ColorData color, DisplayBuffer d, int x, int y);
 
  private:
 
