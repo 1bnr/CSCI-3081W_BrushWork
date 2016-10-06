@@ -9,8 +9,15 @@
  *
  ******************************************************************************/
 
- #ifndef INCLUDE_ERASER_H_
- #define INCLUDE_ERASER_H_
+#ifndef INCLUDE_ERASER_H_
+#define INCLUDE_ERASER_H_
+
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
+#include "include/base_gfx_app.h"
+#include "include/color_data.h"
+#include "include/pixel_buffer.h"
 
  /*******************************************************************************
  * Namespaces
@@ -26,10 +33,7 @@ namespace image_tools {
  */
 class Eraser {
  public:
-
  private:
-
 };
 }  // namespace image_tools
-
-#endif  // INCLUDE_ERASER_H
+#endif  // INCLUDE_ERASER_H_
