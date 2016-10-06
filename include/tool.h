@@ -9,8 +9,15 @@
  *
  ******************************************************************************/
 
- #ifndef INCLUDE_TOOL_H_
- #define INCLUDE_TOOL_H_
+#ifndef INCLUDE_TOOL_H_
+#define INCLUDE_TOOL_H_
+
+/*******************************************************************************
+ * Includes
+ ******************************************************************************/
+#include "include/base_gfx_app.h"
+#include "include/color_data.h"
+#include "include/pixel_buffer.h"
 
  /*******************************************************************************
  * Namespaces
@@ -26,16 +33,13 @@ namespace image_tools {
  */
 class Tool {
  public:
-   //Default constructor for a tool.
-   Tool();
-   virtual ~Tool();
+  // Default constructor for a tool.
+  Tool();
+  virtual ~Tool();
 
-   //Discussed possible ways to implement draw function with group
-   PixelBuffer Draw(ColorData color, DisplayBuffer d, int x, int y);
-
+  // Discussed possible ways to implement draw function with group
+  PixelBuffer Draw(ColorData color, PixelBuffer d, int x, int y);
  private:
-
 };
 }  // namespace image_tools
-
-#endif  // INCLUDE_TOOL_H
+#endif  // INCLUDE_TOOL_H_
