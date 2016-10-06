@@ -25,6 +25,14 @@ OBJECTS = $(addprefix ./build/,  $(CPPFILES:.cc=.o))
 
 GLUI_LIB = ext/glui/lib/libglui.a
 
+MAIN = bin/BrushWork
+
+ifeq ($(UNAME), Darwin)
+        LIBS += -framework glut -framework opengl
+else
+        LIBS += -lglut -lGL -lGLU
+endif
+
 
 all: setup $(GLUI_LIB) $(OBJECTS) bin/BrushWork
 
@@ -45,8 +53,9 @@ build/%.o: src/%.cc
 .o:
 	$(CXX) $(CPPFLAGS) -c $<
 
-bin/BrushWork: $(OBJECTS)
-	$(CXX) $(CPPFLAGS) $(OBJECTS) -o bin/BrushWork
+
+$(MAIN): $(OBJECTS)
+	$(CXX) $(CPPFLAGS) $(OBJECTS)  $(LIBS) $(GLUI_LIB) -o $(MAIN)
 
 clean:
 	\rm -rf bin
@@ -55,4 +64,6 @@ clean:
 	\rm -rf ext/glui/build
 	\rm -rf ext/glui/bin
 	\rm -rf ext/glui/lib
+
+
 	
