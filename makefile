@@ -11,13 +11,17 @@ INC_DIR = ../include
 CPPFLAGS += $(OPTS) -W -Wall -Wextra -Weffc++ -std=c++11
 CPPFLAGS += -I./ -I$(INC_DIR)
 
-DEPS = $(INC_DIR)/base_gfx_app.h $(INC_DIR)/brushwork_app.h $(INC_DIR)/color_data.h $(INC_DIR)/pixel_buffer.h 
+DEPS = base_gfx_app.h brushwork_app.h color_data.h pixel_buffer.h tool.h eraser.h
+DEPS = $(addprefix $(INC_DIR), $(DEPS))
 
 CPPFILES += base_gfx_app.cc
 CPPFILES += brushwork_app.cc
 CPPFILES += color_data.cc
 CPPFILES += main.cc
 CPPFILES += pixel_buffer.cc
+CPPFILES += tool.cc
+CPPFILES += eraser.cc
+
 
 SOURCES=$(addprefix ./src/,  $(CPPFILES))
 
