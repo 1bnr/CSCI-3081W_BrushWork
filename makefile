@@ -8,12 +8,10 @@ OPTS=-O0
 
 INC_DIR = ../include
 
-CPPFLAGS += $(OPTS) -Wall
+CPPFLAGS += $(OPTS) -W -Wall -Wextra -Weffc++ -std=c++11
 CPPFLAGS += -I./ -I$(INC_DIR)
 
-DEPS = base_gfx_app.h brushwork_app.h color_data.h pixel_buffer.h
-
-
+DEPS = $(INC_DIR)/base_gfx_app.h $(INC_DIR)/brushwork_app.h $(INC_DIR)/color_data.h $(INC_DIR)/pixel_buffer.h 
 
 CPPFILES += base_gfx_app.cc
 CPPFILES += brushwork_app.cc
@@ -28,9 +26,9 @@ OBJECTS = $(addprefix ./build/,  $(CPPFILES:.cc=.o))
 GLUI_LIB = ext/glui/lib/libglui.a
 
 
-all: setup $(GLUI_LIB) 
+all: setup $(GLUI_LIB) $(OBJECTS) bin/BrushWork
 
-setup: build lib
+setup: build
 
 build: 
 	mkdir -p bin
@@ -38,6 +36,8 @@ build:
 
 $(GLUI_LIB):
 	$(MAKE) -C ext/glui
+	mkdir -p GL
+	cp ./ext/glui/include/GL/glui.h ./GL/glui.h
 
 build/%.o: src/%.cc
 	$(CXX) $(CPPFLAGS) -c -o $@ $<
@@ -45,8 +45,13 @@ build/%.o: src/%.cc
 .o:
 	$(CXX) $(CPPFLAGS) -c $<
 
+bin/BrushWork: $(OBJECTS)
+	$(CXX) $(CPPFLAGS) $(OBJECTS) -o bin/BrushWork
+
 clean:
 	\rm -rf bin
+	\rm -rf build
+	\rm -rf GL
 	\rm -rf ext/glui/build
 	\rm -rf ext/glui/bin
 	\rm -rf ext/glui/lib
