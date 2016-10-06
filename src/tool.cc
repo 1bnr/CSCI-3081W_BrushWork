@@ -28,6 +28,4 @@ namespace image_tools {
  * Member Functions
  ******************************************************************************/
 
-
-}
 }  // namespace image_tools
