@@ -47,6 +47,7 @@ class TChalk : public Tool {
  private:
   unsigned seed_; /** Random seed for use with color blending */
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_T_CHALK_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_T_CHALK_H_ */

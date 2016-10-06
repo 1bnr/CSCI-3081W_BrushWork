@@ -37,6 +37,6 @@ class MLinear : public Mask {
   float get_intensity(int x, int y, float radius);
 };
 
-}  // namespace image_tools
+}  /* namespace image_tools */
 
-#endif  // INCLUDE_M_LINEAR_H_
+#endif  /* INCLUDE_M_LINEAR_H_ */

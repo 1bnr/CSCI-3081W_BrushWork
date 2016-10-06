@@ -45,6 +45,7 @@ class THighlighter : public Tool {
 
   std::string name(void) { return "Highlighter"; }
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_T_HIGHLIGHTER_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_T_HIGHLIGHTER_H_ */

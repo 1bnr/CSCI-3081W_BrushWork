@@ -71,5 +71,7 @@ class PixelBuffer {
   PixelBuffer(const PixelBuffer&rhs) = delete;
   PixelBuffer& operator=(const PixelBuffer &rhs) = delete;
 };
-}  // namespace image_tools
-#endif  // INCLUDE_PIXEL_BUFFER_H_
+
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_PIXEL_BUFFER_H_ */

@@ -57,6 +57,7 @@ class ToolFactory {
    */
   static Tool* CreateTool(int tool_id);
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_TOOL_FACTORY_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_TOOL_FACTORY_H_ */

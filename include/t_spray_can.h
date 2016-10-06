@@ -31,10 +31,11 @@ namespace image_tools {
  */
 class TSprayCan : public Tool {
  public:
-  TSprayCan(void);
+  TSprayCan(void) { mask(new MLinear(30, 0.2)); }
 
   std::string name(void) { return "Spray Can"; }
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_T_SPRAY_CAN_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_T_SPRAY_CAN_H_ */

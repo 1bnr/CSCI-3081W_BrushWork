@@ -34,10 +34,11 @@ namespace image_tools {
  */
 class TCalligraphyPen : public Tool {
  public:
-    TCalligraphyPen(void);
+  TCalligraphyPen(void) { mask(new MOval(7.0, 1.0, 70.0, 0.333)); }
 
     std::string name(void) { return "Caligraphy Pen"; }
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_T_CALLIGRAPHY_PEN_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_T_CALLIGRAPHY_PEN_H_ */

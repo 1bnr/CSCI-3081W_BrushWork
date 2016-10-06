@@ -33,10 +33,11 @@ namespace image_tools {
  */
 class TPen : public Tool {
  public:
-  TPen(void);
+  TPen(void) { mask(new MConstant(1.0, 1.0)); }
 
   std::string name(void) { return "Pen"; }
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_T_PEN_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_T_PEN_H_ */

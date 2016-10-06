@@ -94,5 +94,7 @@ class Tool {
 
   Mask *mask_;
 };
-}  // namespace image_tools
-#endif  // INCLUDE_TOOL_H_
+
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_TOOL_H_ */

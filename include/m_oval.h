@@ -43,6 +43,6 @@ class MOval : public Mask {
   float ratio_;
 };
 
-}  // namespace image_tools
+}  /* namespace image_tools */
 
-#endif  // INCLUDE_M_OVAL_H_
+#endif  /* INCLUDE_M_OVAL_H_ */

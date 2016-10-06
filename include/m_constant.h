@@ -35,6 +35,7 @@ class MConstant : public Mask {
  protected:
   float get_intensity(int x, int y, float radius);
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_M_CONSTANT_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_M_CONSTANT_H_ */

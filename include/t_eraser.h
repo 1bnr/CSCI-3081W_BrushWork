@@ -44,6 +44,6 @@ class TEraser : public Tool {
 
   std::string name(void) { return "Eraser"; }
 };
-}  // namespace image_tools
+}  /* namespace image_tools */
 
-#endif  // INCLUDE_T_ERASER_H_
+#endif  /* INCLUDE_T_ERASER_H_ */

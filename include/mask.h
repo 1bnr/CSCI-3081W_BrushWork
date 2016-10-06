@@ -90,6 +90,7 @@ class Mask {
   int width_; /**< number pixel columns available in the mask  */
   float *mask_array_;
 };
-}  // namespace image_tools
 
-#endif  // INCLUDE_MASK_H_
+}  /* namespace image_tools */
+
+#endif  /* INCLUDE_MASK_H_ */
