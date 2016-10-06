@@ -59,6 +59,7 @@ void Tool::ApplyToBuffer(
   int upper_bound = std::min(tool_y+mask_->height()/2,
                              buffer->height()-1);
 
+  #pragma omp for
   for (int y = lower_bound; y <= upper_bound; y++) {
     for (int x = left_bound; x <= right_bound; x++) {
       int mask_x = x - (tool_x-mask_->width()/2);
