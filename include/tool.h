@@ -26,12 +26,12 @@ namespace image_tools {
  */
 class Tool {
  public:
- 	//Default constructor for a tool.
- 	Tool();
- 	virtual ~Tool();
+   //Default constructor for a tool.
+   Tool();
+   virtual ~Tool();
 
- 	//Discussed possible ways to implement draw function with group
- 	PixelBuffer Draw(ColorData color, DisplayBuffer d, int x, int y);
+   //Discussed possible ways to implement draw function with group
+   PixelBuffer Draw(ColorData color, DisplayBuffer d, int x, int y);
 
  private:
 

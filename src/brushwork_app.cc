@@ -77,8 +77,8 @@ void BrushWorkApp::Display(void) {
 }
 
 void BrushWorkApp::MouseDragged(int x, int y) {
-    //discussion about how we will implement drawing to screen
-    //display_buffer_-> tools[cur_tool_].Draw(c, display_buffer_, x, y);
+  //discussion about how we will implement drawing to screen
+  //display_buffer_-> tools[cur_tool_].Draw(c, display_buffer_, x, y);
 }
 void BrushWorkApp::MouseMoved(int x, int y) {}
 
