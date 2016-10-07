@@ -1,10 +1,11 @@
 # Project-Iterations
-<<<<<<< HEAD
- // - Ben Bramanti
-=======
+
+BrushWork
+=========
+// - Ben Bramanti
+- Isaac Schwab
 - Abner Holinger
 
->>>>>>> c8182e7f1762cceb59d90404f3ab7d2cec41c04b
 ## Coding guidelines
 It is assumed that all submitted code will conform to the Google C++ style
 guide. Read it. The following is a list of SOME of the things we will be
