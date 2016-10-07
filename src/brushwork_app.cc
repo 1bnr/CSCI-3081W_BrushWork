@@ -15,6 +15,7 @@
 #include "include/brushwork_app.h"
 #include <cmath>
 #include <iostream>
+#include <vector>
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
 
@@ -70,6 +71,9 @@ void BrushWorkApp::Init(
 
     InitGlui();
     InitGraphics();
+
+    //Create list of tools
+    InitTools();
 }
 
 void BrushWorkApp::Display(void) {
@@ -79,15 +83,23 @@ void BrushWorkApp::Display(void) {
 void BrushWorkApp::MouseDragged(int x, int y) {
   //discussion about how we will implement drawing to screen
   //display_buffer_-> tools[cur_tool_].Draw(c, display_buffer_, x, y);
+    //display_buffer_->set_pixel(x, y, cur_color_);
+    std::cout << "mouseDragged " << x << " " << y << std::endl;
 }
 void BrushWorkApp::MouseMoved(int x, int y) {}
 
 void BrushWorkApp::LeftMouseDown(int x, int y) {
-    std::cout << "mousePressed " << x << " " << y << std::endl;
+    std::cout << "mousePressed isaac" << x << " " << y << std::endl;
+    tool_list_[0]->Draw(x,y);
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
     std::cout << "mouseReleased " << x << " " << y << std::endl;
+}
+
+void BrushWorkApp::InitTools(void) {
+    Tool *pen = new Pen();
+    tool_list_.push_back(pen);
 }
 
 void BrushWorkApp::InitializeBuffers(
@@ -95,6 +107,7 @@ void BrushWorkApp::InitializeBuffers(
     int width,
     int height) {
     display_buffer_ = new PixelBuffer(width, height, background_color);
+    cur_color_ = ColorData(0, 0, 0);
 }
 
 void BrushWorkApp::InitGlui(void) {
