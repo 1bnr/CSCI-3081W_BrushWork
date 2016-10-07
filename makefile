@@ -11,7 +11,7 @@ INC_DIR = ../include
 CPPFLAGS += $(OPTS) -W -Wall -Wextra -Weffc++ -std=c++11
 CPPFLAGS += -I./ -I$(INC_DIR)
 
-DEPS = base_gfx_app.h brushwork_app.h color_data.h pixel_buffer.h tool.h eraser.h
+DEPS = base_gfx_app.h brushwork_app.h color_data.h pixel_buffer.h tool.h eraser.h pen.h
 DEPS = $(addprefix $(INC_DIR), $(DEPS))
 
 CPPFILES += base_gfx_app.cc
@@ -21,6 +21,7 @@ CPPFILES += main.cc
 CPPFILES += pixel_buffer.cc
 CPPFILES += tool.cc
 CPPFILES += eraser.cc
+CPPFILES += pen.cc
 
 
 SOURCES=$(addprefix ./src/,  $(CPPFILES))
@@ -42,7 +43,7 @@ all: setup $(GLUI_LIB) $(OBJECTS) bin/BrushWork
 
 setup: build
 
-build: 
+build:
 	mkdir -p bin
 	mkdir -p build
 
@@ -68,6 +69,3 @@ clean:
 	\rm -rf ext/glui/build
 	\rm -rf ext/glui/bin
 	\rm -rf ext/glui/lib
-
-
-	
