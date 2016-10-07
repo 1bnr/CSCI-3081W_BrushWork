@@ -18,6 +18,9 @@
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
+#include "include/tool.h"
+#include "include/pen.h"
+#include <vector>
 
 /*******************************************************************************
  * Namespaces
@@ -65,6 +68,9 @@ class BrushWorkApp : public BaseGfxApp {
     void InitializeBuffers(ColorData initial_color,
                            int width, int height);
 
+    // Initialize the vector of tool objects
+    void InitTools(void);
+
     /**
      * @brief Set of values used to differentiate between what radio buttons is
      * pressed by the user.
@@ -88,10 +94,16 @@ class BrushWorkApp : public BaseGfxApp {
     /** Pointer to pixel data for the screen */
     PixelBuffer *display_buffer_;
 
+    //Vecto of Tool objects, will be used to hold the various types of tools
+    std::vector<Tool*> tool_list_;
+
     int cur_tool_; /**< Currently selected tool from UI  */
     float cur_color_red_;
     float cur_color_green_;
     float cur_color_blue_;
+
+    //Add a color object that all tools and functions have access to.
+    ColorData cur_color_;
 
     GLUI_Spinner *spinner_r_; /**< Hook for accessing the UI red amount  */
     GLUI_Spinner *spinner_g_; /**< Hook for accessing the UI green amount  */
