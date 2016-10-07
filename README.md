@@ -2,7 +2,7 @@
 
 BrushWork
 =========
-// - Ben Bramanti
+- Ben Bramanti
 - Isaac Schwab
 - Abner Holinger
 
