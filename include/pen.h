@@ -18,6 +18,7 @@
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
+#include "include/tool.h"
 
  /*******************************************************************************
  * Namespaces
@@ -30,9 +31,16 @@ namespace image_tools {
 /**
  * @brief This is the header file for the pen tool.
  */
-class Pen {
+class Pen : public Tool {
  public:
+   Pen();
+   virtual ~Pen();
+
  private:
+ 	float tool_mask_[3][3] = {{0, 1, 0},
+  							  {1, 1, 1},
+  							  {0, 1, 0}};
+
 };
 }  // namespace image_tools
 #endif  // INCLUDE_PEN_H_
