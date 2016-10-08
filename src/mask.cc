@@ -74,4 +74,4 @@ void Mask::GenerateMask(void) {
   }
 }
 
-}  // namespace image_tools
+}  /* namespace image_tools */

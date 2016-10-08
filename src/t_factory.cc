@@ -59,4 +59,4 @@ Tool* ToolFactory::CreateTool(int tool_id) {
   return tool;
 }
 
-}  // namespace image_tools
+}  /* namespace image_tools */

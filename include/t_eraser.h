@@ -38,12 +38,13 @@ class TEraser : public Tool {
 
   ColorData color_blend_math(
       float mask_pixel_amount,
-      ColorData tool_color,
-      ColorData current_color,
-      ColorData background_color);
+      const ColorData& tool_color,
+      const ColorData& current_color,
+      const ColorData& background_color);
 
   std::string name(void) { return "Eraser"; }
 };
+
 }  /* namespace image_tools */
 
 #endif  /* INCLUDE_T_ERASER_H_ */

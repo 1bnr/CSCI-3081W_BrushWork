@@ -39,9 +39,9 @@ Tool::~Tool(void) {
  ******************************************************************************/
 ColorData Tool::color_blend_math(
     float mask_pixel_amount,
-    ColorData tool_color,
-    ColorData current_color,
-    ColorData background_color) {
+    const ColorData& tool_color,
+    const ColorData& current_color,
+    const ColorData& background_color) {
   return tool_color*mask_pixel_amount + current_color*(1.0-mask_pixel_amount);
 }
 
@@ -82,4 +82,4 @@ void Tool::ApplyToBuffer(
   }
 }
 
-}  // namespace image_tools
+}  /* namespace image_tools */
