@@ -49,15 +49,14 @@ class BaseGfxApp {
    * object in a valid state. If you override this, be sure to still call the
    * super class version.
    */
-  virtual void Init(
-    int argc,
-    char* argv[],
-    int x,
-    int y,
-    unsigned glut_flags,
-    bool create_glui_win,
-    int glui_win_x,
-    int glui_win_y);
+  virtual void Init(int argc,
+                    char* argv[],
+                    int x,
+                    int y,
+                    unsigned glut_flags,
+                    bool create_glui_win,
+                    int glui_win_x,
+                    int glui_win_y);
 
   /**
    * @brief Set the window/icon title for the application
@@ -260,6 +259,10 @@ class BaseGfxApp {
   inline BaseGfxApp* s_current_app(void) { return s_current_app_; }
 
  private:
+  /* Copy assignment/construction is disallowed */
+  BaseGfxApp(const BaseGfxApp &rhs) = delete;
+  BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
+
   int glut_window_handle_; /**< Underlying glut window handle */
 
   GLUI *glui_; /**< Pointer to GLUI master */
@@ -274,9 +277,6 @@ class BaseGfxApp {
   /** Has glutInit been called? (only allowed once per program) */
   static bool s_glut_initialized_;
 
-  /* Copy assignment/construction is disallowed */
-  BaseGfxApp(const BaseGfxApp &rhs) = delete;
-  BaseGfxApp& operator=(const BaseGfxApp &rhs) = delete;
 };
 
 }  /* namespace image_tools */
