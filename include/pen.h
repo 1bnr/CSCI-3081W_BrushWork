@@ -37,10 +37,9 @@ class Pen : public Tool {
    virtual ~Pen();
 
  private:
- 	float tool_mask_[3][3] = {{0, 1, 0},
-  							  {1, 1, 1},
-  							  {0, 1, 0}};
-
+  float tool_mask_[3][3] = {{0, 1, 0},
+                            {1, 1, 1},
+                            {0, 1, 0}};
 };
 }  // namespace image_tools
 #endif  // INCLUDE_PEN_H_
