@@ -38,11 +38,9 @@ class Tool {
   virtual ~Tool();
 
   // Discussed possible ways to implement draw function with group
-  void Draw(int x, int y);
+  void Draw(int x, int y, PixelBuffer *p, ColorData c);
  private:
- 	float tool_mask_[3][3] = {{0, 1, 0},
-  							{1, 1, 1},
-  							{0, 1, 0}};
+ 	
 };
 }  // namespace image_tools
 #endif  // INCLUDE_TOOL_H_
