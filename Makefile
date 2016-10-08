@@ -55,7 +55,7 @@ SHELL           = bash
 # This is the list of directories to search during the linking step for
 # external libraries (such as GLUI) that are NOT in one of the pre-defined
 # locations on linux, such as /usr/lib, /lib, etc.
-CXXLIBDIRS ?= -L$(GLUIDIR)/lib
+CXXLIBDIRS ?= -L$(EXTDIR)/lib
 
 # Define the list of include directories during compilation. Lines MUST end
 # with a backslash (\). This syntax is the way to define multi-line variables
@@ -200,7 +200,7 @@ $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(GLUIDIR)/lib/li
 # arguments used to call THIS make process. This is very useful to easily pass
 # command line arguments to sub-makes.
 $(GLUIDIR)/lib/libglui.a:
-	@$(MAKE) -C$(GLUIDIR)
+	@$(MAKE) -C$(GLUIDIR) install
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build
@@ -216,7 +216,7 @@ clean:
 
 # The Super Cleaner. Clean the project, but also clean all external libraries.
 veryclean: clean
-	@$(MAKE) -C$(GLUIDIR) clean
+	@$(MAKE) -C$(GLUIDIR) clean uninstall
 
 # The Documenter. Generate documentation for the project.
 documentation:
