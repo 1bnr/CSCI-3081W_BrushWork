@@ -119,7 +119,7 @@ void BrushWorkApp::LeftMouseDown(int x, int y) {
     BrushWorkApp::start_y_ = y;
 
     std::cout << "mousePressed" << x << " " << y << std::endl;
-    tool_list_[0]->Draw(x, y+100, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+    tool_list_[0]->Draw(x, y + 100, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
