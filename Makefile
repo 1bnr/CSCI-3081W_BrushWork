@@ -70,7 +70,8 @@ define CXXINCDIRS
 -isystem$(GLUIDIR)/include
 endef
 
-# Specify the compiler flags to use when compiling.
+# Specify the compiler flags to use when compiling. Note the use of fopenmp in
+# order to enable OpenMP pragmas in the code.
 define CXXFLAGS
 $(OPT) -g -W -Wall -Wextra -Weffc++ -Wshadow -Wfloat-equal \
 -Wold-style-cast -Wswitch-default -std=gnu++11 -Wno-unused-parameter $(CXXINCDIRS) \
@@ -81,14 +82,14 @@ endef
 # MATTERS. If a library is specified too early on the command line, which can
 # happen when:
 # 1. It is specified on the command line before the linker processes any
-#    source files that contain references to it
-# 2. It is specified on the command line with the libraries to link against
-#    before another library that contains references to it.
+#    source files that contain references to it.
+# 2. It is specified on the command line (via -l) before another library that
+#    contains references to it.
 #
 # In both these cases the linker will "drop" the library and you will see
 # unresolved reference errors.
 #
-# In general, you should more MORE general/base libraries at the end, and the
+# In general, you should put MORE general/base libraries at the end, and the
 # libraries that depend on them BEFORE the base library. (i.e. link libglui
 # before libmath via -lglui -lm).
 #
@@ -100,7 +101,6 @@ CXXLIBS = -framework glut -framework opengl -lglui
 else # LINUX
 CXXLIBS = -lglut -lGL -lGLU -lglui
 endif
-
 
 # On some lab machines the glut and opengl libraries are located in the directory
 # where the nvidia graphics driver was installed rather than the default /usr/lib
@@ -136,7 +136,7 @@ OPT         = -O0
 rwildcard=$(foreach d,$(wildcard $1*),$(call rwildcard,$d/,$2)  $(filter $(subst *,%,$2),$d))
 
 # make-depend: Generate dependencies for C++ source files dynamically. Very useful
-# for including .h files as target dependencies.
+# for dynamically including .h files as target dependencies.
 #
 # You should never need to modify this.
 # usage: $(call make-depend,source-file,object-file,depend-file)
