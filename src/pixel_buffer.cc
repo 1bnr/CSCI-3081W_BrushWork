@@ -35,32 +35,52 @@ PixelBuffer::PixelBuffer(int w,
       pixels_(w*h, background_color),
       background_color_(new ColorData(background_color)) {}
 
+PixelBuffer::PixelBuffer(
+    const PixelBuffer&rhs) : PixelBuffer(rhs.width_,
+                                         rhs.height_,
+                                         *rhs.background_color_) {
+  std::copy(rhs.pixels_.begin(), rhs.pixels_.end(), pixels_.begin());
+}
 PixelBuffer::~PixelBuffer(void) {
-    delete background_color_;
+  delete background_color_;
 }
 
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
 ColorData PixelBuffer::get_pixel(int x, int y) const {
-    ColorData pixel_data;
+  ColorData pixel_data;
 
-    if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
-        cerr << "getPixel: x,y out of range: " << x << " " << y << endl;
-    } else {
-        int index = x + width_*(y);
-        pixel_data = pixels_[index];
-    }
-    return pixel_data;
+  if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
+    cerr << "getPixel: x,y out of range: " << x << " " << y << endl;
+  } else {
+    int index = x + width_*(y);
+    pixel_data = pixels_[index];
+  }
+  return pixel_data;
 }
 
 void PixelBuffer::set_pixel(int x, int y, const ColorData& new_pixel) {
-    if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
-        cerr << "setPixel: x,y out of range: " << x << " " << y << endl;
-    } else {
-        int index = x + width_*(y);  // x + width*(height-(y+1));
-        pixels_[index] = new_pixel;
-    }
+  if ((x < 0) || (x >= width_) || (y < 0) || (y >= height_)) {
+    cerr << "setPixel: x,y out of range: " << x << " " << y << endl;
+  } else {
+    int index = x + width_*(y);  // x + width*(height-(y+1));
+    pixels_[index] = new_pixel;
+  }
 }
+/*******************************************************************************
+ * Operators
+ ******************************************************************************/
+PixelBuffer& PixelBuffer::operator=(
+    const PixelBuffer &rhs) {
+  /* Check for self-assignment! */
+  if (this == &rhs) {
+    return *this;
+  }
+  this->pixels_ = rhs.pixels_;
+  this->background_color_ = rhs.background_color_;
 
-}  // namespace image_tools
+  return *this;
+} /* operator=() */
+
+}  /* namespace image_tools */
