@@ -103,7 +103,7 @@ class BrushWorkApp : public BaseGfxApp {
     float cur_color_blue_;
 
     //Add a color object that all tools and functions have access to.
-    ColorData cur_color_;
+    //ColorData cur_color_ = new ColorData(0,0,0);
 
     GLUI_Spinner *spinner_r_; /**< Hook for accessing the UI red amount  */
     GLUI_Spinner *spinner_g_; /**< Hook for accessing the UI green amount  */
