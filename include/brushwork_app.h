@@ -101,6 +101,8 @@ class BrushWorkApp : public BaseGfxApp {
     float cur_color_red_;
     float cur_color_green_;
     float cur_color_blue_;
+    int start_x_;
+    int start_y_;
 
     //Add a color object that all tools and functions have access to.
     //ColorData cur_color_ = new ColorData(0,0,0);

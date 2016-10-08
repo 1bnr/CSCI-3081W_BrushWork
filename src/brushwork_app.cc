@@ -74,6 +74,8 @@ void BrushWorkApp::Init(
 
     //Create list of tools
     InitTools();
+    int start_x_;
+    int start_y_;
 }
 
 void BrushWorkApp::Display(void) {
@@ -82,14 +84,40 @@ void BrushWorkApp::Display(void) {
 
 void BrushWorkApp::MouseDragged(int x, int y) {
   //discussion about how we will implement drawing to screen
-  //display_buffer_-> tools[cur_tool_].Draw(c, display_buffer_, x, y);
-    //display_buffer_->set_pixel(x, y, cur_color_);
+
+    float x_increment;
+    float y_increment;
+    // find the distance between the last xy-coord and this xy-coord
+    int x_dif = std::abs(BrushWorkApp::start_x_ - x);
+    int y_dif = std::abs(BrushWorkApp::start_y_ - y);
+    int stepping_limit; // the greater of x_dif or y_dif
+    // set stepping limit 
+    if (x_dif > y_dif) 
+        stepping_limit = x_dif;
+    else
+        stepping_limit = y_dif;
+    // set stepping intervals by dividing distance by the number of steps needed
+    x_increment = static_cast<float>(BrushWorkApp::start_x_ - x) / stepping_limit;
+    y_increment = static_cast<float>(BrushWorkApp::start_y_ - y) / stepping_limit;
+    // step from last xy-coord to current xy-coord
+    for (int i = 0; i <= stepping_limit; i++) {
+
+	tool_list_[0]->Draw(x + static_cast<int>(round(i * x_increment)), 
+                            y + static_cast<int>(round(i * y_increment)), 
+                            display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+    }
+	BrushWorkApp::start_x_ = x;
+        BrushWorkApp::start_y_ = y;
+
     std::cout << "mouseDragged " << x << " " << y << std::endl;
-    tool_list_[0]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+ //   tool_list_[0]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
 }
 void BrushWorkApp::MouseMoved(int x, int y) {}
 
 void BrushWorkApp::LeftMouseDown(int x, int y) {
+    BrushWorkApp::start_x_ = x;
+    BrushWorkApp::start_y_ = y;
+
     std::cout << "mousePressed" << x << " " << y << std::endl;
     tool_list_[0]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
 }
