@@ -31,14 +31,16 @@ Tool::~Tool() {}
 
  //The Draw fucntion, take in a color object and the pointer to our display buffer
 void Tool::Draw(int x, int y, PixelBuffer *p, ColorData c) {
+	int t_x_ = x;
+	int t_y_ = p->height() - y;
 	//hard coded in the specs for the pen mask boundries,for testing sake
 	// this is where I will be making more changes
 	int rows = 3;
 	int cols = 3;
-	int xpos_start = x - rows/2; //set the start xpos
-	int xpos_end = x + rows/2;
-	int ypos_start = y - cols/2; 
-	int ypos_end = y + cols/2;
+	int xpos_start = t_x_ - rows/2; //set the start xpos
+	int xpos_end = t_x_ + rows/2;
+	int ypos_start = t_y_ - cols/2; 
+	int ypos_end = t_y_ + cols/2;
 
 	std::cout << "PRINT" << std::endl; 
 	//loop through the coordinates that the mask will effect and set the points to the color that we want

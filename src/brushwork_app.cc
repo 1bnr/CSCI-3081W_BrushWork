@@ -85,13 +85,13 @@ void BrushWorkApp::MouseDragged(int x, int y) {
   //display_buffer_-> tools[cur_tool_].Draw(c, display_buffer_, x, y);
     //display_buffer_->set_pixel(x, y, cur_color_);
     std::cout << "mouseDragged " << x << " " << y << std::endl;
-    tool_list_[0]->Draw(x, height() - y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+    tool_list_[0]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
 }
 void BrushWorkApp::MouseMoved(int x, int y) {}
 
 void BrushWorkApp::LeftMouseDown(int x, int y) {
     std::cout << "mousePressed" << x << " " << y << std::endl;
-    tool_list_[0]->Draw(x, height() - y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+    tool_list_[0]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
