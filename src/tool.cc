@@ -43,16 +43,16 @@ void Tool::Draw(int x, int y, PixelBuffer *p, ColorData c) {
 	int ypos_end = t_y_ + mask_cols_/2;
 
   // filter the pixel data from the canvas and the tool through the mask, and apply them to the canvas
-  for(int i = 0; i < mask_rows_; i++) {
-    for(int j = 0; j < mask_cols_; j++) {
-      ColorData canvas_pixel = (p->get_pixel(xpos_start + i, ypos_start + j)) * static_cast<float>(1.0 - tool_mask_[i][j]);
-      ColorData tool_pixel = c * (static_cast<float>(tool_mask_[i][j]));
+  for(int p_x = 0; p_x < mask_rows_; p_x++) {
+    for(int p_y = 0; p_y < mask_cols_; p_y++) {
+      ColorData canvas_pixel = (p->get_pixel(xpos_start + p_x, ypos_start + p_y)) * static_cast<float>(1.0 - tool_mask_[p_x][p_y]);
+      ColorData tool_pixel = c * (static_cast<float>(tool_mask_[p_x][p_y]));
 // print out the mask      
-//std::cout << tool_mask_[i][j] << ":";
+//std::cout << tool_mask_[p_x][p_y] << ":";
 
       ColorData new_pixel = canvas_pixel + tool_pixel;     
         //set the current pixel to the display buffer that we passed in
-        p->set_pixel(j + xpos_start, i + ypos_start, new_pixel);  
+        p->set_pixel(p_x + xpos_start, p_y + ypos_start, new_pixel);  
 
     }
 // skip to next line of mask for printout
