@@ -133,10 +133,12 @@ void BrushWorkApp::InitTools(void) {
     Tool *eraser = new Pen();
     Tool *spray_can = new SprayCan();
     Tool *cali_pen = new CalligraphyPen();
+    Tool *highlighter = new Highlighter();
     tool_list_.push_back(pen);
     tool_list_.push_back(eraser);
     tool_list_.push_back(spray_can);
     tool_list_.push_back(cali_pen);
+    tool_list_.push_back(highlighter);
 }
 
 void BrushWorkApp::InitializeBuffers(

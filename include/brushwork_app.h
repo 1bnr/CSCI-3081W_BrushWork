@@ -22,6 +22,7 @@
 #include "include/pen.h"
 #include "include/spray_can.h"
 #include "include/calligraphy_pen.h"
+#include "include/highlighter.h"
 #include <vector>
 
 /*******************************************************************************
