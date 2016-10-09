@@ -32,14 +32,12 @@ namespace image_tools {
  * @brief This is the header file for the pen tool.
  */
 class Pen : public Tool {
- public:
-   Pen();
-   virtual ~Pen();
+  public:
+     Pen();
+     virtual ~Pen();
 
- private:
-  float tool_mask_[3][3] = {{0, 1, 0},
-                            {1, 1, 1},
-                            {0, 1, 0}};
+  private:
+  	
 };
 }  // namespace image_tools
 #endif  // INCLUDE_PEN_H_

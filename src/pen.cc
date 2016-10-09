@@ -23,9 +23,22 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 Pen::Pen() : Tool() {
+  mask_rows_ = 3;
+  mask_cols_ = 3;
+
+  // Set up the tool_mask_
+  tool_mask_.resize(mask_rows_);
+  for (int i = 0; i < mask_rows_; ++i)
+    tool_mask_[i].resize(mask_cols_);
+
+  //Initialize the mask
+  tool_mask_[0] = {0, 1, 0};
+  tool_mask_[1] = {1, 1, 1};
+  tool_mask_[2] = {0, 1, 0};
 }
 
-Pen::~Pen() {}
+Pen::~Pen() {
+}
 
 /*******************************************************************************
  * Member Functions
