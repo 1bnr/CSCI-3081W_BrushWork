@@ -30,7 +30,7 @@ Tool::Tool() {
 Tool::~Tool() {}
 
  //The Draw fucntion, take in a color object & the pointer to display buffer
-void Tool::Draw(int x, int y, PixelBuffer *p, ColorData c) {
+PixelBuffer * Tool::Draw(int const x, int const y, PixelBuffer * const p, ColorData const c) {
 	int t_x_ = x;
 	int t_y_ = p->height() - y;
 	//hard coded in the specs for the pen mask boundries,for testing sake
@@ -61,7 +61,7 @@ void Tool::Draw(int x, int y, PixelBuffer *p, ColorData c) {
   }
 // space between filter printouts
 //std::cout << std::endl;
-
+return p;
 
 }
 

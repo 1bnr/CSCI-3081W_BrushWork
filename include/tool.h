@@ -39,7 +39,7 @@ class Tool {
   virtual ~Tool();
 
   // Discussed possible ways to implement draw function with group
-  void Draw(int x, int y, PixelBuffer *p, ColorData c);
+  PixelBuffer * Draw(int const x, int const y, PixelBuffer * const p, ColorData const c);
  protected:
    int mask_rows_;
    int mask_cols_;

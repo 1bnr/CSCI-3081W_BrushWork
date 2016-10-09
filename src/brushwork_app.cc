@@ -102,7 +102,7 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     // step from last xy-coord to current xy-coord
     for (int i = 0; i <= stepping_limit; i++) {
 
-	tool_list_[cur_tool_]->Draw(x + static_cast<int>(round(i * x_increment)),
+	display_buffer_ = tool_list_[cur_tool_]->Draw(x + static_cast<int>(round(i * x_increment)),
                             y + static_cast<int>(round(i * y_increment)),
                             display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
     }
@@ -119,7 +119,7 @@ void BrushWorkApp::LeftMouseDown(int x, int y) {
     BrushWorkApp::start_y_ = y;
 
     std::cout << "mousePressed" << x << " " << y << std::endl;
-    tool_list_[cur_tool_]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+    display_buffer_ = tool_list_[cur_tool_]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
