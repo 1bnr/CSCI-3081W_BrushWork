@@ -32,9 +32,9 @@ Pen::Pen() : Tool() {
     tool_mask_[i].resize(mask_cols_);
 
   //Initialize the mask
-  tool_mask_[0] = {0, 1, 0};
+  tool_mask_[0] = {0.25, 1, 0.25};
   tool_mask_[1] = {1, 1, 1};
-  tool_mask_[2] = {0, 1, 0};
+  tool_mask_[2] = {0.25, 1, 0.25};
 }
 
 Pen::~Pen() {
