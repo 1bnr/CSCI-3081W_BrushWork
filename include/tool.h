@@ -18,6 +18,7 @@
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
+#include <vector>
 
  /*******************************************************************************
  * Namespaces
@@ -39,7 +40,10 @@ class Tool {
 
   // Discussed possible ways to implement draw function with group
   void Draw(int x, int y, PixelBuffer *p, ColorData c);
- private:
+ protected:
+   int mask_rows_;
+   int mask_cols_;
+   std::vector<std::vector<float> > tool_mask_;
  	
 };
 }  // namespace image_tools
