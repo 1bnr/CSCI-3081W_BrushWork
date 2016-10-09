@@ -103,7 +103,7 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     for (int i = 0; i <= stepping_limit; i++) {
 
 	tool_list_[cur_tool_]->Draw(x + static_cast<int>(round(i * x_increment)),
-                            y + 100 + static_cast<int>(round(i * y_increment)),
+                            y + static_cast<int>(round(i * y_increment)),
                             display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
     }
 	BrushWorkApp::start_x_ = x;
@@ -119,7 +119,7 @@ void BrushWorkApp::LeftMouseDown(int x, int y) {
     BrushWorkApp::start_y_ = y;
 
     std::cout << "mousePressed" << x << " " << y << std::endl;
-    tool_list_[cur_tool_]->Draw(x, y + 100, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+    tool_list_[cur_tool_]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
@@ -131,7 +131,7 @@ void BrushWorkApp::InitTools(void) {
     //Use array of pens and cali pens until the other tools are implemented
     Tool *pen = new Pen();
     Tool *eraser = new Pen();
-    Tool *spray_can = new Pen();
+    Tool *spray_can = new SprayCan();
     Tool *cali_pen = new CalligraphyPen();
     tool_list_.push_back(pen);
     tool_list_.push_back(eraser);

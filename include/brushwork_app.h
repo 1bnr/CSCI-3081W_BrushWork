@@ -20,6 +20,7 @@
 #include "include/pixel_buffer.h"
 #include "include/tool.h"
 #include "include/pen.h"
+#include "include/spray_can.h"
 #include "include/calligraphy_pen.h"
 #include <vector>
 
