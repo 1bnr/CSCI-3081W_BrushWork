@@ -23,15 +23,16 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 CalligraphyPen::CalligraphyPen() : Tool() {
-  mask_rows_ = 15;
-  mask_cols_ = 5;
+  mask_rows_ = 5;
+  mask_cols_ = 15;
 
   // Set up the tool_mask_
   tool_mask_.resize(mask_rows_);
   for (int i = 0; i < mask_rows_; ++i) 
     {
     tool_mask_[i].resize(mask_cols_);
-    tool_mask_[i] = {1, 1, 1, 1, 1};
+    for (int j = 0; j < mask_cols_; j++)
+      tool_mask_[i][j] = 1;
     }
 }
 
