@@ -24,29 +24,26 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 SprayCan::SprayCan() {
-
   // generate mask; values are to be between 0.0 and 1.0
   mask_rows_ = 41;
   mask_cols_ = 41;
-
-  int center_ = ( mask_rows_ / 2);
+  // find center of mask for linear falloff
+  int center_ = mask_cols_ / 2;
   double slope = -0.2/static_cast<double>(center_);
 
   // Set up the tool_mask_
   tool_mask_.resize(mask_rows_);
-  for (int i = 0; i < mask_rows_; ++i)
-    {
-    tool_mask_[i].resize(mask_cols_);
-    for (int j = 0; j < (mask_cols_); j++)
-      {
+  for (int x = 0; x < mask_rows_; ++x) {
+    tool_mask_[x].resize(mask_cols_);
+    for (int y = 0; y < mask_cols_; y++) {
       // if inside circle, calculate mask filter values
-      if ((pow(i - center_, 2) + pow(j - center_, 2)) <= pow(center_, 2))
-        tool_mask_[i][j] = ((sqrt(pow(i - center_, 2) + pow(j - center_, 2)) - center_) * slope);
-      else // set filter value to 0
-        tool_mask_[i][j] = 0;
-      }
+      if ((pow(x - center_, 2) + pow(y - center_, 2)) <= pow(center_, 2))
+        tool_mask_[x][y] = ((sqrt(pow(x - center_, 2) + pow(y - center_, 2))
+                            - center_) * slope);
+      else  // outside circle, set filter value to 0
+        tool_mask_[x][y] = 0;
     }
-//  tool_mask_ = mask;
+  }
 }
 
 

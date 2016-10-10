@@ -33,10 +33,9 @@ namespace image_tools {
  */
 class SprayCan : public Tool {
  public:
-   SprayCan();
-   virtual ~SprayCan();
-   void Draw(int x, int y, PixelBuffer *p, ColorData c);
-
+  SprayCan();
+  virtual ~SprayCan();
+  void Draw(int x, int y, PixelBuffer *p, ColorData c);
 };
 }  // namespace image_tools
 #endif  // INCLUDE_SPRAY_CAN_H_

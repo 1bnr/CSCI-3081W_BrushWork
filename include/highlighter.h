@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef HIGHLIGHTER_PEN_H_
-#define INCLUDE_HIGHLIGHTER_PEN_H__H_
+#ifndef INCLUDE_HIGHLIGHTER_H_
+#define INCLUDE_HIGHLIGHTER_H_
 
 /*******************************************************************************
  * Includes
@@ -33,11 +33,8 @@ namespace image_tools {
  */
 class Highlighter : public Tool {
  public:
-   Highlighter();
-   virtual ~Highlighter();
-
- private:
-
+  Highlighter();
+  virtual ~Highlighter();
 };
 }  // namespace image_tools
-#endif  // INCLUDE_HIGHLIGHTER_PEN_H__H_
+#endif  // INCLUDE_HIGHLIGHTER_H_
