@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_M_OVAL_H_
-#define INCLUDE_M_OVAL_H_
+#ifndef SRC_INCLUDE_M_OVAL_H_
+#define SRC_INCLUDE_M_OVAL_H_
 
 /*******************************************************************************
  * Includes
@@ -45,4 +45,4 @@ class MOval : public Mask {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_M_OVAL_H_ */
+#endif  /* SRC_INCLUDE_M_OVAL_H_ */

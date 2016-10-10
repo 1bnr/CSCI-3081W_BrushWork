@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_T_SPRAY_CAN_H_
-#define INCLUDE_T_SPRAY_CAN_H_
+#ifndef SRC_INCLUDE_T_SPRAY_CAN_H_
+#define SRC_INCLUDE_T_SPRAY_CAN_H_
 
 /*******************************************************************************
  * Includes
@@ -39,4 +39,4 @@ class TSprayCan : public Tool {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_T_SPRAY_CAN_H_ */
+#endif  /* SRC_INCLUDE_T_SPRAY_CAN_H_ */

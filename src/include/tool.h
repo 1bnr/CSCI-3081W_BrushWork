@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_TOOL_H_
-#define INCLUDE_TOOL_H_
+#ifndef SRC_INCLUDE_TOOL_H_
+#define SRC_INCLUDE_TOOL_H_
 
 /*******************************************************************************
  * Includes
@@ -97,4 +97,4 @@ class Tool {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_TOOL_H_ */
+#endif  /* SRC_INCLUDE_TOOL_H_ */

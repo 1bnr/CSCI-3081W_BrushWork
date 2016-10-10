@@ -9,12 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef INCLUDE_BRUSHWORK_APP_H_
-#define INCLUDE_BRUSHWORK_APP_H_
+#ifndef SRC_INCLUDE_BRUSHWORK_APP_H_
+#define SRC_INCLUDE_BRUSHWORK_APP_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
+#include <vector>
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
@@ -90,4 +91,4 @@ class BrushWorkApp : public BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  /* INCLUDE_BRUSHWORK_APP_H_ */
+#endif  /* SRC_INCLUDE_BRUSHWORK_APP_H_ */
