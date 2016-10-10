@@ -18,6 +18,7 @@
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
+#include "include/tool.h"
 
  /*******************************************************************************
  * Namespaces
@@ -31,9 +32,11 @@ namespace image_tools {
  * @brief This is the header file for the eraser tool.
  * eraser must have a member variable that stores background color.
  */
-class Eraser {
- public:
- private:
-};
+ class Eraser : public Tool {
+  public:
+   Eraser();
+   virtual ~Eraser();
+   void Draw(int x, int y, PixelBuffer *p, ColorData c);
+ };
 }  // namespace image_tools
 #endif  // INCLUDE_ERASER_H_
