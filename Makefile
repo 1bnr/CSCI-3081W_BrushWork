@@ -72,6 +72,7 @@ CXXLIBDIRS ?= -L$(EXTDIR)/lib
 # GLUI) that we do not have control over.
 define CXXINCDIRS
 -I. \
+-I$(SRCDIR) \
 -isystem$(GLUIDIR)/include \
 -isystem$(JPEGDIR) \
 -isystem$(PNGDIR)
@@ -167,7 +168,7 @@ SRC_CXX = $(call rwildcard,$(SOURCES),*.cc)
 OBJECTS_CXX = $(notdir $(patsubst %.cc,%.o,$(SRC_CXX)))
 
 # The target executable (what you are building)
-TARGET = $(BINDIR)/FlashPhoto
+TARGET = $(BINDIR)/BrushWork
 
 ###############################################################################
 # All targets
