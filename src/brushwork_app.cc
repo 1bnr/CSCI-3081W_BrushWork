@@ -80,7 +80,7 @@ void BrushWorkApp::Init(
 
 void BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->data());
-    if (cur_tool_ == 2)	
+    if (cur_tool_ == 2)
       glutSetCursor(GLUT_CURSOR_SPRAY);
     else
       glutSetCursor(GLUT_CURSOR_CROSSHAIR);
@@ -134,7 +134,7 @@ void BrushWorkApp::LeftMouseUp(int x, int y) {
 void BrushWorkApp::InitTools(void) {
     //Use array of pens and cali pens until the other tools are implemented
     Tool *pen = new Pen();
-    Tool *eraser = new Pen();
+    Tool *eraser = new Eraser();
     Tool *spray_can = new SprayCan();
     Tool *cali_pen = new CalligraphyPen();
     Tool *highlighter = new Highlighter();
