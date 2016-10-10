@@ -71,7 +71,7 @@ void BrushWorkApp::Init(
 
     InitGlui();
     InitGraphics();
-
+    glutSetCursor(GLUT_CURSOR_CROSSHAIR);
     //Create list of tools
     InitTools();
     int start_x_;
@@ -80,6 +80,10 @@ void BrushWorkApp::Init(
 
 void BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->data());
+    if (cur_tool_ == 2)	
+      glutSetCursor(GLUT_CURSOR_SPRAY);
+    else
+      glutSetCursor(GLUT_CURSOR_CROSSHAIR);
 }
 
 void BrushWorkApp::MouseDragged(int x, int y) {
