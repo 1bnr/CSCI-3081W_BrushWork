@@ -76,14 +76,38 @@ void BrushWorkApp::Init(
     InitTools();
     int start_x_;
     int start_y_;
+    background_color_ = new ColorData(background_color);
+
+    cur_color_ = new ColorData(0,0,0,0);
 }
 
 void BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->data());
-    if (cur_tool_ == 2)
-      glutSetCursor(GLUT_CURSOR_SPRAY);
-    else
-      glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+    switch(cur_tool_) {
+      case 0: // pen
+              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
+              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+              break;
+      case 1: // eraser
+              cur_color_ = background_color_;
+              //glClear(GL_COLOR_BUFFER_BIT);
+              break;
+      case 2: // spray can
+              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
+              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+              break;
+      case 3: // calligraphy pen
+              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
+              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+              break;
+      case 4: // highlighter
+              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
+              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+              break;
+
+
+    }
+
 }
 
 void BrushWorkApp::MouseDragged(int x, int y) {
@@ -108,13 +132,12 @@ void BrushWorkApp::MouseDragged(int x, int y) {
 
 	tool_list_[cur_tool_]->Draw(x + static_cast<int>(round(i * x_increment)),
                             y + static_cast<int>(round(i * y_increment)),
-                            display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+                            display_buffer_, *cur_color_);
     }
 	BrushWorkApp::start_x_ = x;
         BrushWorkApp::start_y_ = y;
 
     std::cout << "mouseDragged " << x << " " << y << std::endl;
- //   tool_list_[0]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
 }
 void BrushWorkApp::MouseMoved(int x, int y) {}
 
@@ -123,7 +146,7 @@ void BrushWorkApp::LeftMouseDown(int x, int y) {
     BrushWorkApp::start_y_ = y;
 
     std::cout << "mousePressed" << x << " " << y << std::endl;
-    tool_list_[cur_tool_]->Draw(x, y, display_buffer_, ColorData(cur_color_red_,cur_color_green_,cur_color_blue_));
+    tool_list_[cur_tool_]->Draw(x, y, display_buffer_, *cur_color_);
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
@@ -150,7 +173,6 @@ void BrushWorkApp::InitializeBuffers(
     int width,
     int height) {
     display_buffer_ = new PixelBuffer(width, height, background_color);
-    //cur_color_ = ColorData(0, 0, 0);
 }
 
 void BrushWorkApp::InitGlui(void) {
