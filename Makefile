@@ -1,6 +1,6 @@
 ################################################################################
 # Name            : Makefile
-# Project         : FlashPhoto
+# Project         : Brushwork
 # Description     : Main Makefile
 # Creation Date   : Fri May 16 14:59:49 2014
 # Original Author : jharwell
@@ -11,11 +11,11 @@
 #  Products:
 #  Make Target     Product                  Description
 #  ===========     =======                  ===================
-#  all             bin/FlashPhoto           The main executable
+#  all             bin/BrushWork            The main executable
 #  clean           N/A                      Removes excutable, all .o
 #  veryclean       N/A                      Everything clean removes, +
 #                                           the external libraries
-#  bin/FlashPhoto  bin/FlashPhoto           The main executable
+#  bin/BrushWork  bin/BrushWork             The main executable
 #  documentation   Various                  Generates documentation for
 #                                           project from the doxygen
 #                                           comments/markup in the code
@@ -82,8 +82,7 @@ endef
 # order to enable OpenMP pragmas in the code.
 define CXXFLAGS
 $(OPT) -g -W -Wall -Wextra -Weffc++ -Wshadow -Wfloat-equal \
--Wold-style-cast -Wswitch-default -std=gnu++11 -Wno-unused-parameter $(CXXINCDIRS) \
--fopenmp
+-Wold-style-cast -Wswitch-default -std=gnu++11 -Wno-unused-parameter $(CXXINCDIRS) 
 endef
 
 # In general, note that the order libraries are specified to the linker
@@ -108,6 +107,7 @@ ifeq ($(UNAME), Darwin) # Mac OSX
 CXXLIBS = -framework glut -framework opengl -lglui
 else # LINUX
 CXXLIBS = -lglut -lGL -lGLU -lglui
+CXXFLAGS += -fopenmp
 endif
 
 # On some lab machines the glut and opengl libraries are located in the directory
@@ -200,7 +200,7 @@ $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
 # The Target Executable. Note that libglui is an order-only prerequisite, in
 # that as long as it exists, make will not attempt to recompile it. This makes
 # sense; once you build GLUI, you should never have to rebuild it.
-$(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(EXTDIR)/lib/libglui.a $(EXTDIR)/lib/libpng.a $(EXTDIR)/lib/libjpeg.a
+$(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR)
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
 
 # GLUI
@@ -211,10 +211,6 @@ $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(EXTDIR)/lib/lib
 # command line arguments to sub-makes.
 $(EXTDIR)/lib/libglui.a:
 	@$(MAKE) -C$(GLUIDIR) install
-$(EXTDIR)/lib/libjpeg.a:
-	@$(MAKE) -C$(JPEGDIR) install
-$(EXTDIR)/lib/libpng.a:
-	@$(MAKE) -C$(PNGDIR) install
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build
@@ -226,14 +222,12 @@ $(BINDIR) $(OBJDIR):
 # The Cleaner. Clean up the project, by removing ALL files generated during
 # the build process to build the main target.
 clean:
-	@rm -rf $(BINDIR) $(OBJDIR) $(CONFIGDIR)/autom4te.cache $(CONFIGDIR)/config.log $(CONFIGDIR)/config.guess $(CONFIGDIR)/config.status
+	@rm -rf $(BINDIR) $(OBJDIR)
 
 # The Super Cleaner. Clean the project, but also clean all external libraries.
 veryclean: clean
 	-@$(MAKE) -C$(GLUIDIR) clean uninstall
-	-@$(MAKE) -C$(JPEGDIR) clean uninstall
-	-@$(MAKE) -C$(PNGDIR) clean uninstall
-	@rm -rf $(BINDIR) $(LIBDIR) $(OBJDIR) $(CONFIGDIR)/autom4te.cache $(CONFIGDIR)/config.log $(CONFIGDIR)/config.guess $(CONFIGDIR)/config.status share
+	@rm -rf $(BINDIR) $(OBJDIR)
 
 # The Documenter. Generate documentation for the project.
 documentation:
