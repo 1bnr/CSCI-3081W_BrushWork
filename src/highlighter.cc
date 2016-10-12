@@ -23,8 +23,8 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 Highlighter::Highlighter() : Tool() {
-  mask_rows_ = 5;
-  mask_cols_ = 15;
+  mask_rows_ = 15;
+  mask_cols_ = 5;
   use_luminance();
 
   // Set up the tool_mask_
