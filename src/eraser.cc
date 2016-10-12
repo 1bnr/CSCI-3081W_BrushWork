@@ -27,16 +27,21 @@ namespace image_tools {
    mask_rows_ = 21;
    mask_cols_ = 21;
 
+   // Set up the tool_mask_
+   tool_mask_.resize(mask_rows_);
+   for (int i = 0; i < mask_rows_; ++i)
+     tool_mask_[i].resize(mask_cols_);
+
+   //Initialize the mask
   // Set up the tool_mask_
-  tool_mask_.resize(mask_rows_);
   int center_ = mask_cols_ / 2;
   tool_mask_.resize(mask_rows_);
-  for (int y = 0; y < mask_rows_; ++y) {
-    tool_mask_[y].resize(mask_cols_);
-    for (int x = 0; x < mask_cols_; x++) {
+  for (int x = 0; x < mask_rows_; ++x) {
+    tool_mask_[x].resize(mask_cols_);
+    for (int y = 0; y < mask_cols_; y++) {
       int xy_pos = pow(x - center_, 2) + pow(y - center_, 2);
       // if inside circle, calculate mask filter values
-      if ( xy_pos <= pow(center_, 2) )
+      if ( xy_pos < pow(center_, 2) )
         tool_mask_[x][y] = 1;
       else  // outside circle, set filter value to 0
         tool_mask_[x][y] = 0;
