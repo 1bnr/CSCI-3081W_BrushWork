@@ -44,28 +44,26 @@ void Tool::Draw(int x, int y, PixelBuffer *p, ColorData c) {
   // apply them to the canvas
   for (int p_y = 0; p_y < mask_rows_; p_y++) {
     for (int p_x = 0; p_x < mask_cols_; p_x++) {
-      
-      
+
+
       // set the current pixel to the display buffer that we passed in
       // Check that we do not draw outside the border of the application
       if((p_x + xpos_start) >= 0 && (p_x + xpos_start) < window_width &&
         (p_y + ypos_start) >= 0 && (p_y + ypos_start) < window_height) {
         ColorData canvas_pixel = p->get_pixel(xpos_start + p_x, ypos_start + p_y);
-        float intensity = static_cast<float>(tool_mask_[p_y][p_x]);
-        if (uses_luminance_)
-          intensity *= canvas_pixel.luminance();
-        float canvas_filter = 1.0 - tool_mask_[p_y][p_x];
         float mask_filter = static_cast<float>(tool_mask_[p_y][p_x]);
+        if (uses_luminance_)
+          mask_filter *= canvas_pixel.luminance();
 
         // print out the mask; for debugging
         // std::cout << tool_mask_[p_x][p_y] << ":";
-        ColorData new_pixel = (canvas_pixel * canvas_filter) + (c * mask_filter);
+        ColorData new_pixel = (canvas_pixel * (1.0 - mask_filter)) + (c * mask_filter);
         p->set_pixel(p_x + xpos_start, p_y + ypos_start, new_pixel);
       }
-        
-        
 
-      
+
+
+
     }
     // skip to next line of mask for printout
     // std::cout << std::endl;
