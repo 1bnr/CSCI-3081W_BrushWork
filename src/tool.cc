@@ -43,9 +43,12 @@ void Tool::Draw(int x, int y, PixelBuffer *p, ColorData c) {
   // apply them to the canvas
   for (int p_x = 0; p_x < mask_rows_; p_x++) {
     for (int p_y = 0; p_y < mask_cols_; p_y++) {
+      ColorData canvas_pixel = p->get_pixel(xpos_start + p_x, ypos_start + p_y);
+      float intensity = static_cast<float>(tool_mask_[p_x][p_y]);
+      if (uses_luminance_)
+        intensity *= canvas_pixel.luminance();
       float canvas_filter = 1.0 - tool_mask_[p_x][p_y];
       float mask_filter = static_cast<float>(tool_mask_[p_x][p_y]);
-      ColorData canvas_pixel = p->get_pixel(xpos_start + p_x, ypos_start + p_y);
 
       // print out the mask; for debugging
       // std::cout << tool_mask_[p_x][p_y] << ":";
