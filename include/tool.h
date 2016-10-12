@@ -37,12 +37,14 @@ class Tool {
   // Default constructor for a tool.
   Tool();
   virtual ~Tool();
+  inline void use_luminance() {uses_luminance_ = true;}
 
   // Discussed possible ways to implement draw function with group
   void Draw(int x, int y, PixelBuffer *p, ColorData c);
  protected:
   int mask_rows_;
   int mask_cols_;
+  bool uses_luminance_ = false;
   std::vector<std::vector<float> > tool_mask_;
 };
 }  // namespace image_tools
