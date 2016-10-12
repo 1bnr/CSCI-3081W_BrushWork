@@ -112,7 +112,9 @@ void BrushWorkApp::Display(void) {
 
 void BrushWorkApp::MouseDragged(int x, int y) {
   //discussion about how we will implement drawing to screen
-
+    // Check for out of bound conditions
+    x = CheckXBounds(x);
+    y = CheckYBounds(y);
     float x_increment;
     float y_increment;
     // find the distance between the last xy-coord and this xy-coord
@@ -130,14 +132,15 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     // step from last xy-coord to current xy-coord
     for (int i = 0; i <= stepping_limit; i++) {
 
-	tool_list_[cur_tool_]->Draw(x + static_cast<int>(round(i * x_increment)),
-                            y + static_cast<int>(round(i * y_increment)),
-                            display_buffer_, *cur_color_);
+      tool_list_[cur_tool_]->Draw(x + static_cast<int>(round(i * x_increment)),
+                                y + static_cast<int>(round(i * y_increment)),
+                                display_buffer_, *cur_color_);
     }
-	BrushWorkApp::start_x_ = x;
-        BrushWorkApp::start_y_ = y;
-
+    BrushWorkApp::start_x_ = x;
+          BrushWorkApp::start_y_ = y;
     std::cout << "mouseDragged " << x << " " << y << std::endl;
+    
+    
 }
 void BrushWorkApp::MouseMoved(int x, int y) {}
 
@@ -173,6 +176,24 @@ void BrushWorkApp::InitializeBuffers(
     int width,
     int height) {
     display_buffer_ = new PixelBuffer(width, height, background_color);
+}
+
+int BrushWorkApp::CheckXBounds(int x) {
+    if(x > width())
+      return width();
+    else if(x < 0)
+      return 0;
+    else
+      return x;
+}
+
+int BrushWorkApp::CheckYBounds(int y) {
+    if(y > height())
+      return height();
+    else if(y < 0)
+      return 0;
+    else
+      return y;
 }
 
 void BrushWorkApp::InitGlui(void) {

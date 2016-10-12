@@ -75,6 +75,11 @@ class BrushWorkApp : public BaseGfxApp {
     // Initialize the vector of tool objects
     void InitTools(void);
 
+    // Check if the cursor leaves the drawing canvas on the x axis
+    int CheckXBounds(int x);
+    // Check if the cursor leaves the drawing canvas on the y axis
+    int CheckYBounds(int x);
+
     /**
      * @brief Set of values used to differentiate between what radio buttons is
      * pressed by the user.
