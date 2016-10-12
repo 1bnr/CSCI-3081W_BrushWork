@@ -25,6 +25,7 @@ namespace image_tools {
 Highlighter::Highlighter() : Tool() {
   mask_rows_ = 5;
   mask_cols_ = 15;
+  use_luminance();
 
   // Set up the tool_mask_
   tool_mask_.resize(mask_rows_);
