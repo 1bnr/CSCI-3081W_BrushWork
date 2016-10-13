@@ -40,7 +40,7 @@ class Tool {
   inline void use_luminance() {uses_luminance_ = true;}
 
   // Discussed possible ways to implement draw function with group
-  void Draw(int x, int y, PixelBuffer *p, ColorData c);
+  virtual void Draw(int x, int y, PixelBuffer *p, ColorData c);
  protected:
   int mask_rows_;
   int mask_cols_;

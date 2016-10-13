@@ -33,9 +33,11 @@ namespace image_tools {
  */
 class CalligraphyPen : public Tool {
  public:
-   CalligraphyPen();
-   virtual ~CalligraphyPen();
-
+  CalligraphyPen();
+  virtual ~CalligraphyPen();
+  void Draw(int x, int y, PixelBuffer *p, ColorData c) { 
+    Tool::Draw(x, y, p, c); 
+  }
  private:
 
 };

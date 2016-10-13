@@ -33,7 +33,7 @@ SprayCan::SprayCan() {
 
   // Set up the tool_mask_
   tool_mask_.resize(mask_rows_);
-  for (int x = 0; x < mask_rows_; ++x) {
+  for (int x = 0; x < mask_rows_; x++) {
     tool_mask_[x].resize(mask_cols_);
     for (int y = 0; y < mask_cols_; y++) {
       // if inside circle, calculate mask filter values

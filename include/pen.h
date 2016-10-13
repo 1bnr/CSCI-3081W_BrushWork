@@ -32,11 +32,13 @@ namespace image_tools {
  * @brief This is the header file for the pen tool.
  */
 class Pen : public Tool {
-  public:
-     Pen();
-     virtual ~Pen();
-
-  private:
+ public:
+  Pen();
+  virtual ~Pen();
+  void Draw(int x, int y, PixelBuffer *p, ColorData c) { 
+    Tool::Draw(x, y, p, c); 
+  }
+ private:
   	
 };
 }  // namespace image_tools

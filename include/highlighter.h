@@ -35,6 +35,9 @@ class Highlighter : public Tool {
  public:
   Highlighter();
   virtual ~Highlighter();
+  void Draw(int x, int y, PixelBuffer *p, ColorData c) { 
+      Tool::Draw(x, y, p, c); 
+  }
 };
 }  // namespace image_tools
 #endif  // INCLUDE_HIGHLIGHTER_H_

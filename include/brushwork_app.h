@@ -24,6 +24,7 @@
 #include "include/calligraphy_pen.h"
 #include "include/highlighter.h"
 #include "include/eraser.h"
+#include "include/blur.h"
 #include <vector>
 
 /*******************************************************************************

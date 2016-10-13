@@ -20,6 +20,7 @@ DEPS += pen.h
 DEPS += calligraphy_pen.h 
 DEPS += spray_can.h
 DEPS += highlighter.h
+DEPS += blur.h
 
 DEPS = $(addprefix $(INC_DIR), $(DEPS))
 
@@ -34,6 +35,7 @@ CPPFILES += pen.cc
 CPPFILES += calligraphy_pen.cc
 CPPFILES += spray_can.cc
 CPPFILES += highlighter.cc
+CPPFILES += blur.cc
 
 
 SOURCES=$(addprefix ./src/,  $(CPPFILES))

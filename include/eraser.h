@@ -36,7 +36,9 @@ namespace image_tools {
   public:
    Eraser();
    virtual ~Eraser();
-   void Draw(int x, int y, PixelBuffer *p, ColorData c);
+   virtual void Draw(int x, int y, PixelBuffer *p, ColorData c) { 
+      Tool::Draw(x, y, p, c); 
+   }
  };
 }  // namespace image_tools
 #endif  // INCLUDE_ERASER_H_
