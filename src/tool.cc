@@ -33,42 +33,36 @@ Tool::~Tool() {}
 void Tool::Draw(int x, int y, PixelBuffer *p, ColorData c) {
   // adjust the y mouse-parameter to the canvas orientation
   y = p->height() - y;
-  //borders for the application
+  // borders for the application
   int window_width = p->width();
   int window_height = p->height();
   // set the start and end positions of the draw mask
-  int xpos_start = x - mask_cols_/2;
-  int ypos_start = y - mask_rows_/2;
+  int x_start = x - mask_cols_/2;
+  int y_start = y - mask_rows_/2;
 
   // filter the pixel data from the canvas and the tool through the mask, and
   // apply them to the canvas
-  for (int p_y = 0; p_y < mask_rows_; p_y++) {
-    for (int p_x = 0; p_x < mask_cols_; p_x++) {
-
-
+  for (int mask_y = 0; mask_y < mask_rows_; mask_y++) {
+    for (int mask_x = 0; mask_x < mask_cols_; mask_x++) {
       // set the current pixel to the display buffer that we passed in
       // Check that we do not draw outside the border of the application
-      if((p_x + xpos_start) >= 0 && (p_x + xpos_start) < window_width &&
-        (p_y + ypos_start) >= 0 && (p_y + ypos_start) < window_height) {
-        ColorData canvas_pixel = p->get_pixel(xpos_start + p_x, ypos_start + p_y);
-        float mask_filter = static_cast<float>(tool_mask_[p_y][p_x]);
+      if ((mask_x + x_start) >= 0 && (mask_x + x_start) < window_width &&
+        (mask_y + y_start) >= 0 && (mask_y + y_start) < window_height) {
+        ColorData pixel = p->get_pixel(x_start + mask_x, y_start + mask_y);
+        float mask_filter = static_cast<float>(tool_mask_[mask_y][mask_x]);
         if (uses_luminance_)
-          mask_filter *= canvas_pixel.luminance();
+          mask_filter *= pixel.luminance();
 
         // print out the mask; for debugging
-        // std::cout << tool_mask_[p_x][p_y] << ":";
-        ColorData new_pixel = (canvas_pixel * (1.0 - mask_filter)) + (c * mask_filter);
-        p->set_pixel(p_x + xpos_start, p_y + ypos_start, new_pixel);
+        // std::cout << tool_mask_[mask_y][mask_x] << ":";
+        ColorData new_pixel = (pixel * (1.0 - mask_filter)) + (c * mask_filter);
+        p->set_pixel(mask_x + x_start, mask_y + y_start, new_pixel);
       }
-
-
-
-
     }
     // skip to next line of mask for printout
     // std::cout << std::endl;
   }
-// space between filter printouts
+// space between mask printouts
 // std::cout << std::endl;
 }
 
