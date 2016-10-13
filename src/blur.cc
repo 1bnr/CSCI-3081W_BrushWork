@@ -33,14 +33,15 @@ Blur::Blur() {
 
   // Set up the tool_mask_
   tool_mask_.resize(mask_rows_);
-  for (int y = 0; y < mask_rows_; y++) {
-    tool_mask_[y].resize(mask_cols_);
-    for (int x = 0; x < mask_cols_; x++) {
+  for (int x = 0; x < mask_rows_; x++) {
+    tool_mask_[x].resize(mask_cols_);
+    for (int y = 0; y < mask_cols_; y++) {
       // if inside circle, calculate mask filter values
       if ((pow(x - center_, 2) + pow(y - center_, 2)) <= pow(center_, 2))
-        tool_mask_[y][x] = 1.0;
+        tool_mask_[x][y] = ((sqrt(pow(x - center_, 2) + pow(y - center_, 2))
+                            - center_) * slope);
       else  // outside circle, set filter value to 0
-        tool_mask_[y][x] = 0.0;
+        tool_mask_[x][y] = 0;
     }
   }
 }
@@ -80,8 +81,6 @@ void Blur::Draw(int x, int y, PixelBuffer *p, ColorData c) {
         // print out the mask; for debugging
         // std::cout << tool_mask_[mask_y][mask_x] << ":";
         ColorData new_pixel = (pixel_0 * (0.6)) + (pixel_1 * (0.1)) + (pixel_2 * (0.1)) + (pixel_3 * (0.1)) + (pixel_4 * (0.1));
-
-        
         new_pixel = (pixel_0 * (1.0 - mask_filter)) + (new_pixel * mask_filter);
         p->set_pixel(mask_x + x_start, mask_y + y_start, new_pixel);
       }
