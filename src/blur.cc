@@ -28,8 +28,8 @@ Blur::Blur() {
   mask_rows_ = 41;
   mask_cols_ = 41;
   // find center of mask for linear falloff
-  int center_ = mask_cols_ / 2;
-  double slope = -0.2/static_cast<double>(center_);
+  int center = mask_cols_ / 2;
+  double slope = -0.6/static_cast<double>(center);
 
   // Set up the tool_mask_
   tool_mask_.resize(mask_rows_);
@@ -37,9 +37,9 @@ Blur::Blur() {
     tool_mask_[x].resize(mask_cols_);
     for (int y = 0; y < mask_cols_; y++) {
       // if inside circle, calculate mask filter values
-      if ((pow(x - center_, 2) + pow(y - center_, 2)) <= pow(center_, 2))
-        tool_mask_[x][y] = ((sqrt(pow(x - center_, 2) + pow(y - center_, 2))
-                            - center_) * slope);
+      if ((pow(x - center, 2) + pow(y - center, 2)) <= pow(center, 2))
+        tool_mask_[x][y] = ((sqrt(pow(x - center, 2) + pow(y - center, 2))
+                            - center) * slope);
       else  // outside circle, set filter value to 0
         tool_mask_[x][y] = 0;
     }
@@ -65,16 +65,16 @@ void Blur::Draw(int x, int y, PixelBuffer *p, ColorData c) {
   // apply them to the canvas
   for (int mask_y = 0; mask_y < mask_rows_; mask_y++) {
     for (int mask_x = 0; mask_x < mask_cols_; mask_x++) {
-      // set the current pixel to the display buffer that we passed in
-       ColorData pixel_0 = p->get_pixel(x_start + mask_x, y_start + mask_y); // focal pixel
       // Check that we do not draw outside the border of the application
-      if ((mask_x + x_start) > 0 && (mask_x + x_start) < (window_width - 1) &&
-        (mask_y + y_start) > 0 && (mask_y + y_start) < (window_height - 1)) {
+      if ((mask_x + x_start) > 1 && (mask_x + x_start) < (window_width - 1) &&
+        (mask_y + y_start) > 1 && (mask_y + y_start) < (window_height - 1)) {
+       // get the focal pixel data
+        ColorData pixel_0 = p->get_pixel(x_start + mask_x, y_start + mask_y);
         // get adjacent pixel data
-        ColorData pixel_1 = p->get_pixel(x_start + mask_x + 1, y_start + mask_y + 1); // x+1, y+1
-        ColorData pixel_2 = p->get_pixel(x_start + mask_x - 1, y_start + mask_y - 1); // x-1, y-1
-        ColorData pixel_3 = p->get_pixel(x_start + mask_x + 1, y_start + mask_y - 1); // x+1, y-1
-        ColorData pixel_4 = p->get_pixel(x_start + mask_x - 1, y_start + mask_y + 1); // x-1, y+1
+        ColorData pixel_1 = p->get_pixel(x_start + mask_x + 1, y_start + mask_y); // x+1, y
+        ColorData pixel_2 = p->get_pixel(x_start + mask_x - 1, y_start + mask_y); // x-1, y
+        ColorData pixel_3 = p->get_pixel(x_start + mask_x, y_start + mask_y - 1); // x, y-1
+        ColorData pixel_4 = p->get_pixel(x_start + mask_x, y_start + mask_y + 1); // x, y+1
 
         float mask_filter = static_cast<float>(tool_mask_[mask_y][mask_x]);
   
