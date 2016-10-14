@@ -1,11 +1,11 @@
 # Design Justifications for BrushWork
 #### Group Name:
-<Group 0x07>
+Group 0x07
 
 #### Members:
-- <Abner Holsinger>
-- <Isaac Schwab>
-- <Ben Bramanti>
+- Abner Holsinger
+- Isaac Schwab
+- Ben Bramanti
 
 #### Instructions
 > Respond to each of the design questions below.  Make your answers factual and compelling.  Where appropriate, reference alternative designs you considered, code snippets, and diagrams within your writing in order to be clear and back up your claims.  As we have discussed in class, when writing with reference to figures make sure to tell the reader what to look for in the diagram or what exactly you want the reader to notice in the code snippet.  Remember that the design of your project is worth 1/3 of the total project grade.  Also remember that when grading the design portion of the project, this design justification document is the only thing we will look at.  This document must stand on its own.  Rather than linking to your actual code, carefully pick the most important code snippets from your project to include here in order to provide convincing detail for your answers to the questions below.
