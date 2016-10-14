@@ -25,25 +25,29 @@ namespace image_tools {
  ******************************************************************************/
 SprayCan::SprayCan() {
   // generate mask; values are to be between 0.0 and 1.0
-  mask_rows_ = 41;
-  mask_cols_ = 41;
+  int rows = 41;
+  int cols = 41;
+  std::vector<std::vector<float>> mask;
+  set_mask_rows(rows);
+  set_mask_cols(cols);
   // find center of mask for linear falloff
-  int center_ = mask_cols_ / 2;
-  double slope = -0.2/static_cast<double>(center_);
+  int center = cols / 2;
+  double slope = -0.2/static_cast<double>(center);
 
-  // Set up the tool_mask_
-  tool_mask_.resize(mask_rows_);
-  for (int x = 0; x < mask_rows_; x++) {
-    tool_mask_[x].resize(mask_cols_);
-    for (int y = 0; y < mask_cols_; y++) {
+  // Set up the mask
+  mask.resize(rows);
+  for (int x = 0; x < rows; x++) {
+    mask[x].resize(cols);
+    for (int y = 0; y < cols; y++) {
       // if inside circle, calculate mask filter values
-      if ((pow(x - center_, 2) + pow(y - center_, 2)) <= pow(center_, 2))
-        tool_mask_[x][y] = ((sqrt(pow(x - center_, 2) + pow(y - center_, 2))
-                            - center_) * slope);
+      if ((pow(x - center, 2) + pow(y - center, 2)) <= pow(center, 2))
+        mask[x][y] = ((sqrt(pow(x - center, 2) + pow(y - center, 2))
+                            - center) * slope);
       else  // outside circle, set filter value to 0
-        tool_mask_[x][y] = 0;
+        mask[x][y] = 0;
     }
   }
+  set_tool_mask(mask);
 }
 SprayCan::~SprayCan() {}
 

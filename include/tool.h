@@ -38,14 +38,24 @@ class Tool {
   Tool();
   virtual ~Tool();
   inline void use_luminance() {uses_luminance_ = true;}
+  inline int get_mask_rows() {return mask_rows_;}
+  inline int get_mask_cols() {return mask_cols_;}
+  inline void set_mask_rows(int rows) {mask_rows_ = rows;}
+  inline void set_mask_cols(int cols) {mask_cols_ = cols;}
+  inline void set_tool_mask(std::vector<std::vector<float> > mask) {
+    tool_mask_ = mask;
+  }
+  inline std::vector<std::vector<float>> get_tool_mask() {
+    return tool_mask_;
+  }
 
   // Discussed possible ways to implement draw function with group
   virtual void Draw(int x, int y, PixelBuffer *p, ColorData c);
- protected:
+ private:
   int mask_rows_;
   int mask_cols_;
   bool uses_luminance_ = false;
-  std::vector<std::vector<float> > tool_mask_;
+  std::vector<std::vector<float>> tool_mask_;
 };
 }  // namespace image_tools
 #endif  // INCLUDE_TOOL_H_

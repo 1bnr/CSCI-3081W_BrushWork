@@ -24,26 +24,30 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 Pen::Pen() : Tool() {
-  mask_rows_ = 3;
-  mask_cols_ = 3;
+  int rows = 3;
+  int cols = 3;
+  std::vector<std::vector<float>> mask;
+  set_mask_rows(rows);
+  set_mask_cols(cols);
 
-   // Set up the tool_mask_
-   tool_mask_.resize(mask_rows_);
-   for (int i = 0; i < mask_rows_; ++i)
-     tool_mask_[i].resize(mask_cols_);
+  // Set up the mask
+  mask.resize(rows);
+  for (int i = 0; i < rows; ++i)
+    mask[i].resize(cols);
 
-  int center_ = mask_cols_ / 2;
-  for (int y = 0; y < mask_rows_; y++) {
-    tool_mask_[y].resize(mask_cols_);
-    for (int x = 0; x < mask_cols_; x++) {
-      int xy_pos = pow(x - center_, 2) + pow(y - center_, 2);
+  int center = cols / 2;
+  for (int y = 0; y < rows; y++) {
+    mask[y].resize(cols);
+    for (int x = 0; x < cols; x++) {
+      int xy_pos = pow(x - center, 2) + pow(y - center, 2);
       // if inside circle, set filter to 1; apply color opaque
-      if ( xy_pos <= pow(center_, 2) )
-        tool_mask_[x][y] = 1;
+      if ( xy_pos <= pow(center, 2) )
+        mask[x][y] = 1;
       else  // outside circle, set filter value to 0; block color application
-        tool_mask_[x][y] = 0;
+        mask[x][y] = 0;
       }
-   }
+    }
+    set_tool_mask(mask);
 }
 Pen::~Pen() {
 }

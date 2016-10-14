@@ -23,17 +23,21 @@ namespace image_tools {
  * Constructors/Destructors
  ******************************************************************************/
 Highlighter::Highlighter() : Tool() {
-  mask_rows_ = 15;
-  mask_cols_ = 5;
+  int rows = 15;
+  int cols = 5;
+  std::vector<std::vector<float>> mask;
+  set_mask_rows(rows);
+  set_mask_cols(cols);
   use_luminance();
 
-  // Set up the tool_mask_
-  tool_mask_.resize(mask_rows_);
-  for (int i = 0; i < mask_rows_; ++i) {
-    tool_mask_[i].resize(mask_cols_);
-    for (int j = 0; j < mask_cols_; j++)
-      tool_mask_[i][j] = 0.4;
-    }
+  // Set up the mask
+  mask.resize(rows);
+  for (int i = 0; i < rows; ++i) {
+    mask[i].resize(cols);
+    for (int j = 0; j < cols; j++)
+      mask[i][j] = 0.4;
+  }
+  set_tool_mask(mask);
 }
 Highlighter::~Highlighter() {}
 /*******************************************************************************

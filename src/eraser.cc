@@ -23,34 +23,38 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
- Eraser::Eraser() : Tool() {
-   mask_rows_ = 21;
-   mask_cols_ = 21;
+Eraser::Eraser() : Tool() {
+  int rows = 21;
+  int cols = 21;
+  std::vector<std::vector<float>> mask;
+  set_mask_rows(rows);
+  set_mask_cols(cols);
 
-   // Set up the tool_mask_
-   tool_mask_.resize(mask_rows_);
-   for (int i = 0; i < mask_rows_; ++i)
-     tool_mask_[i].resize(mask_cols_);
+  // Set up the mask
+  mask.resize(rows);
+  for (int i = 0; i < rows; ++i)
+    mask[i].resize(cols);
 
-   //Initialize the mask
-  // Set up the tool_mask_
-  int center_ = mask_cols_ / 2;
-  tool_mask_.resize(mask_rows_);
-  for (int x = 0; x < mask_rows_; ++x) {
-    tool_mask_[x].resize(mask_cols_);
-    for (int y = 0; y < mask_cols_; y++) {
-      int xy_pos = pow(x - center_, 2) + pow(y - center_, 2);
+  //Initialize the mask
+  // Set up the mask
+  int center = cols / 2;
+  mask.resize(rows);
+  for (int x = 0; x < rows; ++x) {
+    mask[x].resize(cols);
+    for (int y = 0; y < cols; y++) {
+      int xy_pos = pow(x - center, 2) + pow(y - center, 2);
       // if inside circle, calculate mask filter values
-      if ( xy_pos < pow(center_, 2) )
-        tool_mask_[x][y] = 1;
+      if ( xy_pos < pow(center, 2) )
+        mask[x][y] = 1;
       else  // outside circle, set filter value to 0
-        tool_mask_[x][y] = 0;
+        mask[x][y] = 0;
     }
   }
+  set_tool_mask(mask);
 }
 
- Eraser::~Eraser() {
- }
+Eraser::~Eraser() {
+}
 
 /*******************************************************************************
  * Member Functions
