@@ -119,6 +119,7 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     // Check for out of bound conditions
     x = CheckXBounds(x);
     y = CheckYBounds(y);
+    float third_tool_width = tool_list_[cur_tool_]->get_mask_cols()/3;
     float x_increment;
     float y_increment;
     // find the distance between the last xy-coord and this xy-coord
@@ -134,7 +135,7 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     x_increment = static_cast<float>(BrushWorkApp::start_x_ - x) / stepping_limit;
     y_increment = static_cast<float>(BrushWorkApp::start_y_ - y) / stepping_limit;
     // step from last xy-coord to current xy-coord
-    for (int i = 0; i <= stepping_limit; i++) {
+    for (int i = 0; i < stepping_limit; i += third_tool_width) {
 
       tool_list_[cur_tool_]->Draw(x + static_cast<int>(round(i * x_increment)),
                                 y + static_cast<int>(round(i * y_increment)),
