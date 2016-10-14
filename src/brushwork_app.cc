@@ -90,11 +90,11 @@ void BrushWorkApp::Display(void) {
               break;
       case 1: // eraser
               cur_color_ = background_color_;
-              //glClear(GL_COLOR_BUFFER_BIT);
+              glutSetCursor(GLUT_CURSOR_DESTROY);
               break;
       case 2: // spray can
               cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
-              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+              glutSetCursor(GLUT_CURSOR_SPRAY);
               break;
       case 3: // calligraphy pen
               cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
@@ -103,6 +103,10 @@ void BrushWorkApp::Display(void) {
       case 4: // highlighter
               cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
               glutSetCursor(GLUT_CURSOR_CROSSHAIR);
+              break;
+      case 5: // blur
+              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
+              glutSetCursor(GLUT_CURSOR_INFO);
               break;
 
 
