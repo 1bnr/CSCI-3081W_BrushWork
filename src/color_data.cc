@@ -29,6 +29,7 @@ ColorData::ColorData(float r, float g, float b)
 ColorData::ColorData(float r, float g, float b, float a)
     : red_(r), green_(g), blue_(b), alpha_(a)  {}
 
+//ColorData::~ColorData(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/

@@ -38,12 +38,24 @@ BrushWorkApp::BrushWorkApp(int width,
       cur_color_blue_(0.0),
       spinner_r_(nullptr),
       spinner_g_(nullptr),
-      spinner_b_(nullptr) {}
+      spinner_b_(nullptr),
+      start_x_(0),
+      start_y_(0),
+      background_color_( new ColorData(0,0,0,0)),
+      cur_color_( new ColorData(0,0,0,0)){}
 
 BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
         delete display_buffer_;
     }
+    if (cur_color_) {
+        delete cur_color_;
+    }
+    if (background_color_) {
+        delete background_color_;
+    }
+
+   tool_list_.clear();
 }
 
 /*******************************************************************************
@@ -74,39 +86,42 @@ void BrushWorkApp::Init(
     glutSetCursor(GLUT_CURSOR_CROSSHAIR);
     //Create list of tools
     InitTools();
-    int start_x_;
-    int start_y_;
-    background_color_ = new ColorData(background_color);
-
-    cur_color_ = new ColorData(0,0,0,0);
+    ColorData *temp_bc = new ColorData(background_color);
+    delete background_color_;
+    background_color_ = temp_bc;
+    ColorData *temp_cc = new ColorData(background_color);
+    delete cur_color_;
+    cur_color_ = temp_cc;
+    
+    
 }
 
 void BrushWorkApp::Display(void) {
     DrawPixels(0, 0, width(), height(), display_buffer_->data());
     switch(cur_tool_) {
-      case 0: // pen
-              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
-              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
-              break;
       case 1: // eraser
               cur_color_ = background_color_;
               glutSetCursor(GLUT_CURSOR_DESTROY);
               break;
       case 2: // spray can
-              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
+              cur_color_->red(cur_color_red_);
+              cur_color_->green(cur_color_green_);
+              cur_color_->blue(cur_color_blue_);
               glutSetCursor(GLUT_CURSOR_SPRAY);
               break;
-      case 3: // calligraphy pen
-              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
-              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
-              break;
-      case 4: // highlighter
-              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
-              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
-              break;
       case 5: // blur
-              cur_color_ = new ColorData(cur_color_red_, cur_color_green_, cur_color_blue_);
+              cur_color_->red(cur_color_red_);
+              cur_color_->green(cur_color_green_);
+              cur_color_->blue(cur_color_blue_);
               glutSetCursor(GLUT_CURSOR_INFO);
+              break;
+      case 3: // calligraphy pen
+      case 4: // highlighter
+      case 0: // pen
+              cur_color_->red(cur_color_red_);
+              cur_color_->green(cur_color_green_);
+              cur_color_->blue(cur_color_blue_);
+              glutSetCursor(GLUT_CURSOR_CROSSHAIR);
               break;
 
 
@@ -143,7 +158,7 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     }
     BrushWorkApp::start_x_ = x;
           BrushWorkApp::start_y_ = y;
-    std::cout << "mouseDragged " << x << " " << y << std::endl;
+//    std::cout << "mouseDragged " << x << " " << y << std::endl;
     
     
 }
@@ -153,12 +168,12 @@ void BrushWorkApp::LeftMouseDown(int x, int y) {
     BrushWorkApp::start_x_ = x;
     BrushWorkApp::start_y_ = y;
 
-    std::cout << "mousePressed" << x << " " << y << std::endl;
+//    std::cout << "mousePressed" << x << " " << y << std::endl;
     tool_list_[cur_tool_]->Draw(x, y, display_buffer_, *cur_color_);
 }
 
 void BrushWorkApp::LeftMouseUp(int x, int y) {
-    std::cout << "mouseReleased " << x << " " << y << std::endl;
+//    std::cout << "mouseReleased " << x << " " << y << std::endl;
 }
 
 //Initialize the array of tools
