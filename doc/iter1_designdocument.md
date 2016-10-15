@@ -16,6 +16,19 @@ Group 0x07
 > First, in the **Design Description** section below, describe the design you developed to address this challenge. We expect that you will include at least one figure showing the relationships of the classes affected by your design. Second, in the **Design Justification** section below present the most compelling argument you can for why this design is justified.  Note that our expectation is that you will need to discuss the pros (and maybe cons) of your final design as compared to alternative designs that you discussed in your group in order to make a strong case for justifying your design.
 
 ### 1.1 Design Description
+Looking at the requirements for this iteration, our group knew each tool will differ from the others but
+may also share some features in common.  In terms of design this meant developing a Tool class, that could offer
+characteristics common to each tool, along with sub-classes that handled specifics of each tool.  Below are two figures
+both of which are UML diagrams.  The figures are from the same diagram, they are just focused on different areas.
+
+https://media.github.umn.edu/user/5831/files/49922964-927b-11e6-8207-800b677bec0b
+https://media.github.umn.edu/user/5831/files/6388af96-927b-11e6-8efc-384f89fe1540
+
+The first figure shows the relationship between BrushWorkApp and our Tool class.  The multiplicity (listed on arrow between classes) is 1..* because we require BrushWorkApp to have at least 1 tool but no limit beyond that.  What is important in this figure is noticing that we have added a vector of tools, tool_list_.  All tools are stored here, and can be accessed with cur_tool_ (an integer value that can change based on which tool users click).  This was one of the first design decisions made by our team, it allows there to be an easy transition between tools and also keeps them stored together in memory.  Our group also added a member variable to BrushWorkApp, cur_color_.  This change allowed us to handle a tool's color as 1 object instead of passing it around as red/blue/green separately.  The code snippet below shows how cur_color_ is set, if cur_color_red_,cur_color_green_,or cur_color_blue_ are changed then cur_color_ will reflect that.
+https://media.github.umn.edu/user/5831/files/66f634c8-927b-11e6-9b3b-5df4f910d0d7
+The snippet below then shows how this simplified the function call to draw, we were able to use fewer arguments making the code easier to read and understand.
+https://media.github.umn.edu/user/5831/files/6979b3fa-927b-11e6-96bc-57a0ac84a059
+
 
 ### 1.2 Design Justification
 
