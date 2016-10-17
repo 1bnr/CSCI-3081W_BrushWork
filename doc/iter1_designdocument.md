@@ -26,7 +26,6 @@ This figure shows the relationship between BrushWorkApp and our Tool class.  The
 
 ![screen shot 2016-10-16 at 9 05 10 pm](https://media.github.umn.edu/user/5831/files/5a11b01a-93e4-11e6-9dd3-7bf42dbea4de)
 
-
 The snippet below then shows how this simplified the function call to draw, we were able to use fewer arguments making the code easier to read and understand.
 
 ![screen shot 2016-10-15 at 1 58 58 am](https://media.github.umn.edu/user/5831/files/6979b3fa-927b-11e6-96bc-57a0ac84a059)
@@ -38,6 +37,7 @@ For our design we wanted to keep the tools as similar as possible, by creating a
 Within the second for-loop you will see each element of the mask being set to .4, this made sense to our group to include these "intensity levels" within the mask.  That way the mask wasn't only the shape being drawn to the canvas, but also held information on with what intensity the tool would draw to the canvas.
 
 ### 1.2 Design Justification
+
 The main justification behind this design is its simplicity.  Our abstract tool class provides the groundwork for any tool a user may want to add, but also gives each tool the freedom to define a specific mask, blending technique, or drawing method.  The design also allows for a clear layer of abstraction, where each tool is merely a different set of requirements the program looks at before it draws to the canvas.  Our group thought it would be better not to force relations where they weren't needed.  Separating the tools even further into pens and other categories that are then sub-classes of Tool would be an example of that.  This to us seemed unnecessary, and almost clutters the abstraction.  In this case nothing is really gained from separating them, and it leads to extra source code/classes that don't offer significant change.  A big benefit to this design is how easy it can be to add new tools, defining a mask is really all it comes down to.  With other designs you may end up creating three or four separate objects for each instantiation of a tool, with ours all it requires is 1 call to that tool and everything can be created from it.  That is why we included the mask within our tool class, and not as its own class.  It makes it a lot easier for users to instantiate a tool when that class handles the creation of its own attributes and data.  Lastly, the major benefit to our design is its usability.  By creating an overridable draw method in our Tool class, when changes needed to be made they could be made in one place.  If a specific tool's mask needed to be changed or experimented with, those changes only had to be made in one place.  It goes back to the first point brought up that our Tool class provides the groundwork but leaves freedom to each tool to be different.  This was what we based our design upon, and it led to simple relationships between classes that directly modeled the real world.
 
 ## 2  Design Question Two
@@ -55,7 +55,8 @@ Having the background color stored means that now technically any tool can have 
 
 
 ### 2.2 Design Justification
-To us it was important that our functions/classes didn't have to change just because the eraser had special requirements.  That is why we chose to instead set cur_color_ to background_color_ when the eraser was in use.  This seemed to be the easiest solution, but also the smartest because it opens up the door for other tools.  Now any new tools added can also access the background color if needed, so this design is beneficial for future updates/changes.
+
+To us it was important that our functions/classes didn't have to change just because the eraser had special requirements.  That is why we chose to instead set cur_color_ to background_color_ when the eraser was in use.  This seemed to be the easiest solution, but also the smartest because it opens up the door for other tools.  Now any new tools added can also access the background color if needed, so this design is beneficial for future updates/changes.  But it also helps in another scenario, and that's if the background color changes.  Say a future update allows the ability for a user to change the background color mid drawing.  Our design allows for the eraser to always have the current background_color_, and this was also a reason we saw this design decision fit.  The design we chose didn't just solve the problem for now, it solved many future problems by making the code flexible and realistic. 
 
 ## 3  Design Question Three
 > A new developer on your team must add a new tool to BrushWork. This tool is called  _Pencil._ This tool is a single, non-transparent pixel that completely replaces the existing colors on the canvas in the same way as the pen or calligraphy pen blend.  
