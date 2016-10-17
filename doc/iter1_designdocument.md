@@ -38,7 +38,7 @@ For our design we wanted to keep the tools as similar as possible, by creating a
 Within the second for-loop you will see each element of the mask being set to .4, this made sense to our group to include these "intensity levels" within the mask.  That way the mask wasn't only the shape being drawn to the canvas, but also held information on with what intensity the tool would draw to the canvas.
 
 ### 1.2 Design Justification
-
+The main justification behind this design is its simplicity.  Our abstract tool class provides the groundwork for any tool a user may want to add, but also gives each tool the freedom to define a specific mask, blending technique, or drawing method.  The design also allows for a clear layer of abstraction, where each tool is merely a different set of requirements the program looks at before it draws to the canvas.
 
 ## 2  Design Question Two
 > Unlike most of the tools, the Eraser returns the canvas to its original color. One of the challenges in this iteration is giving the eraser the authority or information required to have this effect while having minimal impact on the way the rest of the tools are defined.
