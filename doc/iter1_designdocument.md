@@ -45,9 +45,17 @@ The main justification behind this design is its simplicity.  Our abstract tool 
 > First, in the **Design Description** section below, describe the design you developed to address this challenge.  Second, in the **Design Justification** section below present the most compelling argument you can for why this design is justified.  Note that our expectation is that you will need to discuss the pros (and maybe cons) of your final design as compared to alternative designs that you discussed in your group in order to make a strong case for justifying your design.
 
 ### 2.1 Design Description
+Instead of trying to differentiate the eraser from the other tools, our group wanted to keep it as similar as possible.  Our design relied on the fact that every time our draw function was called, it was passed cur_color_ as an argument.  For eraser, all that changed was the color passed to draw happened to be the background color.  In this sense our abstraction didn't have to be ruined, and other classes didn't need to be changed so eraser could have this ability.  Within brushwork app, when the init function is called a color is passed that is set as the background color.  All we did was simply create a new variable that stored this exact same information.  The figure below shows the creation of the variable that stores the background color.
+
+![screen shot 2016-10-17 at 12 19 51 am](https://media.github.umn.edu/user/5831/files/88e4f134-93ff-11e6-908b-c2397feefde5)
+
+Having the background color stored means that now technically any tool can have access to it if needed.  Our group thought this was important because in the future a new tool may need to be added that also needs to access the background color.  The figure below then shows how if users click to use the eraser, cur_color is set to be background_color_. This means when our draw function is called the eraser will appear to be "erasing" but all its really doing is drawing with the background_color.
+
+![screen shot 2016-10-17 at 12 24 02 am](https://media.github.umn.edu/user/5831/files/23c4aa1e-9400-11e6-9302-a5408135f3c4)
+
 
 ### 2.2 Design Justification
-
+To us it was important that our functions/classes didn't have to change just because the eraser had special requirements.  That is why we chose to instead set cur_color_ to background_color_ when the eraser was in use.  This seemed to be the easiest solution, but also the smartest because it opens up the door for other tools.  Now any new tools added can also access the background color if needed, so this design is beneficial for future updates/changes.
 
 ## 3  Design Question Three
 > A new developer on your team must add a new tool to BrushWork. This tool is called  _Pencil._ This tool is a single, non-transparent pixel that completely replaces the existing colors on the canvas in the same way as the pen or calligraphy pen blend.  
