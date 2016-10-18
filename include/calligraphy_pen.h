@@ -35,7 +35,7 @@ class CalligraphyPen : public Tool {
  public:
   CalligraphyPen();
   virtual ~CalligraphyPen();
-  void Draw(int x, int y, PixelBuffer *p, ColorData c) { 
+  void Draw(int x, int y, PixelBuffer *p, ColorData const c) { 
     Tool::Draw(x, y, p, c); 
   }
  private:

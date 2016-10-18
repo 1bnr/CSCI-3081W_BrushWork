@@ -97,10 +97,12 @@ void BrushWorkApp::Init(
 }
 
 void BrushWorkApp::Display(void) {
-    DrawPixels(0, 0, width(), height(), display_buffer_->data());
     switch(cur_tool_) {
       case 1: // eraser
-              cur_color_ = background_color_;
+              cur_color_->red(background_color_->red());
+              cur_color_->green(background_color_->green());
+              cur_color_->blue(background_color_->blue());
+              cur_color_->alpha(background_color_->alpha());
               glutSetCursor(GLUT_CURSOR_DESTROY);
               break;
       case 2: // spray can
@@ -126,6 +128,7 @@ void BrushWorkApp::Display(void) {
 
 
     }
+    DrawPixels(0, 0, width(), height(), display_buffer_->data());
 
 }
 

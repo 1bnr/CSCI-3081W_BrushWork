@@ -35,7 +35,7 @@ class Highlighter : public Tool {
  public:
   Highlighter();
   virtual ~Highlighter();
-  void Draw(int x, int y, PixelBuffer *p, ColorData c) { 
+  void Draw(int x, int y, PixelBuffer *p, ColorData const c) { 
       Tool::Draw(x, y, p, c); 
   }
 };

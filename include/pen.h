@@ -35,7 +35,7 @@ class Pen : public Tool {
  public:
   Pen();
   virtual ~Pen();
-  void Draw(int x, int y, PixelBuffer *p, ColorData c) { 
+  void Draw(int x, int y, PixelBuffer *p, ColorData const c) { 
     Tool::Draw(x, y, p, c); 
   }
  private:

@@ -30,7 +30,7 @@ Tool::Tool() {
 Tool::~Tool() {}
 
 // The Draw fucntion, take in a color object & the pointer to display buffer
-void Tool::Draw(int x, int y, PixelBuffer *p, ColorData c) {
+void Tool::Draw(int x, int y, PixelBuffer *p, ColorData const c) {
   // adjust the y mouse-parameter to the canvas orientation
   y = p->height() - y;
   // borders for the application
