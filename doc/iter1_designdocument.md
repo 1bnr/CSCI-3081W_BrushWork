@@ -56,7 +56,7 @@ Having the background color stored means that now technically any tool can have 
 
 ### 2.2 Design Justification
 
-To us it was important that our functions/classes didn't have to change just because the eraser had special requirements.  That is why we chose to instead set cur_color_ to background_color_ when the eraser was in use.  This seemed to be the easiest solution, but also the smartest because it opens up the door for other tools.  Now any new tools added can also access the background color if needed, so this design is beneficial for future updates/changes.  But it also helps in another scenario, and that's if the background color changes.  Say a future update allows the ability for a user to change the background color mid drawing.  Our design allows for the eraser to always have the current background_color_, and this was also a reason we saw this design decision fit.  The design we chose didn't just solve the problem for now, it solved many future problems by making the code flexible and realistic. 
+To us it was important that our functions/classes didn't have to change just because the eraser had special requirements.  That is why we chose to instead set cur_color_ to background_color_ when the eraser was in use.  This seemed to be the easiest solution, but also the smartest because it opens up the door for other tools.  Now any new tools added can also access the background color if needed, so this design is beneficial for future updates/changes.  But it also helps in another scenario, and that's if the background color changes.  Say a future update allows the ability for a user to change the background color mid drawing.  Our design allows for the eraser to always have the current background_color_, and this was also a reason we saw this design decision fit.  The design we chose didn't just solve the problem for now, it solved many future problems by making the code flexible and realistic.
 
 ## 3  Design Question Three
 > A new developer on your team must add a new tool to BrushWork. This tool is called  _Pencil._ This tool is a single, non-transparent pixel that completely replaces the existing colors on the canvas in the same way as the pen or calligraphy pen blend.  
@@ -64,6 +64,8 @@ To us it was important that our functions/classes didn't have to change just bec
 
 ### Programming Tutorial: Adding a New Pencil Tool to BrushWork
 
-1. <Step 1>
-2. <Step 2>
-<etc>
+1. A header and source file must be made for Pencil, and like all the other tools it will be a sub-class of Tool.  This means proper include statements must be added to affected files.
+2. In its source file, the Pencil mask must be defined and since it is only 1 pixel wide, it can probably be hard-coded in
+3. Within BrushWorkApp.cc a new Pencil object must be initialized and put into tool_list_
+4. A case must be added to the switch statement within Brushwork's display method that handles when pen is clicked what cur_color_ will be set to
+5. A new interface button must be created so Pencil is added to the options window
