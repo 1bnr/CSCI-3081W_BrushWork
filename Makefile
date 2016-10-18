@@ -82,7 +82,7 @@ endef
 # order to enable OpenMP pragmas in the code.
 define CXXFLAGS
 $(OPT) -g -W -Wall -Wextra -Weffc++ -Wshadow -Wfloat-equal \
--Wold-style-cast -Wswitch-default -std=gnu++11 -Wno-unused-parameter $(CXXINCDIRS) 
+-Wold-style-cast -Wswitch-default -std=gnu++11 -Wno-unused-parameter $(CXXINCDIRS)
 endef
 
 # In general, note that the order libraries are specified to the linker
@@ -118,7 +118,7 @@ endif
 ifneq ($(NVIDIA_LIB), )
 CXXLIBS += -L$(NVIDIA_LIB)
 endif
-CXXLIBS += -ljpeg -lpng -lm -lpthread -lz
+CXXLIBS += -lm -lpthread -lz
 
 # Define the compiler to use
 CXX         = g++
