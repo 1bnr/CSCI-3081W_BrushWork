@@ -6,6 +6,13 @@ BrushWork
 - Isaac Schwab
 - Abner Holinger
 
+Run these commands to start Brushwork App:
+
+- module unload soft/gcc/4.9.2
+- make
+- ./bin/Brushwork
+
+
 ## Coding guidelines
 It is assumed that all submitted code will conform to the Google C++ style
 guide. Read it. The following is a list of SOME of the things we will be
