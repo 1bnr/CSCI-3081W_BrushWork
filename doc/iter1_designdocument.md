@@ -64,8 +64,18 @@ To us it was important that our functions/classes didn't have to change just bec
 
 ### Programming Tutorial: Adding a New Pencil Tool to BrushWork
 
-1. A header and source file must be made for Pencil, and like all the other tools it will be a sub-class of Tool.  This means proper include statements must be added to affected files.
-2. In its source file, the Pencil mask must be defined and since it is only 1 pixel wide, it can probably be hard-coded in
-3. Within BrushWorkApp.cc a new Pencil object must be initialized and put into tool_list_
-4. A case must be added to the switch statement within Brushwork's display method that handles when pen is clicked what cur_color_ will be set to
-5. A new interface button must be created so Pencil is added to the options window
+1. The first step that needs to be taken is adding a header and source file for the new Pencil class.  This will look very similar to the other tool classes, the easiest files to use as a guide would be pen.h/pen.cc.  The figure below shows a section of pen.h, and following this format will help to create pencil.h.  Looking at the four include statements at the top of the figure, these same include statements will be needed in pencil.h.  Now turning to the class definition within pen.h, pencil will look very similar but "Pencil" will need to be substituted where "Pen" is used.
+
+![screen shot 2016-10-18 at 8 35 07 pm](https://media.github.umn.edu/user/5831/files/2761997e-9573-11e6-9adc-dce9bf3a2fa9)
+
+This should be all that is needed for pencil.h.  Now the source file needs to be created and this will be modeled from pen.cc.  Just like in pen.cc an include statement must be used that includes pencil.h, so at runtime these files can be linked.  Most of the other tools have more complicated masks, so these masks are generated when the tool is initialized as seen below in a snippet from pen.cc.  In the case of pencil rows/cols would be set to 1 because the pencil has a mask that is a single pixel.  Since it's such a simple mask it can be hard-coded in. Then just like in the figure, set_tool_mask(mask) must be called to set the mask that you created to the tool's private member variable tool_mask_.
+
+![screen shot 2016-10-18 at 8 49 32 pm](https://media.github.umn.edu/user/5831/files/e2754160-9574-11e6-80ea-121e698707ce)
+
+Now both header file and source file have been created, but one more include statement must be used.  The figure below shows the include statements from brushwork_app.h, pencil.h will need to be added to this section also.  Thereby linking the new Pencil class with BrushWorkApp, and allowing a Pencil tool to be initialized within the file.
+
+![screen shot 2016-10-18 at 8 55 11 pm](https://media.github.umn.edu/user/5831/files/5d1c0a98-9575-11e6-9604-0d8a9922d33f)
+
+2. Within BrushWorkApp.cc a new Pencil object must be initialized and put into tool_list_
+3. A case must be added to the switch statement within Brushwork's display method that handles when pen is clicked what cur_color_ will be set to
+4. A new interface button must be created so Pencil is added to the options window
