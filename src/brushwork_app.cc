@@ -131,6 +131,7 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     x = CheckXBounds(x);
     y = CheckYBounds(y);
     float third_tool_width = tool_list_[cur_tool_]->get_mask_cols()/3;
+    third_tool_width = (third_tool_width < 1) ? 1 : third_tool_width;
     float x_increment;
     float y_increment;
     // find the distance between the last xy-coord and this xy-coord
