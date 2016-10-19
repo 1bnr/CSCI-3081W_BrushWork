@@ -28,18 +28,15 @@ CalligraphyPen::CalligraphyPen() : Tool() {
   std::vector<std::vector<float>> mask;
   set_mask_rows(rows);
   set_mask_cols(cols);
-
   // Set up the mask
   mask.resize(rows);
-  for (int i = 0; i < rows; ++i) 
-    {
+  for (int i = 0; i < rows; ++i) {
     mask[i].resize(cols);
     for (int j = 0; j < cols; j++)
       mask[i][j] = 1;
   }
   set_tool_mask(mask);
 }
-
 
 CalligraphyPen::~CalligraphyPen() {}
 

@@ -35,7 +35,7 @@ Eraser::Eraser() : Tool() {
   for (int i = 0; i < rows; ++i)
     mask[i].resize(cols);
 
-  //Initialize the mask
+  // Initialize the mask
   // Set up the mask
   int center = cols / 2;
   mask.resize(rows);

@@ -41,21 +41,20 @@ BrushWorkApp::BrushWorkApp(int width,
       spinner_b_(nullptr),
       start_x_(0),
       start_y_(0),
-      background_color_( new ColorData(0,0,0,0)),
-      cur_color_( new ColorData(0,0,0,0)){}
+      background_color_( new ColorData(0, 0, 0, 0)),
+      cur_color_( new ColorData(0, 0, 0, 0)) {}
 
 BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
-        delete display_buffer_;
+      delete display_buffer_;
     }
     if (cur_color_) {
-        delete cur_color_;
+      delete cur_color_;
     }
     if (background_color_) {
-        delete background_color_;
+      delete background_color_;
     }
-
-   tool_list_.clear();
+    tool_list_.clear();
 }
 
 /*******************************************************************************
@@ -84,7 +83,7 @@ void BrushWorkApp::Init(
     InitGlui();
     InitGraphics();
     glutSetCursor(GLUT_CURSOR_CROSSHAIR);
-    //Create list of tools
+    // Create list of tools
     InitTools();
     ColorData *temp_bc = new ColorData(background_color);
     delete background_color_;
@@ -92,48 +91,42 @@ void BrushWorkApp::Init(
     ColorData *temp_cc = new ColorData(background_color);
     delete cur_color_;
     cur_color_ = temp_cc;
-    
-    
 }
 
 void BrushWorkApp::Display(void) {
-    switch(cur_tool_) {
-      case 1: // eraser
+    switch (cur_tool_) {
+      case 1:  // eraser
               cur_color_->red(background_color_->red());
               cur_color_->green(background_color_->green());
               cur_color_->blue(background_color_->blue());
               cur_color_->alpha(background_color_->alpha());
               glutSetCursor(GLUT_CURSOR_DESTROY);
               break;
-      case 2: // spray can
+      case 2:  // spray can
               cur_color_->red(cur_color_red_);
               cur_color_->green(cur_color_green_);
               cur_color_->blue(cur_color_blue_);
               glutSetCursor(GLUT_CURSOR_SPRAY);
               break;
-      case 5: // blur
+      case 5:  // blur
               cur_color_->red(cur_color_red_);
               cur_color_->green(cur_color_green_);
               cur_color_->blue(cur_color_blue_);
               glutSetCursor(GLUT_CURSOR_INFO);
               break;
-      case 3: // calligraphy pen
-      case 4: // highlighter
-      case 0: // pen
+      case 3:  // calligraphy pen
+      case 4:  // highlighter
+      case 0:  // pen
               cur_color_->red(cur_color_red_);
               cur_color_->green(cur_color_green_);
               cur_color_->blue(cur_color_blue_);
               glutSetCursor(GLUT_CURSOR_CROSSHAIR);
               break;
-
-
     }
     DrawPixels(0, 0, width(), height(), display_buffer_->data());
-
 }
 
 void BrushWorkApp::MouseDragged(int x, int y) {
-  //discussion about how we will implement drawing to screen
     // Check for out of bound conditions
     x = CheckXBounds(x);
     y = CheckYBounds(y);
@@ -143,18 +136,19 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     // find the distance between the last xy-coord and this xy-coord
     int x_dif = std::abs(BrushWorkApp::start_x_ - x);
     int y_dif = std::abs(BrushWorkApp::start_y_ - y);
-    int stepping_limit; // the greater of x_dif or y_dif
+    int stepping_limit;  // the greater of x_dif or y_dif
     // set stepping limit
     if (x_dif > y_dif)
         stepping_limit = x_dif;
     else
         stepping_limit = y_dif;
     // set stepping intervals by dividing distance by the number of steps needed
-    x_increment = static_cast<float>(BrushWorkApp::start_x_ - x) / stepping_limit;
-    y_increment = static_cast<float>(BrushWorkApp::start_y_ - y) / stepping_limit;
+    x_increment = static_cast<float>(BrushWorkApp::start_x_ - x) /
+                                      stepping_limit;
+    y_increment = static_cast<float>(BrushWorkApp::start_y_ - y) /
+                                      stepping_limit;
     // step from last xy-coord to current xy-coord
     for (int i = 0; i < stepping_limit; i += third_tool_width) {
-
       tool_list_[cur_tool_]->Draw(x + static_cast<int>(round(i * x_increment)),
                                 y + static_cast<int>(round(i * y_increment)),
                                 display_buffer_, *cur_color_);
@@ -162,15 +156,12 @@ void BrushWorkApp::MouseDragged(int x, int y) {
     BrushWorkApp::start_x_ = x;
           BrushWorkApp::start_y_ = y;
 //    std::cout << "mouseDragged " << x << " " << y << std::endl;
-    
-    
 }
 void BrushWorkApp::MouseMoved(int x, int y) {}
 
 void BrushWorkApp::LeftMouseDown(int x, int y) {
     BrushWorkApp::start_x_ = x;
     BrushWorkApp::start_y_ = y;
-
 //    std::cout << "mousePressed" << x << " " << y << std::endl;
     tool_list_[cur_tool_]->Draw(x, y, display_buffer_, *cur_color_);
 }
@@ -179,9 +170,8 @@ void BrushWorkApp::LeftMouseUp(int x, int y) {
 //    std::cout << "mouseReleased " << x << " " << y << std::endl;
 }
 
-//Initialize the array of tools
+// Initialize the array of tools
 void BrushWorkApp::InitTools(void) {
-    //Use array of pens and cali pens until the other tools are implemented
     Tool *pen = new Pen();
     Tool *eraser = new Eraser();
     Tool *spray_can = new SprayCan();
@@ -204,18 +194,18 @@ void BrushWorkApp::InitializeBuffers(
 }
 
 int BrushWorkApp::CheckXBounds(int x) {
-    if(x > width())
+    if (x > width())
       return width();
-    else if(x < 0)
+    else if (x < 0)
       return 0;
     else
       return x;
 }
 
 int BrushWorkApp::CheckYBounds(int y) {
-    if(y > height())
+    if (y > height())
       return height();
-    else if(y < 0)
+    else if (y < 0)
       return 0;
     else
       return y;
