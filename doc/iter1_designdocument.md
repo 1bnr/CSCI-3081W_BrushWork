@@ -80,5 +80,13 @@ The next step is to initialize a pencil and place it into tool_list_, our vector
 
 ![screen shot 2016-10-18 at 10 03 30 pm](https://media.github.umn.edu/user/5831/files/e34e6efe-957e-11e6-8b1d-32f94cd2d832)
 
-3. A case must be added to the switch statement within Brushwork's display method that handles when pen is clicked what cur_color_ will be set to
-4. A new interface button must be created so Pencil is added to the options window
+Now that a pencil tool has been created, functionality needs to be added so when pencil draws to the canvas it draws with the currently selected color.  This happens within brushwork app's display function.  Below is a snippet from brushwork_app.cc that shows the display function.  Notice how many cases exist, for example eraser is given a special case because it's current color is actually the background color.  In this case the pencil will function just like the pens and highlighter, therefore a new case can be added that falls through to case 0 (pen's case).  The case number will be the index that pencil is stored at in tool_list_.
+
+![screen shot 2016-10-19 at 12 14 16 am](https://media.github.umn.edu/user/5831/files/a8233ac2-9591-11e6-945b-a584246dd637)
+
+
+Lastly, an interface button must be created so Pencil is added to the options window.  When this is done users can click the button and the currently selected tool will be changed to a pencil.  To do this go into brushwork_app.cc and the InitGlui function, the figure below shows the code that will be important to look at.  Just like the others create a new radio button labeled with "Pencil".
+
+![screen shot 2016-10-19 at 12 21 08 am](https://media.github.umn.edu/user/5831/files/1d89d4ec-9592-11e6-9e58-c31368cf30a5)
+
+If all this is done correctly, you should have a fully functioning pencil tool.
