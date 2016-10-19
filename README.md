@@ -8,9 +8,10 @@ BrushWork
 
 Running Brushwork App:
 run these 3 commands to start Brushwork App:
-1. module unload soft/gcc/4.9.2
-2. make
-3. ./bin/Brushwork
+
+- module unload soft/gcc/4.9.2
+- make
+- ./bin/Brushwork
 
 
 ## Coding guidelines
