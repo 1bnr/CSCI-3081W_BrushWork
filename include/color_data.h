@@ -29,7 +29,7 @@ class ColorData {
   ColorData(void);
   ColorData(float r, float g, float b);
   ColorData(float r, float g, float b, float a);
-//virtual ~ColorData(void);
+  // virtual ~ColorData(void);
 
   inline void red(float r) { red_ = r; }
   inline void green(float g) { green_ = g; }
@@ -39,7 +39,6 @@ class ColorData {
   inline float green(void) const { return green_; }
   inline float blue(void) const { return blue_; }
   inline float alpha(void) const { return alpha_;}
-  
 
   /**
    * @brief Get the "brightness" of the color according to a perceptual metric

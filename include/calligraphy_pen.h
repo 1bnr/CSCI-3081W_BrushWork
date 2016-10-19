@@ -35,11 +35,10 @@ class CalligraphyPen : public Tool {
  public:
   CalligraphyPen();
   virtual ~CalligraphyPen();
-  void Draw(int x, int y, PixelBuffer *p, ColorData const c) { 
-    Tool::Draw(x, y, p, c); 
+  void Draw(int x, int y, PixelBuffer *p, ColorData const c) {
+    Tool::Draw(x, y, p, c);
   }
  private:
-
 };
 }  // namespace image_tools
 #endif  // INCLUDE_CALLIGRAPHY_PEN_H_

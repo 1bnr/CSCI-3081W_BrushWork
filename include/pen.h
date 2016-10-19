@@ -35,11 +35,10 @@ class Pen : public Tool {
  public:
   Pen();
   virtual ~Pen();
-  void Draw(int x, int y, PixelBuffer *p, ColorData const c) { 
-    Tool::Draw(x, y, p, c); 
+  void Draw(int x, int y, PixelBuffer *p, ColorData const c) {
+    Tool::Draw(x, y, p, c);
   }
  private:
-  	
 };
 }  // namespace image_tools
 #endif  // INCLUDE_PEN_H_

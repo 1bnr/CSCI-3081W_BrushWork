@@ -79,16 +79,20 @@ void Blur::Draw(int x, int y, PixelBuffer *p, ColorData c) {
        // get the focal pixel data
         ColorData pixel_0 = p->get_pixel(x_start + mask_x, y_start + mask_y);
         // get adjacent pixel data
-        ColorData pixel_1 = p->get_pixel(x_start + mask_x + 1, y_start + mask_y); // x+1, y
-        ColorData pixel_2 = p->get_pixel(x_start + mask_x - 1, y_start + mask_y); // x-1, y
-        ColorData pixel_3 = p->get_pixel(x_start + mask_x, y_start + mask_y - 1); // x, y-1
-        ColorData pixel_4 = p->get_pixel(x_start + mask_x, y_start + mask_y + 1); // x, y+1
-
+        // x+1, y
+        ColorData pixel_1 = p->get_pixel(x_start + mask_x + 1,
+          y_start + mask_y);  // x-1, y
+        ColorData pixel_2 = p->get_pixel(x_start + mask_x - 1,
+          y_start + mask_y);  // x, y-1
+        ColorData pixel_3 = p->get_pixel(x_start + mask_x,
+          y_start + mask_y - 1);  // x, y+1
+        ColorData pixel_4 = p->get_pixel(x_start + mask_x,
+          y_start + mask_y + 1);
         float mask_filter = static_cast<float>(mask[mask_y][mask_x]);
-  
         // print out the mask; for debugging
         // std::cout << mask[mask_y][mask_x] << ":";
-        ColorData new_pixel = (pixel_0 * (0.6)) + (pixel_1 * (0.1)) + (pixel_2 * (0.1)) + (pixel_3 * (0.1)) + (pixel_4 * (0.1));
+        ColorData new_pixel = (pixel_0 * (0.6)) + (pixel_1 * (0.1)) +
+          (pixel_2 * (0.1)) + (pixel_3 * (0.1)) + (pixel_4 * (0.1));
         new_pixel = (pixel_0 * (1.0 - mask_filter)) + (new_pixel * mask_filter);
         p->set_pixel(mask_x + x_start, mask_y + y_start, new_pixel);
       }

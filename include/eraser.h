@@ -31,13 +31,13 @@ namespace image_tools {
 /**
  * @brief This is the header file for the eraser tool.
  */
- class Eraser : public Tool {
-  public:
-   Eraser();
-   virtual ~Eraser();
-   virtual void Draw(int x, int y, PixelBuffer *p, ColorData const c) {
-      Tool::Draw(x, y, p, c);
-   }
- };
+class Eraser : public Tool {
+ public:
+  Eraser();
+  virtual ~Eraser();
+  virtual void Draw(int x, int y, PixelBuffer *p, ColorData const c) {
+    Tool::Draw(x, y, p, c);
+  }
+};
 }  // namespace image_tools
 #endif  // INCLUDE_ERASER_H_

@@ -15,6 +15,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
+#include <vector>
 #include "include/base_gfx_app.h"
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
@@ -25,7 +26,6 @@
 #include "include/highlighter.h"
 #include "include/eraser.h"
 #include "include/blur.h"
-#include <vector>
 
 /*******************************************************************************
  * Namespaces
@@ -104,7 +104,7 @@ class BrushWorkApp : public BaseGfxApp {
     /** Pointer to pixel data for the screen */
     PixelBuffer *display_buffer_;
 
-    //Vecto of Tool objects, will be used to hold the various types of tools
+    // Vector of Tool objects, will be used to hold the various types of tools
     std::vector<Tool*> tool_list_;
 
     int cur_tool_; /**< Currently selected tool from UI  */
@@ -114,7 +114,7 @@ class BrushWorkApp : public BaseGfxApp {
     int start_x_;
     int start_y_;
 
-    //Add a color object that all tools and functions have access to.
+    // Add a color object that all tools and functions have access to.
     ColorData *background_color_;
     ColorData *cur_color_;
 
