@@ -6,8 +6,7 @@ BrushWork
 - Isaac Schwab
 - Abner Holinger
 
-Running Brushwork App:
-run these 3 commands to start Brushwork App:
+Run these commands to start Brushwork App:
 
 - module unload soft/gcc/4.9.2
 - make
