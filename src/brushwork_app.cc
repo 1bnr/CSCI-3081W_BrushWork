@@ -41,8 +41,8 @@ BrushWorkApp::BrushWorkApp(int width,
       spinner_b_(nullptr),
       start_x_(0),
       start_y_(0),
-      background_color_( new ColorData(0, 0, 0, 0)),
-      cur_color_( new ColorData(0, 0, 0, 0)) {}
+      background_color_( nullptr ),
+      cur_color_( nullptr ) {}
 
 BrushWorkApp::~BrushWorkApp(void) {
     if (display_buffer_) {
@@ -85,12 +85,8 @@ void BrushWorkApp::Init(
     glutSetCursor(GLUT_CURSOR_CROSSHAIR);
     // Create list of tools
     InitTools();
-    ColorData *temp_bc = new ColorData(background_color);
-    delete background_color_;
-    background_color_ = temp_bc;
-    ColorData *temp_cc = new ColorData(background_color);
-    delete cur_color_;
-    cur_color_ = temp_cc;
+    background_color_ = new ColorData(background_color);
+    cur_color_ = new ColorData(0,0,0);
 }
 
 void BrushWorkApp::Display(void) {
