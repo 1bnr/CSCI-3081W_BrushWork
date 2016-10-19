@@ -47,11 +47,11 @@ The main justification behind this design is its simplicity.  Our abstract tool 
 ### 2.1 Design Description
 Instead of trying to differentiate the eraser from the other tools, our group wanted to keep it as similar as possible.  Our design relied on the fact that every time our draw function was called, it was passed cur_color_ as an argument.  For eraser, all that changed was the color passed to draw happened to be the background color.  In this sense our abstraction didn't have to be ruined, and other classes didn't need to be changed so eraser could have this ability.  Within brushwork app, when the init function is called a color is passed that is set as the background color.  All we did was simply create a new variable that stored this exact same information.  The figure below shows the creation of the variable that stores the background color.
 
-![screen shot 2016-10-17 at 12 19 51 am](https://media.github.umn.edu/user/5831/files/88e4f134-93ff-11e6-908b-c2397feefde5)
+![screen shot 2016-10-19 at 6 40 23 pm](https://media.github.umn.edu/user/5831/files/b22c4316-962b-11e6-9de6-b2e8bd74c95f)
 
 Having the background color stored means that now technically any tool can have access to it if needed.  Our group thought this was important because in the future a new tool may need to be added that also needs to access the background color.  The figure below then shows how if users click to use the eraser, cur_color is set to be background_color_. This means when our draw function is called the eraser will appear to be "erasing" but all its really doing is drawing with the background_color.
 
-![screen shot 2016-10-17 at 12 24 02 am](https://media.github.umn.edu/user/5831/files/23c4aa1e-9400-11e6-9302-a5408135f3c4)
+![screen shot 2016-10-19 at 6 40 39 pm](https://media.github.umn.edu/user/5831/files/c3256b0c-962b-11e6-848f-91c554941cc7)
 
 
 ### 2.2 Design Justification
