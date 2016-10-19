@@ -49,7 +49,7 @@ Instead of trying to differentiate the eraser from the other tools, our group wa
 
 ![screen shot 2016-10-19 at 6 40 23 pm](https://media.github.umn.edu/user/5831/files/b22c4316-962b-11e6-9de6-b2e8bd74c95f)
 
-Having the background color stored means that now technically any tool can have access to it if needed.  Our group thought this was important because in the future a new tool may need to be added that also needs to access the background color.  The figure below then shows how if users click to use the eraser, cur_color is set to be background_color_. This means when our draw function is called the eraser will appear to be "erasing" but all its really doing is drawing with the background_color.
+Having the background color stored means that now technically any tool can have access to it if needed.  Our group thought this was important because in the future a new tool may need to be added that also needs to access the background color.  The figure below then shows how if users click to use the eraser, cur_color is set to be background_color_. This means when our draw function is called the eraser will appear to be "erasing" but all its really doing is drawing with the background color.
 
 ![screen shot 2016-10-19 at 6 40 39 pm](https://media.github.umn.edu/user/5831/files/c3256b0c-962b-11e6-848f-91c554941cc7)
 
