@@ -1,6 +1,6 @@
 ################################################################################
 # Name            : Makefile
-# Project         : Brushwork
+# Project         : FlashPhoto
 # Description     : Main Makefile
 # Creation Date   : Fri May 16 14:59:49 2014
 # Original Author : jharwell
@@ -11,11 +11,11 @@
 #  Products:
 #  Make Target     Product                  Description
 #  ===========     =======                  ===================
-#  all             bin/BrushWork            The main executable
+#  all             bin/FlashPhoto            The main executable
 #  clean           N/A                      Removes excutable, all .o
 #  veryclean       N/A                      Everything clean removes, +
 #                                           the external libraries
-#  bin/BrushWork  bin/BrushWork             The main executable
+#  bin/FlashPhoto  bin/FlashPhoto             The main executable
 #  documentation   Various                  Generates documentation for
 #                                           project from the doxygen
 #                                           comments/markup in the code
@@ -168,7 +168,7 @@ SRC_CXX = $(call rwildcard,$(SOURCES),*.cc)
 OBJECTS_CXX = $(notdir $(patsubst %.cc,%.o,$(SRC_CXX)))
 
 # The target executable (what you are building)
-TARGET = $(BINDIR)/BrushWork
+TARGET = $(BINDIR)/FlashPhoto
 
 ###############################################################################
 # All targets
