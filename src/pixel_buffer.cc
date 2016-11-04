@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : pixel_buffer.cc
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : utils
  * Description     : Implementation of PixelBuffer class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

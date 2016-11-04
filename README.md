@@ -156,16 +156,16 @@ follows from the root directory of your project:
 
     make
 
-The main target must be named exactly "BrushWork" and be built in a "bin/"
+The main target must be named exactly "FlashPhoto" and be built in a "bin/"
 directory within your project root
 
 When run as described above, the build process must produce an executable called
-BrushWork in the bin/ directory.
+FlashPhoto in the bin/ directory.
 
 ## Invocation rules
 When run, your program must take 0 agruments and be invoked as follows:
 
-    ./bin/BrushWork
+    ./bin/FlashPhoto
 
 ## git commit message guidelines/rules
 - There should only ever be ONE scope/module affected per commit message.

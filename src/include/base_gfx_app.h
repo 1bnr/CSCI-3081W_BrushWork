@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : base_gfx_app.h
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : App
  * Description     : Base class for  graphics applications built on top of
  *                   GLUI/GLUT toolkits

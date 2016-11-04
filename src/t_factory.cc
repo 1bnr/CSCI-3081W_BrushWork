@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : tool_factory.cc
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : Tool
  * Description     : Implementation of factory design pattern for tools
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

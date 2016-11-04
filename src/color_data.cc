@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : color_data.cc
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : image_tools
  * Description     : Implementation of ColorData class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

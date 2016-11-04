@@ -29,7 +29,7 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief Tool is the representation of a particular BrushWork tool.
+ * @brief Tool is the representation of a particular FlashPhoto tool.
  * This baseclass is abstract and does not provide a default mask.
  * Tools inherited from this class MUST:\n
  * (1) Provide a name\n

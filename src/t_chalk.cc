@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : t_chalk.cc
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : Tool
  * Description     : Implementation of chalk tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

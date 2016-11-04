@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : pixel_buffer.h
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : utils
  * Description     : Header file for PixelBuffer class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

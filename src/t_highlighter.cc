@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : t_highlighter.cc
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : Tool
  * Description     : Implementation of highlighter tool class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.

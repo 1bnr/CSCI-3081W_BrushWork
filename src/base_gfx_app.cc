@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : base_gfx_app.cc
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : App
  * Description     : Implementation of things common to all graphics
  *                   applications built on top of GLUI/GLUT toolkits

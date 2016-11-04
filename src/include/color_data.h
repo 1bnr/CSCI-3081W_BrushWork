@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : color_data.h
- * Project         : BrushWork
+ * Project         : FlashPhoto
  * Module          : utils
  * Description     : Header file for ColorData class.
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
