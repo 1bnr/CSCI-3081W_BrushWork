@@ -78,6 +78,9 @@ define CXXINCDIRS
 -isystem$(PNGDIR)
 endef
 
+
+
+
 # Specify the compiler flags to use when compiling. Note the use of fopenmp in
 # order to enable OpenMP pragmas in the code.
 define CXXFLAGS
@@ -109,6 +112,8 @@ else # LINUX
 CXXLIBS = -lglut -lGL -lGLU -lglui
 CXXFLAGS += -fopenmp
 endif
+
+LINK_LIBS += -L./ext/lib/ -lglui
 
 # On some lab machines the glut and opengl libraries are located in the directory
 # where the nvidia graphics driver was installed rather than the default /usr/lib
@@ -200,7 +205,7 @@ $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
 # The Target Executable. Note that libglui is an order-only prerequisite, in
 # that as long as it exists, make will not attempt to recompile it. This makes
 # sense; once you build GLUI, you should never have to rebuild it.
-$(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(EXTDIR)/lib/libglui.a
+$(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(EXTDIR)/lib/libglui.a $(EXTDIR)/lib/libpng.a $(EXTDIR)/lib/libjpeg.a
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
 
 # GLUI
@@ -209,8 +214,23 @@ $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(EXTDIR)/lib/lib
 # and using it instead of just "make" will call make again with the exact same
 # arguments used to call THIS make process. This is very useful to easily pass
 # command line arguments to sub-makes.
-$(EXTDIR)/lib/libglui.a:
+$(EXTDIR)/lib/libglui.a: 
 	@$(MAKE) -C$(GLUIDIR) install
+
+# PNG
+$(EXTDIR)/lib/libpng.a: $(PNGDIR)/Makefile
+	@$(MAKE) -C$(PNGDIR) all install
+	
+$(PNGDIR)/Makefile:
+	$(PNGDIR)/configure --prefix=pwd"/ext" --enable-shared=no
+
+
+# JPEG
+$(EXTDIR)/lib/libjpeg.a: $(JPEGDIR)/Makefile
+	@$(MAKE) -C$(JPEGDIR) all install
+
+$(JPEGDIR)/Makefile:
+	$(JPEGDIR)/configure --prefix=pwd"/ext" --enable-shared=no
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build
