@@ -222,7 +222,7 @@ $(EXTDIR)/lib/libpng.a: $(PNGDIR)/Makefile
 	@$(MAKE) -C$(PNGDIR) all install
 	
 $(PNGDIR)/Makefile:
-	$(PNGDIR)/configure --prefix=pwd"/ext" --enable-shared=no
+	$(PNGDIR)/configure --prefix=${CURDIR}"/ext" --enable-shared=no
 
 
 # JPEG
@@ -230,7 +230,7 @@ $(EXTDIR)/lib/libjpeg.a: $(JPEGDIR)/Makefile
 	@$(MAKE) -C$(JPEGDIR) all install
 
 $(JPEGDIR)/Makefile:
-	$(JPEGDIR)/configure --prefix=pwd"/ext" --enable-shared=no
+	$(JPEGDIR)/configure --prefix=${CURDIR}"/ext" --enable-shared=no
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build
