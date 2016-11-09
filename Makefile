@@ -42,6 +42,7 @@ DOCDIR          = ./doc
 EXTLIBDIR       = $(EXTDIR)/lib
 CONFIGDIR       = ./config
 
+MAKEPATH 				= $(CURDIR)
 ###############################################################################
 # Definitions
 ###############################################################################
@@ -222,7 +223,7 @@ $(EXTDIR)/lib/libpng.a: $(PNGDIR)/Makefile
 	@$(MAKE) -C$(PNGDIR) all install
 	
 $(PNGDIR)/Makefile:
-	$(PNGDIR)/configure --prefix=${CURDIR}"/ext" --enable-shared=no
+	cd $(PNGDIR) && ./configure --prefix=${MAKEPATH}/ext --enable-shared=no
 
 
 # JPEG
@@ -230,7 +231,8 @@ $(EXTDIR)/lib/libjpeg.a: $(JPEGDIR)/Makefile
 	@$(MAKE) -C$(JPEGDIR) all install
 
 $(JPEGDIR)/Makefile:
-	$(JPEGDIR)/configure --prefix=${CURDIR}"/ext" --enable-shared=no
+	cd $(JPEGDIR) && ./configure --prefix=${MAKEPATH}/ext --enable-shared=no
+	
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build
