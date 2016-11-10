@@ -115,6 +115,8 @@ CXXFLAGS += -fopenmp
 endif
 
 LINK_LIBS += -L./ext/lib/ -lglui
+LINK_LIBS += -L./ext/lib/ -lpng
+LINK_LIBS += -L./ext/lib/ -ljpeg
 
 # On some lab machines the glut and opengl libraries are located in the directory
 # where the nvidia graphics driver was installed rather than the default /usr/lib
@@ -249,6 +251,8 @@ clean:
 # The Super Cleaner. Clean the project, but also clean all external libraries.
 veryclean: clean
 	-@$(MAKE) -C$(GLUIDIR) clean uninstall
+	-@$(MAKE) -C$(PNGDIR) clean uninstall
+	-@$(MAKE) -C$(JPEGDIR) clean uninstall
 	@rm -rf $(BINDIR) $(OBJDIR)
 
 # The Documenter. Generate documentation for the project.
