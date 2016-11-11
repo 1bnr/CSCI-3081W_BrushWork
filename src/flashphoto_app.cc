@@ -308,7 +308,11 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
-      io_manager_.LoadImageToCanvas();
+      PixelBuffer * nb; // new buffer
+      nb = io_manager_.LoadImageToCanvas();
+      SetWindowDimensions(nb->width(), nb->height());
+      // save old buffer here
+      display_buffer_ = nb;
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       io_manager_.LoadImageToStamp();
@@ -356,5 +360,8 @@ void FlashPhotoApp::InitGraphics(void) {
   gluOrtho2D(0, width(), 0, height());
   glViewport(0, 0, width(), height());
 }
-
+/** TODO implement undo queue */
+void FlashPhotoApp::add_buffer_to_undo_stack (const PixelBuffer* &current_buffer) {
+  // stuff happens here...
+}
 }  /* namespace image_tools */

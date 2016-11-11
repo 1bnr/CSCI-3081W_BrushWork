@@ -187,6 +187,7 @@ void BaseGfxApp::s_draw(void) {
 
 void BaseGfxApp::s_gluicallback(int control_id) {
   s_current_app_->GluiControl(control_id);
+  std::cout << control_id << std::endl;
 }
 
 void BaseGfxApp::s_idle(void) {
@@ -203,5 +204,6 @@ void BaseGfxApp::SetWindowDimensions(int width, int height) {
   width_ = width;
   glutReshapeWindow(width_, height_);
 }
+
 
 }  /* namespace image_tools */
