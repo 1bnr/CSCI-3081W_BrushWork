@@ -17,7 +17,9 @@
  ******************************************************************************/
 #include <string>
 #include "GL/glui.h"
+#include "png.h"
 #include "include/ui_ctrl.h"
+#include "include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -73,7 +75,7 @@ class IOManager {
    * @brief Load the selected image file to the canvas
    *
    */
-  void LoadImageToCanvas(void);
+  PixelBuffer * LoadImageToCanvas(void);
 
   /**
    * @brief Load the selected image file to the stamp

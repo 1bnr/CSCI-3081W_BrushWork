@@ -138,6 +138,8 @@ class FlashPhotoApp : public BaseGfxApp {
   GLUI_Spinner *spinner_g_; /**< Hook for accessing the UI green amount  */
   GLUI_Spinner *spinner_b_; /**< Hook for accessing the UI blue amount  */
 
+  /** TODO implement undo queue */
+  void add_buffer_to_undo_stack (const PixelBuffer* &current_buffer);
 };
 
 }  /* namespace image_tools */
