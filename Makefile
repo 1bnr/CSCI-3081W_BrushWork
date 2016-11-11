@@ -108,11 +108,14 @@ endef
 # This is specified differently depending on whether we are on linux or OSX.
 UNAME = $(shell uname)
 ifeq ($(UNAME), Darwin) # Mac OSX
-CXXLIBS = -framework glut -framework opengl -lglui
+CXXLIBS = -framework glut -framework opengl -lglui -lpng -ljpeg -lz
 else # LINUX
 CXXLIBS = -lglut -lGL -lGLU -lglui
-CXXFLAGS += -fopenmp
+CXXFLAGS += -fopenmp  -L./ext/lib/
 endif
+
+
+CXXLIBS += -lpng -ljpeg -lglui -lpng -ljpeg -lz
 
 LINK_LIBS += -L./ext/lib/ -lglui
 LINK_LIBS += -L./ext/lib/ -lpng
@@ -217,13 +220,13 @@ $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR) $(EXTDIR)/lib/lib
 # and using it instead of just "make" will call make again with the exact same
 # arguments used to call THIS make process. This is very useful to easily pass
 # command line arguments to sub-makes.
-$(EXTDIR)/lib/libglui.a: 
+$(EXTDIR)/lib/libglui.a:
 	@$(MAKE) -C$(GLUIDIR) install
 
 # PNG
 $(EXTDIR)/lib/libpng.a: $(PNGDIR)/Makefile
 	@$(MAKE) -C$(PNGDIR) all install
-	
+
 $(PNGDIR)/Makefile:
 	cd $(PNGDIR) && ./configure --prefix=${MAKEPATH}/ext --enable-shared=no
 
@@ -234,7 +237,7 @@ $(EXTDIR)/lib/libjpeg.a: $(JPEGDIR)/Makefile
 
 $(JPEGDIR)/Makefile:
 	cd $(JPEGDIR) && ./configure --prefix=${MAKEPATH}/ext --enable-shared=no
-	
+
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
 # files/directories that have to be present in order for a given target build
@@ -269,4 +272,4 @@ documentation:
 # last invocation of make.
 $(OBJDIR)/%.o: $(SRCDIR)/%.cc
 	@$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
-	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) -c -o  $@ $<
+	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) -c -o  $@ $<  $(CXXLIBS)
