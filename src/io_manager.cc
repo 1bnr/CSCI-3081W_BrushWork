@@ -175,9 +175,10 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
     }
     else // no background color found; make it up...
     bg_color = ColorData(0,0,0,0);
-
-    if (bit_depth == 16) //  if 16, change to 8 bits per channel...
-        png_set_strip_16(png_ptr);
+    printf("bit_depth: %d\n", bit_depth);
+    printf("color_type: %d\n", color_type);
+  //  if (bit_depth == 16) //  if 16, change to 8 bits per channel...
+  //      png_set_strip_16(png_ptr);
     if (color_type == PNG_COLOR_TYPE_GRAY ||
         color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
         png_set_gray_to_rgb(png_ptr); // change image data to rgb
@@ -189,16 +190,17 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
       row_pointers[y] = (png_byte*) malloc(png_get_rowbytes(png_ptr,info_ptr));
     }
     png_read_image(png_ptr, row_pointers);
-
+    int pxl_elems = (color_type < 6) ? 3 : 4; // 3 channels for rgb, 4 for rgba
     for(y = 0; y < height; y++) {
       png_bytep row = row_pointers[y];
       for(x = 0; x < width; x++) {
-        png_bytep px = &(row[x * 4]);
-        new_buffer->set_pixel(x, y, ColorData( // px is uch array; must be cast
-            static_cast<float>(px[0])/255,    // red
-            static_cast<float>(px[1])/255,    // green
-            static_cast<float>(px[2])/255,    // blue
-            static_cast<float>(px[3]/255)));  // alpha
+        png_bytep px = &(row[x * pxl_elems]);
+        int b_divisor = bit_depth * 8; 
+        new_buffer->set_pixel(x, height - y - 1, ColorData( // pxl is uch array; must be cast
+            static_cast<float>(px[0])/b_divisor,    // red
+            static_cast<float>(px[1])/b_divisor,    // green
+            static_cast<float>(px[2])/b_divisor,    // blue
+            (pxl_elems == 4)? static_cast<float>(px[3]/b_divisor) : 1 ));  // alpha
       }
     }
     fclose(fp); // close file
