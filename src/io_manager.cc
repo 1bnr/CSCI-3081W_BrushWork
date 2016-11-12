@@ -12,11 +12,11 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/io_manager.h"
-#include <iostream>
-#include <string>
-//#include "png.h"
-#include "include/ui_ctrl.h"
+ #include <iostream>
+ #include <string>
+ #include "include/ui_ctrl.h"
+ #include "include/io_manager.h"
+ #include "include/png_loader.h"
 
 /*******************************************************************************
  * Namespaces
@@ -152,7 +152,10 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
 
   std::cout << file_suffix << std::endl;
   if (file_suffix.compare("png") == 0){
-    png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+    printf("setting new_buffer\n");
+    new_buffer = new PixelBuffer(PngLoader::load_image(file_name_));
+
+  /*  png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
     png_infop info_ptr = png_create_info_struct(png_ptr);
       if (!png_ptr)
         exit(4); // out of memory
@@ -195,7 +198,7 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
       png_bytep row = row_pointers[y];
       for(x = 0; x < width; x++) {
         png_bytep px = &(row[x * pxl_elems]);
-        int b_divisor = bit_depth * 8; 
+        int b_divisor = bit_depth * 8;
         new_buffer->set_pixel(x, height - y - 1, ColorData( // pxl is uch array; must be cast
             static_cast<float>(px[0])/b_divisor,    // red
             static_cast<float>(px[1])/b_divisor,    // green
@@ -204,14 +207,14 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
       }
     }
     fclose(fp); // close file
-    free(row_pointers); // clear malloc'd memory
+    free(row_pointers); // clear malloc'd memory */
     return new_buffer;
+
+
   }
   else /** File loaded is a jpeg */
     if ((file_suffix.compare("jpg") == 0) || (file_suffix.compare("jpeg") == 0))
-
-
-  return new PixelBuffer(1,1, ColorData());
+      return new PixelBuffer(1,1, ColorData());
 
 
 }
