@@ -144,78 +144,17 @@ void IOManager::set_image_file(const std::string & file_name) {
 
 PixelBuffer * IOManager::LoadImageToCanvas(void) {
   PixelBuffer * new_buffer;
-//  std::cout << "Load Canvas has been clicked for file " <<
-//      file_name_ << std::endl;
-  // get suffix from incoming file name
   std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
 
 
   std::cout << file_suffix << std::endl;
   if (file_suffix.compare("png") == 0){
-    printf("setting new_buffer\n");
     new_buffer = new PixelBuffer(PngLoader::load_image(file_name_));
-
-  /*  png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
-    png_infop info_ptr = png_create_info_struct(png_ptr);
-      if (!png_ptr)
-        exit(4); // out of memory
-    png_color_16p pBackground;
-    unsigned int width, height, x, y;
-    int bit_depth, color_type;
-    png_bytep *row_pointers;
-    // open file read only
-    FILE *fp = fopen(file_name_.c_str(), "r");
-    png_init_io(png_ptr, fp);
-    png_read_info(png_ptr, info_ptr);
-    png_get_IHDR(png_ptr, info_ptr, &width, &height, &bit_depth, &color_type, NULL, NULL, NULL);
-
-    ColorData bg_color;
-    if (!png_get_valid(png_ptr, info_ptr, PNG_INFO_bKGD)) {
-      png_get_bKGD(png_ptr, info_ptr, &pBackground);
-      bg_color.red(pBackground->red);
-      bg_color.green(pBackground->green);
-      bg_color.blue(pBackground->blue);
-    }
-    else // no background color found; make it up...
-    bg_color = ColorData(0,0,0,0);
-    printf("bit_depth: %d\n", bit_depth);
-    printf("color_type: %d\n", color_type);
-  //  if (bit_depth == 16) //  if 16, change to 8 bits per channel...
-  //      png_set_strip_16(png_ptr);
-    if (color_type == PNG_COLOR_TYPE_GRAY ||
-        color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
-        png_set_gray_to_rgb(png_ptr); // change image data to rgb
-    png_read_update_info(png_ptr, info_ptr); // update changes
-    new_buffer = new PixelBuffer(width, height, bg_color);
-
-    row_pointers = (png_bytep*) malloc(sizeof(png_bytep) * height);
-    for (y=0; y<height; y++){
-      row_pointers[y] = (png_byte*) malloc(png_get_rowbytes(png_ptr,info_ptr));
-    }
-    png_read_image(png_ptr, row_pointers);
-    int pxl_elems = (color_type < 6) ? 3 : 4; // 3 channels for rgb, 4 for rgba
-    for(y = 0; y < height; y++) {
-      png_bytep row = row_pointers[y];
-      for(x = 0; x < width; x++) {
-        png_bytep px = &(row[x * pxl_elems]);
-        int b_divisor = bit_depth * 8;
-        new_buffer->set_pixel(x, height - y - 1, ColorData( // pxl is uch array; must be cast
-            static_cast<float>(px[0])/b_divisor,    // red
-            static_cast<float>(px[1])/b_divisor,    // green
-            static_cast<float>(px[2])/b_divisor,    // blue
-            (pxl_elems == 4)? static_cast<float>(px[3]/b_divisor) : 1 ));  // alpha
-      }
-    }
-    fclose(fp); // close file
-    free(row_pointers); // clear malloc'd memory */
     return new_buffer;
-
-
   }
   else /** File loaded is a jpeg */
     if ((file_suffix.compare("jpg") == 0) || (file_suffix.compare("jpeg") == 0))
       return new PixelBuffer(1,1, ColorData());
-
 
 }
 
