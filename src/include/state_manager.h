@@ -18,6 +18,7 @@
 #include <string>
 #include "GL/glui.h"
 #include "include/ui_ctrl.h"
+#include "include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -52,16 +53,15 @@ class StateManager {
    * can still be re-done later)
    *
    */
-  void UndoOperation(void);
+  void UndoOperation(PixelBuffer* display_buffer, std::vector<PixelBuffer> states_, int cur_state_);
 
   /**
    * @brief Re-does the last un-done operation applied to the canvas (not
    * permanently; it can be undone again later)
    *
    */
-  void RedoOperation(void);
+  void RedoOperation(PixelBuffer* display_buffer, std::vector<PixelBuffer> states_, int cur_state_);
 
- private:
   void redo_toggle(bool select) {
     UICtrl::button_toggle(redo_btn_, select);
   }
@@ -70,6 +70,7 @@ class StateManager {
     UICtrl::button_toggle(undo_btn_, select);
   }
 
+ private:
   /* Copy/move assignment/construction disallowed */
   StateManager(const StateManager &rhs) = delete;
   StateManager& operator=(const StateManager &rhs) = delete;

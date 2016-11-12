@@ -146,11 +146,18 @@ void FlashPhotoApp::LeftMouseDown(int x, int y) {
 
 void FlashPhotoApp::LeftMouseUp(int x, int y) {
   std::cout << "mouseReleased " << x << " " << y << std::endl;
+  std::cout << "Current state: " << cur_state_ << std::endl;
+  // Handle the case which we are not at the end of the undo stack
+  std::cout << "End Pos: " << states_.size()-1 << std::endl;
+  maintain_states_stack(cur_state_);
+  // Save the state of the current pixel buffer before making changes
+  add_buffer_to_undo_stack(*display_buffer_);
 }
 
 void FlashPhotoApp::InitializeBuffers(ColorData background_color,
                                       int width, int height) {
   display_buffer_ = new PixelBuffer(width, height, background_color);
+  states_.push_back(*display_buffer_); // Add initial blank state
 }
 
 void FlashPhotoApp::InitGlui(void) {
@@ -312,6 +319,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       nb = io_manager_.LoadImageToCanvas();
       SetWindowDimensions(nb->width(), nb->height());
       // save old buffer here
+      add_buffer_to_undo_stack(*display_buffer_);
       display_buffer_ = nb;
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
@@ -326,10 +334,34 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_name());
       break;
     case UICtrl::UI_UNDO:
-      state_manager_.UndoOperation();
+      //add_buffer_to_undo_stack(*display_buffer_);
+      state_manager_.UndoOperation(display_buffer_, states_, cur_state_);
+      cur_state_-= 1; // Decrement the current index after undoing
+      // Check if the undo button should be disabled (no more states)
+      if(cur_state_ > 0) {
+        state_manager_.undo_toggle(true);
+      }
+      else {
+        state_manager_.undo_toggle(false);
+      }
+      // Check if the redo button should be enabled
+      if (cur_state_ != states_.size()-1) {
+        state_manager_.redo_toggle(true);
+      }
+      else {
+        state_manager_.redo_toggle(false);
+      }
       break;
     case UICtrl::UI_REDO:
-      state_manager_.RedoOperation();
+      state_manager_.RedoOperation(display_buffer_, states_, cur_state_);
+      cur_state_ += 1;
+      // Check if the redo button should be enabled
+      if (cur_state_ != states_.size()-1) {
+        state_manager_.redo_toggle(true);
+      }
+      else {
+        state_manager_.redo_toggle(false);
+      }
       break;
     default:
       break;
@@ -361,7 +393,26 @@ void FlashPhotoApp::InitGraphics(void) {
   glViewport(0, 0, width(), height());
 }
 /** TODO implement undo queue */
-void FlashPhotoApp::add_buffer_to_undo_stack (const PixelBuffer* &current_buffer) {
-  // stuff happens here...
+void FlashPhotoApp::add_buffer_to_undo_stack (const PixelBuffer current_buffer) {
+  states_.push_back(current_buffer);
+  cur_state_ += 1; // Update index
+  if (cur_state_ > 0) {
+    state_manager_.undo_toggle(true);
+  }
+  else {
+    state_manager_.undo_toggle(false);
+  }
+  std::cout << "Add to Undo state" << std::endl;
+  std::cout << "cur state: " << cur_state_ << std::endl;
+}
+
+// Handles the case in which we undo and then draw, we need to erase
+// any states after this point because they are overwritten
+void FlashPhotoApp::maintain_states_stack (int cur_state_) {
+  if (cur_state_ != states_.size()-1) {
+    std::cout << "erase: " << std::endl;
+    states_.erase(states_.begin()+cur_state_+1, states_.end());
+    state_manager_.redo_toggle(false); // again handle toggle
+  }
 }
 }  /* namespace image_tools */

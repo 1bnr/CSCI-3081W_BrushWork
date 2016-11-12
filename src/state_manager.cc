@@ -42,12 +42,16 @@ void StateManager::InitGlui(const GLUI *const glui,
   redo_toggle(false);
 }
 
-void StateManager::UndoOperation(void) {
+void StateManager::UndoOperation(PixelBuffer* display_buffer, std::vector<PixelBuffer> states_, int cur_state_) {
   std::cout << "Undoing..." << std::endl;
+  // Sets the display_buffer to the previous state
+  *display_buffer = states_[cur_state_-1];
 }
 
-void StateManager::RedoOperation(void) {
+void StateManager::RedoOperation(PixelBuffer* display_buffer, std::vector<PixelBuffer> states_, int cur_state_) {
   std::cout << "Redoing..." << std::endl;
+  //sets the display_buffer to the state before the undo call
+  *display_buffer = states_[cur_state_+1];
 }
 
 }  /* namespace image_tools */
