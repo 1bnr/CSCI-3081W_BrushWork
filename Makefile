@@ -191,7 +191,7 @@ TARGET = $(BINDIR)/FlashPhoto
 
 # The default target which will be run if the user just types "make" with a
 # target name
-all: $(TARGET)
+all: $(EXTDIR)/lib/libpng.a $(EXTDIR)/lib/libjpeg.a $(TARGET)
 
 # Unless invoked with make clean, include generated dependencies. This makes
 # it so that anytime you make an edit in a .h file, make will know that all
@@ -257,6 +257,9 @@ veryclean: clean
 	-@$(MAKE) -C$(PNGDIR) clean uninstall
 	-@$(MAKE) -C$(JPEGDIR) clean uninstall
 	@rm -rf $(BINDIR) $(OBJDIR)
+	@rm -rf $(EXTDIR)/lib/libpng.a
+	@rm -rf $(EXTDIR)/lib/libjpeg.a
+	@rm -rf $(EXTDIR)/lib/libglui.a
 
 # The Documenter. Generate documentation for the project.
 documentation:
@@ -272,4 +275,4 @@ documentation:
 # last invocation of make.
 $(OBJDIR)/%.o: $(SRCDIR)/%.cc
 	@$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
-	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) -c -o  $@ $<  $(CXXLIBS)
+	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) -c -o  $@ $< $(CXXLIBS)
