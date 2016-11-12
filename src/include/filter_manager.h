@@ -18,6 +18,7 @@
 #include "GL/glui.h"
 #include "include/pixel_buffer.h"
 #include "include/ui_ctrl.h"
+#include "include/threshold.h"
 
 /*******************************************************************************
  * Namespaces
