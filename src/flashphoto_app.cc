@@ -317,10 +317,14 @@ void FlashPhotoApp::GluiControl(int control_id) {
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
       PixelBuffer * nb; // new buffer
       nb = io_manager_.LoadImageToCanvas();
+      // Set the window dimensions to the state that was just restored
       SetWindowDimensions(nb->width(), nb->height());
-      // save old buffer here
-      add_buffer_to_undo_stack(*display_buffer_);
-      display_buffer_ = nb;
+      *display_buffer_ = *nb;
+      // Handle the case which we are not at the end of the undo stack
+      std::cout << "End Pos: " << states_.size()-1 << std::endl;
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(*nb);
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       io_manager_.LoadImageToStamp();
@@ -334,9 +338,10 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_name());
       break;
     case UICtrl::UI_UNDO:
-      //add_buffer_to_undo_stack(*display_buffer_);
       state_manager_.UndoOperation(display_buffer_, states_, cur_state_);
       cur_state_-= 1; // Decrement the current index after undoing
+      // Set the window dimensions to the state that was just restored
+      SetWindowDimensions(states_[cur_state_].width(), states_[cur_state_].height());
       // Check if the undo button should be disabled (no more states)
       if(cur_state_ > 0) {
         state_manager_.undo_toggle(true);
@@ -355,12 +360,22 @@ void FlashPhotoApp::GluiControl(int control_id) {
     case UICtrl::UI_REDO:
       state_manager_.RedoOperation(display_buffer_, states_, cur_state_);
       cur_state_ += 1;
+      SetWindowDimensions(states_[cur_state_].width(), states_[cur_state_].height());
       // Check if the redo button should be enabled
+      std::cout << "Current state: " << cur_state_ << std::endl;
+      // Handle the case which we are not at the end of the undo stack
+      std::cout << "End Pos: " << states_.size()-1 << std::endl;
       if (cur_state_ != states_.size()-1) {
         state_manager_.redo_toggle(true);
       }
       else {
         state_manager_.redo_toggle(false);
+      }
+      if(cur_state_ > 0) {
+        state_manager_.undo_toggle(true);
+      }
+      else {
+        state_manager_.undo_toggle(false);
       }
       break;
     default:
