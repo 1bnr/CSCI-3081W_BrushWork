@@ -79,7 +79,7 @@ void FilterManager::ApplyThreshold(PixelBuffer* p) {
   std::cout << "Apply Threshold has been clicked with amount ="
             << threshold_amount_ << std::endl;
   Threshold thresh_filter = Threshold();
-  //thresh_filter.apply_filter(p, threshold_amount_);
+  thresh_filter.apply_filter(p, threshold_amount_);
 }
 void FilterManager::ApplySpecial(void) {
   std::cout << "Apply has been clicked for Special" << std::endl;
