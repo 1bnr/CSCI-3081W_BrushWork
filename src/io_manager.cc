@@ -12,11 +12,12 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
- #include <iostream>
- #include <string>
- #include "include/ui_ctrl.h"
- #include "include/io_manager.h"
- #include "include/png_loader.h"
+#include <iostream>
+#include <string>
+#include "include/ui_ctrl.h"
+#include "include/io_manager.h"
+#include "include/jpg_loader.h"
+#include "include/png_loader.h"
 
 /*******************************************************************************
  * Namespaces
@@ -148,14 +149,14 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
 
 
   std::cout << file_suffix << std::endl;
-  if (file_suffix.compare("png") == 0){
+  if (file_suffix.compare("png") == 0) {
     new_buffer = new PixelBuffer(PngLoader::load_image(file_name_));
     return new_buffer;
-  }
-  else /** File loaded is a jpeg */
-    if ((file_suffix.compare("jpg") == 0) || (file_suffix.compare("jpeg") == 0))
-      return new PixelBuffer(1,1, ColorData());
-
+  } else if ((file_suffix.compare("jpg") == 0) ||
+             (file_suffix.compare("jpeg") == 0)) {
+      new_buffer = new PixelBuffer(JpgLoader::load_image(file_name_));
+      return new_buffer;
+    }
 }
 
 void IOManager::LoadImageToStamp(void) {

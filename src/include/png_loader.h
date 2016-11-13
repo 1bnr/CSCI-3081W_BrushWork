@@ -3,7 +3,7 @@
  * Project         : FlashPhoto
  * Module          : png_loader
  * Description     : Header for PngLoader class
- * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
+ * Copyright       : Abner Holsinger All rights reserved.
  * Creation Date   : Wed Nov 11 2016
  * Original Author : Abner Holsinger
  *
@@ -15,8 +15,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include <string>
 #include <png.h>
+#include <string>
 #include "include/pixel_buffer.h"
 
 /*******************************************************************************
@@ -35,7 +35,7 @@ class PngLoader {
   PngLoader(void);
   virtual ~PngLoader(void);
 
-   PixelBuffer static load_image(std::string file_name);
+  PixelBuffer static load_image(std::string file_name);
 };
 }  /* namespace image_tools */
 
