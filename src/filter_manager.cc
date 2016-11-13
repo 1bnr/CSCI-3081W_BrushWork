@@ -78,37 +78,8 @@ void FilterManager::ApplyQuantize(void) {
 void FilterManager::ApplyThreshold(PixelBuffer* p) {
   std::cout << "Apply Threshold has been clicked with amount ="
             << threshold_amount_ << std::endl;
-  int x = p->width();
-  int y = p->height();
-  PixelBuffer filtered_buffer = *p;
-  float new_red;
-  float new_green;
-  float new_blue;
-
-  for(int i = 0; i<x; i++){
-    for (int j = 0; j<y; j++){
-      if (p->get_pixel(i,j).red() > threshold_amount_){
-        new_red = 1.0;
-        }
-      else{
-        new_red = 0.0;
-      }
-      if (p->get_pixel(i,j).green() > threshold_amount_){
-        new_green = 1.0;
-      }
-      else{
-        new_green = 0.0;
-      }
-      if (p->get_pixel(i,j).blue() > threshold_amount_){
-        new_blue = 1.0;
-      }
-      else{
-        new_blue = 0.0;
-      }
-      filtered_buffer.set_pixel(i,j,ColorData(new_red,new_green,new_blue));
-    }
-  }
-  *p = filtered_buffer;
+  Threshold thresh_filter = Threshold();
+  //thresh_filter.apply_filter(p, threshold_amount_);
 }
 void FilterManager::ApplySpecial(void) {
   std::cout << "Apply has been clicked for Special" << std::endl;
