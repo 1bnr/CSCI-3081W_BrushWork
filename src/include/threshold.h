@@ -34,8 +34,8 @@ class Threshold {
   Threshold();
   virtual ~Threshold();
 
-  PixelBuffer apply_filter(PixelBuffer* p,float thresh_amount);
-  
+  void apply_filter(PixelBuffer* p, float thresh_amount);
+
 };
 }  // namespace image_tools
 #endif  // INCLUDE_THRESHOLD_H_
