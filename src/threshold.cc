@@ -28,7 +28,7 @@ Threshold::~Threshold() {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
- PixelBuffer apply_filter(PixelBuffer* p, float thresh_amount_){
+ void Threshold::apply_filter(PixelBuffer* p, float thresh_amount){
    int x = p->width();
    int y = p->height();
    PixelBuffer filtered_buffer = *p;
@@ -38,19 +38,19 @@ Threshold::~Threshold() {}
 
    for(int i = 0; i<x; i++){
      for (int j = 0; j<y; j++){
-       if (p->get_pixel(i,j).red() > thresh_amount_){
+       if (p->get_pixel(i,j).red() > thresh_amount){
          new_red = 1.0;
          }
        else{
          new_red = 0.0;
        }
-       if (p->get_pixel(i,j).green() > thresh_amount_){
+       if (p->get_pixel(i,j).green() > thresh_amount){
          new_green = 1.0;
        }
        else{
          new_green = 0.0;
        }
-       if (p->get_pixel(i,j).blue() > thresh_amount_){
+       if (p->get_pixel(i,j).blue() > thresh_amount){
          new_blue = 1.0;
        }
        else{
