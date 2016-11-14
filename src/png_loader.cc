@@ -109,7 +109,7 @@ void PngLoader::save_image(const PixelBuffer & image,
 
   int width = image.width();
   int height = image.height();
-  png_byte * row_pointers[height];
+  png_bytep * row_pointers = static_cast<png_bytep*>(malloc(sizeof(void*)*height));
   bit_depth = 8;
   color_type = 6;
   /* create file */
