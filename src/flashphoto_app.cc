@@ -319,12 +319,12 @@ void FlashPhotoApp::GluiControl(int control_id) {
       nb = io_manager_.LoadImageToCanvas();
       // Set the window dimensions to the state that was just restored
       SetWindowDimensions(nb->width(), nb->height());
-      *display_buffer_ = *nb;
+      display_buffer_ = nb;
       // Handle the case which we are not at the end of the undo stack
       std::cout << "End Pos: " << states_.size()-1 << std::endl;
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(*nb);
+      add_buffer_to_undo_stack(*display_buffer_);
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       io_manager_.LoadImageToStamp();
@@ -411,6 +411,7 @@ void FlashPhotoApp::InitGraphics(void) {
 void FlashPhotoApp::add_buffer_to_undo_stack (const PixelBuffer current_buffer) {
   states_.push_back(current_buffer);
   cur_state_ += 1; // Update index
+  std::cout << "State: " << cur_state_ << " " << &states_[cur_state_] << std::endl;
   if (cur_state_ > 0) {
     state_manager_.undo_toggle(true);
   }
