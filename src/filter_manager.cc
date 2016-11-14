@@ -39,11 +39,13 @@ FilterManager::FilterManager(void) :
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void FilterManager::ApplyChannel(void) {
+void FilterManager::ApplyChannel(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Channels with red = "
             << channel_color_red_
             << ", green = " << channel_color_green_
             << ", blue = " << channel_color_blue_ << std::endl;
+  RGB rgb_filter = RGB();
+  rgb_filter.apply_filter(p, channel_color_red_, channel_color_blue_, channel_color_green_);
 }
 
 void FilterManager::ApplySaturate(PixelBuffer* p) {
