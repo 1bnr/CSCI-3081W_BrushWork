@@ -13,6 +13,7 @@
  * Includes
  ******************************************************************************/
 #include "include/saturate.h"
+#include <cmath> 
 
 /*******************************************************************************
  * Namespaces
@@ -31,24 +32,18 @@ Saturate::~Saturate() {}
  void Saturate::apply_filter(PixelBuffer* p, float saturate_amount){
    int x = p->width();
    int y = p->height();
-   float cur_red;
-   float cur_green;
-   float cur_blue;
-   float new_red;
-   float new_blue;
-   float new_green;
    float gray_scale;
    PixelBuffer filtered_buffer = *p;
    for(int i = 0; i<x; i++){
      for (int j = 0; j<y; j++){
+       // Get the grayscale value for each pixel using the luminance function
        gray_scale = p->get_pixel(i,j).luminance();
-       cur_red = p->get_pixel(i,j).red();
-       cur_green = p->get_pixel(i,j).green();
-       cur_blue = p->get_pixel(i,j).blue();
-       new_red = gray_scale + (saturate_amount*(cur_red-gray_scale));
-       new_blue = gray_scale + (saturate_amount*(cur_green-gray_scale));
-       new_green = gray_scale + (saturate_amount*(cur_blue-gray_scale));
-       filtered_buffer.set_pixel(i,j,ColorData(new_red, new_green, new_blue));
+       // Get the actual color of the pixel and the grayscale color
+       // And interpolate between them using the satuarate_amount
+       ColorData gray = ColorData(gray_scale, gray_scale, gray_scale);
+       ColorData color = p->get_pixel(i,j);
+       ColorData new_color = (color * saturate_amount) + (gray * (1 - saturate_amount));
+       filtered_buffer.set_pixel(i,j, new_color);
      }
    }
    *p = filtered_buffer;
