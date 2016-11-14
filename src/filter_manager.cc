@@ -46,9 +46,11 @@ void FilterManager::ApplyChannel(void) {
             << ", blue = " << channel_color_blue_ << std::endl;
 }
 
-void FilterManager::ApplySaturate(void) {
+void FilterManager::ApplySaturate(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Saturate with amount = "
             << saturation_amount_ << std::endl;
+  Saturate saturate_filter = Saturate();
+  saturate_filter.apply_filter(p, saturation_amount_);
 }
 
 void FilterManager::ApplyBlur(void) {

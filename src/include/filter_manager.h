@@ -19,6 +19,7 @@
 #include "include/pixel_buffer.h"
 #include "include/ui_ctrl.h"
 #include "include/threshold.h"
+#include "include/saturate.h"
 
 /*******************************************************************************
  * Namespaces
@@ -86,7 +87,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySaturate(void);
+  void ApplySaturate(PixelBuffer* p);
 
 
   /**
