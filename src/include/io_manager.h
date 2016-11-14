@@ -87,7 +87,7 @@ class IOManager {
    * @brief Save the current state of the canvas to a file
    *
    */
-  void SaveCanvasToFile(void);
+  void SaveCanvasToFile(const PixelBuffer *image, const std::string &file_name);
 
  private:
   /* Copy/move assignment/construction disallowed */

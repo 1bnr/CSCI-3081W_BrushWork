@@ -99,4 +99,75 @@ PixelBuffer PngLoader::load_image(std::string file_name) {
 return new_buffer;
 }
 
+void PngLoader::save_image(const PixelBuffer & image,
+                           const std::string & file_name) {
+
+  png_byte color_type;
+  png_byte bit_depth;
+  png_structp png_ptr;
+  png_infop info_ptr;
+
+  int width = image.width();
+  int height = image.height();
+  png_byte * row_pointers[height];
+  bit_depth = 8;
+  color_type = 6;
+  /* create file */
+   FILE *outfile = fopen(file_name.c_str(), "wb");
+   if (!outfile)
+     printf("undable to print %s\n", file_name.c_str() );
+
+   /* initialize stuff */
+   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+
+   if (!png_ptr)
+           printf("png_create_write_struct failed");
+
+   info_ptr = png_create_info_struct(png_ptr);
+   if (!info_ptr)
+           printf("png_create_info_struct failed");
+
+   png_init_io(png_ptr, outfile);
+   /* write header */
+   if (setjmp(png_jmpbuf(png_ptr)))
+           printf("error during writing header");
+   png_set_IHDR(png_ptr, info_ptr, width, height, bit_depth, color_type,
+          PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+   png_write_info(png_ptr, info_ptr);
+
+   /* write bytes */
+   for (int y=0; y < height; y++){
+     row_pointers[y] = static_cast<png_byte*>(malloc(sizeof(png_byte) * width * 4));
+     for (int x=0; x < width; x++) {
+       ColorData pxl = image.get_pixel(x, height - y - 1);
+  //     unsigned char o_pxl[4];
+       row_pointers[y][(x*4)] = static_cast<unsigned char>(pxl.red()*255);
+       row_pointers[y][(x*4)+1] = static_cast<unsigned char>(pxl.green()*255);
+       row_pointers[y][(x*4)+2] = static_cast<unsigned char>(pxl.blue()*255);
+       row_pointers[y][(x*4)+3] = static_cast<unsigned char>(pxl.alpha()*255);
+     }
+//     row_pointers[y] = row;
+   }
+
+
+   if (setjmp(png_jmpbuf(png_ptr)))
+           printf("error during writing bytes");
+
+   png_write_image(png_ptr, row_pointers);
+
+   /* end write */
+   if (setjmp(png_jmpbuf(png_ptr)))
+           printf("error during end of write");
+
+   png_write_end(png_ptr, NULL);
+
+   /* cleanup heap allocation */
+   for (int y=0; y<height; y++)
+           free(row_pointers[y]);
+   free(row_pointers);
+
+   fclose(outfile);
+
+}
+
 }  /* namespace image_tools */

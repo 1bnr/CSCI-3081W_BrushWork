@@ -15,6 +15,7 @@
 #include <iostream>
 #include <string>
 #include "include/ui_ctrl.h"
+#include "include/pixel_buffer.h"
 #include "include/io_manager.h"
 #include "include/jpg_loader.h"
 #include "include/png_loader.h"
@@ -146,8 +147,6 @@ void IOManager::set_image_file(const std::string & file_name) {
 PixelBuffer * IOManager::LoadImageToCanvas(void) {
   PixelBuffer * new_buffer;
   std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
-
-
   std::cout << file_suffix << std::endl;
   if (file_suffix.compare("png") == 0) {
     new_buffer = new PixelBuffer(PngLoader::load_image(file_name_));
@@ -156,7 +155,7 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
              (file_suffix.compare("jpeg") == 0)) {
       new_buffer = new PixelBuffer(JpgLoader::load_image(file_name_));
       return new_buffer;
-    }
+  }
 }
 
 void IOManager::LoadImageToStamp(void) {
@@ -164,9 +163,17 @@ void IOManager::LoadImageToStamp(void) {
       file_name_ << std::endl;
 }
 
-void IOManager::SaveCanvasToFile(void) {
+void IOManager::SaveCanvasToFile(const PixelBuffer * image,
+                                 const std::string & file_name) {
   std::cout << "Save Canvas been clicked for file " <<
       file_name_ << std::endl;
+  std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
+  if (file_suffix.compare("png") == 0) {
+     PngLoader::save_image(*image, file_name);
+  } else if ((file_suffix.compare("jpg") == 0) ||
+             (file_suffix.compare("jpeg") == 0)) {
+      JpgLoader::save_image(*image, file_name);
+  }
 }
 
 

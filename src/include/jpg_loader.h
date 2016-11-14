@@ -36,6 +36,7 @@ class JpgLoader {
   virtual ~JpgLoader(void);
 
   PixelBuffer static load_image(std::string file_name);
+  void static save_image(const PixelBuffer & image, const std::string & file_name);
 };
 /* some class global fields */
 struct my_error_mgr {

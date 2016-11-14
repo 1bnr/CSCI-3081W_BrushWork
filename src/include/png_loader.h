@@ -36,6 +36,7 @@ class PngLoader {
   virtual ~PngLoader(void);
 
   PixelBuffer static load_image(std::string file_name);
+  void static save_image(const PixelBuffer & image, const std::string & file_name);
 };
 }  /* namespace image_tools */
 
