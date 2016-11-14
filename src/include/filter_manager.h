@@ -20,6 +20,7 @@
 #include "include/ui_ctrl.h"
 #include "include/threshold.h"
 #include "include/saturate.h"
+#include "include/rgb.h"
 
 /*******************************************************************************
  * Namespaces
@@ -80,7 +81,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyChannel(void);
+  void ApplyChannel(PixelBuffer* p);
 
   /**
    * @brief Apply a channel filter to the buffer
