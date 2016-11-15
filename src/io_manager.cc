@@ -17,8 +17,8 @@
 #include "include/ui_ctrl.h"
 #include "include/pixel_buffer.h"
 #include "include/io_manager.h"
-#include "include/jpg_loader.h"
-#include "include/png_loader.h"
+#include "include/file_io_jpg.h"
+#include "include/file_io_png.h"
 
 /*******************************************************************************
  * Namespaces
@@ -149,11 +149,11 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
   std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
   std::cout << file_suffix << std::endl;
   if (file_suffix.compare("png") == 0) {
-    new_buffer = new PixelBuffer(PngLoader::load_image(file_name_));
+    new_buffer = new PixelBuffer(FileIoPng::load_image(file_name_));
     return new_buffer;
   } else if ((file_suffix.compare("jpg") == 0) ||
              (file_suffix.compare("jpeg") == 0)) {
-      new_buffer = new PixelBuffer(JpgLoader::load_image(file_name_));
+      new_buffer = new PixelBuffer(FileIoJpg::load_image(file_name_));
       return new_buffer;
   }
 }
@@ -169,10 +169,10 @@ void IOManager::SaveCanvasToFile(const PixelBuffer * image,
       file_name_ << std::endl;
   std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
   if (file_suffix.compare("png") == 0) {
-     PngLoader::save_image(*image, file_name);
+     FileIoPng::save_image(*image, file_name);
   } else if ((file_suffix.compare("jpg") == 0) ||
              (file_suffix.compare("jpeg") == 0)) {
-      JpgLoader::save_image(*image, file_name);
+      FileIoJpg::save_image(*image, file_name);
   }
 }
 
