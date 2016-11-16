@@ -1,8 +1,8 @@
 /*******************************************************************************
- * Name        : jpg_loader.cc
+ * Name        : file_io_jpg.cc
  * Project      : FlashPhoto
- * Module       : jpg_loader
- * Description    : source for JpgLoader class
+ * Module       : file_io_jpg
+ * Description    : source for FileIoJpg class
  * Copyright     : Abner Holsinger All rights reserved.
  * Creation Date  : Wed Nov 11 2016
  * Original Author : Abner Holsinger
@@ -12,13 +12,13 @@
  /*******************************************************************************
   * Includes
   ******************************************************************************/
-#include <iostream>
 #include <jerror.h>
 #include <setjmp.h>
-#include <cstring>
-#include <jpeglib.h>
 #include <string>
-#include "include/jpg_loader.h"
+#include <cstring>
+#include <iostream>
+#include "include/file_io.h"
+#include "include/file_io_jpg.h"
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
@@ -26,11 +26,12 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-
+FileIoJpg::FileIoJpg(void) {}
+FileIoJpg::~FileIoJpg(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-PixelBuffer JpgLoader::load_image(std::string file_name) {
+PixelBuffer FileIoJpg::load_image(std::string file_name) {
   /* This struct contains the JPEG decompression parameters and pointers to
   * working space (which is allocated as needed by the JPEG library).
   */
@@ -50,9 +51,6 @@ PixelBuffer JpgLoader::load_image(std::string file_name) {
     return PixelBuffer(0, 0, ColorData(0, 0, 0, 0));  // error condition
   }
 
-  /* Step 1: allocate and initialize JPEG decompression object */
-
-  /* We set up the normal JPEG error routines, then override error_exit. */
   cinfo.err = jpeg_std_error(&jerr.pub);
   // assuming all files are good, as per TAs' instruction.
   /* Now we can initialize the JPEG decompression object. */
@@ -61,12 +59,10 @@ PixelBuffer JpgLoader::load_image(std::string file_name) {
 
   printf("%s\n", "read header");
   (void) jpeg_read_header(&cinfo, TRUE);
-  /* Step 5: Start decompressor */
+  /* start decompressor */
   printf("%s\n", "start decompression");
   (void) jpeg_start_decompress(&cinfo);
-  /* We can ignore the return value since suspension is not possible
-   * with the stdio data source.
-   */
+
   height = cinfo.output_height;  // pixels per height
   width = cinfo.output_width;  // pixels per row
   c_ch = cinfo.output_components;  // number of channels per pixel; typically 3
@@ -81,10 +77,10 @@ PixelBuffer JpgLoader::load_image(std::string file_name) {
     jpeg_read_scanlines(&cinfo, buffer_array, 1);
   }
 
-  /* Step 7: Finish decompression */
-  printf("%s\n", "finish compression.");
+  /* finish decompression */
+  printf("%s\n", "finish decompression.");
   (void) jpeg_finish_decompress(&cinfo);
-  /* Step 8: Release JPEG decompression object */
+  /* release JPEG decompression object */
   jpeg_destroy_decompress(&cinfo);
   fclose(infile);
   PixelBuffer new_buffer = PixelBuffer(width, height, ColorData(0, 0, 0));
@@ -95,101 +91,77 @@ PixelBuffer JpgLoader::load_image(std::string file_name) {
        static_cast<float>(pxl[0])/b_divisor,  /* red channel */
        static_cast<float>(pxl[1])/b_divisor,  /* green channel */
        static_cast<float>(pxl[2])/b_divisor,  /* blue channel */
-       1));  // jpeg has no alpha channel
+       1));  /* jpeg has no alpha channel */
     }
   }
-  free(read_buffer);
+  free(read_buffer);  /* free the malloc'd buffer memory */
   read_buffer = NULL;
-printf("in jpg_loader size is %d x %d\n", new_buffer.width(), new_buffer.height() );
   return new_buffer;
 }
 /** save the given PixelBuffer image as the given FILE file_name */
-void JpgLoader::save_image(const PixelBuffer & image, const std::string & file_name) {
-
+void FileIoJpg::save_image(
+                    const PixelBuffer & image, const std::string & file_name) {
   struct jpeg_compress_struct cinfo;
   struct jpeg_error_mgr jerr;
   /* More stuff */
-  FILE * outfile;		/* target file */
-  JSAMPROW row_pointer[1];	/* pointer to JSAMPLE row[s] */
-  int row_stride;		/* byte width per row in image buffer */
-  int width = image.width();
-  int height = image.height();
-  printf("in JpgLoader::save_image size is %d x %d\n", width, height );
-  int quality = 70;
-  cinfo.err = jpeg_std_error(&jerr);
-  /* Now we can initialize the JPEG compression object. */
+  FILE * outfile;  /* target file */
+  JSAMPROW row_pointer[1];  /* pointer to JSAMPLE row[s] */
+  int row_stride;  /* byte width per row in image buffer */
+  int width = image.width();  /* pixel width of image */
+  int height = image.height();  /* pixel height of image */
+  int quality = 70;  /* compression quality; [1-100] */
+  int bit_depth = 8;  /* each color channel is 8-bits */
+  cinfo.err = jpeg_std_error(&jerr);  /* error handler */
+  /* initialize the JPEG compression object. */
   jpeg_create_compress(&cinfo);
 
-  /* Step 2: specify data destination (eg, a file) */
-  /* Note: steps 2 and 3 can be done in either order. */
-
-  /* Here we use the library-supplied code to send compressed data to a
-   * stdio stream.  You can also write your own code to do something else.
-   * VERY IMPORTANT: use "b" option to fopen() if you are on a machine that
-   * requires it in order to write binary files.
-   */
+  /* specify data destination file */
   if ((outfile = fopen(file_name.c_str(), "wb")) == NULL) {
     fprintf(stderr, "can't open %s\n", file_name.c_str());
     exit(1);
   }
   jpeg_stdio_dest(&cinfo, outfile);
 
-  /* Step 3: set parameters for compression */
-
-  /* First we supply a description of the input image.
-   * Four fields of the cinfo struct must be filled in:
-   */
-  cinfo.image_width = width; 	/* image width and height, in pixels */
-  cinfo.image_height = height;
-  cinfo.input_components = 3;		/* # of color components per pixel */
+  /* parameters for compression */
+  cinfo.image_width = width;   /* image width in pixels */
+  cinfo.image_height = height;  /* image height in pixels */
+  cinfo.input_components = 3;    /* # of color components per pixel */
   cinfo.dct_method = JDCT_FLOAT;
-  cinfo.in_color_space = JCS_RGB; 	/* colorspace of input image */
-  /* Now use the library's routine to set default compression parameters.
-   * (You must set at least cinfo.in_color_space before calling this,
-   * since the defaults depend on the source color space.)
-   */
+  cinfo.in_color_space = JCS_RGB;   /* colorspace of input image */
+
   jpeg_set_defaults(&cinfo);
-  /* Now you can set any non-default parameters you wish to.
-   * Here we just illustrate the use of quality (quantization table) scaling:
-   */
   jpeg_set_quality(&cinfo, quality, TRUE /* limit to baseline-JPEG values */);
 
-  /* Step 4: Start compressor */
+  /* start the compressor */
 
-  /* TRUE ensures that we will write a complete interchange-JPEG file.
-   * Pass TRUE unless you are very sure of what you're doing.
-   */
   jpeg_start_compress(&cinfo, TRUE);
-  row_stride = image.width() * 3;	/* JSAMPLEs per pixel in image_buffer */
+  row_stride = image.width() * 3;  /* JSAMPLEs per pixel in image_buffer */
 
-  unsigned char * image_buffer;
-//  unsigned char* pxl;
-  int c_ch = 3; // number of color channels
+  unsigned char * image_buffer;  /* the buffer for the image data */
+  int c_ch = 3;  // number of color channels
+  int bd_factor = (1 << bit_depth) -1;
   image_buffer = static_cast<unsigned char*>(malloc(height*row_stride));
-
+  /* put the image data into the buffer */
   for (int y=0; y < height; y++) {
     for (int x=0; x < width; x++) {
-  //    pxl = &image_buffer[(y * row_stride) + (x*c_ch)];
-      image_buffer[(y * row_stride) + (x*c_ch)] = 255 * image.get_pixel(x,height-y-1).red();
-      image_buffer[(y * row_stride) + (x*c_ch) + 1] = 255 * image.get_pixel(x,height-y-1).green();
-      image_buffer[(y * row_stride) + (x*c_ch) + 2] = 255 * image.get_pixel(x,height-y-1).blue();
+      ColorData pxl = image.get_pixel(x, height-y-1);  /* this pixel */
+      int p_offset = (y * row_stride) + (x*c_ch);  /* pixel offset in buffer */
+      image_buffer[p_offset] = bd_factor * pxl.red();
+      image_buffer[p_offset + 1] = bd_factor * pxl.green();
+      image_buffer[p_offset + 2] = bd_factor * pxl.blue();
     }
-
   }
-
+  /* write the buffered data into the output file */
   while (cinfo.next_scanline < height) {
     row_pointer[0] = & image_buffer[cinfo.next_scanline * row_stride];
     (void) jpeg_write_scanlines(&cinfo, row_pointer, 1);
   }
 
-  /* Step 6: Finish compression */
-
+  /* finish compression */
   jpeg_finish_compress(&cinfo);
   jpeg_destroy_compress(&cinfo);
   free(image_buffer);
   fclose(outfile);
-
-  /* And we're done! */
 }
 
 }  /* namespace image_tools */

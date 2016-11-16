@@ -1,22 +1,19 @@
 /*******************************************************************************
- * Name            : png_loader.h
+ * Name            : io_file.h
  * Project         : FlashPhoto
- * Module          : png_loader
- * Description     : Header for PngLoader class
+ * Module          : io_file
+ * Description     : Header for JpgLoader class
  * Copyright       : Abner Holsinger All rights reserved.
- * Creation Date   : Wed Nov 11 2016
+ * Creation Date   : Wed Nov 14 2016
  * Original Author : Abner Holsinger
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_PNG_LOADER_H_
-#define SRC_INCLUDE_PNG_LOADER_H_
-
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include <png.h>
 #include <string>
+#include "include/file_io.h"
 #include "include/pixel_buffer.h"
 
 /*******************************************************************************
@@ -28,16 +25,11 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief handles loading an image from a file to the stamp.
+ * @brief parent class for all file io modules; non instantiatable; contains
+ * no method definitions. Class has only load_image and save_image full virtual
+ * methods that will be defined in all subclasses.
  */
-class PngLoader {
- public:
-  PngLoader(void);
-  virtual ~PngLoader(void);
 
-  PixelBuffer static load_image(std::string file_name);
-  void static save_image(const PixelBuffer & image, const std::string & file_name);
-};
+ FileIo::FileIo(void) {};
+ FileIo::~FileIo(void) {};
 }  /* namespace image_tools */
-
-#endif  /* SRC_INCLUDE_PNG_LOADER_H_ */

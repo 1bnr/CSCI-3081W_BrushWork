@@ -16,9 +16,10 @@
 #include <string>
 #include "include/ui_ctrl.h"
 #include "include/pixel_buffer.h"
+#include "include/file_io.h"
 #include "include/io_manager.h"
-#include "include/jpg_loader.h"
-#include "include/png_loader.h"
+#include "include/file_io_jpg.h"
+#include "include/file_io_png.h"
 
 /*******************************************************************************
  * Namespaces
@@ -146,16 +147,20 @@ void IOManager::set_image_file(const std::string & file_name) {
 
 PixelBuffer * IOManager::LoadImageToCanvas(void) {
   PixelBuffer * new_buffer;
+  FileIo * file_io;
   std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
   std::cout << file_suffix << std::endl;
   if (file_suffix.compare("png") == 0) {
-    new_buffer = new PixelBuffer(PngLoader::load_image(file_name_));
-    return new_buffer;
+    file_io = new FileIoPng();
   } else if ((file_suffix.compare("jpg") == 0) ||
              (file_suffix.compare("jpeg") == 0)) {
-      new_buffer = new PixelBuffer(JpgLoader::load_image(file_name_));
-      return new_buffer;
+    file_io = new FileIoJpg();
   }
+  else // wrong file type;
+    return NULL; // check for null on return
+  new_buffer = new PixelBuffer(file_io->load_image(file_name_));
+  free(file_io);
+  return new_buffer;
 }
 
 void IOManager::LoadImageToStamp(void) {
@@ -167,13 +172,15 @@ void IOManager::SaveCanvasToFile(const PixelBuffer * image,
                                  const std::string & file_name) {
   std::cout << "Save Canvas been clicked for file " <<
       file_name_ << std::endl;
+  FileIo * file_io;
   std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
-  if (file_suffix.compare("png") == 0) {
-     PngLoader::save_image(*image, file_name);
-  } else if ((file_suffix.compare("jpg") == 0) ||
-             (file_suffix.compare("jpeg") == 0)) {
-      JpgLoader::save_image(*image, file_name);
-  }
+  if (file_suffix.compare("png") == 0)
+    file_io = new FileIoPng();
+  else if ((file_suffix.compare("jpg") == 0) ||
+             (file_suffix.compare("jpeg") == 0))
+    file_io = new FileIoJpg();
+  file_io->save_image(*image, file_name);
+  free(file_io);
 }
 
 

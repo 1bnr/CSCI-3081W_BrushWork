@@ -1,21 +1,20 @@
 /*******************************************************************************
- * Name            : jpg_loader.h
+ * Name            : file_io.h
  * Project         : FlashPhoto
- * Module          : jpg_loader
+ * Module          : file_io
  * Description     : Header for JpgLoader class
  * Copyright       : Abner Holsinger All rights reserved.
- * Creation Date   : Wed Nov 11 2016
+ * Creation Date   : Wed Nov 14 2016
  * Original Author : Abner Holsinger
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_JPG_LOADER_H_
-#define SRC_INCLUDE_JPG_LOADER_H_
+#ifndef SRC_INCLUDE_FILE_IO_H_
+#define SRC_INCLUDE_FILE_IO_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include <jpeglib.h>
 #include <string>
 #include "include/pixel_buffer.h"
 
@@ -28,24 +27,16 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief handles loading an image from a file to the stamp.
+ * @brief parent class for all file io modules
  */
-class JpgLoader {
+class FileIo {
  public:
-  JpgLoader(void);
-  virtual ~JpgLoader(void);
-
-  PixelBuffer static load_image(std::string file_name);
-  void static save_image(const PixelBuffer & image, const std::string & file_name);
+  FileIo(void);
+  virtual ~FileIo(void);
+  virtual PixelBuffer load_image(std::string file_name) = 0;
+  virtual void save_image(const PixelBuffer & image, const std::string & file_name) = 0;
 };
-/* some class global fields */
-struct my_error_mgr {
-struct jpeg_error_mgr pub; /* "public" fields */
-jmp_buf setjmp_buffer; /* for return to caller */
-};
-
-typedef struct my_error_mgr * my_error_ptr;
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_JPG_LOADER_H_ */
+#endif  /* SRC_INCLUDE_FILE_IO_H_ */
