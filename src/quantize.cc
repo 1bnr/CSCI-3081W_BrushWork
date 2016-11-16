@@ -35,9 +35,16 @@ Quantize::~Quantize() {}
 
 
    float bucket_list[buckets];
-   for (int z = 0; z < buckets; z++){
-     bucket_list[z] = (z * 1.0) / (buckets-1);
+   if(buckets > 2) {
+     for (int z = 0; z < buckets; z++){
+       bucket_list[z] = (z * 1.0) / (buckets-1);
+     }
    }
+   else {
+    bucket_list[0] = 0.5;
+    bucket_list[1] = 1.0;
+   }
+   
 
    for(int i = 0; i<x; i++){
      for (int j = 0; j<y; j++){
