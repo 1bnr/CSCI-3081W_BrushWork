@@ -53,9 +53,10 @@ void FilterManager::ApplySaturate(PixelBuffer* p) {
   Saturate::apply_filter(p, saturation_amount_);
 }
 
-void FilterManager::ApplyBlur(void) {
+void FilterManager::ApplyBlur(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Blur with amount = "
             << blur_amount_ << std::endl;
+  Blur::apply_filter(p, blur_amount_);
 }
 
 void FilterManager::ApplySharpen(void) {
