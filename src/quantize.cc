@@ -33,9 +33,10 @@ Quantize::~Quantize() {}
    int y = p->height();
    PixelBuffer filtered_buffer = *p;
 
+
    float bucket_list[buckets];
-   for (int x = 0; x < buckets; x++){
-     bucket_list[x] = (x * 1.0) / (buckets-1);
+   for (int z = 0; z < buckets; z++){
+     bucket_list[z] = (z * 1.0) / (buckets-1);
    }
 
    for(int i = 0; i<x; i++){
@@ -49,25 +50,25 @@ Quantize::~Quantize() {}
        float new_blue;
 
       // setting red channel
-       for (int x = 0; x < buckets; x++){
-         if (curr_color_red < bucket_list[x]){
-           new_red = bucket_list[x];
+       for (int a = 0; a < buckets; a++){
+         if (curr_color_red < bucket_list[a]){
+           new_red = bucket_list[a];
            break;
          }
        }
 
        // setting green channel
-        for (int x = 0; x < buckets; x++){
-          if (curr_color_green < bucket_list[x]){
-            new_green = bucket_list[x];
+        for (int b = 0; b < buckets; b++){
+          if (curr_color_green < bucket_list[b]){
+            new_green = bucket_list[b];
             break;
           }
         }
 
         // setting blue channel
-         for (int x = 0; x < buckets; x++){
-           if (curr_color_blue < bucket_list[x]){
-             new_blue = bucket_list[x];
+         for (int c = 0; c < buckets; c++){
+           if (curr_color_blue < bucket_list[c]){
+             new_blue = bucket_list[c];
              break;
            }
          }
