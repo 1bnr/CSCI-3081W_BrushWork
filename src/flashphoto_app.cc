@@ -296,18 +296,33 @@ void FlashPhotoApp::GluiControl(int control_id) {
       filter_manager_.ApplyEdgeDetect();
       break;
     case UICtrl::UI_APPLY_THRESHOLD:
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplyThreshold(display_buffer_);  // updating new buffer
       break;
     case UICtrl::UI_APPLY_DITHER:
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplyThreshold(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SATURATE:
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplySaturate(display_buffer_);
       break;
     case UICtrl::UI_APPLY_CHANNEL:
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplyChannel(display_buffer_);
       break;
     case UICtrl::UI_APPLY_QUANTIZE:
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplyQuantize(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SPECIAL_FILTER:
