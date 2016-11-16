@@ -75,9 +75,11 @@ void FilterManager::ApplyEdgeDetect(void) {
   std::cout << "Apply has been clicked for Edge Detect" << std::endl;
 }
 
-void FilterManager::ApplyQuantize(void) {
+void FilterManager::ApplyQuantize(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Quantize with bins = "
             << quantize_bins_ << std::endl;
+  Quantize quantize_filter = Quantize();
+  quantize_filter.apply_filter(p, quantize_bins_);
 }
 void FilterManager::ApplyThreshold(PixelBuffer* p) {
   std::cout << "Apply Threshold has been clicked with amount ="
