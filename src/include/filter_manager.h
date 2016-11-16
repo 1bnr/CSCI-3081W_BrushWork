@@ -21,6 +21,7 @@
 #include "include/threshold.h"
 #include "include/saturate.h"
 #include "include/rgb.h"
+#include "include/quantize.h"
 
 /*******************************************************************************
  * Namespaces
@@ -96,7 +97,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyQuantize(void);
+  void ApplyQuantize(PixelBuffer* p);
 
   /**
    * @brief Apply a special filter to the buffer
