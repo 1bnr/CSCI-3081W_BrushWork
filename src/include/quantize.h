@@ -34,7 +34,7 @@ class Quantize {
   Quantize();
   virtual ~Quantize();
 
-  void apply_filter(PixelBuffer* p, int buckets);
+  static void apply_filter(PixelBuffer* p, int buckets);
 
 };
 }  // namespace image_tools

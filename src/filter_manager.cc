@@ -44,15 +44,13 @@ void FilterManager::ApplyChannel(PixelBuffer* p) {
             << channel_color_red_
             << ", green = " << channel_color_green_
             << ", blue = " << channel_color_blue_ << std::endl;
-  RGB rgb_filter = RGB();
-  rgb_filter.apply_filter(p, channel_color_red_, channel_color_blue_, channel_color_green_);
+  RGB::apply_filter(p, channel_color_red_, channel_color_blue_, channel_color_green_);
 }
 
 void FilterManager::ApplySaturate(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Saturate with amount = "
             << saturation_amount_ << std::endl;
-  Saturate saturate_filter = Saturate();
-  saturate_filter.apply_filter(p, saturation_amount_);
+  Saturate::apply_filter(p, saturation_amount_);
 }
 
 void FilterManager::ApplyBlur(void) {
@@ -78,14 +76,12 @@ void FilterManager::ApplyEdgeDetect(void) {
 void FilterManager::ApplyQuantize(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Quantize with bins = "
             << quantize_bins_ << std::endl;
-  Quantize quantize_filter = Quantize();
-  quantize_filter.apply_filter(p, quantize_bins_);
+  Quantize::apply_filter(p, quantize_bins_);
 }
 void FilterManager::ApplyThreshold(PixelBuffer* p) {
   std::cout << "Apply Threshold has been clicked with amount ="
             << threshold_amount_ << std::endl;
-  Threshold thresh_filter = Threshold();
-  thresh_filter.apply_filter(p, threshold_amount_);
+  Threshold::apply_filter(p, threshold_amount_);
 }
 void FilterManager::ApplySpecial(void) {
   std::cout << "Apply has been clicked for Special" << std::endl;

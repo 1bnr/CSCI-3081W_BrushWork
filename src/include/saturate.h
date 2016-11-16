@@ -34,7 +34,7 @@ class Saturate {
   Saturate();
   virtual ~Saturate();
 
-  void apply_filter(PixelBuffer* p, float saturation_amount);
+  static void apply_filter(PixelBuffer* p, float saturation_amount);
 
 };
 }  // namespace image_tools
