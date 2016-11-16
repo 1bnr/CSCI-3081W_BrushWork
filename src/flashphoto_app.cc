@@ -133,6 +133,8 @@ void FlashPhotoApp::MouseDragged(int x, int y) {
 }
 
 void FlashPhotoApp::LeftMouseDown(int x, int y) {
+  maintain_states_stack(cur_state_);
+  add_buffer_to_undo_stack(display_buffer_);
   tools_[cur_tool_]->ApplyToBuffer(x, height()-y,
                                    ColorData(cur_color_red_,
                                              cur_color_green_,
@@ -146,18 +148,18 @@ void FlashPhotoApp::LeftMouseDown(int x, int y) {
 
 void FlashPhotoApp::LeftMouseUp(int x, int y) {
   std::cout << "mouseReleased " << x << " " << y << std::endl;
-  std::cout << "Current state: " << cur_state_ << std::endl;
+  //std::cout << "Current state: " << cur_state_ << std::endl;
   // Handle the case which we are not at the end of the undo stack
   std::cout << "End Pos: " << states_.size()-1 << std::endl;
-  maintain_states_stack(cur_state_);
   // Save the state of the current pixel buffer before making changes
-  add_buffer_to_undo_stack(*display_buffer_);
+  //add_buffer_to_undo_stack(display_buffer_);
 }
 
 void FlashPhotoApp::InitializeBuffers(ColorData background_color,
                                       int width, int height) {
   display_buffer_ = new PixelBuffer(width, height, background_color);
-  states_.push_back(*display_buffer_); // Add initial blank state
+  //add_buffer_to_undo_stack(display_buffer_); // Add initial blank state
+  states_.push_back(display_buffer_);
 }
 
 void FlashPhotoApp::InitGlui(void) {
@@ -315,16 +317,18 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
+      std::cout << "REDO CLICKED" << std::endl;
+      printStack();
       PixelBuffer * nb; // new buffer
       nb = io_manager_.LoadImageToCanvas();
       // Set the window dimensions to the state that was just restored
       SetWindowDimensions(nb->width(), nb->height());
       display_buffer_ = nb;
       // Handle the case which we are not at the end of the undo stack
-      std::cout << "End Pos: " << states_.size()-1 << std::endl;
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(*display_buffer_);
+      add_buffer_to_undo_stack(display_buffer_);
+      std::cout << "END REDO" << std::endl;
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       io_manager_.LoadImageToStamp();
@@ -338,10 +342,13 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_name());
       break;
     case UICtrl::UI_UNDO:
+      std::cout << "UNDO CLICKED" << std::endl;
+      printStack();
       state_manager_.UndoOperation(display_buffer_, states_, cur_state_);
       cur_state_-= 1; // Decrement the current index after undoing
+      printStack();
       // Set the window dimensions to the state that was just restored
-      SetWindowDimensions(states_[cur_state_].width(), states_[cur_state_].height());
+      SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
       // Check if the undo button should be disabled (no more states)
       if(cur_state_ > 0) {
         state_manager_.undo_toggle(true);
@@ -358,13 +365,14 @@ void FlashPhotoApp::GluiControl(int control_id) {
       }
       break;
     case UICtrl::UI_REDO:
+      std::cout << "REDO CLICKED" << std::endl;
+      printStack();
       state_manager_.RedoOperation(display_buffer_, states_, cur_state_);
       cur_state_ += 1;
-      SetWindowDimensions(states_[cur_state_].width(), states_[cur_state_].height());
+      SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
+      printStack();
       // Check if the redo button should be enabled
-      std::cout << "Current state: " << cur_state_ << std::endl;
       // Handle the case which we are not at the end of the undo stack
-      std::cout << "End Pos: " << states_.size()-1 << std::endl;
       if (cur_state_ != states_.size()-1) {
         state_manager_.redo_toggle(true);
       }
@@ -408,27 +416,44 @@ void FlashPhotoApp::InitGraphics(void) {
   glViewport(0, 0, width(), height());
 }
 /** TODO implement undo queue */
-void FlashPhotoApp::add_buffer_to_undo_stack (const PixelBuffer current_buffer) {
-  states_.push_back(current_buffer);
+void FlashPhotoApp::add_buffer_to_undo_stack (PixelBuffer* &current_buffer) {
+  std::cout << "add_buffer_to_undo_stack" << std::endl;
+  printStack();
+  PixelBuffer* old_buffer = new PixelBuffer(*current_buffer);
+  std::cout << "old_buffer " << old_buffer << std::endl;
+  states_.push_back(old_buffer);
   cur_state_ += 1; // Update index
-  std::cout << "State: " << cur_state_ << " " << &states_[cur_state_] << std::endl;
-  if (cur_state_ > 0) {
+  current_buffer = states_[cur_state_];
+  //free(temp_buffer);
+  printStack();
+  if(cur_state_ > 0) {
     state_manager_.undo_toggle(true);
   }
-  else {
-    state_manager_.undo_toggle(false);
-  }
-  std::cout << "Add to Undo state" << std::endl;
-  std::cout << "cur state: " << cur_state_ << std::endl;
 }
 
 // Handles the case in which we undo and then draw, we need to erase
 // any states after this point because they are overwritten
 void FlashPhotoApp::maintain_states_stack (int cur_state_) {
+  std::cout << "maintain_states_stack" <<  std::endl;
+  printStack();
   if (cur_state_ != states_.size()-1) {
-    std::cout << "erase: " << std::endl;
+    std::cout << "ERASE RAN" << std::endl;
     states_.erase(states_.begin()+cur_state_+1, states_.end());
     state_manager_.redo_toggle(false); // again handle toggle
+    printStack();
   }
+}
+
+void FlashPhotoApp::printStack() {
+  if (states_.size() == 0) {
+  }
+  else {
+    std::cout << "------The Undo Stack-----" << "cur_state_: " << cur_state_ << "  display_buffer_:  " << display_buffer_ << std::endl;
+    for(int i = 0; i < states_.size(); i++) {
+      std::cout << "|   " << i << "   |   " << states_[i] << "   | " << "Width, Height: " << states_[i]->width() << ", " << states_[i]->height() << std::endl;
+    }
+  std::cout << "------End of Stack-----" << std::endl;
+  }
+  
 }
 }  /* namespace image_tools */

@@ -53,14 +53,14 @@ class StateManager {
    * can still be re-done later)
    *
    */
-  void UndoOperation(PixelBuffer* display_buffer, std::vector<PixelBuffer> states_, int cur_state_);
+  void UndoOperation(PixelBuffer* &display_buffer, std::vector<PixelBuffer*> states_, int cur_state_);
 
   /**
    * @brief Re-does the last un-done operation applied to the canvas (not
    * permanently; it can be undone again later)
    *
    */
-  void RedoOperation(PixelBuffer* display_buffer, std::vector<PixelBuffer> states_, int cur_state_);
+  void RedoOperation(PixelBuffer* &display_buffer, std::vector<PixelBuffer*> states_, int cur_state_);
 
   void redo_toggle(bool select) {
     UICtrl::button_toggle(redo_btn_, select);
