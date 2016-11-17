@@ -55,14 +55,14 @@ EdgeDetect::~EdgeDetect() {}
         for (int mask_x = 0; mask_x < mask_cols_; mask_x++) {
           if ((mask_x + x_start) >= 0 && (mask_x + x_start) < window_width &&
             (mask_y + y_start) >= 0 && (mask_y + y_start) < window_height) {
-            ColorData pix = p->get_pixel(x_start + mask_x, y_start + mask_y);
-            new_red += pix.red() * kernel[mask_x][mask_y];
-            new_blue += pix.blue() * kernel[mask_x][mask_y];
-            new_green += pix.green() * kernel[mask_x][mask_y];
+            std::cout << "x: " << x_start+mask_x << " y: " << y_start+mask_y << std::endl;
+            ColorData pix = p->get_pixel(i + mask_x , j + mask_y);
+            new_red = new_red + (pix.red() * kernel[mask_x][mask_y]);
+            new_blue = new_blue + (pix.blue() * kernel[mask_x][mask_y]);
+            new_green = new_green + (pix.green() * kernel[mask_x][mask_y]);
           }
         }
      }
-     std::cout << new_red << "," << new_blue << "," << new_green << std::endl;
      filtered_buffer.set_pixel(i,j,ColorData(new_red,new_blue,new_green));
      new_red = 0.0;
      new_blue = 0.0;
