@@ -33,14 +33,33 @@ Blur::~Blur() {}
  void Blur::apply_filter(PixelBuffer* p, float blur_amount){
    int x = p->width();
    int y = p->height();
-   float blur_frac = 1.0 / blur_amount;
+   int bounds = static_cast<int>(floor(blur_amount));
+   if (bounds % 2 == 0) {
+    bounds++;
+   }
+   std::cout << "bounds: " << bounds << std::endl;
+   float blur_frac = 1.0 / ((2*bounds)-1);
    PixelBuffer filtered_buffer = PixelBuffer(*p);
-   int mask_rows_ = 3;
-   int mask_cols_ = 3;
-   std::vector<std::vector<float>> kernel = {{0.0, blur_frac, 0.0},
-                                            {blur_frac, blur_frac, blur_frac},
-                                            {0.0, blur_frac, 0.0}};
-
+   int mask_rows_ = bounds;
+   int mask_cols_ = bounds;
+   // std::vector<std::vector<float>> kernel = {{0.0, blur_frac, 0.0},
+   //                                          {blur_frac, blur_frac, blur_frac},
+   //                                          {0.0, blur_frac, 0.0}};
+   std::vector<std::vector<float> > kernel(bounds, std::vector<float>(bounds));
+   int midpoint = mask_rows_/2;
+   std::cout << "midpoint: " << midpoint << std::endl;
+   for (int r = 0; r < mask_rows_; r++) {
+    for (int c = 0; c < mask_cols_; c++) {
+      if (r == midpoint || c == midpoint) {
+        kernel[r][c] = blur_frac;
+      }
+      else {
+        kernel[r][c] = 0; 
+      }
+      std::cout << " , " << kernel[r][c] << " , ";
+    }
+    std::cout << std::endl;
+   }
    std::cout << "x,y: " << x << ", " << y << std::endl;                                       
    for(int i = 0; i<x; i++){
      for (int j = 0; j<y; j++){
