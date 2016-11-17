@@ -13,7 +13,7 @@
  * Includes
  ******************************************************************************/
 #include "include/blur.h"
-#include <cmath> 
+#include <cmath>
 #include <iostream>
 
 /*******************************************************************************
@@ -54,13 +54,13 @@ Blur::~Blur() {}
         kernel[r][c] = blur_frac;
       }
       else {
-        kernel[r][c] = 0; 
+        kernel[r][c] = 0;
       }
       std::cout << " , " << kernel[r][c] << " , ";
     }
     std::cout << std::endl;
    }
-   std::cout << "x,y: " << x << ", " << y << std::endl;                                       
+   std::cout << "x,y: " << x << ", " << y << std::endl;
    for(int i = 0; i<x; i++){
      for (int j = 0; j<y; j++){
        // Get kernel values, and color from current pixel
