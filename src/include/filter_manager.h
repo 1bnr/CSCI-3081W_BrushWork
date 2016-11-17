@@ -25,6 +25,7 @@
 #include "include/edge_detect.h"
 #include "include/blur.h"
 #include "include/motion_blur.h"
+#include "include/sharpen.h"
 
 /*******************************************************************************
  * Namespaces
@@ -57,7 +58,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySharpen(void);
+  void ApplySharpen(PixelBuffer* p);
 
   /**
    * @brief Apply a motion blurring filter to the buffer

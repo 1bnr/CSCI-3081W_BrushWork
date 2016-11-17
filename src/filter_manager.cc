@@ -59,9 +59,10 @@ void FilterManager::ApplyBlur(PixelBuffer* p) {
   Blur::apply_filter(p, blur_amount_);
 }
 
-void FilterManager::ApplySharpen(void) {
+void FilterManager::ApplySharpen(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << sharpen_amount_ << std::endl;
+  Sharpen::apply_filter(p, sharpen_amount_);
 }
 
 void FilterManager::ApplyMotionBlur(PixelBuffer* p) {
