@@ -293,7 +293,8 @@ void FlashPhotoApp::GluiControl(int control_id) {
       filter_manager_.ApplyMotionBlur();
       break;
     case UICtrl::UI_APPLY_EDGE:
-      filter_manager_.ApplyEdgeDetect();
+      add_buffer_to_undo_stack(display_buffer_);
+      filter_manager_.ApplyEdgeDetect(display_buffer_);
       break;
     case UICtrl::UI_APPLY_THRESHOLD:
       maintain_states_stack(cur_state_);
@@ -469,6 +470,6 @@ void FlashPhotoApp::printStack() {
     }
   std::cout << "------End of Stack-----" << std::endl;
   }
-  
+
 }
 }  /* namespace image_tools */
