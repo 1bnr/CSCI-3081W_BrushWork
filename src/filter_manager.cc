@@ -70,8 +70,9 @@ void FilterManager::ApplyMotionBlur(void) {
             << " and direction " << motion_blur_direction_ << std::endl;
 }
 
-void FilterManager::ApplyEdgeDetect(void) {
+void FilterManager::ApplyEdgeDetect(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Edge Detect" << std::endl;
+  EdgeDetect::apply_filter(p);
 }
 
 void FilterManager::ApplyQuantize(PixelBuffer* p) {
