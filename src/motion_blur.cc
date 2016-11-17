@@ -1,10 +1,10 @@
 /*******************************************************************************
- * Name            : blur.cc
+ * Name            : motion_blur.cc
  * Project         : BrushWork
  * Module          : image_tools
  * Description     : Implementation of Threshold class
  * Copyright       : 2016 CSCI3081W Team 0x07 All rights reserved.
- * Creation Date   : 11/16/16
+ * Creation Date   : 11/17/16
  * Original Author : Isaac Schwab
  *
  ******************************************************************************/
@@ -12,7 +12,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/blur.h"
+#include "include/motion_blur.h"
 #include <cmath>
 #include <iostream>
 
@@ -24,18 +24,20 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructors
  ******************************************************************************/
-Blur::Blur() {}
+MotionBlur::MotionBlur() {}
 
-Blur::~Blur() {}
+MotionBlur::~MotionBlur() {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
- void Blur::apply_filter(PixelBuffer* p, float blur_amount){
+ void MotionBlur::apply_filter(PixelBuffer* p, float motion_blur_amount, int direction){
+   // Direction 0 = North/South, 1 = East/West, 2 = NorthEast/SouthWest, 3 = NorthWest/SouthEast
    // PixelBuffer height and width
    int x = p->width();
    int y = p->height();
+   std::cout << direction << std::endl;
    // Calculate an odd numbered bound based off the input
-   int bounds = static_cast<int>(floor(blur_amount));
+   int bounds = static_cast<int>(floor(motion_blur_amount));
    if (bounds % 2 == 0) {
     bounds++;
    }
@@ -46,6 +48,20 @@ Blur::~Blur() {}
    int mask_rows_ = bounds;
    int mask_cols_ = bounds;                                         
    std::vector<std::vector<float> > kernel(bounds, std::vector<float>(bounds));
+   int midpoint = bounds/2;
+   for (int r = 0; r < mask_rows_; r++) {
+    for (int c = 0; c < mask_cols_; c++) {
+      if ((r == midpoint && direction == 0) || (c == midpoint && direction == 1) || (c == r && direction == 2) || (c+r == bounds-1 && direction == 3)) {
+        kernel[r][c] = 1.0;
+      }
+      else {
+        kernel[r][c] = 0.0; 
+      }
+      std::cout << " , " << kernel[r][c] << " , ";
+    }
+    std::cout << std::endl;
+   }
+
    // Main loop through all the pixels in the Pixel Buffer
    for(int i = 0; i<x; i++){
      for (int j = 0; j<y; j++){
@@ -63,12 +79,9 @@ Blur::~Blur() {}
           // check if it is in the bounds of the PixelBuffer. If it is in the
           // bounds set the kernel value to 1 and increment the blur_count
           if ((mask_x + x_start) >= 0 && (mask_x + x_start) < window_width &&
-            (mask_y + y_start) >= 0 && (mask_y + y_start) < window_height) {
-            kernel[mask_x][mask_y] = 1;
-          blur_count++;
-          }
-          else {
-            kernel[mask_x][mask_y] = 0;
+            (mask_y + y_start) >= 0 && (mask_y + y_start) < window_height &&
+            kernel[mask_x][mask_y] == 1.0) {
+            blur_count++;
           }
         }
        }

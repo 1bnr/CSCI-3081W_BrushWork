@@ -290,10 +290,16 @@ void FlashPhotoApp::GluiControl(int control_id) {
       filter_manager_.ApplyBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SHARP:
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplySharpen();
       break;
     case UICtrl::UI_APPLY_MOTION_BLUR:
-      filter_manager_.ApplyMotionBlur();
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
+      filter_manager_.ApplyMotionBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_EDGE:
       add_buffer_to_undo_stack(display_buffer_);
@@ -330,6 +336,9 @@ void FlashPhotoApp::GluiControl(int control_id) {
       filter_manager_.ApplyQuantize(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SPECIAL_FILTER:
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplySpecial();
       break;
     case UICtrl::UI_FILE_BROWSER:

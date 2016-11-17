@@ -24,6 +24,7 @@
 #include "include/quantize.h"
 #include "include/edge_detect.h"
 #include "include/blur.h"
+#include "include/motion_blur.h"
 
 /*******************************************************************************
  * Namespaces
@@ -63,7 +64,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyMotionBlur(void);
+  void ApplyMotionBlur(PixelBuffer* p);
 
   /**
    * @brief Apply an edge detection filter to the buffer

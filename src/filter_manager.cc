@@ -64,10 +64,11 @@ void FilterManager::ApplySharpen(void) {
             << sharpen_amount_ << std::endl;
 }
 
-void FilterManager::ApplyMotionBlur(void) {
+void FilterManager::ApplyMotionBlur(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << motion_blur_amount_
             << " and direction " << motion_blur_direction_ << std::endl;
+  MotionBlur::apply_filter(p, motion_blur_amount_, motion_blur_direction_);
 }
 
 void FilterManager::ApplyEdgeDetect(PixelBuffer* p) {
