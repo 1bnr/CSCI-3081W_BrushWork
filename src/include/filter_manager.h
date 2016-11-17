@@ -22,6 +22,7 @@
 #include "include/saturate.h"
 #include "include/rgb.h"
 #include "include/quantize.h"
+#include "include/edge_detect.h"
 #include "include/blur.h"
 
 /*******************************************************************************
@@ -69,7 +70,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyEdgeDetect(void);
+  void ApplyEdgeDetect(PixelBuffer* p);
 
   /**
    * @brief Apply a threshold detection filter to the buffer
