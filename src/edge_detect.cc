@@ -37,7 +37,7 @@ EdgeDetect::~EdgeDetect() {}
    int mask_rows_ = 3;
    int mask_cols_ = 3;
    std::vector<std::vector<float>> kernel = {{-1.0, -1.0, -1.0},
-                                             {-1.0, -8.0, -1.0},
+                                             {-1.0, 8.0, -1.0},
                                              {-1.0, -1.0, -1.0}};
 
    for(int i = 0; i<x; i++){
