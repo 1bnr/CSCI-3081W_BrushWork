@@ -22,6 +22,7 @@
 #include "include/saturate.h"
 #include "include/rgb.h"
 #include "include/quantize.h"
+#include "include/blur.h"
 
 /*******************************************************************************
  * Namespaces
@@ -46,7 +47,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyBlur(void);
+  void ApplyBlur(PixelBuffer* p);
 
   /**
    * @brief Apply a sharpening filter to the buffer, sharpening blurry/undefined

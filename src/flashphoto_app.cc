@@ -284,7 +284,10 @@ void FlashPhotoApp::GluiControl(int control_id) {
       update_colors();
       break;
     case UICtrl::UI_APPLY_BLUR:
-      filter_manager_.ApplyBlur();
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
+      filter_manager_.ApplyBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SHARP:
       filter_manager_.ApplySharpen();
