@@ -37,7 +37,7 @@ EdgeDetect::~EdgeDetect() {}
    int mask_rows_ = 3;
    int mask_cols_ = 3;
    std::vector<std::vector<float>> kernel = {{-1.0, -1.0, -1.0},
-                                             {-1.0, 8.0, -1.0},
+                                             {-1.0, -8.0, -1.0},
                                              {-1.0, -1.0, -1.0}};
 
    for(int i = 0; i<x; i++){
@@ -64,6 +64,9 @@ EdgeDetect::~EdgeDetect() {}
      }
      std::cout << new_red << "," << new_blue << "," << new_green << std::endl;
      filtered_buffer.set_pixel(i,j,ColorData(new_red,new_blue,new_green));
+     new_red = 0.0;
+     new_blue = 0.0;
+     new_green = 0.0;
    }
    *p = filtered_buffer;
  }
