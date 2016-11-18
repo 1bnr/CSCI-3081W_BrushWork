@@ -302,6 +302,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       filter_manager_.ApplyMotionBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_EDGE:
+      maintain_states_stack(cur_state_);
       add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplyEdgeDetect(display_buffer_);
       break;
@@ -356,6 +357,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
       add_buffer_to_undo_stack(display_buffer_);
+      printStack();
       std::cout << "END REDO" << std::endl;
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
