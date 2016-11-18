@@ -1,10 +1,10 @@
 /*******************************************************************************
  * Name            : sharpen.cc
- * Project         : BrushWork
+ * Project         : Flashphoto
  * Module          : image_tools
  * Description     : Implementation of Sharpen class
  * Copyright       : 2016 CSCI3081W Team 0x07 All rights reserved.
- * Creation Date   : 11/17/16
+ * Creation Date   : 11/18/16
  * Original Author : Isaac Schwab
  *
  ******************************************************************************/
@@ -31,44 +31,82 @@ Sharpen::~Sharpen() {}
  * Member Functions
  ******************************************************************************/
  void Sharpen::apply_filter(PixelBuffer* p, float sharpen_amount){
+   // PixelBuffer height and width
    int x = p->width();
    int y = p->height();
    PixelBuffer filtered_buffer = PixelBuffer(*p);
-   int mask_rows_ = 3;
-   int mask_cols_ = 3;
-   std::vector<std::vector<float>> kernel = {{0.0, -1.0, 0.0},
-                                             {-1.0, 5.0, -1.0},
-                                             {0.0, -1.0, 0.0}};
+   // Calculate an odd numbered bound based off the input
+   int bounds = static_cast<int>(floor(sharpen_amount));
+   if (bounds % 2 == 0) {
+    bounds++;
+   }
+   // Kernel required to create the sharpen effect
+   // std::vector<float> kernel = {0.0, -1.0, 0.0,
+   //                              -1.0, 5.0, -1.0,
+   //                              0.0, -1.0, 0.0};
+   std::vector<float> kernel;
+   std::vector<std::vector<float> > kernel2(bounds, std::vector<float>(bounds));
+   for (int r = 0; r < bounds; r++) {
+     for (int c = 0; c < bounds; c++) {
+       if (r == bounds/2 && c == bounds/2) {
+         kernel2[r][c] = bounds*bounds;
+       }
+       // else if ((r == 0.0 && (c == 0.0 || c == bounds-1)) || (r == bounds-1 && (c == 0.0 || c == bounds-1))) {
+       //   kernel2[r][c] = 0; 
+       // }
+       else {
+        kernel2[r][c] = -1;
+       }
+       std::cout << kernel2[r][c] << ", ";
+       kernel.push_back(kernel2[r][c]);
 
-   // Main loop through all the pixels in the Pixel Buffer
-   for(int i = 0; i<x; i++){
-     for (int j = 0; j<y; j++){
-       // Get kernel values, and color from current pixel
-       ColorData og_color = ColorData(0,0,0);
-       int window_width = p->width();
-       int window_height = p->height();
-       // set the start and end positions of the draw mask
-       int x_start = i - mask_cols_/2;
-       int y_start = j - mask_rows_/2;
-       // Now actually loop through and apply the kernel to each pixel
-       for (int mask_y = 0; mask_y < mask_rows_; mask_y++) {
-        for (int mask_x = 0; mask_x < mask_cols_; mask_x++) {
-          // set the current pixel to the display buffer that we passed in
-          // Check that we do not draw outside the border of the application
-          if ((mask_x + x_start) >= 0 && (mask_x + x_start) < window_width &&
-            (mask_y + y_start) >= 0 && (mask_y + y_start) < window_height) {
-            std::cout << i << ", " << j << std::endl;
-            ColorData temp = p->get_pixel(x_start + mask_x, y_start + mask_y);
-            // Compute the new color pixel
-            //std::cout << "Kernel val" << kernel[mask_x][mask_y] << std::endl;
-            temp = temp * kernel[mask_x][mask_y];
-            og_color = og_color + temp;
+     }
+     std::cout << " " << std::endl;
+   }
+
+
+
+   for (int i = 0; i < x; i++) {
+    for (int j = 0; j < y; j++) {
+      // Variables for augmenting the kernel to the PixelBuffer
+      int xm_end = i + bounds/2;
+      int ym_end = j + bounds/2;
+      // This section handles edge detection cases for the kernel
+      int kernel_pos = 0;
+      int kernel_count = 0;
+      ColorData og_color = ColorData(0,0,0);
+      for (int xm_start = i - bounds/2; xm_start <= xm_end; xm_start++) {
+        for (int ym_start = j - bounds/2; ym_start <= ym_end; ym_start++) {
+          if (xm_start >= 0 && ym_start >= 0 && xm_start < x && ym_start < y) {
+            kernel_count++;  // Counter that keeps track of valid kernel pos
           }
         }
-       }
-     filtered_buffer.set_pixel(i,j, og_color);
+      }
+      // Create the new value that will add to 1 for the kernel
+      float kernel_val = 8.0 / (kernel_count-1);
+      //std::cout << i << ", " << j << std::endl;
+      //std::cout << kernel_val << std::endl;
+      // Actually loop through the surrounding pixels and apply the kernel
+      for (int xm_start = i-bounds/2; xm_start <= xm_end; xm_start++) {
+        for (int ym_start = j-bounds/2; ym_start <= ym_end; ym_start++) {
+          if (xm_start >= 0 && ym_start >= 0 && xm_start < x && ym_start < y) {
+            //std::cout << "(" << xm_start << ", " << ym_start << ")" << std::endl;
+            ColorData temp = p->get_pixel(xm_start, ym_start);
+            // We dont't want to change the middle kernel value
+            if (kernel_pos == 4) { 
+              temp = temp * kernel[kernel_pos];
+            }
+            else {  // Set the kernel val and the generate the new color
+              temp = temp * kernel[kernel_pos] * kernel_val;
+            }
+            og_color = og_color + temp;  // Color accumulator for actual pixel
+          }
+          kernel_pos++;  // Keep track of where we are in the kernel
+        }
+      }
+      filtered_buffer.set_pixel(i,j, og_color);  // Set the new pixel
+    }
    }
-   *p = filtered_buffer;
+   *p = filtered_buffer;  // Set the input buffer to our working buffer
  }
 }  // namespace image_tools
-}
