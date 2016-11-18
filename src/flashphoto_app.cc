@@ -339,7 +339,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
       add_buffer_to_undo_stack(display_buffer_);
-      filter_manager_.ApplySpecial();
+      filter_manager_.ApplySpecial(display_buffer_);
       break;
     case UICtrl::UI_FILE_BROWSER:
       io_manager_.set_image_file(io_manager_.file_browser()->get_file());
