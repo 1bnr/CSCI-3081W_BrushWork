@@ -87,8 +87,9 @@ void FilterManager::ApplyThreshold(PixelBuffer* p) {
             << threshold_amount_ << std::endl;
   Threshold::apply_filter(p, threshold_amount_);
 }
-void FilterManager::ApplySpecial(void) {
+void FilterManager::ApplySpecial(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Special" << std::endl;
+  Special::apply_filter(p);
 }
 
 void FilterManager::InitGlui(const GLUI *const glui,
