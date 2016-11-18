@@ -58,8 +58,6 @@ Sharpen::~Sharpen() {}
      std::cout << " " << std::endl;
    }
 
-
-
    for (int i = 0; i < x; i++) {
     for (int j = 0; j < y; j++) {
       // Variables for augmenting the kernel to the PixelBuffer
@@ -72,14 +70,20 @@ Sharpen::~Sharpen() {}
       for (int xm_start = i - bounds/2; xm_start <= xm_end; xm_start++) {
         for (int ym_start = j - bounds/2; ym_start <= ym_end; ym_start++) {
           if (xm_start >= 0 && ym_start >= 0 && xm_start < x && ym_start < y) {
-            kernel_count++;  // Counter that keeps track of valid kernel pos
+            if (kernel_pos != 0 && kernel_pos != 2 && 
+                kernel_pos != 6 && kernel_pos != 8 && kernel_pos != 4) {
+              kernel_count++;  // Counter that keeps track of valid kernel pos
+            }
+            kernel_pos++;   
           }
         }
       }
+      //std::cout << "COUNT: " << kernel_count << std::endl;
       // Create the new value that will add to 1 for the kernel
       float kernel_val = (sharpen_amount-1)/kernel_count;
+      kernel_pos = 0;
       //std::cout << i << ", " << j << std::endl;
-      std::cout << kernel_val << std::endl;
+      //std::cout << kernel_val << std::endl;
       // Actually loop through the surrounding pixels and apply the kernel
       for (int xm_start = i-bounds/2; xm_start <= xm_end; xm_start++) {
         for (int ym_start = j-bounds/2; ym_start <= ym_end; ym_start++) {
