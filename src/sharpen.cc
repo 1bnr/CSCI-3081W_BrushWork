@@ -36,32 +36,26 @@ Sharpen::~Sharpen() {}
    int y = p->height();
    PixelBuffer filtered_buffer = PixelBuffer(*p);
    // Calculate an odd numbered bound based off the input
-   int bounds = static_cast<int>(floor(sharpen_amount));
-   if (bounds % 2 == 0) {
-    bounds++;
-   }
-   // Kernel required to create the sharpen effect
-   // std::vector<float> kernel = {0.0, -1.0, 0.0,
-   //                              -1.0, 5.0, -1.0,
-   //                              0.0, -1.0, 0.0};
+   int bounds = 3;
+
    std::vector<float> kernel;
    std::vector<std::vector<float> > kernel2(bounds, std::vector<float>(bounds));
    for (int r = 0; r < bounds; r++) {
      for (int c = 0; c < bounds; c++) {
        if (r == bounds/2 && c == bounds/2) {
-         kernel2[r][c] = bounds*bounds;
+         kernel2[r][c] = sharpen_amount;
        }
-       // else if ((r == 0.0 && (c == 0.0 || c == bounds-1)) || (r == bounds-1 && (c == 0.0 || c == bounds-1))) {
-       //   kernel2[r][c] = 0; 
-       // }
+       else if ((r == 0.0 && (c == 0.0 || c == bounds-1)) || (r == bounds-1 && (c == 0.0 || c == bounds-1))) {
+         kernel2[r][c] = 0; 
+       }
        else {
-        kernel2[r][c] = -1;
+        kernel2[r][c] = -(sharpen_amount-1)/4;
        }
-       std::cout << kernel2[r][c] << ", ";
+       //std::cout << kernel2[r][c] << ", ";
        kernel.push_back(kernel2[r][c]);
 
      }
-     std::cout << " " << std::endl;
+     //std::cout << " " << std::endl;
    }
 
 

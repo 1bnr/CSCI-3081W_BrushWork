@@ -359,6 +359,9 @@ void FlashPhotoApp::GluiControl(int control_id) {
       std::cout << "END REDO" << std::endl;
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
+      maintain_states_stack(cur_state_);
+      // Save the new buffer with the image to the undo state
+      add_buffer_to_undo_stack(display_buffer_);
       io_manager_.LoadImageToStamp();
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
