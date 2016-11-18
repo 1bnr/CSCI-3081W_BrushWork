@@ -43,9 +43,7 @@ EdgeDetect::~EdgeDetect() {}
    for(int i = 0; i<x; i++){
      for (int j = 0; j<y; j++){
        // Get kernel values, and color from current pixel
-       float new_red = 0.0;
-       float new_blue = 0.0;
-       float new_green = 0.0;
+       ColorData og_color = ColorData(0,0,0);
        int window_width = p->width();
        int window_height = p->height();
        // set the start and end positions of the draw mask
@@ -55,18 +53,15 @@ EdgeDetect::~EdgeDetect() {}
         for (int mask_x = 0; mask_x < mask_cols_; mask_x++) {
           if ((mask_x + x_start) >= 0 && (mask_x + x_start) < window_width &&
             (mask_y + y_start) >= 0 && (mask_y + y_start) < window_height) {
-            std::cout << "x: " << x_start+mask_x << " y: " << y_start+mask_y << std::endl;
-            ColorData pix = p->get_pixel(i + mask_x , j + mask_y);
-            new_red = new_red + (pix.red() * kernel[mask_x][mask_y]);
-            new_blue = new_blue + (pix.blue() * kernel[mask_x][mask_y]);
-            new_green = new_green + (pix.green() * kernel[mask_x][mask_y]);
+          //  std::cout << "x: " << x_start+mask_x << " y: " << y_start+mask_y << std::endl;
+            ColorData temp = p->get_pixel(i + mask_x, j + mask_y);
+            // Compute the new color pixel
+            temp = temp * kernel[mask_x][mask_y];
+            og_color = og_color + temp;
           }
         }
      }
-     filtered_buffer.set_pixel(i,j,ColorData(new_red,new_blue,new_green));
-     new_red = 0.0;
-     new_blue = 0.0;
-     new_green = 0.0;
+     filtered_buffer.set_pixel(i,j,og_color);
    }
    *p = filtered_buffer;
  }
