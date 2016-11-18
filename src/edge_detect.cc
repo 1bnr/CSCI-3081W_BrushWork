@@ -69,7 +69,7 @@ EdgeDetect::~EdgeDetect() {}
             //std::cout << "(" << xm_start << ", " << ym_start << ")" << std::endl;
             ColorData temp = p->get_pixel(xm_start, ym_start);
             // We dont't want to change the middle kernel value
-            if (kernel_pos == 4) { 
+            if (kernel_pos == 4) {
               temp = temp * kernel[kernel_pos];
             }
             else {  // Set the kernel val and the generate the new color
