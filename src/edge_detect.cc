@@ -80,6 +80,7 @@ EdgeDetect::~EdgeDetect() {}
           kernel_pos++;  // Keep track of where we are in the kernel
         }
       }
+      og_color = og_color.clamped_color();  // clamp the color to valid range
       filtered_buffer.set_pixel(i,j, og_color);  // Set the new pixel
     }
    }
