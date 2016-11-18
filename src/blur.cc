@@ -91,7 +91,8 @@ Blur::~Blur() {}
           }
         }
        }
-     filtered_buffer.set_pixel(i,j, og_color);
+       og_color = og_color.clamped_color();
+       filtered_buffer.set_pixel(i,j, og_color);
    }
    *p = filtered_buffer;
  }

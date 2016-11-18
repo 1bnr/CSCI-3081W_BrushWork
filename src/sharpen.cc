@@ -49,13 +49,13 @@ Sharpen::~Sharpen() {}
          kernel2[r][c] = 0; 
        }
        else {
-        kernel2[r][c] = -(sharpen_amount-1)/4;
+        kernel2[r][c] = -1;
        }
-       //std::cout << kernel2[r][c] << ", ";
+       std::cout << kernel2[r][c] << ", ";
        kernel.push_back(kernel2[r][c]);
 
      }
-     //std::cout << " " << std::endl;
+     std::cout << " " << std::endl;
    }
 
 
@@ -77,9 +77,9 @@ Sharpen::~Sharpen() {}
         }
       }
       // Create the new value that will add to 1 for the kernel
-      float kernel_val = 8.0 / (kernel_count-1);
+      float kernel_val = (sharpen_amount-1)/kernel_count;
       //std::cout << i << ", " << j << std::endl;
-      //std::cout << kernel_val << std::endl;
+      std::cout << kernel_val << std::endl;
       // Actually loop through the surrounding pixels and apply the kernel
       for (int xm_start = i-bounds/2; xm_start <= xm_end; xm_start++) {
         for (int ym_start = j-bounds/2; ym_start <= ym_end; ym_start++) {
@@ -98,6 +98,7 @@ Sharpen::~Sharpen() {}
           kernel_pos++;  // Keep track of where we are in the kernel
         }
       }
+      og_color = og_color.clamped_color();
       filtered_buffer.set_pixel(i,j, og_color);  // Set the new pixel
     }
    }

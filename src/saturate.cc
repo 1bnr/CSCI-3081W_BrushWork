@@ -43,6 +43,7 @@ Saturate::~Saturate() {}
        ColorData gray = ColorData(gray_scale, gray_scale, gray_scale);
        ColorData color = p->get_pixel(i,j);
        ColorData new_color = (color * saturate_amount) + (gray * (1 - saturate_amount));
+       new_color = new_color.clamped_color();
        filtered_buffer.set_pixel(i,j, new_color);
      }
    }
