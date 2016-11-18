@@ -26,6 +26,7 @@
 #include "include/blur.h"
 #include "include/motion_blur.h"
 #include "include/sharpen.h"
+#include "include/special.h"
 
 /*******************************************************************************
  * Namespaces
@@ -108,7 +109,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySpecial(void);
+  void ApplySpecial(PixelBuffer* p);
 
   /**
    * @brief Initialize the elements of the GLUI interface required by the
