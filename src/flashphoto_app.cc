@@ -124,7 +124,8 @@ void FlashPhotoApp::MouseDragged(int x, int y) {
                                      ColorData(cur_color_red_,
                                                cur_color_green_,
                                                cur_color_blue_),
-                                     display_buffer_);
+                                     display_buffer_,
+                                     stamp_buffer_);
   }
 
   // let the previous point catch up with the current.
@@ -139,7 +140,8 @@ void FlashPhotoApp::LeftMouseDown(int x, int y) {
                                    ColorData(cur_color_red_,
                                              cur_color_green_,
                                              cur_color_blue_),
-                                   display_buffer_);
+                                   display_buffer_,
+                                   stamp_buffer_);
   mouse_last_x_ = x;
   mouse_last_y_ = y;
 }
@@ -160,6 +162,8 @@ void FlashPhotoApp::InitializeBuffers(ColorData background_color,
   display_buffer_ = new PixelBuffer(width, height, background_color);
   //add_buffer_to_undo_stack(display_buffer_); // Add initial blank state
   states_.push_back(display_buffer_);
+  //set the stamp buffer to NULL; check before applying
+  stamp_buffer_ = NULL;
 }
 
 void FlashPhotoApp::InitGlui(void) {
@@ -350,21 +354,27 @@ void FlashPhotoApp::GluiControl(int control_id) {
       printStack();
       PixelBuffer * nb; // new buffer
       nb = io_manager_.LoadImageToCanvas();
-      // Set the window dimensions to the state that was just restored
-      SetWindowDimensions(nb->width(), nb->height());
-      display_buffer_ = nb;
-      // Handle the case which we are not at the end of the undo stack
-      maintain_states_stack(cur_state_);
-      // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
-      printStack();
-      std::cout << "END REDO" << std::endl;
+      // if image loaded successfully, send it to the display
+      if (nb != NULL) {
+        // Set the window dimensions to the state that was just restored
+        SetWindowDimensions(nb->width(), nb->height());
+        display_buffer_ = nb;
+        // Handle the case which we are not at the end of the undo stack
+        maintain_states_stack(cur_state_);
+        // Save the new buffer with the image to the undo state
+        add_buffer_to_undo_stack(display_buffer_);
+//        printStack();
+      }
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
-      maintain_states_stack(cur_state_);
-      // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
-      io_manager_.LoadImageToStamp();
+      printStack();
+      PixelBuffer * sb; // new buffer
+      sb = io_manager_.LoadImageToCanvas();
+      // if image loaded successfully, send it to the stamp buffer
+      if (sb != NULL) {
+        stamp_buffer_ = sb;
+      } else
+        std::cout << "load stamp failed.\n";
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
       io_manager_.SaveCanvasToFile(display_buffer_, io_manager_.file_name());
@@ -487,6 +497,6 @@ void FlashPhotoApp::printStack() {
     }
   std::cout << "------End of Stack-----" << std::endl;
   }
-
 }
+
 }  /* namespace image_tools */

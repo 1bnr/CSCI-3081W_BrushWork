@@ -72,7 +72,7 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
   }
   png_read_image(png_ptr, row_pointers);
   // create a PixelBuffer to hold the pixel data;
-  PixelBuffer new_buffer = PixelBuffer(width, height, ColorData(0, 0, 0, 1));
+  PixelBuffer new_buffer = PixelBuffer(width, height, ColorData(0, 0, 0, 0));
   // determine pixel data-block size; depends on number of channels
   int pxl_elems = (color_type < 6) ? 3 : 4;  // 3 channels for rgb, 4 for rgba
   printf("pxl_elems: %d\n", pxl_elems);

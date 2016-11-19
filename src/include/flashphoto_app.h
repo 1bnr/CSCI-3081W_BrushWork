@@ -124,6 +124,9 @@ class FlashPhotoApp : public BaseGfxApp {
   /** Pointer to pixel data for the screen */
   PixelBuffer *display_buffer_;
 
+  /** Pointer to pixel data for the stamp */
+  PixelBuffer *stamp_buffer_;
+
   int cur_tool_; /**< Currently selected tool from UI  */
   std::vector<Tool*> tools_;
 

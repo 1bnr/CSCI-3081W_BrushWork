@@ -52,7 +52,8 @@ class Tool {
       int tool_x,
       int tool_y,
       ColorData tool_color,
-      PixelBuffer* buffer);
+      PixelBuffer* buffer,
+      PixelBuffer* stamp);
 
   /**
    * @brief The name of the tool
