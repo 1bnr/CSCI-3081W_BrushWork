@@ -13,6 +13,7 @@
  * Includes
  ******************************************************************************/
 #include "include/quantize.h"
+#include <vector>
 
 /*******************************************************************************
  * Namespaces
@@ -34,14 +35,14 @@ void Quantize::apply_filter(PixelBuffer* p, int buckets) {
   PixelBuffer filtered_buffer = *p;
 
 
-  float bucket_list[buckets];
+  std::vector<float> bucket_list;
   if (buckets > 2) {
     for (int z = 0; z < buckets; z++) {
-      bucket_list[z] = (z * 1.0) / (buckets - 1);
+      bucket_list.push_back((z * 1.0) / (buckets - 1));
     }
   } else {
-    bucket_list[0] = 0.5;
-    bucket_list[1] = 1.0;
+    bucket_list.push_back(0.5);
+    bucket_list.push_back(1.0);
   }
 
   for (int i = 0; i < x; i++) {
