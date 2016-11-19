@@ -68,7 +68,7 @@ Special::~Special() {}
             //std::cout << "(" << xm_start << ", " << ym_start << ")" << std::endl;
             ColorData temp = p->get_pixel(xm_start, ym_start);
             // We dont't want to change the middle kernel value
-            if (kernel_pos == 4) { 
+            if (kernel_pos == 4) {
               temp = temp * kernel[kernel_pos];
             }
             else {  // Set the kernel val and the generate the new color
@@ -79,11 +79,10 @@ Special::~Special() {}
           kernel_pos++;  // Keep track of where we are in the kernel
         }
       }
-      float bias = og_color.luminance();
-      ColorData gray = ColorData(bias, bias, bias);
-      og_color = og_color + gray;
-      og_color = og_color.clamped_color();
-      filtered_buffer.set_pixel(i,j, og_color);  // Set the new pixel
+      float greyscale = og_color.luminance();
+      ColorData final_color = ColorData(greyscale,greyscale,greyscale);
+      final_color = final_color.clamped_color();
+      filtered_buffer.set_pixel(i,j, final_color);  // Set the new pixel
     }
    }
    *p = filtered_buffer;  // Set the input buffer to our working buffer
