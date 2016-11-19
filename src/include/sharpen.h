@@ -35,7 +35,6 @@ class Sharpen {
   virtual ~Sharpen();
 
   static void apply_filter(PixelBuffer* p, float sharpen_amount);
-
 };
 }  // namespace image_tools
 #endif  // SRC_INCLUDE_SHARPEN_H_

@@ -2,7 +2,7 @@
  * Name            : motion_blur.h
  * Project         : Flashphoto
  * Module          : utils
- * Description     : Header file for Saturate class.
+ * Description     : Header file for Motion Blur class.
  * Copyright       : 2016 CSCI3081W Team 0x07 All rights reserved.
  * Creation Date   : 11/17/16
  * Original Author : Isaac Schwab
@@ -34,8 +34,8 @@ class MotionBlur {
   MotionBlur();
   virtual ~MotionBlur();
 
-  static void apply_filter(PixelBuffer* p, float motion_blur_amount, int direction);
-
+  static void apply_filter(PixelBuffer* p, float motion_blur_amount,
+                           int direction);
 };
 }  // namespace image_tools
 #endif  // SRC_INCLUDE_MOTION_BLUR_H_

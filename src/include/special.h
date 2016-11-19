@@ -35,7 +35,6 @@ class Special {
   virtual ~Special();
 
   static void apply_filter(PixelBuffer* p);
-
 };
 }  // namespace image_tools
 #endif  // SRC_INCLUDE_SPECIAL_H_

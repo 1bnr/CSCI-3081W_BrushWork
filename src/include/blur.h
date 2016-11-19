@@ -2,7 +2,7 @@
  * Name            : blur.h
  * Project         : Flashphoto
  * Module          : utils
- * Description     : Header file for Saturate class.
+ * Description     : Header file for Blur class.
  * Copyright       : 2016 CSCI3081W Team 0x07 All rights reserved.
  * Creation Date   : 11/16/16
  * Original Author : Isaac Schwab
@@ -35,7 +35,6 @@ class Blur {
   virtual ~Blur();
 
   static void apply_filter(PixelBuffer* p, float blur_amount);
-
 };
 }  // namespace image_tools
 #endif  // SRC_INCLUDE_BLUR_H_

@@ -35,7 +35,6 @@ class RGB {
   virtual ~RGB();
 
   static void apply_filter(PixelBuffer* p, float red, float blue, float green);
-
 };
 }  // namespace image_tools
 #endif  // INCLUDE_RGB_H_

@@ -35,7 +35,6 @@ class EdgeDetect {
   virtual ~EdgeDetect();
 
   static void apply_filter(PixelBuffer* p);
-
 };
 }  // namespace image_tools
 #endif  // SRC_INCLUDE_EDGE_DETECT_H_
