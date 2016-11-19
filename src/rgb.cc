@@ -28,24 +28,24 @@ RGB::~RGB() {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
- void RGB::apply_filter(PixelBuffer* p, float red, float blue, float green){
-   int x = p->width();
-   int y = p->height();
-   PixelBuffer filtered_buffer = *p;
-   float new_red;
-   float new_green;
-   float new_blue;
+void RGB::apply_filter(PixelBuffer* p, float red, float blue, float green) {
+  int x = p->width();
+  int y = p->height();
+  PixelBuffer filtered_buffer = *p;
+  float new_red;
+  float new_green;
+  float new_blue;
 
-   for(int i = 0; i<x; i++){
-     for (int j = 0; j<y; j++){
-       new_red = red * p->get_pixel(i,j).red();
-       new_blue = blue * p->get_pixel(i,j).blue();
-       new_green = green * p->get_pixel(i,j).green();
-       ColorData clamped = ColorData(new_red,new_green,new_blue);
-       clamped = clamped.clamped_color();
-       filtered_buffer.set_pixel(i,j,clamped);
-     }
-   }
-   *p = filtered_buffer;
- }
+  for (int i = 0; i < x; i++) {
+    for (int j = 0; j < y; j++) {
+      new_red = red * p->get_pixel(i, j).red();
+      new_blue = blue * p->get_pixel(i, j).blue();
+      new_green = green * p->get_pixel(i, j).green();
+      ColorData clamped = ColorData(new_red, new_green, new_blue);
+      clamped = clamped.clamped_color();
+      filtered_buffer.set_pixel(i, j, clamped);
+    }
+  }
+  *p = filtered_buffer;
+}
 }  // namespace image_tools
