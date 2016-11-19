@@ -35,12 +35,8 @@ class TStamp : public Tool {
   TStamp(void);
 
   std::string name(void) { return "Stamp"; }
-  void ApplyToBuffer(
-      int tool_x,
-      int tool_y,
-      ColorData tool_color,
-      PixelBuffer* buffer,
-      PixelBuffer* stamp);  
+  void ApplyToBuffer(int tool_x, int tool_y, ColorData tool_color,
+                     PixelBuffer* buffer, PixelBuffer* stamp);
 };
 
 }  /* namespace image_tools */

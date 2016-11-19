@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : quantize.cc
- * Project         : BrushWork
+ * Project         : Flashphoto
  * Module          : image_tools
  * Description     : Implementation of Quantize class
  * Copyright       : 2016 CSCI3081W Team 0x07 All rights reserved.
@@ -34,13 +34,13 @@ void Quantize::apply_filter(PixelBuffer* p, int buckets) {
   int y = p->height();
   PixelBuffer filtered_buffer = *p;
 
-
+  // create bucketlist and bound each bucket (index) with a float value
   std::vector<float> bucket_list;
   if (buckets > 2) {
     for (int z = 0; z < buckets; z++) {
       bucket_list.push_back((z * 1.0) / (buckets - 1));
     }
-  } else {
+  } else {  // if bucket size is 2
     bucket_list.push_back(0.5);
     bucket_list.push_back(1.0);
   }
@@ -77,7 +77,7 @@ void Quantize::apply_filter(PixelBuffer* p, int buckets) {
       }
       ColorData clamped = ColorData(new_red, new_green, new_blue);
       clamped = clamped.clamped_color();
-      filtered_buffer.set_pixel(i, j, clamped);
+      filtered_buffer.set_pixel(i, j, clamped);  // set new pixel
     }
   }
   *p = filtered_buffer;

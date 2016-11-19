@@ -132,7 +132,7 @@ class FlashPhotoApp : public BaseGfxApp {
 
   /** List of Pixel Buffers for the state manager */
   std::vector<PixelBuffer*> states_;
-  int cur_state_ = 0; // Holds the index of the PixelBuffer being displayed
+  int cur_state_ = 0;  // Holds the index of the PixelBuffer being displayed
 
   // Previous mouse coordinates for interpreting mouse moves
   int mouse_last_x_;
@@ -146,11 +146,11 @@ class FlashPhotoApp : public BaseGfxApp {
   GLUI_Spinner *spinner_b_; /**< Hook for accessing the UI blue amount  */
 
   /** TODO implement undo queue */
-  void add_buffer_to_undo_stack (PixelBuffer* &display_buffer_);
+  void add_buffer_to_undo_stack(PixelBuffer* &display_buffer_);
 
-  void maintain_states_stack (int cur_state_);
+  void maintain_states_stack(int cur_state_);
 
-  void printStack ();
+  void printStack();
 };
 
 }  /* namespace image_tools */
