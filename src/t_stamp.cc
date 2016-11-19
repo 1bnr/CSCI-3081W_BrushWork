@@ -39,32 +39,32 @@ TStamp::TStamp(void) {}
 void TStamp::ApplyToBuffer(int tool_x, int tool_y, ColorData tool_color,
                            PixelBuffer* buffer,
                            PixelBuffer* stamp) {
-  if((stamp != NULL) && !(stamp->width() == 0 || stamp->height() == 0)) {
-    int s_width = stamp->width();
-    int s_height = stamp->height();
-    int d_width = buffer->width();
-    int d_height = buffer->height();
-    int s_xleft = tool_x - (s_width/2);
-    int s_ytop = tool_y - (s_height/2);
-    int s_xright = s_xleft + s_width;
-    int s_ybottom = s_ytop + s_height;
-    std::cout << stamp << std::endl;
-      for (int y = 0; y < s_height; y++) {
-        /* bounds check the pixel application */
-        if ((s_ytop + y) > 0 && (s_ytop + y) < (d_height -1)) {
-          for (int x=0; x < s_width; x++) {
-            /* the pixel being processed */
-            ColorData pxl = stamp->get_pixel(x, y);
-            /* bounds check the pixel application */
-            if ((s_xleft + x) > 0 &&
-                (s_xleft + x) < s_xright &&
-                (pxl.alpha() > 0)) {
-              buffer->set_pixel((s_xleft + x), (s_ytop + y), pxl);
-            }
+  /* only apply stamp if a file has been loaded into stamp buffer */
+  if ((stamp != NULL) && !(stamp->width() == 0 || stamp->height() == 0)) {
+    int s_width = stamp->width();  // the stamp width
+    int s_height = stamp->height();  // the stamp height
+    int d_width = buffer->width();  // the display buffer width
+    int d_height = buffer->height();  // the display buffer height
+    int s_xleft = tool_x - (s_width/2);  // stamp l edge pos in display buffer
+    int s_ytop = tool_y - (s_height/2);  // stamp t edge pos in display buffer
+    int s_xright = s_xleft + s_width;  // stamp r edge pos in display buffer
+    int s_ybottom = s_ytop + s_height;  // stamp b edge pos in display buffer
+    for (int y = 0; y < s_height; y++) {
+      /* bounds check the pixel application */
+      if ((s_ytop + y) > 0 && (s_ytop + y) < (d_height -1)) {
+        for (int x=0; x < s_width; x++) {
+          /* the pixel being processed; need it here to read alpha channel */
+          ColorData pxl = stamp->get_pixel(x, y);
+          /* bounds check the pixel application */
+          if ((s_xleft + x) > 0 &&
+              (s_xleft + x) < s_xright &&
+              (pxl.alpha() > 0)) {
+            /* location in bounds, alpha is visible, set pixel in buffer */
+            buffer->set_pixel((s_xleft + x), (s_ytop + y), pxl);
           }
         }
       }
+    }
   }
-
 }
 }  /* namespace image_tools */
