@@ -45,8 +45,8 @@ Sharpen::~Sharpen() {}
        if (r == bounds/2 && c == bounds/2) {
          kernel2[r][c] = sharpen_amount;
        }
-       else if ((r == 0.0 && (c == 0.0 || c == bounds-1)) || (r == bounds-1 && (c == 0.0 || c == bounds-1))) {
-         kernel2[r][c] = 0; 
+       else if ((r == 0 && (c == 0 || c == bounds-1)) || (r == bounds-1 && (c == 0 || c == bounds-1))) {
+         kernel2[r][c] = 0;
        }
        else {
         kernel2[r][c] = -1;
@@ -70,11 +70,11 @@ Sharpen::~Sharpen() {}
       for (int xm_start = i - bounds/2; xm_start <= xm_end; xm_start++) {
         for (int ym_start = j - bounds/2; ym_start <= ym_end; ym_start++) {
           if (xm_start >= 0 && ym_start >= 0 && xm_start < x && ym_start < y) {
-            if (kernel_pos != 0 && kernel_pos != 2 && 
+            if (kernel_pos != 0 && kernel_pos != 2 &&
                 kernel_pos != 6 && kernel_pos != 8 && kernel_pos != 4) {
               kernel_count++;  // Counter that keeps track of valid kernel pos
             }
-            kernel_pos++;   
+            kernel_pos++;
           }
         }
       }
@@ -91,7 +91,7 @@ Sharpen::~Sharpen() {}
             //std::cout << "(" << xm_start << ", " << ym_start << ")" << std::endl;
             ColorData temp = p->get_pixel(xm_start, ym_start);
             // We dont't want to change the middle kernel value
-            if (kernel_pos == 4) { 
+            if (kernel_pos == 4) {
               temp = temp * kernel[kernel_pos];
             }
             else {  // Set the kernel val and the generate the new color

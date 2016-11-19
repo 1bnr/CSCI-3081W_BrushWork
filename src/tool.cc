@@ -49,7 +49,8 @@ void Tool::ApplyToBuffer(
     int tool_x,
     int tool_y,
     ColorData tool_color,
-    PixelBuffer* buffer) {
+    PixelBuffer* buffer,
+    PixelBuffer* stamp) {
   assert(mask_);
 
   int left_bound = std::max(tool_x-mask_->width()/2, 0);

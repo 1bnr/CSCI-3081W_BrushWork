@@ -81,7 +81,7 @@ class IOManager {
    * @brief Load the selected image file to the stamp
    *
    */
-  void LoadImageToStamp(void);
+  PixelBuffer * LoadImageToStamp(void);
 
   /**
    * @brief Save the current state of the canvas to a file

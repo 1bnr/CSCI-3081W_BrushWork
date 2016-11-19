@@ -15,6 +15,7 @@
 #include "include/tool_factory.h"
 #include "include/tool.h"
 #include "include/t_pen.h"
+#include "include/t_stamp.h"
 #include "include/t_eraser.h"
 #include "include/t_calligraphy_pen.h"
 #include "include/t_highlighter.h"
@@ -50,6 +51,9 @@ Tool* ToolFactory::CreateTool(int tool_id) {
       break;
     case TOOL_CHALK:
       tool = new TChalk();
+      break;
+    case TOOL_STAMP:
+      tool = new TStamp();
       break;
     default:
       tool = nullptr;

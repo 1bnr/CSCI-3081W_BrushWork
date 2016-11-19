@@ -163,9 +163,24 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
   return new_buffer;
 }
 
-void IOManager::LoadImageToStamp(void) {
+PixelBuffer * IOManager::LoadImageToStamp() {
   std::cout << "Load Stamp has been clicked for file " <<
       file_name_ << std::endl;
+  PixelBuffer * new_buffer;
+  FileIo * file_io;
+  std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
+  std::cout << file_suffix << std::endl;
+  if (file_suffix.compare("png") == 0) {
+    file_io = new FileIoPng();
+  } else if ((file_suffix.compare("jpg") == 0) ||
+             (file_suffix.compare("jpeg") == 0)) {
+    file_io = new FileIoJpg();
+  }
+  else // wrong file type;
+    return NULL; // check for null on return
+  new_buffer = new PixelBuffer(file_io->load_image(file_name_));
+  free(file_io);
+  return new_buffer;
 }
 
 void IOManager::SaveCanvasToFile(const PixelBuffer * image,
