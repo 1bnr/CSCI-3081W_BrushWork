@@ -90,6 +90,9 @@ void FlashPhotoApp::Display(void) {
 void FlashPhotoApp::MouseMoved(int x, int y) {}
 
 void FlashPhotoApp::MouseDragged(int x, int y) {
+  /* Stamp is not a draggable tool */
+  if (tools_[cur_tool_]->name() == "Stamp")
+    return;
   int max_steps = 30;
 
   // We implimented a smoothing feature by interpolating between
