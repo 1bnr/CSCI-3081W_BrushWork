@@ -51,13 +51,13 @@ void TStamp::ApplyToBuffer(int tool_x, int tool_y, ColorData tool_color,
     int s_ybottom = s_ytop + s_height;  // stamp b edge pos in display buffer
     for (int y = 0; y < s_height; y++) {
       /* bounds check the pixel application */
-      if ((s_ytop + y) > 0 && (s_ytop + y) < (d_height -1)) {
+      if ((s_ytop + y) >= 0 && (s_ytop + y) < d_height) {
         for (int x=0; x < s_width; x++) {
           /* the pixel being processed; need it here to read alpha channel */
           ColorData pxl = stamp->get_pixel(x, y);
           /* bounds check the pixel application */
-          if ((s_xleft + x) > 0 &&
-              (s_xleft + x) < s_xright &&
+          if ((s_xleft + x) >= 0 &&
+              (s_xleft + x) < d_width &&
               (pxl.alpha() > 0)) {
             /* location in bounds, alpha is visible, set pixel in buffer */
             buffer->set_pixel((s_xleft + x), (s_ytop + y), pxl);
