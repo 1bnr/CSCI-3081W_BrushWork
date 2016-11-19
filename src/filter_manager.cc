@@ -90,6 +90,7 @@ void FilterManager::ApplyThreshold(PixelBuffer* p) {
 }
 void FilterManager::ApplySpecial(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Special" << std::endl;
+  Saturate::apply_filter(p, 0.0);
   Special::apply_filter(p);
 }
 

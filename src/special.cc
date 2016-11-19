@@ -75,10 +75,8 @@ void Special::apply_filter(PixelBuffer* p) {
           kernel_pos++;  // Keep track of where we are in the kernel
         }
       }
-      float greyscale = og_color.luminance();
-      ColorData final_color = ColorData(greyscale, greyscale, greyscale);
-      final_color = final_color.clamped_color();
-      filtered_buffer.set_pixel(i, j, final_color);  // Set the new pixel
+      og_color = og_color.clamped_color();
+      filtered_buffer.set_pixel(i, j, og_color);  // Set the new pixel
     }
   }
   *p = filtered_buffer;  // Set the input buffer to our working buffer
