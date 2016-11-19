@@ -44,7 +44,7 @@ Quantize::~Quantize() {}
     bucket_list[0] = 0.5;
     bucket_list[1] = 1.0;
    }
-   
+
 
    for(int i = 0; i<x; i++){
      for (int j = 0; j<y; j++){
@@ -79,7 +79,9 @@ Quantize::~Quantize() {}
              break;
            }
          }
-      filtered_buffer.set_pixel(i, j, ColorData(new_red, new_green, new_blue));
+      ColorData clamped = ColorData(new_red,new_green,new_blue);
+      clamped = clamped.clamped_color();
+      filtered_buffer.set_pixel(i, j, clamped);
      }
    }
    *p = filtered_buffer;

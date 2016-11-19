@@ -41,7 +41,9 @@ RGB::~RGB() {}
        new_red = red * p->get_pixel(i,j).red();
        new_blue = blue * p->get_pixel(i,j).blue();
        new_green = green * p->get_pixel(i,j).green();
-       filtered_buffer.set_pixel(i,j,ColorData(new_red,new_green,new_blue));
+       ColorData clamped = ColorData(new_red,new_green,new_blue);
+       clamped = clamped.clamped_color();
+       filtered_buffer.set_pixel(i,j,clamped);
      }
    }
    *p = filtered_buffer;

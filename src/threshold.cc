@@ -56,7 +56,9 @@ Threshold::~Threshold() {}
        else{
          new_blue = 0.0;
        }
-       filtered_buffer.set_pixel(i,j,ColorData(new_red,new_green,new_blue));
+       ColorData clamped = ColorData(new_red,new_green,new_blue);
+       clamped = clamped.clamped_color();
+       filtered_buffer.set_pixel(i,j,clamped);
      }
    }
    *p = filtered_buffer;
