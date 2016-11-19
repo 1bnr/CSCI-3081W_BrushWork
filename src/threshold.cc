@@ -1,6 +1,6 @@
 /*******************************************************************************
  * Name            : threshold.cc
- * Project         : BrushWork
+ * Project         : Flashphoto
  * Module          : image_tools
  * Description     : Implementation of Threshold class
  * Copyright       : 2016 CSCI3081W Team 0x07 All rights reserved.
@@ -37,6 +37,7 @@ void Threshold::apply_filter(PixelBuffer* p, float thresh_amount) {
   float new_blue;
   for (int i = 0; i < x; i++) {
     for (int j = 0; j < y; j++) {
+      // compare each individual channel against thresh_amount
       if (p->get_pixel(i, j).red() > thresh_amount) {
         new_red = 1.0;
       } else {
@@ -54,7 +55,7 @@ void Threshold::apply_filter(PixelBuffer* p, float thresh_amount) {
       }
       ColorData clamped = ColorData(new_red, new_green, new_blue);
       clamped = clamped.clamped_color();
-      filtered_buffer.set_pixel(i, j, clamped);
+      filtered_buffer.set_pixel(i, j, clamped);  // set new pixel
     }
   }
   *p = filtered_buffer;
