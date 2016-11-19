@@ -44,7 +44,8 @@ void FilterManager::ApplyChannel(PixelBuffer* p) {
             << channel_color_red_
             << ", green = " << channel_color_green_
             << ", blue = " << channel_color_blue_ << std::endl;
-  RGB::apply_filter(p, channel_color_red_, channel_color_blue_, channel_color_green_);
+  RGB::apply_filter(p, channel_color_red_, channel_color_blue_,
+                    channel_color_green_);
 }
 
 void FilterManager::ApplySaturate(PixelBuffer* p) {

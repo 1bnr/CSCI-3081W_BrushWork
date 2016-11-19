@@ -155,9 +155,9 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
   } else if ((file_suffix.compare("jpg") == 0) ||
              (file_suffix.compare("jpeg") == 0)) {
     file_io = new FileIoJpg();
+  } else {  // wrong file type;
+    return NULL;  // check for null on return
   }
-  else // wrong file type;
-    return NULL; // check for null on return
   new_buffer = new PixelBuffer(file_io->load_image(file_name_));
   free(file_io);
   return new_buffer;
@@ -175,9 +175,9 @@ PixelBuffer * IOManager::LoadImageToStamp() {
   } else if ((file_suffix.compare("jpg") == 0) ||
              (file_suffix.compare("jpeg") == 0)) {
     file_io = new FileIoJpg();
+  } else {  // wrong file type;
+    return NULL;  // check for null on return
   }
-  else // wrong file type;
-    return NULL; // check for null on return
   new_buffer = new PixelBuffer(file_io->load_image(file_name_));
   free(file_io);
   return new_buffer;

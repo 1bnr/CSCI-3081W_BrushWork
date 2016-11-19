@@ -29,7 +29,6 @@ namespace image_tools {
  * no method definitions. Class has only load_image and save_image full virtual
  * methods that will be defined in all subclasses.
  */
-
- FileIo::FileIo(void) {};
- FileIo::~FileIo(void) {};
+FileIo::FileIo(void) {}
+FileIo::~FileIo(void) {}
 }  /* namespace image_tools */

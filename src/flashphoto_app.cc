@@ -13,9 +13,9 @@
  * Includes
  ******************************************************************************/
 #include "include/flashphoto_app.h"
+#include <assert.h>
 #include <cmath>
 #include <iostream>
-#include <assert.h>
 #include "include/color_data.h"
 #include "include/pixel_buffer.h"
 #include "include/ui_ctrl.h"
@@ -90,7 +90,6 @@ void FlashPhotoApp::Display(void) {
 void FlashPhotoApp::MouseMoved(int x, int y) {}
 
 void FlashPhotoApp::MouseDragged(int x, int y) {
-
   int max_steps = 30;
 
   // We implimented a smoothing feature by interpolating between
@@ -146,23 +145,16 @@ void FlashPhotoApp::LeftMouseDown(int x, int y) {
   mouse_last_y_ = y;
 }
 
-
-
 void FlashPhotoApp::LeftMouseUp(int x, int y) {
   std::cout << "mouseReleased " << x << " " << y << std::endl;
-  //std::cout << "Current state: " << cur_state_ << std::endl;
-  // Handle the case which we are not at the end of the undo stack
-  std::cout << "End Pos: " << states_.size()-1 << std::endl;
-  // Save the state of the current pixel buffer before making changes
-  //add_buffer_to_undo_stack(display_buffer_);
 }
 
 void FlashPhotoApp::InitializeBuffers(ColorData background_color,
                                       int width, int height) {
   display_buffer_ = new PixelBuffer(width, height, background_color);
-  //add_buffer_to_undo_stack(display_buffer_); // Add initial blank state
+  // Add initial blank state
   states_.push_back(display_buffer_);
-  //set the stamp buffer to NULL; check before applying
+  // Set the stamp buffer to NULL; check before applying
   stamp_buffer_ = NULL;
 }
 
@@ -351,8 +343,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       break;
     case UICtrl::UI_LOAD_CANVAS_BUTTON:
       std::cout << "REDO CLICKED" << std::endl;
-      printStack();
-      PixelBuffer * nb; // new buffer
+      PixelBuffer * nb;  // new buffer
       nb = io_manager_.LoadImageToCanvas();
       // if image loaded successfully, send it to the display
       if (nb != NULL) {
@@ -363,18 +354,18 @@ void FlashPhotoApp::GluiControl(int control_id) {
         maintain_states_stack(cur_state_);
         // Save the new buffer with the image to the undo state
         add_buffer_to_undo_stack(display_buffer_);
-//        printStack();
       }
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
       printStack();
-      PixelBuffer * sb; // new buffer
+      PixelBuffer * sb;  // new buffer
       sb = io_manager_.LoadImageToCanvas();
       // if image loaded successfully, send it to the stamp buffer
       if (sb != NULL) {
         stamp_buffer_ = sb;
-      } else
+      } else {
         std::cout << "load stamp failed.\n";
+      }
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
       io_manager_.SaveCanvasToFile(display_buffer_, io_manager_.file_name());
@@ -388,22 +379,20 @@ void FlashPhotoApp::GluiControl(int control_id) {
       std::cout << "UNDO CLICKED" << std::endl;
       printStack();
       state_manager_.UndoOperation(display_buffer_, states_, cur_state_);
-      cur_state_-= 1; // Decrement the current index after undoing
+      cur_state_-= 1;  // Decrement the current index after undoing
       printStack();
       // Set the window dimensions to the state that was just restored
       SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
       // Check if the undo button should be disabled (no more states)
-      if(cur_state_ > 0) {
+      if (cur_state_ > 0) {
         state_manager_.undo_toggle(true);
-      }
-      else {
+      } else {
         state_manager_.undo_toggle(false);
       }
       // Check if the redo button should be enabled
       if (cur_state_ != states_.size()-1) {
         state_manager_.redo_toggle(true);
-      }
-      else {
+      } else {
         state_manager_.redo_toggle(false);
       }
       break;
@@ -418,14 +407,12 @@ void FlashPhotoApp::GluiControl(int control_id) {
       // Handle the case which we are not at the end of the undo stack
       if (cur_state_ != states_.size()-1) {
         state_manager_.redo_toggle(true);
-      }
-      else {
+      } else {
         state_manager_.redo_toggle(false);
       }
-      if(cur_state_ > 0) {
+      if (cur_state_ > 0) {
         state_manager_.undo_toggle(true);
-      }
-      else {
+      } else {
         state_manager_.undo_toggle(false);
       }
       break;
@@ -459,41 +446,42 @@ void FlashPhotoApp::InitGraphics(void) {
   glViewport(0, 0, width(), height());
 }
 /** TODO implement undo queue */
-void FlashPhotoApp::add_buffer_to_undo_stack (PixelBuffer* &current_buffer) {
+void FlashPhotoApp::add_buffer_to_undo_stack(PixelBuffer* &current_buffer) {
   std::cout << "add_buffer_to_undo_stack" << std::endl;
   printStack();
   PixelBuffer* old_buffer = new PixelBuffer(*current_buffer);
   std::cout << "old_buffer " << old_buffer << std::endl;
   states_.push_back(old_buffer);
-  cur_state_ += 1; // Update index
+  cur_state_ += 1;  // Update index
   current_buffer = states_[cur_state_];
-  //free(temp_buffer);
   printStack();
-  if(cur_state_ > 0) {
+  if (cur_state_ > 0) {
     state_manager_.undo_toggle(true);
   }
 }
 
 // Handles the case in which we undo and then draw, we need to erase
 // any states after this point because they are overwritten
-void FlashPhotoApp::maintain_states_stack (int cur_state_) {
+void FlashPhotoApp::maintain_states_stack(int cur_state_) {
   std::cout << "maintain_states_stack" <<  std::endl;
   printStack();
   if (cur_state_ != states_.size()-1) {
     std::cout << "ERASE RAN" << std::endl;
     states_.erase(states_.begin()+cur_state_+1, states_.end());
-    state_manager_.redo_toggle(false); // again handle toggle
+    state_manager_.redo_toggle(false);  // again handle toggle
     printStack();
   }
 }
 
 void FlashPhotoApp::printStack() {
   if (states_.size() == 0) {
-  }
-  else {
-    std::cout << "------The Undo Stack-----" << "cur_state_: " << cur_state_ << "  display_buffer_:  " << display_buffer_ << std::endl;
-    for(int i = 0; i < states_.size(); i++) {
-      std::cout << "|   " << i << "   |   " << states_[i] << "   | " << "Width, Height: " << states_[i]->width() << ", " << states_[i]->height() << std::endl;
+  } else {
+    std::cout << "------The Undo Stack-----" << "cur_state_: "
+    << cur_state_ << "  display_buffer_:  " << display_buffer_ << std::endl;
+    for (int i = 0; i < states_.size(); i++) {
+      std::cout << "|   " << i << "   |   " << states_[i] << "   | "
+      << "Width, Height: " << states_[i]->width() << ", "
+      << states_[i]->height() << std::endl;
     }
   std::cout << "------End of Stack-----" << std::endl;
   }
