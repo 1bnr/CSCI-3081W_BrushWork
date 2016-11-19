@@ -2,7 +2,7 @@
  * Name            : rgb.cc
  * Project         : Flashphoto
  * Module          : image_tools
- * Description     : Implementation of Threshold class
+ * Description     : Implementation of RGB class
  * Copyright       : 2016 CSCI3081W Team 0x07 All rights reserved.
  * Creation Date   : 11/14/16
  * Original Author : Ben Bramanti
@@ -38,12 +38,13 @@ void RGB::apply_filter(PixelBuffer* p, float red, float blue, float green) {
 
   for (int i = 0; i < x; i++) {
     for (int j = 0; j < y; j++) {
+      // multiply each channel by matching float argument
       new_red = red * p->get_pixel(i, j).red();
       new_blue = blue * p->get_pixel(i, j).blue();
       new_green = green * p->get_pixel(i, j).green();
       ColorData clamped = ColorData(new_red, new_green, new_blue);
       clamped = clamped.clamped_color();
-      filtered_buffer.set_pixel(i, j, clamped);
+      filtered_buffer.set_pixel(i, j, clamped);  // set new pixel
     }
   }
   *p = filtered_buffer;
