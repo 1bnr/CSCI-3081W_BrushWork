@@ -10,8 +10,8 @@
  *
  ******************************************************************************/
 
-#ifndef DESKTOP_3081_PROJECT_SRC_INCLUDE_BASE_GFX_APP_H_
-#define DESKTOP_3081_PROJECT_SRC_INCLUDE_BASE_GFX_APP_H_
+#ifndef SRC_INCLUDE_BASE_GFX_APP_H_
+#define SRC_INCLUDE_BASE_GFX_APP_H_
 
 /*******************************************************************************
  * Includes
@@ -280,4 +280,4 @@ class BaseGfxApp {
 
 }  /* namespace image_tools */
 
-#endif  /* DESKTOP_3081_PROJECT_SRC_INCLUDE_BASE_GFX_APP_H_ */
+#endif  /* SRC_INCLUDE_BASE_GFX_APP_H_ */
