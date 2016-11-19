@@ -10,8 +10,8 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_BASE_GFX_APP_H_
-#define SRC_INCLUDE_BASE_GFX_APP_H_
+#ifndef DESKTOP_3081_PROJECT_SRC_INCLUDE_BASE_GFX_APP_H_
+#define DESKTOP_3081_PROJECT_SRC_INCLUDE_BASE_GFX_APP_H_
 
 /*******************************************************************************
  * Includes
@@ -276,9 +276,8 @@ class BaseGfxApp {
 
   /** Has glutInit been called? (only allowed once per program) */
   static bool s_glut_initialized_;
-
 };
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_BASE_GFX_APP_H_ */
+#endif  /* DESKTOP_3081_PROJECT_SRC_INCLUDE_BASE_GFX_APP_H_ */
