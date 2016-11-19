@@ -62,7 +62,7 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
   if (color_type == PNG_COLOR_TYPE_GRAY ||
       color_type == PNG_COLOR_TYPE_GRAY_ALPHA)
     png_set_gray_to_rgb(png_ptr);  // change image data to rgb
-
+  ColorData background_color = ColorData(0, 0, 0, 0);
   png_read_update_info(png_ptr, info_ptr);  // update changes
   // read image data line by line
   row_pointers = static_cast<png_bytep*>(malloc(sizeof(png_bytep*) * height));
@@ -71,8 +71,9 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
                       malloc(png_get_rowbytes(png_ptr, info_ptr)));
   }
   png_read_image(png_ptr, row_pointers);
+
   // create a PixelBuffer to hold the pixel data;
-  PixelBuffer new_buffer = PixelBuffer(width, height, ColorData(0, 0, 0, 0));
+  PixelBuffer new_buffer = PixelBuffer(width, height, background_color);
   // determine pixel data-block size; depends on number of channels
   int pxl_elems = (color_type < 6) ? 3 : 4;  // 3 channels for rgb, 4 for rgba
   printf("pxl_elems: %d\n", pxl_elems);
@@ -81,7 +82,10 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
     for (x=0; x < width; x++) {
       png_bytep px = &(row[x * pxl_elems]);
       int b_divisor = (1 << bit_depth) -1;
-      new_buffer.set_pixel(x, height - y - 1, ColorData(
+      if ((pxl_elems == 4) && (px[3] == 0))
+        new_buffer.set_pixel(x, height - y - 1, background_color);
+      else
+        new_buffer.set_pixel(x, height - y - 1, ColorData(
                               static_cast<float>(px[0])/b_divisor,   // red
                               static_cast<float>(px[1])/b_divisor,   // green
                               static_cast<float>(px[2])/b_divisor,   // blue
