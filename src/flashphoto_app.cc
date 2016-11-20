@@ -360,7 +360,6 @@ void FlashPhotoApp::GluiControl(int control_id) {
       }
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
-      printStack();
       PixelBuffer * sb;  // new buffer
       sb = io_manager_.LoadImageToCanvas();
       // if image loaded successfully, send it to the stamp buffer
@@ -380,10 +379,8 @@ void FlashPhotoApp::GluiControl(int control_id) {
       break;
     case UICtrl::UI_UNDO:
       std::cout << "UNDO CLICKED" << std::endl;
-      printStack();
       state_manager_.UndoOperation(display_buffer_, states_, cur_state_);
       cur_state_-= 1;  // Decrement the current index after undoing
-      printStack();
       // Set the window dimensions to the state that was just restored
       SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
       // Check if the undo button should be disabled (no more states)
@@ -401,11 +398,9 @@ void FlashPhotoApp::GluiControl(int control_id) {
       break;
     case UICtrl::UI_REDO:
       std::cout << "REDO CLICKED" << std::endl;
-      printStack();
       state_manager_.RedoOperation(display_buffer_, states_, cur_state_);
       cur_state_ += 1;
       SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
-      printStack();
       // Check if the redo button should be enabled
       // Handle the case which we are not at the end of the undo stack
       if (cur_state_ != states_.size()-1) {
@@ -448,16 +443,12 @@ void FlashPhotoApp::InitGraphics(void) {
   gluOrtho2D(0, width(), 0, height());
   glViewport(0, 0, width(), height());
 }
-/** TODO implement undo queue */
+// Handles adding states to the states_ stack and incrementing the cur_state_
 void FlashPhotoApp::add_buffer_to_undo_stack(PixelBuffer* &current_buffer) {
-  std::cout << "add_buffer_to_undo_stack" << std::endl;
-  printStack();
   PixelBuffer* old_buffer = new PixelBuffer(*current_buffer);
-  std::cout << "old_buffer " << old_buffer << std::endl;
   states_.push_back(old_buffer);
   cur_state_ += 1;  // Update index
   current_buffer = states_[cur_state_];
-  printStack();
   if (cur_state_ > 0) {
     state_manager_.undo_toggle(true);
   }
@@ -466,16 +457,13 @@ void FlashPhotoApp::add_buffer_to_undo_stack(PixelBuffer* &current_buffer) {
 // Handles the case in which we undo and then draw, we need to erase
 // any states after this point because they are overwritten
 void FlashPhotoApp::maintain_states_stack(int cur_state_) {
-  std::cout << "maintain_states_stack" <<  std::endl;
-  printStack();
   if (cur_state_ != states_.size()-1) {
-    std::cout << "ERASE RAN" << std::endl;
     states_.erase(states_.begin()+cur_state_+1, states_.end());
     state_manager_.redo_toggle(false);  // again handle toggle
-    printStack();
   }
 }
 
+// Function to print out the stack (for debugging purposes)
 void FlashPhotoApp::printStack() {
   if (states_.size() == 0) {
   } else {
