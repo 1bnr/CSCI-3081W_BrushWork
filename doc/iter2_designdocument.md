@@ -1,11 +1,11 @@
 # Design Justifications for FlashPhoto
 #### Group Name:
-<Group Name Here>
+<Group 0x07>
 
 #### Members:
-- <Member 1>
-- <Member 2>
-- <Member 3>
+- <Abner Holsinger>
+- <Isaac Schwab>
+- <Ben Bramanti>
 
 #### Instructions
 > Respond to each of the design questions below.  Make your answers factual and compelling.  Where appropriate, reference alternative designs you considered, code snippets, and diagrams within your writing in order to be clear and back up your claims.  As we have discussed in class, when writing with reference to figures make sure to tell the reader what to look for in the diagram or what exactly you want the reader to notice in the code snippet.  Remember that the design of your project is worth 1/3 of the total project grade.  Also remember that when grading the design portion of the project, this design justification document is the only thing we will look at.  This document must stand on its own.  Rather than linking to your actual code, carefully pick the most important code snippets from your project to include here in order to provide convincing detail for your answers to the questions below.  
@@ -58,6 +58,9 @@ Lastly, note that display_buffer_ is always what we are passing to a filter, thi
 No base classes were used for our design, each filter has its own class which defines an apply_filter method that follows the filter requirements.  If a filter used a kernel it was instantiated and regenerated all within the apply_filter method, similar to our first iteration solution  where we had each tool initializing its mask within it's constructor.
 
 ### 1.2 Design Justification
+When first trying to tackle these filters, our group thought the best idea would be to have a base filter class, here rules would be set in place for what a filter can and cannot do.  When we started implementing this, it almost seemed more of a hassle than it was worth, what we decided on was our decision.  We left out any base class, and instead gave each filter its own separate class where it could define how it would apply its filter.  We stuck with this decision because it required less files (no files needed for base class) and ultimately these filters were relatively simple and we didn't want to confuse the matter with a hard to follow inheritance structure.  One thing our group also thought of was picturing the filter as a function that operated on a pixel buffer, and more or less that is what we did.  Since we made our apply_filter method static, we did not ever have to instantiate a filter, this was one thing our group saw as a big benefit to our design.  We did not have to waste any extra memory to instantiate a filter for a one time use, instead we could just operate in place on a pixel buffer.
+
+Our design handled the pixel-independent filters very well, but it got a little more complicated when it came to the convolution-based filters.  The same structure was used where each convolution-based filter had its own class where it could define an apply_filter method that met the filter's requirements.  Our team decided to generate kernels within this method, and in the end this was a bit larger of a task than we expected.  It really complicated our apply_filter method to be generating and possibly re-generating kernels all within the same method.  This would be a downside to our design because a kernel class might have been very efficient in this case.  We could have had methods created in that class to quickly re-size kernels and pass them back to our apply_filter method.  But the positive side of our design was everything regarding a filter can be found in a single class, for users they do not have to be searching around multiple files trying to figure out how a given filter operates.  Really all a user has to look at is the filter's apply_filter method and that would give any information that is needed.  For that reason our team liked this design because it kept all details regarding a filter inside of one class.
 
 
 ## 2  Design Question Two
