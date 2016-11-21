@@ -1,11 +1,11 @@
 # Design Justifications for FlashPhoto
 #### Group Name:
-<Group 0x07>
+Group 0x07
 
 #### Members:
-- <Abner Holsinger>
-- <Isaac Schwab>
-- <Ben Bramanti>
+- Abner Holsinger
+- Isaac Schwab
+- Ben Bramanti
 
 #### Instructions
 > Respond to each of the design questions below.  Make your answers factual and compelling.  Where appropriate, reference alternative designs you considered, code snippets, and diagrams within your writing in order to be clear and back up your claims.  As we have discussed in class, when writing with reference to figures make sure to tell the reader what to look for in the diagram or what exactly you want the reader to notice in the code snippet.  Remember that the design of your project is worth 1/3 of the total project grade.  Also remember that when grading the design portion of the project, this design justification document is the only thing we will look at.  This document must stand on its own.  Rather than linking to your actual code, carefully pick the most important code snippets from your project to include here in order to provide convincing detail for your answers to the questions below.  
@@ -33,7 +33,7 @@
 > First, in the **Design Description** section below, describe the design you developed to address this challenge. We expect that you will include at least one figure showing the relationships of the classes affected by your design. Second, in the **Design Justification** section below present the most compelling argument you can for why this design is justified.  Note that our expectation is that you will need to discuss the pros (and maybe cons) of your final design as compared to alternative designs that you discussed in your group in order to make a strong case for justifying your design.
 
 ### 1.1 Design Description
-For the filters our group decided it would be best to implement each filter as its own class.  We decided we would not differentiate too much between pixel-independent/convolution-based filters, and this led to very easily defined filters which only required a single method to apply the filter.  Below is a UML diagram that models our groups idea, Threshold is the only filter included in the diagram but imagine that any of our other filters could take its spot and the relationships would still hold.
+For the filters our group decided it would be best to implement each filter as its own class.  We decided we would not differentiate too much between pixel-independent/convolution-based filters, and this led to easily defined filters which only required a single method to apply the filter.  Below is a UML diagram that models our groups idea, Threshold is the only filter included in the diagram but imagine that any of our other filters could take its spot and the relationships would still hold.
 
 ![screen shot 2016-11-19 at 3 47 30 pm](https://media.github.umn.edu/user/5831/files/d23f62e8-ae89-11e6-9526-4695ed51384a)
 
@@ -55,7 +55,7 @@ Lastly, note that display_buffer_ is always what we are passing to a filter, thi
 
 ![screen shot 2016-11-19 at 7 21 34 pm](https://media.github.umn.edu/user/5831/files/9f5cf42c-ae8d-11e6-8ee4-5f66fe9c1fe1)
 
-No base classes were used for our design, each filter has its own class which defines an apply_filter method that follows the filter requirements.  If a filter used a kernel it was instantiated and regenerated all within the apply_filter method, similar to our first iteration solution  where we had each tool initializing its mask within it's constructor.
+No base classes were used for our design, each filter has its own class which defines an apply_filter method that follows the filter requirements.  If a filter used a kernel it was instantiated and regenerated all within the apply_filter method, similar to our first iteration solution where we had each tool initializing its mask within it's constructor.
 
 ### 1.2 Design Justification
 When first trying to tackle these filters, our group thought the best idea would be to have a base filter class, here rules would be set in place for what a filter can and cannot do.  When we started implementing this, it almost seemed more of a hassle than it was worth, what we decided on was our current design.  We left out any base class, and instead gave each filter its own separate class where it could define how it would apply its filter.  We stuck with this decision because it required less files (no files needed for base class) and ultimately these filters were relatively simple and we didn't want to confuse the matter with a hard to follow inheritance structure.  One thing our group also thought of was picturing the filter as a function that operated on a pixel buffer, and more or less that is what we did.  Since we made our apply_filter method static, we did not ever have to instantiate a filter, this was one thing our group saw as a big benefit to our design.  We did not have to waste any extra memory to instantiate a filter for a one time use, instead we could just operate in place on a pixel buffer.
@@ -114,7 +114,7 @@ Overall we are happy with the design and functionality of our Undo/Redo Mechanic
 > Describe in the form of a tutorial (including code snippets) exactly what changes would need to be made to your program in order to fully integrate this new filter.
 
 Step 1:
-This filter will fall under the category of pixel-independent filters, so the tutorial will be based around looking at the threshold class and building something very similar to it that handles inverting colors.  The first step will be to create a header file for invert.h, this will look very similar to threshold.h with one small change.  The invert filter only needs to be passed a pixel buffer, it has no need for any extra arguments like thresh_amount.  The figure below shows a snippet of threshold.h, when writing invert.h the arguments to apply_filter should just be a pixel buffer.
+This filter will fall under the category of pixel-independent filters, so the tutorial will be based around looking at the threshold class and building something very similar to it that handles inverting colors.  The first step will be to create a header file invert.h, this will look very similar to threshold.h with one small change.  The invert filter only needs to be passed a pixel buffer pointer, it has no need for any extra arguments like thresh_amount.  The figure below shows a snippet of threshold.h, when writing invert.h the arguments to apply_filter should just be a pixel buffer pointer.
 
 ![screen shot 2016-11-19 at 8 48 53 pm](https://media.github.umn.edu/user/5831/files/e7c34228-ae99-11e6-8268-38588dda72ae)
 
@@ -133,8 +133,7 @@ Both invert.h and invert.cc have been created, so it is time to actually create 
 
 ![screen shot 2016-11-19 at 9 04 49 pm](https://media.github.umn.edu/user/5831/files/38b2988a-ae9c-11e6-852c-51caa519f3d7)
 
-
-Now you will have to go into filter_manager.cc and write the details of what this method will do.  Below is a snippet from filter_manager.cc that shows the ApplyThreshold method, you will need to write the implementation details for ApplyInvert.  Remember it should look just like the ApplyThreshold method, but in this case will call Invert's apply_filter statically.  What you are doing in this step is writing a method that will actually apply the filter.
+Now you will have to go into filter_manager.cc and write the details of what this method will do.  Below is a snippet from filter_manager.cc that shows the ApplyThreshold method, you will need to write the implementation details for ApplyInvert.  Remember it should look just like the ApplyThreshold method, but in this case will call Invert's apply_filter method statically.  What you are doing in this step is writing a method that will actually apply the filter.
 
 ![screen shot 2016-11-19 at 9 09 34 pm](https://media.github.umn.edu/user/5831/files/82c3442e-ae9c-11e6-89b1-0560ffd64aad)
 
