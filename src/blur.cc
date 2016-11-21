@@ -39,7 +39,6 @@ void Blur::apply_filter(PixelBuffer* p, float blur_amount) {
   if (bounds % 2 == 0) {
     bounds++;
   }
-  std::cout << bounds << std::endl;
   // Kernel variable declarations
   float blur_frac;
   PixelBuffer filtered_buffer = PixelBuffer(*p);

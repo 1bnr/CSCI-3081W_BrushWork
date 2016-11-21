@@ -132,7 +132,7 @@ class FlashPhotoApp : public BaseGfxApp {
 
   /** List of Pixel Buffers for the state manager */
   std::vector<PixelBuffer*> states_;
-  int cur_state_ = 0;  // Holds the index of the PixelBuffer being displayed
+  unsigned int cur_state_ = 0;  // Holds the index of the PixelBuffer being displayed
 
   // Previous mouse coordinates for interpreting mouse moves
   int mouse_last_x_;
@@ -148,7 +148,7 @@ class FlashPhotoApp : public BaseGfxApp {
   /** TODO implement undo queue */
   void add_buffer_to_undo_stack(PixelBuffer* &current_buffer);
 
-  void maintain_states_stack(int cur_state_);
+  void maintain_states_stack(unsigned int cur_state);
 
   void printStack();
 };

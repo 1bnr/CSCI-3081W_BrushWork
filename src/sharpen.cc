@@ -50,10 +50,10 @@ void Sharpen::apply_filter(PixelBuffer* p, float sharpen_amount) {
       } else {
         kernel2[r][c] = -1;
       }
-      std::cout << kernel2[r][c] << ", ";
+//      std::cout << kernel2[r][c] << ", ";
       kernel.push_back(kernel2[r][c]);
     }
-    std::cout << " " << std::endl;
+//    std::cout << " " << std::endl;
   }
 
   for (int i = 0; i < x; i++) {

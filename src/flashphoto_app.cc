@@ -35,8 +35,10 @@ FlashPhotoApp::FlashPhotoApp(int width, int height) : BaseGfxApp(width, height),
                                                       state_manager_(),
                                                       glui_ctrl_hooks_(),
                                                       display_buffer_(nullptr),
+                                                      stamp_buffer_(nullptr),
                                                       cur_tool_(0),
                                                       tools_(),
+                                                      states_(0),
                                                       mouse_last_x_(0),
                                                       mouse_last_y_(0),
                                                       cur_color_red_(0.0),
@@ -48,6 +50,9 @@ FlashPhotoApp::FlashPhotoApp(int width, int height) : BaseGfxApp(width, height),
 FlashPhotoApp::~FlashPhotoApp(void) {
   if (display_buffer_) {
     delete display_buffer_;
+  }
+  if (stamp_buffer_) {
+    delete stamp_buffer_;
   }
 }
 
@@ -456,9 +461,9 @@ void FlashPhotoApp::add_buffer_to_undo_stack(PixelBuffer* &current_buffer) {
 
 // Handles the case in which we undo and then draw, we need to erase
 // any states after this point because they are overwritten
-void FlashPhotoApp::maintain_states_stack(int cur_state_) {
-  if (cur_state_ != states_.size()-1) {
-    states_.erase(states_.begin()+cur_state_+1, states_.end());
+void FlashPhotoApp::maintain_states_stack(unsigned int cur_state) {
+  if (cur_state != states_.size()-1) {
+    states_.erase(states_.begin()+cur_state+1, states_.end());
     state_manager_.redo_toggle(false);  // again handle toggle
   }
 }
@@ -469,7 +474,7 @@ void FlashPhotoApp::printStack() {
   } else {
     std::cout << "------The Undo Stack-----" << "cur_state_: "
     << cur_state_ << "  display_buffer_:  " << display_buffer_ << std::endl;
-    for (int i = 0; i < states_.size(); i++) {
+    for (unsigned int i = 0; i < states_.size(); i++) {
       std::cout << "|   " << i << "   |   " << states_[i] << "   | "
       << "Width, Height: " << states_[i]->width() << ", "
       << states_[i]->height() << std::endl;

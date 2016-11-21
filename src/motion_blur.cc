@@ -37,13 +37,12 @@ void MotionBlur::apply_filter(PixelBuffer* p, float motion_blur_amount,
   // PixelBuffer height and width
   int x = p->width();
   int y = p->height();
-  std::cout << direction << std::endl;
+//  std::cout << direction << std::endl;
   // Calculate an odd numbered bound based off the input
   int bounds = static_cast<int>(floor(motion_blur_amount));
   if (bounds % 2 == 0) {
     bounds++;
   }
-  std::cout << bounds << std::endl;
   // Kernel variable declarations
   float blur_frac;
   PixelBuffer filtered_buffer = PixelBuffer(*p);
@@ -60,9 +59,9 @@ void MotionBlur::apply_filter(PixelBuffer* p, float motion_blur_amount,
       } else {
         kernel[r][c] = 0.0;
       }
-      std::cout << " , " << kernel[r][c] << " , ";
+//      std::cout << " , " << kernel[r][c] << " , ";
     }
-    std::cout << std::endl;
+//    std::cout << std::endl;
   }
 
   // Main loop through all the pixels in the Pixel Buffer

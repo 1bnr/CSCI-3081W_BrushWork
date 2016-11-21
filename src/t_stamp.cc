@@ -47,8 +47,6 @@ void TStamp::ApplyToBuffer(int tool_x, int tool_y, ColorData tool_color,
     int d_height = buffer->height();  // the display buffer height
     int s_xleft = tool_x - (s_width/2);  // stamp l edge pos in display buffer
     int s_ytop = tool_y - (s_height/2);  // stamp t edge pos in display buffer
-    int s_xright = s_xleft + s_width;  // stamp r edge pos in display buffer
-    int s_ybottom = s_ytop + s_height;  // stamp b edge pos in display buffer
     for (int y = 0; y < s_height; y++) {
       /* bounds check the pixel application */
       if ((s_ytop + y) >= 0 && (s_ytop + y) < d_height) {
