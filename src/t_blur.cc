@@ -18,7 +18,7 @@
 #include <cstdlib>
 #include <string>
 #include "include/color_data.h"
-#define MASK_SIZE 61
+#define MASK_SIZE 35
 
 /*******************************************************************************
  * Namespaces
@@ -66,26 +66,13 @@ void TBlur::ApplyToBuffer(int x, int y, ColorData tool_color,
       int x_offset = x_start + mask_x;
       if (!is_in_bounds(x_offset, y_offset))
         continue;
-
-      /* get the focal pixel data */
       pixel = buffer->get_pixel(x_offset, y_offset);
-
       float mask_filter = mask_array[(MASK_SIZE*mask_y) + mask_x];
-      std::vector<ColorData> samples;
       /* use a kernel radius 3; total kernel width 7 */
-      int kernel_r = 3;
-      /* get the pixels kernel radius from this pixel */
-      samples = get_pixels(x_offset, y_offset, kernel_r, *buffer);
-      int sample_count = samples.size();
-      float sample_div = 1.0/(sample_count + 1);
-      new_pixel = pixel * sample_div;
-      /* if we have samples to blend */
-      if (sample_count > 0) {
-        /* iterate through the sample pixels */
-        std::vector <ColorData>::iterator cd;
-        for (cd = samples.begin(); cd != samples.end(); cd++)
-          new_pixel = (*cd * sample_div)  + new_pixel; /* and mix them */
-      }
+      int kernel_r = 2;
+      /* get the new pixel from the  blur kernel */
+      new_pixel = blur_kernel(x_offset, y_offset, kernel_r, *buffer);
+
       /* mix new_pixel with canvas pixel through the linear fall-off mask */
       new_pixel = (pixel * (1.0 - mask_filter)) + (new_pixel * mask_filter);
       if (is_in_bounds(x_offset, y_offset))
@@ -93,13 +80,15 @@ void TBlur::ApplyToBuffer(int x, int y, ColorData tool_color,
     }
   }
 }
-std::vector<ColorData> TBlur::get_pixels(int x_center, int y_center, int radius,
+/* this is the kernel; get the pixels within radius of x_center, y_center */
+ColorData TBlur::blur_kernel(int x_center, int y_center, int radius,
                                          const PixelBuffer &buffer) {
   int start_x = x_center - radius;
   int end_x = x_center + radius;
   int start_y = y_center - radius;
   int end_y = y_center + radius;
-  std::vector<ColorData> the_pixels;
+  ColorData pixel = buffer.get_pixel(x_center,y_center);
+  std::vector<ColorData> samples;
   for (int y = start_y; y < end_y; y++) {
     if (!is_in_bounds(x_center, y))
       continue;
@@ -110,10 +99,20 @@ std::vector<ColorData> TBlur::get_pixels(int x_center, int y_center, int radius,
       /* collect all the pixels that fall within kernel radius */
       if (sqrt(((x - x_center) * (x - x_center)) +
                ((y - y_center) * (y - y_center))) < radius)
-        the_pixels.push_back(buffer.get_pixel(x, y));
+        samples.push_back(buffer.get_pixel(x, y));
     }
   }
-  return the_pixels;
+  int sample_count = samples.size();
+  float sample_div = 1.0/(sample_count + 1);
+  ColorData new_pixel = pixel * sample_div;
+  /* if we have samples to blend */
+  if (sample_count > 0) {
+    /* iterate through the sample pixels */
+    std::vector <ColorData>::iterator cd;
+    for (cd = samples.begin(); cd != samples.end(); cd++)
+      new_pixel = (*cd * sample_div)  + new_pixel; /* and mix them */
+  }
+  return new_pixel;
 }
 
 /* check that a given point x,y is within the bounds the canvas */

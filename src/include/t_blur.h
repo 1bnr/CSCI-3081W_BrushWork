@@ -43,7 +43,7 @@ class TBlur : public Tool {
   int w_width_;
   int w_height_;
   bool is_in_bounds(int x, int y);
-  std::vector<ColorData> get_pixels(int x_center, int y_center,
+  ColorData blur_kernel(int x_center, int y_center,
                                     int radius, const PixelBuffer &buffer);
 };
 
