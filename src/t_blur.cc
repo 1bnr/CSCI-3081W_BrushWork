@@ -87,7 +87,7 @@ ColorData TBlur::blur_kernel(int x_center, int y_center, int radius,
   int end_x = x_center + radius;
   int start_y = y_center - radius;
   int end_y = y_center + radius;
-  ColorData pixel = buffer.get_pixel(x_center,y_center);
+  ColorData pixel = buffer.get_pixel(x_center, y_center);
   std::vector<ColorData> samples;
   for (int y = start_y; y < end_y; y++) {
     if (!is_in_bounds(x_center, y))
