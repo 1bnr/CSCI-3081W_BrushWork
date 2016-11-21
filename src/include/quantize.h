@@ -37,4 +37,4 @@ class Quantize {
   static void apply_filter(PixelBuffer* p, int buckets);
 };
 }  // namespace image_tools
-#endif  // INCLUDE_QUANTIZE_H_
+#endif  // SRC_INCLUDE_QUANTIZE_H_

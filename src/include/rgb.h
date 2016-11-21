@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_RBG_H_
-#define SRC_INCLUDE_RBG_H_
+#ifndef SRC_INCLUDE_RGB_H_
+#define SRC_INCLUDE_RGB_H_
 
 /*******************************************************************************
  * Includes
@@ -37,4 +37,4 @@ class RGB {
   static void apply_filter(PixelBuffer* p, float red, float blue, float green);
 };
 }  // namespace image_tools
-#endif  // INCLUDE_RGB_H_
+#endif  // SRC_INCLUDE_RGB_H_
