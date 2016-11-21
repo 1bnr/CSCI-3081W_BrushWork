@@ -45,7 +45,7 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
   int bit_depth, color_type;
   png_bytep *row_pointers;
   // open file read only
-  FILE *infile = fopen(file_name.c_str(), "r");
+  FILE *infile = fopen(file_name.c_str(), "rb");
   png_init_io(png_ptr, infile);
   // png_set_sig_bytes(png_ptr, 8); // unused unless reading signature bytes
   png_read_info(png_ptr, info_ptr);
