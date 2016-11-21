@@ -70,6 +70,7 @@ Our design handled the pixel-independent filters very well, but it got a little 
 ### 2.1 Design Description
 Our team decided to implement the undo/redo mechanic using a vector of PixelBuffer pointers called states_ and an int of the current state called cur_state_. We declare both states_ and cur_state_ as private member variables within the flashphoto_app.h file. We decided to imagine that states_ would behave similar to a stack, in that there would be a beginning and an end. We would then modify the current position of the stack by simply incrementing or decrementing the cur_state_ index. The idea is that decrementing cur_state_ by 1 would correlate to undo, and incrementing by 1 would redo. We also decided that we want to save the state of stack right before we modify the canvas. This functionality sets up how we handle the rest of the implementation of undo/redo.
 The code snippet below shows the actual declaration of states_ and cur_state_.
+
 ![screen shot 2016-11-19 at 3 52 10 pm](https://media.github.umn.edu/user/5833/files/3d4e6daa-ae70-11e6-8fd8-bee437882073)
 
 To handle the functionality of adding PixelBuffer pointers to states_ and maintaining states_ we created the functions add_buffer_to_undo_stack() and maintain_states_stack().
@@ -77,17 +78,21 @@ To handle the functionality of adding PixelBuffer pointers to states_ and mainta
 In the code snippet below you can see the add_buffer_to_undo_stack() function. The purpose of this function is to add the state of the program to the states_ stack. It will be called before any action that modifies the display_buffer_. This function takes a PixelBuffer*. All calls to this function will pass display_buffer_ as the parameter because display_buffer_ is always what is currently drawn to the canvas. We then create a copy of current_buffer (display_buffer_) called old_buffer that will hold the current state of the screen when the function was called. Now we simply just use the built in vector function push_back() to add this copy to the end of our states_ stack. After pushing, we increment the
 cur_state_ index so that we are at the correct position in the stack and then set the current_buffer pointer to the
 states_[cur_state] pointer. The last part of the function is to check if the undo toggle should be enabled. At the end of the function the application has now successfully saved the current display_buffer_ and any new operations can be drawn to the screen.
+
 ![screen shot 2016-11-19 at 5 16 43 pm](https://media.github.umn.edu/user/5833/files/070f6cb0-ae7c-11e6-8ad4-ef4710fa41fc)
 
 The purpose of the maintain_states_stack() function is to handle the case in which the user has clicked undo and then modifies the canvas in some way. When this occurs all changes that had been undid to that point should be erased, but previous states should stay intact. The code snippet below shows how we implemented this. The case in which we need to erase from the states_ stack will only occur if the cur_state_ is not at the end of the stack. The if statement checks this case. If we do need to delete, we use the built in vector function erase(). We erase everything from after the current state to the end of the stack. At this point the user now can no longer redo, so we disable the redo toggle.
+
 ![screen shot 2016-11-19 at 5 16 55 pm](https://media.github.umn.edu/user/5833/files/07180924-ae7c-11e6-9ab4-b2ea3a5d165b)
 
 The second fundamental part of the undo/redo design is the StateManager class. While this function was provided in support code, it was up to us to determine how we would implement the functionality. We decided that the functions UndoOperation() and RedoOperation() would be called to switch the application PixelBuffer* display_buffer_ to a saved PixelBuffer* state in the states_ stack. As described at the beginning of this section, we wanted that to be as simple as incrementing or decrementing cur_state_ by 1.
 
 The code snippet below shows how we implemented this functionality. Because add_to_undo_stack() and maintain_states_stack() correctly build and maintain the states_ stack and the cur_state_ index all we need to do is modify which states_ PixelBuffer*  display_buffer_ is set to. As you can see in the code we pass in the needed parameters and then set them according to either the previous or next index in states_.
+
 ![screen shot 2016-11-19 at 7 05 10 pm](https://media.github.umn.edu/user/5833/files/26943976-ae8b-11e6-90ce-0afd82a4c1ee)
 
 The last part of our design for undo/redo is how we actually call these functions. Any action that modifies the screen (tools, filters, loading images), we make our calls to add_buffer_to_undo_stack() and maintain_states_stack(). The code snippet below is an example of how we handle states_ when a filter is to be applied to the screen.
+
 ![screen shot 2016-11-19 at 7 12 52 pm](https://media.github.umn.edu/user/5833/files/3cac6ade-ae8c-11e6-97fe-6292b4ac62f5)
 
 ### 2.2 Design Justification
