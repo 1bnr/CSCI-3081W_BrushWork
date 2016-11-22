@@ -147,11 +147,11 @@ You have written the header/implementation details for invert, and also created 
 
 ![screen shot 2016-11-19 at 9 12 07 pm](https://media.github.umn.edu/user/5831/files/6570a492-ae9d-11e6-88a0-9e64b957d075)
 
-Now we only need to add a button to apply the filter. At the bottom of the InitGlui method of the in filter_manager.cc we need to add a new panel and button for the filter. Since invert only needs a single button, the code for the special filter is a perfect model to follow:
+Now we only need to add a button to apply the filter. At the bottom of the InitGlui method in filter_manager.cc we need to add a new panel and button for the filter. Since invert only needs a single button, the code for the special filter is a perfect model to follow:
 
 ![gui](https://media.github.umn.edu/user/4475/files/0f86bf32-b026-11e6-872e-cfe0a799e88b)
 
-Instead of "Special Filter" in the second arguement of the  GLUI_Panel method, enter "Invert Colors" or what ever you want the panel to say. And the name of the GLUI_Panel should be changed to a "invert_filter" or a similarly descriptive, but unique name. The GLUI_Button on the new panel needs to be linked to the panel with the first arguement matching the name assigned to the panel object; leave the second and fourth arguements alone, but change the third one to UI_APPLY_INVERT. We need to add a matching the entry to the callback in the unum type in ui_ctrl.h. 
+Instead of "Special Filter" in the second arguement of the  GLUI_Panel method, enter "Invert Colors" or what ever you want the panel to say. And the name of the GLUI_Panel should be changed to a "invert_filter" or a similarly descriptive, but unique name. The GLUI_Button on the new panel needs to be linked to the panel with the first arguement matching the name assigned to the panel object; leave the second and fourth arguements alone, but change the third one to UI_APPLY_INVERT, matching the callback we set preveously in filter_manager.h. We also need to add a matching entry to the callback in the unum type in ui_ctrl.h. 
 
 
 If these steps are executed properly you should now have a fully functioning invert filter.
