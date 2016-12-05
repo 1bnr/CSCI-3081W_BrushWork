@@ -29,14 +29,14 @@
 # doc/      - Directory where all documentation lives
 # config/   - Directory for all autoconf/configure/automake inputs/output
 # tests/    - Root of test code directory
-export BUILDROOT = $(realpath ./build)
-export SRCROOT   = $(realpath ./src)
+export BUILDROOT = $(readlink ./build)
+export SRCROOT   = $(readlink ./src)
 export SRCDIR   = ./src
-export EXTDIR   = $(realpath ./ext)
+export EXTDIR   = $(readlink ./ext)
 export GLUIDIR  = $(EXTDIR)/glui
 export JPEGDIR  = $(EXTDIR)/jpeg-9a
 export PNGDIR   = $(EXTDIR)/libpng-1.6.16
-export LIBIMGTOOLS_DIR = $(realpath $(SRCROOT)/lib/libimgtools)
+export LIBIMGTOOLS_DIR = $(readlink $(SRCROOT)/lib/libimgtools)
 export BINDIR   = $(BUILDROOT)/bin
 export LIBDIR   = $(BUILDROOT)/lib
 CONFIGDIR       = ./config
@@ -157,18 +157,23 @@ export CXXLIBS
 all: libimgtools FlashPhoto MIA
 
 install: all
+	@echo "here"
 	$(MAKE) -C$(LIBIMGTOOLS_DIR)
 	$(MAKE) -Csrc/app/MIA install
 	$(MAKE) -Csrc/app/FlashPhoto install
 
 libimgtools: | $(EXTDIR)/lib/libpng.a $(LIBDIR)
-	$(MAKE) -C$(LIBIMGTOOLS_DIR) install
+	@echo "here2"
+	$(MAKE) -C$(LIBIMGTOOLS_DIR) install ext
 
 $(EXTDIR)/lib/libglui.a:
+	@echo "here3"
 	$(MAKE) -C$(GLUIDIR) install
 $(EXTDIR)/lib/libpng.a:
+	@echo "here4"
 	$(MAKE) -C$(PNGDIR) install
 $(EXTDIR)/lib/libjpeg.a:
+	@echo "here5"
 	$(MAKE) -C$(JPEGDIR) install
 
 FlashPhoto: libimgtools $(EXTDIR)/lib/libglui.a| $(BINDIR)
