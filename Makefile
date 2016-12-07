@@ -121,10 +121,10 @@ export CXXINCDIRS
 # This is specified differently depending on whether we are on linux or OSX.
 UNAME = $(shell uname)
 ifeq ($(UNAME), Darwin) # Mac OSX
-#CXXLIBS += -limgtools # FIXME: UNCOMMENT THIS LINE WHEN LIMGTOOLS WORKS
+CXXLIBS += -limgtools 
 CXXLIBS += -ljpeg -lpng -lz -framework glut -framework opengl -lglui 
 else # LINUX
-#CXXLIBS += -limgtools # FIXME: UNCOMMENT THIS LINE WHEN LIMGTOOLS WORKS
+CXXLIBS += -limgtools 
 CXXLIBS +=  -lpng -ljpeg -lz -lGL -lGLU -lglui -lglut 
 CXXFLAGS += -fopenmp
 endif
@@ -168,19 +168,21 @@ install: all
 
 libimgtools: | $(EXTDIR)/lib/libpng.a $(LIBDIR)
 	@echo "here2"
-	$(MAKE) -C$(LIBIMGTOOLS_DIR) install $(EXTDIR)
+	$(MAKE) -C$(LIBIMGTOOLS_DIR) install
+	@echo "here3"
 
 $(EXTDIR)/lib/libglui.a:
 	@echo "here3"
-	$(MAKE) -C$(GLUIDIR) install $(EXTDIR)
+	$(MAKE) -C$(GLUIDIR) install
 $(EXTDIR)/lib/libpng.a:
 	@echo "here4"
-	$(MAKE) -C$(PNGDIR) install $(EXTDIR)
+	$(MAKE) -C$(PNGDIR) install
 $(EXTDIR)/lib/libjpeg.a:
 	@echo "here5"
-	$(MAKE) -C$(JPEGDIR) install $(EXTDIR)
+	$(MAKE) -C$(JPEGDIR) install
 
 FlashPhoto: libimgtools $(EXTDIR)/lib/libglui.a| $(BINDIR)
+	@echo "here4"
 	$(MAKE) -Csrc/app/FlashPhoto
 MIA: libimgtools $(EXTDIR)/lib/libglui.a | $(BINDIR)
 	$(MAKE) -Csrc/app/MIA

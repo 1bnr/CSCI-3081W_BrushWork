@@ -105,6 +105,7 @@ $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
 # The Target Library.
 $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(LIBDIR)
 	echo "FIXME: Creating libimgtools..."
+	ar rcs $@ $(addprefix $(OBJDIR)/, $(OBJECTS_CXX))
 
 install: $(TARGET)
 	@rm -rf $(BUILDROOT)/lib/$(notdir $(shell pwd)).a
