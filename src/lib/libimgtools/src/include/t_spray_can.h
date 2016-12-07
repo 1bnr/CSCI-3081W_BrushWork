@@ -9,15 +9,15 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_T_SPRAY_CAN_H_
-#define SRC_INCLUDE_T_SPRAY_CAN_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_SPRAY_CAN_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_SPRAY_CAN_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <string>
-#include "include/tool.h"
-#include "include/m_linear.h"
+#include "tool.h"
+#include "m_linear.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -39,4 +39,4 @@ class TSprayCan : public Tool {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_T_SPRAY_CAN_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_SPRAY_CAN_H_ */

@@ -16,7 +16,7 @@
 #include <cstdlib>
 #include <string>
 #include <iostream>
-#include "include/flashphoto_app.h"
+// #include "include/flashphoto_app.h"
 #include "include/t_stamp.h"
 #include "include/file_io.h"
 #include "include/m_constant.h"

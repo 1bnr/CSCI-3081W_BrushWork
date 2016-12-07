@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_FILE_IO_H_
-#define SRC_INCLUDE_FILE_IO_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <string>
-#include "include/pixel_buffer.h"
+#include "pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -40,4 +40,4 @@ class FileIo {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_FILE_IO_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_H_ */

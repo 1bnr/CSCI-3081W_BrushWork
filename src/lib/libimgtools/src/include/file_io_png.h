@@ -9,16 +9,16 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_FILE_IO_PNG_H_
-#define SRC_INCLUDE_FILE_IO_PNG_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_PNG_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_PNG_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <png.h>
 #include <string>
-#include "include/file_io.h"
-#include "include/pixel_buffer.h"
+#include "file_io.h"
+#include "pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -41,4 +41,4 @@ class FileIoPng : public FileIo {
 };
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_FILE_IO_PNG_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_PNG_H_ */

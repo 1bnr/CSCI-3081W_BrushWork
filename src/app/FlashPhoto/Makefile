@@ -104,9 +104,12 @@ $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)): | $(OBJDIR)
 
 # The Target Library.
 $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(BINDIR)
+	@echo "we are here"
+	@echo"print this" $(CXXLIBDIRS)
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) -o $@ $(CXXLIBS)
 
 install: $(TARGET)
+	@echo "we are here2"
 	@cd $(BUILDROOT)/bin && ln -s ../$(notdir $(shell pwd))/bin/$(notdir $(shell pwd))
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
@@ -138,5 +141,6 @@ documentation:
 # rules for the includes for the .cc file, as they may have changed since the
 # last invocation of make.
 $(OBJDIR)/%.o: $(SRCDIR)/%.cc
+	echo "in FlashPhoto"
 	@$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) -c -o  $@ $<

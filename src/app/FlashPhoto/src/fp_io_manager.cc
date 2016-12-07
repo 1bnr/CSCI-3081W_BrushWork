@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : io_manager.cc
+ * Name            : fp_io_manager.cc
  * Project         : FlashPhoto
  * Module          : io_manager
  * Description     : Implementation of IOManager class
@@ -14,12 +14,12 @@
  ******************************************************************************/
 #include <iostream>
 #include <string>
-#include "include/ui_ctrl.h"
-#include "include/pixel_buffer.h"
-#include "include/file_io.h"
-#include "include/io_manager.h"
-#include "include/file_io_jpg.h"
-#include "include/file_io_png.h"
+#include "fp_ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/pixel_buffer.h"
+#include "../../../lib/libimgtools/src/include/file_io.h"
+#include "fp_io_manager.h"
+#include "../../../lib/libimgtools/src/include/file_io_jpg.h"
+#include "../../../lib/libimgtools/src/include/file_io_png.h"
 
 /*******************************************************************************
  * Namespaces

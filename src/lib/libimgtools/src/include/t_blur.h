@@ -9,16 +9,16 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_T_BLUR_H_
-#define SRC_INCLUDE_T_BLUR_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_BLUR_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_BLUR_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <string>
 #include <vector>
-#include "include/tool.h"
-#include "include/m_linear.h"
+#include "tool.h"
+#include "m_linear.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -49,4 +49,4 @@ class TBlur : public Tool {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_T_BLUR_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_BLUR_H_ */

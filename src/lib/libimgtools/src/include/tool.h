@@ -9,16 +9,16 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_TOOL_H_
-#define SRC_INCLUDE_TOOL_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_TOOL_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_TOOL_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <string>
-#include "include/pixel_buffer.h"
-#include "include/color_data.h"
-#include "include/mask.h"
+#include "pixel_buffer.h"
+#include "color_data.h"
+#include "mask.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -98,4 +98,4 @@ class Tool {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_TOOL_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_TOOL_H_ */

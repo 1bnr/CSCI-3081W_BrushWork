@@ -9,13 +9,13 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_M_LINEAR_H_
-#define SRC_INCLUDE_M_LINEAR_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_M_LINEAR_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_M_LINEAR_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/mask.h"
+#include "mask.h"
 
 /*******************************************************************************
  * Namespaces
@@ -39,4 +39,4 @@ class MLinear : public Mask {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_M_LINEAR_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_M_LINEAR_H_ */

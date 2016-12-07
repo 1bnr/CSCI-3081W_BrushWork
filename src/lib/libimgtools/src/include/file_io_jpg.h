@@ -9,16 +9,16 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_FILE_IO_JPG_H_
-#define SRC_INCLUDE_FILE_IO_JPG_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_JPG_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_JPG_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <jpeglib.h>
 #include <string>
-#include "include/file_io.h"
-#include "include/pixel_buffer.h"
+#include "file_io.h"
+#include "pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -50,4 +50,4 @@ typedef struct my_error_mgr * my_error_ptr;
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_FILE_IO_JPG_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_FILE_IO_JPG_H_ */

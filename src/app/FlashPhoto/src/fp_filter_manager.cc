@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : filter_manager.cc
+ * Name            : fp_filter_manager.cc
  * Project         : FlashPhoto
  * Module          : filter_manager
  * Description     : Implementation of FilterManager class
@@ -12,9 +12,9 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/filter_manager.h"
+#include "fp_filter_manager.h"
 #include <iostream>
-#include "include/ui_ctrl.h"
+#include "fp_ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces

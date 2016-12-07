@@ -175,7 +175,7 @@ $(EXTDIR)/lib/libglui.a:
 	@echo "here3"
 	$(MAKE) -C$(GLUIDIR) install
 $(EXTDIR)/lib/libpng.a:
-	@echo "here4"
+	@echo "here10"
 	$(MAKE) -C$(PNGDIR) install
 $(EXTDIR)/lib/libjpeg.a:
 	@echo "here5"

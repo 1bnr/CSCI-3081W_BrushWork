@@ -84,6 +84,7 @@ TARGET = $(LIBDIR)/$(notdir $(shell pwd)).a
 # The default target which will be run if the user just types "make" without a
 # target name
 all: $(TARGET)
+	echo "start"
 
 # Unless invoked with make clean, include generated dependencies. This makes
 # it so that anytime you make an edit in a .h file, make will know that all
@@ -108,6 +109,7 @@ $(TARGET): $(addprefix $(OBJDIR)/, $(OBJECTS_CXX)) | $(LIBDIR)
 	ar rcs $@ $(addprefix $(OBJDIR)/, $(OBJECTS_CXX))
 
 install: $(TARGET)
+	@echo "back here"
 	@rm -rf $(BUILDROOT)/lib/$(notdir $(shell pwd)).a
 	@cd $(BUILDROOT)/lib && ln -s ../$(notdir $(shell pwd))/lib/$(notdir $(shell pwd)).a
 
@@ -140,5 +142,6 @@ documentation:
 # rules for the includes for the .cc file, as they may have changed since the
 # last invocation of make.
 $(OBJDIR)/%.o: $(SRCDIR)/%.cc
+	echo "start"
 	@$(call make-depend-cxx,$<,$@,$(subst .o,.d,$@))
 	$(CXX) $(CXXFLAGS) $(CXXLIBDIRS) -c -o  $@ $<

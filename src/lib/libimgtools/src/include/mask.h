@@ -9,8 +9,8 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_MASK_H_
-#define SRC_INCLUDE_MASK_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MASK_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MASK_H_
 
 /*******************************************************************************
  * Namespaces
@@ -93,4 +93,4 @@ class Mask {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_MASK_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MASK_H_ */

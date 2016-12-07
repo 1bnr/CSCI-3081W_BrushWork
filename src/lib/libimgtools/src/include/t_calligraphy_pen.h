@@ -9,15 +9,15 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_T_CALLIGRAPHY_PEN_H_
-#define SRC_INCLUDE_T_CALLIGRAPHY_PEN_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_CALLIGRAPHY_PEN_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_CALLIGRAPHY_PEN_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include <string>
-#include "include/tool.h"
-#include "include/m_oval.h"
+#include "tool.h"
+#include "m_oval.h"
 
 /*******************************************************************************
  * Namespace Definitions
@@ -42,4 +42,4 @@ class TCalligraphyPen : public Tool {
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_INCLUDE_T_CALLIGRAPHY_PEN_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_T_CALLIGRAPHY_PEN_H_ */

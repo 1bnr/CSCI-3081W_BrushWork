@@ -9,14 +9,14 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_INCLUDE_MOTION_BLUR_H_
-#define SRC_INCLUDE_MOTION_BLUR_H_
+#ifndef SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MOTION_BLUR_H_
+#define SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MOTION_BLUR_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "include/color_data.h"
-#include "include/pixel_buffer.h"
+#include "color_data.h"
+#include "pixel_buffer.h"
 
  /*******************************************************************************
  * Namespaces
@@ -38,4 +38,4 @@ class MotionBlur {
                            int direction);
 };
 }  // namespace image_tools
-#endif  // SRC_INCLUDE_MOTION_BLUR_H_
+#endif  // SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_MOTION_BLUR_H_
