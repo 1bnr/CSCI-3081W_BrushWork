@@ -223,7 +223,7 @@ void MIAApp::GluiControl(int control_id) {
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
       add_buffer_to_undo_stack(display_buffer_);
-      filter_manager_.ApplySaturate(display_buffer_);
+      filter_manager_.ApplyGrayscale(display_buffer_);
       break;
     case UICtrl::UI_APPLY_QUANTIZE:
       maintain_states_stack(cur_state_);
