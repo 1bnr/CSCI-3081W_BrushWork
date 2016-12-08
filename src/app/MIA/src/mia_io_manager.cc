@@ -58,6 +58,7 @@ void MIAIOManager::InitGlui(const GLUI *const glui,
 }
 
 PixelBuffer * MIAIOManager::InitStamp(std::string stamp) {
+  std::cout << stamp << std::endl;
   PixelBuffer * new_buffer;
   FileIo * file_io;
   std::string file_suffix = stamp.substr(stamp.find_last_of(".") + 1);
@@ -87,6 +88,7 @@ void MIAIOManager::LoadPreviousImage(void) {
 PixelBuffer * MIAIOManager::LoadImageToCanvas(void) {
   PixelBuffer * new_buffer;
   FileIo * file_io;
+  std::cout << file_name_ << std::endl;
   std::string file_suffix = file_name_.substr(file_name_.find_last_of(".") + 1);
   if (file_suffix.compare("png") == 0) {
     file_io = new FileIoPng();

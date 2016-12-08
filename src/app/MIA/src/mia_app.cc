@@ -74,12 +74,15 @@ void MIAApp::Init(
   // Initialize Interface
   InitializeBuffers(background_color, width(), height());
 
-  // Create array of tools and populate
-  for (int i = 0; i < ToolFactory::num_tools(); i++) {
-    Tool* t = ToolFactory::CreateTool(i);
-    assert(t);
-    tools_.push_back(t);
-  }
+  // Create array of Tools to have marker and stamp
+  Tool* pen = ToolFactory::CreateTool(0);
+  assert(pen);
+  tools_.push_back(pen);
+  Tool* marker = ToolFactory::CreateTool(6);
+  assert(marker);
+  tools_.push_back(marker);
+
+
   InitGlui();
   InitGraphics();
 }
@@ -135,6 +138,7 @@ void MIAApp::MouseDragged(int x, int y) {
 }
 
 void MIAApp::LeftMouseDown(int x, int y) {
+  std::cout << cur_tool_ << std::endl;
   maintain_states_stack(cur_state_);
   add_buffer_to_undo_stack(display_buffer_);
   tools_[cur_tool_]->ApplyToBuffer(x, height()-y,
@@ -157,7 +161,7 @@ void MIAApp::InitializeBuffers(ColorData background_color,
   PixelBuffer * mb;  // new buffer
   mb = io_manager_.InitStamp(marker_fname_);
   // Set the stamp buffer to NULL; check before applying
-  stamp_buffer_ = NULL;
+  stamp_buffer_ = mb;
 }
 
 void MIAApp::InitGlui(void) {
@@ -249,16 +253,6 @@ void MIAApp::GluiControl(int control_id) {
         maintain_states_stack(cur_state_);
         // Save the new buffer with the image to the undo state
         add_buffer_to_undo_stack(display_buffer_);
-      }
-      break;
-    case UICtrl::UI_LOAD_STAMP_BUTTON:
-      PixelBuffer * sb;  // new buffer
-      sb = io_manager_.LoadImageToCanvas();
-      // if image loaded successfully, send it to the stamp buffer
-      if (sb != NULL) {
-        stamp_buffer_ = sb;
-      } else {
-        std::cout << "load stamp failed.\n";
       }
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
