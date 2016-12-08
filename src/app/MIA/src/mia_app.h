@@ -21,7 +21,8 @@
 #include "../../../lib/libimgtools/src/include/color_data.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 #include "mia_filter_manager.h"
-//#include "io_manager.h"
+#include "mia_io_manager.h"
+#include "../../../lib/libimgtools/src/include/io_manager.h"
 #include "../../../lib/libimgtools/src/include/ui_ctrl.h"
 #include "../../../lib/libimgtools/src/include/state_manager.h"
 #include "../../../lib/libimgtools/src/include/tool.h"
@@ -98,7 +99,7 @@ class MIAApp : public BaseGfxApp {
   /**
    * @brief Manager for all I/O operations
    */
-  // MIAIOManager io_manager_;
+  MIAIOManager io_manager_;
 
   /**
    * @brief Manager for redo/undo stack

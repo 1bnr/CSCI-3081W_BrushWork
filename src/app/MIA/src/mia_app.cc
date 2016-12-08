@@ -32,7 +32,7 @@ namespace image_tools {
  ******************************************************************************/
 MIAApp::MIAApp(int width, int height, const std::string& marker_fname) : BaseGfxApp(width, height),
                                                       filter_manager_(),
-                                                      // io_manager_(),
+                                                      io_manager_(),
                                                       state_manager_(),
                                                       // glui_ctrl_hooks_(),
                                                       display_buffer_(nullptr),
@@ -184,7 +184,7 @@ void MIAApp::InitGlui(void) {
   filter_manager_.InitGlui(glui(), s_gluicallback);
 
   /* Initialize image I/O */
-  // io_manager_.InitGlui(glui(), s_gluicallback);
+  io_manager_.InitGlui(glui(), s_gluicallback);
   return;
 }
 
@@ -231,48 +231,48 @@ void MIAApp::GluiControl(int control_id) {
       add_buffer_to_undo_stack(display_buffer_);
       filter_manager_.ApplyQuantize(display_buffer_);
       break;
-    // case UICtrl::UI_FILE_BROWSER:
-    //   io_manager_.set_image_file(io_manager_.file_browser()->get_file());
-    //   break;
-    // case UICtrl::UI_LOAD_CANVAS_BUTTON:
-    //   std::cout << "REDO CLICKED" << std::endl;
-    //   PixelBuffer * nb;  // new buffer
-    //   nb = io_manager_.LoadImageToCanvas();
-    //   // if image loaded successfully, send it to the display
-    //   if (nb != NULL) {
-    //     // Set the window dimensions to the state that was just restored
-    //     SetWindowDimensions(nb->width(), nb->height());
-    //     display_buffer_ = nb;
-    //     // Handle the case which we are not at the end of the undo stack
-    //     maintain_states_stack(cur_state_);
-    //     // Save the new buffer with the image to the undo state
-    //     add_buffer_to_undo_stack(display_buffer_);
-    //   }
-    //   break;
-    // case UICtrl::UI_LOAD_STAMP_BUTTON:
-    //   PixelBuffer * sb;  // new buffer
-    //   sb = io_manager_.LoadImageToCanvas();
-    //   // if image loaded successfully, send it to the stamp buffer
-    //   if (sb != NULL) {
-    //     stamp_buffer_ = sb;
-    //   } else {
-    //     std::cout << "load stamp failed.\n";
-    //   }
-    //   break;
-    // case UICtrl::UI_SAVE_CANVAS_BUTTON:
-    //   io_manager_.SaveCanvasToFile(display_buffer_, io_manager_.file_name());
-    //   // Reload the current directory:
-    //   io_manager_.file_browser()->fbreaddir(".");
-    //   break;
-    // case UICtrl::UI_NEXT_IMAGE_BUTTON:
-    //   io_manager_.LoadNextImage();
-    //   break;
-    // case UICtrl::UI_PREV_IMAGE_BUTTON:
-    //   io_manager_.LoadPreviousImage();
-    //   break;
-    // case UICtrl::UI_FILE_NAME:
-    //   io_manager_.set_image_file(io_manager_.file_name());
-    //   break;
+    case UICtrl::UI_FILE_BROWSER:
+      io_manager_.set_image_file(io_manager_.file_browser()->get_file());
+      break;
+    case UICtrl::UI_LOAD_CANVAS_BUTTON:
+      std::cout << "REDO CLICKED" << std::endl;
+      PixelBuffer * nb;  // new buffer
+      nb = io_manager_.LoadImageToCanvas();
+      // if image loaded successfully, send it to the display
+      if (nb != NULL) {
+        // Set the window dimensions to the state that was just restored
+        SetWindowDimensions(nb->width(), nb->height());
+        display_buffer_ = nb;
+        // Handle the case which we are not at the end of the undo stack
+        maintain_states_stack(cur_state_);
+        // Save the new buffer with the image to the undo state
+        add_buffer_to_undo_stack(display_buffer_);
+      }
+      break;
+    case UICtrl::UI_LOAD_STAMP_BUTTON:
+      PixelBuffer * sb;  // new buffer
+      sb = io_manager_.LoadImageToCanvas();
+      // if image loaded successfully, send it to the stamp buffer
+      if (sb != NULL) {
+        stamp_buffer_ = sb;
+      } else {
+        std::cout << "load stamp failed.\n";
+      }
+      break;
+    case UICtrl::UI_SAVE_CANVAS_BUTTON:
+      io_manager_.SaveCanvasToFile(display_buffer_, io_manager_.file_name());
+      // Reload the current directory:
+      io_manager_.file_browser()->fbreaddir(".");
+      break;
+    case UICtrl::UI_NEXT_IMAGE_BUTTON:
+      io_manager_.LoadNextImage();
+      break;
+    case UICtrl::UI_PREV_IMAGE_BUTTON:
+      io_manager_.LoadPreviousImage();
+      break;
+    case UICtrl::UI_FILE_NAME:
+      io_manager_.set_image_file(io_manager_.file_name());
+      break;
     case UICtrl::UI_UNDO:
       std::cout << "UNDO CLICKED" << std::endl;
       state_manager_.UndoOperation(display_buffer_, states_, cur_state_);
