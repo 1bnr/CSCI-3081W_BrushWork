@@ -42,7 +42,7 @@ namespace image_tools {
  **/
 class MIAApp : public BaseGfxApp {
  public:
-  MIAApp(int width, int height, const std::string& marker_fname);
+  MIAApp(int width, int height, std::string marker_fname);
   virtual ~MIAApp(void);
 
   void MouseDragged(int x, int y);
@@ -120,14 +120,14 @@ class MIAApp : public BaseGfxApp {
   std::vector<PixelBuffer*> states_;
   unsigned int cur_state_ = 0;  // Holds the index of the PixelBuffer being displayed
 
-  
+
   // The path to the marker file
   std::string marker_fname_;
-  
+
   // Previous mouse coordinates for interpreting mouse moves
   int mouse_last_x_;
   int mouse_last_y_;
-  
+
   /** TODO implement undo queue */
   void add_buffer_to_undo_stack(PixelBuffer* &current_buffer);
 
