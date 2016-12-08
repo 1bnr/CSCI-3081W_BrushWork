@@ -15,7 +15,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "filter_manager.h"
+#include "../../../lib/libimgtools/src/include/filter_manager.h"
 #include "GL/glui.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 #include "../../../lib/libimgtools/src/include/ui_ctrl.h"
