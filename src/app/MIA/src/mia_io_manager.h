@@ -52,6 +52,8 @@ class MIAIOManager : public IOManager {
   void InitGlui(const GLUI *const glui,
                        void (*s_gluicallback)(int));
 
+  PixelBuffer * InitStamp(std::string stamp);
+
   PixelBuffer * LoadImageToCanvas(void);
   void LoadNextImage(void);
   void LoadPreviousImage(void);

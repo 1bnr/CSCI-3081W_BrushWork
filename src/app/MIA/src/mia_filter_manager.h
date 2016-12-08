@@ -50,7 +50,7 @@ class MIAFilterManager : public FilterManager {
    */
   void ApplyGrayscale(PixelBuffer* p);
 
-  GLUI_Panel* InitGlui(const GLUI *const glui,
+  void InitGlui(const GLUI *const glui,
                        void (*s_gluicallback)(int));
 };
 

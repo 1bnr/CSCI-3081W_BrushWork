@@ -57,6 +57,23 @@ void MIAIOManager::InitGlui(const GLUI *const glui,
   prev_image_toggle(false);
 }
 
+PixelBuffer * MIAIOManager::InitStamp(std::string stamp) {
+  PixelBuffer * new_buffer;
+  FileIo * file_io;
+  std::string file_suffix = stamp.substr(stamp.find_last_of(".") + 1);
+  if (file_suffix.compare("png") == 0) {
+    file_io = new FileIoPng();
+  } else if ((file_suffix.compare("jpg") == 0) ||
+             (file_suffix.compare("jpeg") == 0)) {
+    file_io = new FileIoJpg();
+  } else {  // wrong file type;
+    return NULL;  // check for null on return
+  }
+  new_buffer = new PixelBuffer(file_io->load_image(stamp));
+  free(file_io);
+  return new_buffer;
+}
+
 void MIAIOManager::LoadNextImage(void) {
   set_image_file(next_file_name_);
   // LoadImageToCanvas();

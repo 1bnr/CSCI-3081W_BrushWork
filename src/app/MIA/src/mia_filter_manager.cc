@@ -35,7 +35,7 @@ void MIAFilterManager::ApplyGrayscale(PixelBuffer* p) {
   Saturate::apply_filter(p, 0.0f);
 }
 
-GLUI_Panel* MIAFilterManager::InitGlui(const GLUI *const glui,
+void MIAFilterManager::InitGlui(const GLUI *const glui,
                              void (*s_gluicallback)(int)) {
   new GLUI_Column(const_cast<GLUI*>(glui), true);
   GLUI_Panel *filter_panel = new GLUI_Panel(const_cast<GLUI*>(glui), "Filters");
@@ -54,11 +54,8 @@ GLUI_Panel* MIAFilterManager::InitGlui(const GLUI *const glui,
       UICtrl::UI_APPLY_SATURATE,
       s_gluicallback);
     }
-    AddChannelToGLUI(filter_panel, s_gluicallback);
     AddQuantizationToGLUI(filter_panel, s_gluicallback);
   }
-
-  return filter_panel;
 } /* MIAFilterManager::InitGlui() */
 
 }  /* namespace image_tools */

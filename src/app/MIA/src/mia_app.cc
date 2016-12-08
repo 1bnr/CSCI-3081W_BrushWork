@@ -154,6 +154,8 @@ void MIAApp::InitializeBuffers(ColorData background_color,
   display_buffer_ = new PixelBuffer(width, height, background_color);
   // Add initial blank state
   states_.push_back(display_buffer_);
+  PixelBuffer * mb;  // new buffer
+  mb = io_manager_.InitStamp(marker_fname_);
   // Set the stamp buffer to NULL; check before applying
   stamp_buffer_ = NULL;
 }
