@@ -20,10 +20,10 @@
 #include "../../../lib/libimgtools/src/include/base_gfx_app.h"
 #include "../../../lib/libimgtools/src/include/color_data.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
-#include "fp_filter_manager.h"
-#include "fp_io_manager.h"
-#include "fp_ui_ctrl.h"
-#include "fp_state_manager.h"
+#include "filter_manager.h"
+#include "io_manager.h"
+#include "ui_ctrl.h"
+#include "state_manager.h"
 #include "../../../lib/libimgtools/src/include/tool.h"
 /*******************************************************************************
  * Namespaces

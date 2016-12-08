@@ -12,8 +12,9 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "src/app/MIA/src/mia_filter_manager.h"
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
+#include "mia_filter_manager.h"
+#include <iostream>
+#include "../../FlashPhoto/src/ui_ctrl.h"
 
 /*******************************************************************************
  * Namespaces
@@ -34,10 +35,10 @@ GLUI_Panel* MIAFilterManager::InitGlui(const GLUI *const glui,
   new GLUI_Column(const_cast<GLUI*>(glui), true);
   GLUI_Panel *filter_panel = new GLUI_Panel(const_cast<GLUI*>(glui), "Filters");
   {
-    AddSharpenToGLUI(filter_panel, s_gluicallback);
-    AddEdgeDetectToGLUI(filter_panel, s_gluicallback);
-    AddThresholdToGLUI(filter_panel, s_gluicallback);
-    AddBlurToGLUI(filter_panel, s_gluicallback);
+    // AddSharpenToGLUI(filter_panel, s_gluicallback);
+    // AddEdgeDetectToGLUI(filter_panel, s_gluicallback);
+    // AddThresholdToGLUI(filter_panel, s_gluicallback);
+    // AddBlurToGLUI(filter_panel, s_gluicallback);
 
     new GLUI_Column(filter_panel, true);
     // AddSaturationToGLUI(filter_panel, s_gluicallback);
@@ -48,8 +49,8 @@ GLUI_Panel* MIAFilterManager::InitGlui(const GLUI *const glui,
       UICtrl::UI_APPLY_SATURATE,
       s_gluicallback);
     }
-    AddChannelToGLUI(filter_panel, s_gluicallback);
-    AddQuantizationToGLUI(filter_panel, s_gluicallback);
+    // AddChannelToGLUI(filter_panel, s_gluicallback);
+    // AddQuantizationToGLUI(filter_panel, s_gluicallback);
   }
 
   return filter_panel;

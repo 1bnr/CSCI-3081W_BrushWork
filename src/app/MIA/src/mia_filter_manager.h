@@ -15,7 +15,16 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
+#include "../../FlashPhoto/src/filter_manager.h"
+#include "GL/glui.h"
+#include "../../../lib/libimgtools/src/include/pixel_buffer.h"
+#include "../../FlashPhoto/src/ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/threshold.h"
+#include "../../../lib/libimgtools/src/include/saturate.h"
+#include "../../../lib/libimgtools/src/include/quantize.h"
+#include "../../../lib/libimgtools/src/include/edge_detect.h"
+#include "../../../lib/libimgtools/src/include/blur.h"
+#include "../../../lib/libimgtools/src/include/sharpen.h"
 
 /*******************************************************************************
  * Namespaces

@@ -17,7 +17,14 @@
  ******************************************************************************/
 #include <string>
 
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
+#include "../../../lib/libimgtools/src/include/base_gfx_app.h"
+#include "../../../lib/libimgtools/src/include/color_data.h"
+#include "../../../lib/libimgtools/src/include/pixel_buffer.h"
+#include "mia_filter_manager.h"
+#include "mia_io_manager.h"
+#include "../../FlashPhoto/src/ui_ctrl.h"
+#include "mia_state_manager.h"
+#include "../../../lib/libimgtools/src/include/tool.h"
 
 /*******************************************************************************
  * Namespaces
@@ -90,6 +97,10 @@ class MIAApp : public BaseGfxApp {
 
   // This is the pointer to the buffer where the display PixelBuffer is stored
   PixelBuffer* display_buffer_;
+
+   /** List of Pixel Buffers for the state manager */
+  std::vector<PixelBuffer*> states_;
+  unsigned int cur_state_ = 0;  // Holds the index of the PixelBuffer being displayed
 
   // The path to the marker file
   std::string marker_fname_;

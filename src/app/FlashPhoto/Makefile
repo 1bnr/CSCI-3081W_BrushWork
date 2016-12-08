@@ -32,6 +32,7 @@ SRCDIR          = ./src
 OBJDIR          = $(BUILDDIR)/obj
 BINDIR          = $(BUILDDIR)/bin
 DOCDIR          = ./doc
+# COMDIR			= ../../common
 
 ###############################################################################
 # Functions
@@ -61,15 +62,14 @@ make-depend-cxx=$(CXX) -MM -MF $3 -MP -MT $2 $(CXXFLAGS) $1
 # Define what directories to search for source code. For us, this will just
 # be a single source directory, src/.
 SOURCES = $(SRCDIR)
+# SOURCES += $(COMDIR)
 
 # Define the list of files to compile for this project, which is built by
 # recursively finding all .cc files in src/.
 SRC_CXX = $(call rwildcard,$(SOURCES),*.cc)
-
 # For each of the .cc files found under src/, determine the name of the
 # corresponding .o file to create in obj/ via pattern substitution (patsust).
 OBJECTS_CXX = $(notdir $(patsubst %.cc,%.o,$(SRC_CXX)))
-
 # The target library (what you are building)
 TARGET = $(BINDIR)/$(notdir $(shell pwd))
 

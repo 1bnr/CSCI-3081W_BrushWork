@@ -12,13 +12,16 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "src/app/MIA/src/mia_io_manager.h"
-
+#include "mia_io_manager.h"
 #include <assert.h>
 #include <iostream>
 #include <sstream>
-
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
+#include <string>
+#include "../../FlashPhoto/src/ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/pixel_buffer.h"
+#include "../../../lib/libimgtools/src/include/file_io.h"
+#include "../../../lib/libimgtools/src/include/file_io_jpg.h"
+#include "../../../lib/libimgtools/src/include/file_io_png.h"
 
 /*******************************************************************************
  * Namespaces

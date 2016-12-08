@@ -161,30 +161,23 @@ test:
 	@echo $(EXTDIR)
 
 install: all
-	@echo "here"
 	$(MAKE) -C$(LIBIMGTOOLS_DIR)
 	$(MAKE) -Csrc/app/MIA install
 	$(MAKE) -Csrc/app/FlashPhoto install
 
 libimgtools: | $(EXTDIR)/lib/libpng.a $(LIBDIR)
-	@echo "here2"
 	$(MAKE) -C$(LIBIMGTOOLS_DIR) install
-	@echo "here3"
 
 $(EXTDIR)/lib/libglui.a:
-	@echo "here3"
 	$(MAKE) -C$(GLUIDIR) install
 $(EXTDIR)/lib/libpng.a:
-	@echo "here10"
 	$(MAKE) -C$(PNGDIR) install
 $(EXTDIR)/lib/libjpeg.a:
-	@echo "here5"
 	$(MAKE) -C$(JPEGDIR) install
 
-FlashPhoto: libimgtools $(EXTDIR)/lib/libglui.a| $(BINDIR)
-	@echo "here4"
+FlashPhoto: libimgtools $(EXTDIR)/lib/libglui.a $(EXTDIR)/lib/libpng.a $(EXTDIR)/lib/libjpeg.a | $(BINDIR)
 	$(MAKE) -Csrc/app/FlashPhoto
-MIA: libimgtools $(EXTDIR)/lib/libglui.a | $(BINDIR)
+MIA: libimgtools $(EXTDIR)/lib/libglui.a $(EXTDIR)/lib/libpng.a $(EXTDIR)/lib/libjpeg.a | $(BINDIR)
 	$(MAKE) -Csrc/app/MIA
 
 # Bootstrap Bill. This creates all of the order-only prerequisites; that is,
