@@ -30,7 +30,7 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-MIAApp::MIAApp(int width, int height, const std::string& marker_fname) : BaseGfxApp(width, height),
+MIAApp::MIAApp(int width, int height, std::string marker_fname) : BaseGfxApp(width, height),
                                                       filter_manager_(),
                                                       io_manager_(),
                                                       state_manager_(),
