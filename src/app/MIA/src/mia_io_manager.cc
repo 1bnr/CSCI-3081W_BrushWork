@@ -59,12 +59,12 @@ void MIAIOManager::InitGlui(const GLUI *const glui,
 
 void MIAIOManager::LoadNextImage(void) {
   set_image_file(next_file_name_);
-  LoadImageToCanvas();
+  // LoadImageToCanvas();
 }
 
 void MIAIOManager::LoadPreviousImage(void) {
   set_image_file(prev_file_name_);
-  LoadImageToCanvas();
+  // LoadImageToCanvas();
 }
 
 // void MIAIOManager::LoadImageToCanvas(void) {

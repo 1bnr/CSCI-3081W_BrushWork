@@ -266,9 +266,33 @@ void MIAApp::GluiControl(int control_id) {
       break;
     case UICtrl::UI_NEXT_IMAGE_BUTTON:
       io_manager_.LoadNextImage();
+      PixelBuffer * ni;  // new buffer
+      ni = io_manager_.LoadImageToCanvas();
+      // if image loaded successfully, send it to the display
+      if (ni != NULL) {
+        // Set the window dimensions to the state that was just restored
+        SetWindowDimensions(ni->width(), ni->height());
+        display_buffer_ = ni;
+        // Handle the case which we are not at the end of the undo stack
+        maintain_states_stack(cur_state_);
+        // Save the new buffer with the image to the undo state
+        add_buffer_to_undo_stack(display_buffer_);
+      }
       break;
     case UICtrl::UI_PREV_IMAGE_BUTTON:
       io_manager_.LoadPreviousImage();
+      PixelBuffer * pi;  // new buffer
+      pi = io_manager_.LoadImageToCanvas();
+      // if image loaded successfully, send it to the display
+      if (pi != NULL) {
+        // Set the window dimensions to the state that was just restored
+        SetWindowDimensions(pi->width(), pi->height());
+        display_buffer_ = pi;
+        // Handle the case which we are not at the end of the undo stack
+        maintain_states_stack(cur_state_);
+        // Save the new buffer with the image to the undo state
+        add_buffer_to_undo_stack(display_buffer_);
+      }
       break;
     case UICtrl::UI_FILE_NAME:
       io_manager_.set_image_file(io_manager_.file_name());
