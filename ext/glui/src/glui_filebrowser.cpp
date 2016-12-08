@@ -1,5 +1,5 @@
 /****************************************************************************
-  
+
   GLUI User Interface Toolkit
   ---------------------------
 
@@ -31,7 +31,7 @@
 
 #include <sys/stat.h>
 
-GLUI_FileBrowser::GLUI_FileBrowser( GLUI_Node *parent, 
+GLUI_FileBrowser::GLUI_FileBrowser( GLUI_Node *parent,
                                     const char *name,
                                     int type,
                                     int id,
@@ -57,7 +57,7 @@ GLUI_FileBrowser::GLUI_FileBrowser( GLUI_Node *parent,
 void GLUI_FileBrowser::dir_list_callback(GLUI_Control *glui_object) {
   std::cout << "CALLING BACK" << std::endl;
   GLUI_List *list = dynamic_cast<GLUI_List*>(glui_object);
-  if (!list) 
+  if (!list)
     return;
   GLUI_FileBrowser* me = dynamic_cast<GLUI_FileBrowser*>(list->associated_object);
   if (!me)
@@ -65,7 +65,7 @@ void GLUI_FileBrowser::dir_list_callback(GLUI_Control *glui_object) {
   int this_item;
   const char *selected;
   this_item = list->get_current_item();
-  if (this_item > 0) { /* file or directory selected */
+  if (this_item >= 0) { /* file or directory selected */
     selected = list->get_item_ptr( this_item )->text.c_str();
     int len = strlen(selected);
     char last = selected[len-1];
@@ -98,7 +98,7 @@ void GLUI_FileBrowser::fbreaddir(const char *d) {
 
   GLUI_String item;
   int i = 0;
-  
+
   if (!d)
     return;
 
@@ -108,7 +108,7 @@ void GLUI_FileBrowser::fbreaddir(const char *d) {
   HANDLE hFind;
   //char search_arg[MAX_PATH], new_file_path[MAX_PATH];
   //sprintf(search_arg, "%s\\*.*", path_name);
-  
+
   hFind = FindFirstFile("*.*", &FN);
   if (list) {
     list->delete_all();
@@ -124,7 +124,7 @@ void GLUI_FileBrowser::fbreaddir(const char *d) {
         list->add_item(i,item.c_str());
         i++;
       } while (FindNextFile(hFind, &FN) != 0);
-      
+
       if (GetLastError() == ERROR_NO_MORE_FILES)
         FindClose(&FN);
       else
@@ -144,7 +144,7 @@ void GLUI_FileBrowser::fbreaddir(const char *d) {
       perror("fbreaddir:");
     else {
       while ((dirp = readdir(dir)) != NULL)   /* open directory     */
-      { 
+      {
         if (!lstat(dirp->d_name,&dr) && S_ISDIR(dr.st_mode)) /* dir is directory   */
           item = dirp->d_name + GLUI_String("/");
         else
@@ -160,17 +160,17 @@ void GLUI_FileBrowser::fbreaddir(const char *d) {
 }
 
 void ProcessFiles(const char *path_name)
-{ 
+{
 
 }
 
 
-void GLUI_FileBrowser::set_w(int w) 
-{ 
+void GLUI_FileBrowser::set_w(int w)
+{
   if (list) list->set_w(w);
 }
 
-void GLUI_FileBrowser::set_h(int h) 
+void GLUI_FileBrowser::set_h(int h)
 {
   if (list) list->set_h(h);
 }

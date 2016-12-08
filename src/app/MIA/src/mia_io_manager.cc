@@ -99,8 +99,8 @@ PixelBuffer * MIAIOManager::LoadImageToCanvas(void) {
   new_buffer = new PixelBuffer(file_io->load_image(file_name_));
   free(file_io);
   // Determining whether there are next or previous images
-  next_file_name_ = image_name_plus_seq_offset(file_name(), 1);
-  prev_file_name_ = image_name_plus_seq_offset(file_name(), -1);
+  next_file_name_ = image_name_plus_seq_offset(file_name_, 1);
+  prev_file_name_ = image_name_plus_seq_offset(file_name_, -1);
 
   next_image_toggle(is_valid_image_file(next_file_name_));
   prev_image_toggle(is_valid_image_file(prev_file_name_));
@@ -112,7 +112,7 @@ void MIAIOManager::set_image_file(const std::string & fname_in) {
   // latest file typed or selected.
   std::string image_file = fname_in;
   if (!is_valid_image_file_name(image_file)) {
-    image_file = file_name();
+    image_file = file_name_;
   }
 
   // TOGGLE SAVE FEATURE
@@ -149,7 +149,7 @@ std::string MIAIOManager::image_name_plus_seq_offset(
     int offset) {
 
   std::string extension, name, number;
-  size_t dot_pos = file_name().find_last_of(".");
+  size_t dot_pos = file_name_.find_last_of(".");
   if (dot_pos ==  std::string::npos || dot_pos == 0) {
     return "";
   }
