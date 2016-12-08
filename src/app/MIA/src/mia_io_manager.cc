@@ -67,15 +67,6 @@ void MIAIOManager::LoadPreviousImage(void) {
   // LoadImageToCanvas();
 }
 
-// void MIAIOManager::LoadImageToCanvas(void) {
-//   // Determining whether there are next or previous images
-//   next_file_name_ = image_name_plus_seq_offset(file_name(), 1);
-//   prev_file_name_ = image_name_plus_seq_offset(file_name(), -1);
-
-//   next_image_toggle(is_valid_image_file(next_file_name_));
-//   prev_image_toggle(is_valid_image_file(prev_file_name_));
-// }
-
 PixelBuffer * MIAIOManager::LoadImageToCanvas(void) {
   PixelBuffer * new_buffer;
   FileIo * file_io;

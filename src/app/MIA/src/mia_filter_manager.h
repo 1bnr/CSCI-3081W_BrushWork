@@ -43,6 +43,13 @@ class MIAFilterManager : public FilterManager {
  public:
   MIAFilterManager();
 
+  /**
+   * @brief Apply a channel filter to the buffer
+   *
+   * @param buffer The buffer. Updated to point to a new filtered buffer.
+   */
+  void ApplyGrayscale(PixelBuffer* p);
+
   GLUI_Panel* InitGlui(const GLUI *const glui,
                        void (*s_gluicallback)(int));
 };

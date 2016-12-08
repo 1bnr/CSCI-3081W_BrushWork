@@ -29,6 +29,12 @@ MIAFilterManager::MIAFilterManager(void) :
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
+void MIAFilterManager::ApplyGrayscale(PixelBuffer* p) {
+  std::cout << "Apply has been clicked for Grayscale"
+              << std::endl;
+  Saturate::apply_filter(p, 0.0f);
+}
+
 GLUI_Panel* MIAFilterManager::InitGlui(const GLUI *const glui,
                              void (*s_gluicallback)(int)) {
   new GLUI_Column(const_cast<GLUI*>(glui), true);
