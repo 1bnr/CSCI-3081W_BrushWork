@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : filter_manager.cc
+ * Name            : fp_filter_manager.cc
  * Project         : FlashPhoto
  * Module          : filter_manager
  * Description     : Implementation of FilterManager class

@@ -23,7 +23,7 @@
 #include "mia_filter_manager.h"
 #include "mia_io_manager.h"
 #include "../../FlashPhoto/src/ui_ctrl.h"
-#include "mia_state_manager.h"
+#include "../../FlashPhoto/src/state_manager.h"
 #include "../../../lib/libimgtools/src/include/tool.h"
 
 /*******************************************************************************

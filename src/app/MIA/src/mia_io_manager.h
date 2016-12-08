@@ -15,12 +15,12 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "../../FlashPhoto/src/io_manager.h"
+#include "io_manager.h"
 #include <string>
 #include <png.h>
 #include <string>
 #include "GL/glui.h"
-#include "../../FlashPhoto/src/ui_ctrl.h"
+#include "ui_ctrl.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 
 /*******************************************************************************
