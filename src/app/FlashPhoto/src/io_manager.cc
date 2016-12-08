@@ -14,7 +14,7 @@
  ******************************************************************************/
 #include <iostream>
 #include <string>
-#include "ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/ui_ctrl.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 #include "../../../lib/libimgtools/src/include/file_io.h"
 #include "io_manager.h"

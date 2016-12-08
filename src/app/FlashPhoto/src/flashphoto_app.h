@@ -22,8 +22,8 @@
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 #include "filter_manager.h"
 #include "io_manager.h"
-#include "ui_ctrl.h"
-#include "state_manager.h"
+#include "../../../lib/libimgtools/src/include/ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/state_manager.h"
 #include "../../../lib/libimgtools/src/include/tool.h"
 /*******************************************************************************
  * Namespaces

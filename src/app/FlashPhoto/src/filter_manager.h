@@ -17,7 +17,7 @@
  ******************************************************************************/
 #include "GL/glui.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
-#include "ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/ui_ctrl.h"
 #include "../../../lib/libimgtools/src/include/threshold.h"
 #include "../../../lib/libimgtools/src/include/saturate.h"
 #include "../../../lib/libimgtools/src/include/rgb.h"

@@ -18,7 +18,7 @@
 #include <iostream>
 #include "../../../lib/libimgtools/src/include/color_data.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
-#include "ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/ui_ctrl.h"
 #include "../../../lib/libimgtools/src/include/tool_factory.h"
 
 /*******************************************************************************

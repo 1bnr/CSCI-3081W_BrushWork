@@ -5,7 +5,7 @@
  * Description     : Header file for MIA class
  * Copyright       : 2016 CSCI3081W TAs. All rights reserved.
  * Creation Date   : 5/15/15
- * Original Author : Seth Johnson
+ * Original Author : Team 0x07
  *
  ******************************************************************************/
 
@@ -16,16 +16,15 @@
  * Includes
  ******************************************************************************/
 #include <string>
-
+#include <vector>
 #include "../../../lib/libimgtools/src/include/base_gfx_app.h"
 #include "../../../lib/libimgtools/src/include/color_data.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 #include "mia_filter_manager.h"
-#include "mia_io_manager.h"
-#include "../../FlashPhoto/src/ui_ctrl.h"
-#include "../../FlashPhoto/src/state_manager.h"
+//#include "io_manager.h"
+#include "../../../lib/libimgtools/src/include/ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/state_manager.h"
 #include "../../../lib/libimgtools/src/include/tool.h"
-
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
@@ -34,20 +33,26 @@ namespace image_tools {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
+/**
+ * @brief The main class for FlashPhoto.
+ * It is a graphics app that derives from BaseGfxApp. It creates two graphics
+ * windows, one for 2D painting and one for the buttons and other UI widgets to
+ * control the brushes.
+ **/
 class MIAApp : public BaseGfxApp {
  public:
   MIAApp(int width, int height, const std::string& marker_fname);
   virtual ~MIAApp(void);
 
-  void MouseDragged(int x, int y) {}
-  void MouseMoved(int x, int y) {}
+  void MouseDragged(int x, int y);
+  void MouseMoved(int x, int y);
   void LeftMouseDown(int x, int y);
-  void LeftMouseUp(int x, int y) {}
+  void LeftMouseUp(int x, int y);
   void Display(void);
   void GluiControl(int control_id);
 
   /**
-   * @brief Initialize MIA
+   * @brief Initialize the FlashPhotoApp
    *
    * @param[in] argc Unused--required by BaseGfxApp
    * @param[in] argv Unused--required by BaseGfxApp
@@ -68,6 +73,11 @@ class MIAApp : public BaseGfxApp {
    *
    */
   void InitGlui(void);
+
+  /**
+   * @brief Initialize OpenGL
+   *
+   */
   void InitGraphics(void);
 
   /**
@@ -88,24 +98,41 @@ class MIAApp : public BaseGfxApp {
   /**
    * @brief Manager for all I/O operations
    */
-  MIAIOManager io_manager_;
+  // MIAIOManager io_manager_;
 
   /**
    * @brief Manager for redo/undo stack
    */
   StateManager state_manager_;
 
-  // This is the pointer to the buffer where the display PixelBuffer is stored
-  PixelBuffer* display_buffer_;
 
-   /** List of Pixel Buffers for the state manager */
+  /** Pointer to pixel data for the screen */
+  PixelBuffer *display_buffer_;
+
+  /** Pointer to pixel data for the stamp */
+  PixelBuffer *stamp_buffer_;
+
+  int cur_tool_; /**< Currently selected tool from UI  */
+  std::vector<Tool*> tools_;
+
+  /** List of Pixel Buffers for the state manager */
   std::vector<PixelBuffer*> states_;
   unsigned int cur_state_ = 0;  // Holds the index of the PixelBuffer being displayed
 
+  
   // The path to the marker file
   std::string marker_fname_;
+  
+  // Previous mouse coordinates for interpreting mouse moves
+  int mouse_last_x_;
+  int mouse_last_y_;
+  
+  /** TODO implement undo queue */
+  void add_buffer_to_undo_stack(PixelBuffer* &current_buffer);
 
-  int cur_tool_;
+  void maintain_states_stack(unsigned int cur_state);
+
+  void printStack();
 };
 
 }  /* namespace image_tools */

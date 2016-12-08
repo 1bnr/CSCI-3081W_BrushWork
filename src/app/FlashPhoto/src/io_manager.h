@@ -18,7 +18,7 @@
 #include <png.h>
 #include <string>
 #include "GL/glui.h"
-#include "ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/ui_ctrl.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 
 /*******************************************************************************

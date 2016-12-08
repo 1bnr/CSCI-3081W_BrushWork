@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : filter_manager.h
+ * Name            : fp_filter_manager.h
  * Project         : FlashPhoto
  * Module          : filter_manager
  * Description     : Header for FilterManager class
@@ -9,15 +9,15 @@
  *
  ******************************************************************************/
 
-#ifndef SRC_APP_MIA_SRC_FILTER_MANAGER_H
-#define SRC_APP_MIA_SRC_FILTER_MANAGER_H
+#ifndef SRC_APP_FLASHPHOTO_SRC_FILTER_MANAGER_H_
+#define SRC_APP_FLASHPHOTO_SRC_FILTER_MANAGER_H_
 
 /*******************************************************************************
  * Includes
  ******************************************************************************/
 #include "GL/glui.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
-#include "ui_ctrl.h"
+#include "../../../lib/libimgtools/src/include/ui_ctrl.h"
 #include "../../../lib/libimgtools/src/include/threshold.h"
 #include "../../../lib/libimgtools/src/include/saturate.h"
 #include "../../../lib/libimgtools/src/include/rgb.h"
@@ -27,7 +27,6 @@
 #include "../../../lib/libimgtools/src/include/motion_blur.h"
 #include "../../../lib/libimgtools/src/include/sharpen.h"
 #include "../../../lib/libimgtools/src/include/special.h"
-
 
 /*******************************************************************************
  * Namespaces
@@ -52,7 +51,7 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyBlur(void);
+  void ApplyBlur(PixelBuffer* p);
 
   /**
    * @brief Apply a sharpening filter to the buffer, sharpening blurry/undefined
@@ -60,42 +59,42 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySharpen(void);
+  void ApplySharpen(PixelBuffer* p);
 
   /**
    * @brief Apply a motion blurring filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyMotionBlur(void);
+  void ApplyMotionBlur(PixelBuffer* p);
 
   /**
    * @brief Apply an edge detection filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyEdgeDetect(void);
+  void ApplyEdgeDetect(PixelBuffer* p);
 
   /**
    * @brief Apply a threshold detection filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyThreshold(void);
+  void ApplyThreshold(PixelBuffer* p);
 
   /**
    * @brief Apply a channel filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyChannel(void);
+  void ApplyChannel(PixelBuffer* p);
 
   /**
    * @brief Apply a channel filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySaturate(void);
+  void ApplySaturate(PixelBuffer* p);
 
 
   /**
@@ -103,14 +102,14 @@ class FilterManager {
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplyQuantize(void);
+  void ApplyQuantize(PixelBuffer* p);
 
   /**
    * @brief Apply a special filter to the buffer
    *
    * @param buffer The buffer. Updated to point to a new filtered buffer.
    */
-  void ApplySpecial(void);
+  void ApplySpecial(PixelBuffer* p);
 
   /**
    * @brief Initialize the elements of the GLUI interface required by the
@@ -119,8 +118,8 @@ class FilterManager {
    * @param glui GLUI handle
    * @param s_gluicallback Callback to install
    */
-  virtual GLUI_Panel* InitGlui(const GLUI *const glui,
-                               void (*s_gluicallback)(int));
+  void InitGlui(const GLUI *const glui,
+                void (*s_gluicallback)(int));
 
  protected:
   void AddBlurToGLUI(GLUI_Panel *filter_panel, void (*s_gluicallback)(int));
@@ -138,7 +137,7 @@ class FilterManager {
                         void (*s_gluicallback)(int));
   void AddQuantizationToGLUI(GLUI_Panel *filter_panel,
                              void (*s_gluicallback)(int));
-
+ 
  private:
   float channel_color_red_;
   float channel_color_green_;
@@ -153,5 +152,4 @@ class FilterManager {
 };
 
 }  /* namespace image_tools */
-
-#endif  /* SRC_APP_MIA_SRC_FILTER_MANAGER_H */
+#endif  /* SRC_APP_FLASHPHOTO_SRC_FILTER_MANAGER_H_ */

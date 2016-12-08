@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Name            : filter_manager.cc
+ * Name            : fp_filter_manager.cc
  * Project         : FlashPhoto
  * Module          : filter_manager
  * Description     : Implementation of FilterManager class
@@ -12,9 +12,9 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include <iostream>
 #include "filter_manager.h"
-#include "ui_ctrl.h"
+#include <iostream>
+
 
 /*******************************************************************************
  * Namespaces
@@ -39,51 +39,62 @@ FilterManager::FilterManager(void) :
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-void FilterManager::ApplyChannel(void) {
+void FilterManager::ApplyChannel(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Channels with red = "
             << channel_color_red_
             << ", green = " << channel_color_green_
             << ", blue = " << channel_color_blue_ << std::endl;
+  RGB::apply_filter(p, channel_color_red_, channel_color_blue_,
+                    channel_color_green_);
 }
 
-void FilterManager::ApplySaturate(void) {
+void FilterManager::ApplySaturate(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Saturate with amount = "
             << saturation_amount_ << std::endl;
+  Saturate::apply_filter(p, saturation_amount_);
 }
 
-void FilterManager::ApplyBlur(void) {
+void FilterManager::ApplyBlur(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Blur with amount = "
             << blur_amount_ << std::endl;
+  Blur::apply_filter(p, blur_amount_);
 }
 
-void FilterManager::ApplySharpen(void) {
+void FilterManager::ApplySharpen(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << sharpen_amount_ << std::endl;
+  Sharpen::apply_filter(p, sharpen_amount_);
 }
 
-void FilterManager::ApplyMotionBlur(void) {
+void FilterManager::ApplyMotionBlur(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Sharpen with amount = "
             << motion_blur_amount_
             << " and direction " << motion_blur_direction_ << std::endl;
+  MotionBlur::apply_filter(p, motion_blur_amount_, motion_blur_direction_);
 }
 
-void FilterManager::ApplyEdgeDetect(void) {
+void FilterManager::ApplyEdgeDetect(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Edge Detect" << std::endl;
+  EdgeDetect::apply_filter(p);
 }
 
-void FilterManager::ApplyQuantize(void) {
+void FilterManager::ApplyQuantize(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Quantize with bins = "
             << quantize_bins_ << std::endl;
+  Quantize::apply_filter(p, quantize_bins_);
 }
-void FilterManager::ApplyThreshold(void) {
+void FilterManager::ApplyThreshold(PixelBuffer* p) {
   std::cout << "Apply Threshold has been clicked with amount ="
             << threshold_amount_ << std::endl;
+  Threshold::apply_filter(p, threshold_amount_);
 }
-void FilterManager::ApplySpecial(void) {
+void FilterManager::ApplySpecial(PixelBuffer* p) {
   std::cout << "Apply has been clicked for Special" << std::endl;
+  Saturate::apply_filter(p, 0.0);
+  Special::apply_filter(p);
 }
 
-GLUI_Panel* FilterManager::InitGlui(const GLUI *const glui,
+void FilterManager::InitGlui(const GLUI *const glui,
                              void (*s_gluicallback)(int)) {
   new GLUI_Column(const_cast<GLUI*>(glui), true);
   GLUI_Panel *filter_panel = new GLUI_Panel(const_cast<GLUI*>(glui), "Filters");
@@ -209,7 +220,6 @@ GLUI_Panel* FilterManager::InitGlui(const GLUI *const glui,
                       s_gluicallback);
     }
   }
-  return filter_panel;
 } /* FilterManager::InitGlui() */
 
 void FilterManager::AddBlurToGLUI(GLUI_Panel *filter_panel,
@@ -330,6 +340,5 @@ void FilterManager::AddQuantizationToGLUI(GLUI_Panel *filter_panel,
                   UICtrl::UI_APPLY_QUANTIZE,
                   s_gluicallback);
 }
-
 
 }  /* namespace image_tools */
