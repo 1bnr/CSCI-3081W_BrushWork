@@ -104,7 +104,8 @@ int main(int argc, char** argv) {
   }
 }
    else {
-    /* Create command line interface */
+    std::cout << "incorrect format" << std::endl;
+    std::cout << "use -h for help , or to see list of command line operations" << std::endl;
   }
   return 0;
 } /* main() */
