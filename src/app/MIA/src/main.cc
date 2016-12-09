@@ -91,13 +91,13 @@ int main(int argc, char** argv) {
         image_tools::Sharpen::apply_filter(curr_image,filter_amount);
       }
       if (filter == "blur"){
-        image_tools::Quantize::apply_filter(curr_image,filter_amount);
+        image_tools::Blur::apply_filter(curr_image,filter_amount);
       }
       if (filter == "threshold"){
         image_tools::Threshold::apply_filter(curr_image,filter_amount);
       }
       if (filter == "saturate"){
-        image_tools::Quantize::apply_filter(curr_image,filter_amount);
+        image_tools::Saturate::apply_filter(curr_image,filter_amount);
       }
     file_io->save_image(*curr_image, file_out);
     free(file_io);
