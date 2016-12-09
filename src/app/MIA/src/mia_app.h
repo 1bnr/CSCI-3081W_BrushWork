@@ -42,7 +42,7 @@ namespace image_tools {
  **/
 class MIAApp : public BaseGfxApp {
  public:
-  MIAApp(int width, int height, std::string marker_fname);
+  MIAApp(int width, int height, const std::string &marker_fname);
   virtual ~MIAApp(void);
 
   void MouseDragged(int x, int y);
