@@ -140,6 +140,9 @@ int main(int argc, char** argv) {
       std::string filter = argv[i];
       filter = filter.erase(0,1); // deleting the dash in front of filter name
       float filter_amount = atof(argv[i+1]);
+      if (filter == "edge"){
+        i = i-1;
+      }
       std::cout << "current filter = " << filter << std::endl;
       std::cout << "filter amount = " << filter_amount << std::endl;
 
@@ -165,8 +168,8 @@ int main(int argc, char** argv) {
         image_tools::Saturate::apply_filter(curr_image,filter_amount);
       }
     file_io->save_image(*curr_image, file_out);
-    free(file_io);
   }
+  free(file_io);
 }
   return 0;
 } /* main() */
