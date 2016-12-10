@@ -27,13 +27,18 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This is the header file for the threshold filter.
+ * @brief The EdgeDetect class is used to apply an edge detect filter to a 
+ * PixelBuffer object. This is a convolution based filter.
  */
 class EdgeDetect {
  public:
   EdgeDetect();
   virtual ~EdgeDetect();
 
+  /**
+   * @brief Apply the filter to the PixelBuffer
+   * @param p The PixelBuffer that the filter will operate on
+   */
   static void apply_filter(PixelBuffer* p);
 };
 }  // namespace image_tools

@@ -103,42 +103,43 @@
      <!-- Adding a new tool -->
     <section id="overview" class="container-fluid">
         <div class="container">
-            <div class="row">
+            <div class="row" id="newtool">
                 <div class="col-md-12">
-                    <h1>Adding a New Tool</h1>
-                    <p>Learn how to add a new tool to the application.</p>   
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tool Intructions -->
-    <section id="instruct" class="container-fluid">
-        <div class="container">
-            <h1>Instructions</h1>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-md-12" id="tut">
-                    <p><b>1. </b>Step 1...</p>     
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <img class="img-responsive center-block" src="img/Steps/1.png" alt="Instruction Image 1">   
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="col-md-12" id="tut">
-                    <p><b>2. </b>Step 2...</p>     
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <img class="img-responsive center-block" src="img/Steps/2.png" alt="Instruction Image 2">
+                    <h1>Adding a New Pencil Tool to BrushWork</h1>
+                    <p><b>Step 1:</b><br>
+                    The first step that needs to be taken is adding a header and source file for the new Pencil class.  This will look very similar to the other tool classes, the easiest files to use as a guide would be pen.h/pen.cc.  The figure below shows a section of pen.h, and following this format will help to create pencil.h.  Looking at the four include statements at the top of the figure, these same include statements will be needed in pencil.h.  Now turning to the class definition within pen.h, pencil will look very similar but "Pencil" will need to be substituted where "Pen" is used.</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/2761997e-9573-11e6-9adc-dce9bf3a2fa9">
+                    <br>
+                    <hr>
+                    <p><b>Step 2:</b><br>
+                    This should be all that is needed for pencil.h.  Now the source file needs to be created and this will be modeled from pen.cc.  Just like in pen.cc an include statement must be used that includes pencil.h, so at runtime these files can be linked.  Most of the other tools have more complicated masks, so these masks are generated when the tool is initialized as seen below in a snippet from pen.cc.  In the case of pencil rows/cols would be set to 1 because the pencil has a mask that is a single pixel.  Since it's such a simple mask it can be hard-coded in. Then just like in the figure, set_tool_mask(mask) must be called to set the mask that you created to the tool's private member variable tool_mask_.</p>
+                    <br>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/e2754160-9574-11e6-80ea-121e698707ce">
+                    <br>
+                    <hr>
+                    <p><p><b>Step 3:</b><br>
+                    Now both header file and source file have been created, but one more include statement must be used.  The figure below shows the include statements from brushwork_app.h, pencil.h will need to be added to this section also.  Thereby linking the new Pencil class with BrushWorkApp, and allowing a Pencil tool to be initialized within the file.</p>
+                    <br>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/5d1c0a98-9575-11e6-9604-0d8a9922d33f">
+                    <br>
+                    <hr>
+                    <p><p><b>Step 4:</b><br>
+                    The next step is to initialize a pencil and place it into tool_list_, our vector of tools.  The snippet below is from brushwork_app.cc, and it shows the initTools function , in specific the creation of tools and their addition to tool_list_.  This same approach can be used to create a pencil, and then store it in our vector of tools.</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/e34e6efe-957e-11e6-8b1d-32f94cd2d832">
+                    <br>
+                    <hr>
+                    <p><p><b>Step 5:</b><br>
+                    Now that a pencil tool has been created, functionality needs to be added so when pencil draws to the canvas it draws with the currently selected color.  This happens within brushwork app's display function.  Below is a snippet from brushwork_app.cc that shows the display function.  Notice how many cases exist, for example eraser is given a special case because it's current color is actually the background color.  In this case the pencil will function just like the pens and highlighter, therefore a new case can be added that falls through to case 0 (pen's case).  The case number will be the index that pencil is stored at in tool_list_.</p>
+                    <br>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/a8233ac2-9591-11e6-945b-a584246dd637">
+                    <br>
+                    <hr>
+                    <p><p><b>Step 6:</b><br>
+                    Lastly, an interface button must be created so Pencil is added to the options window.  When this is done users can click the button and the currently selected tool will be changed to a pencil.  To do this go into brushwork_app.cc and the InitGlui function, the figure below shows the code that will be important to look at.  Just like the others create a new radio button labeled with "Pencil".</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/1d89d4ec-9592-11e6-9e58-c31368cf30a5">
+                    <br>
+                    <p>If all this is done correctly, you should have a fully functioning pencil tool.
+                    </p>   
                 </div>
             </div>
         </div>
@@ -146,45 +147,48 @@
 
     <hr>
 
-     <!-- Adding a new filter -->
+     <!-- Adding a new tool -->
     <section id="overview" class="container-fluid">
         <div class="container">
-            <div class="row">
+            <div class="row" id="newtool">
                 <div class="col-md-12">
-                    <h1>Adding a New Filter</h1>
-                    <p>Learn how to add a new filter to the application.</p>   
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Filter Instructions -->
-    <section id="instruct" class="container-fluid">
-        <div class="container">
-            <h1>Instructions</h1>
-            <br>
-            <br>
-            <div class="row">
-                <div class="col-md-12" id="tut">
-                    <p><b>1. </b>Step 1...</p>     
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <img class="img-responsive center-block" src="img/Steps/1.png" alt="Instruction Image 1">   
-                </div>
-            </div>
-
-            <hr>
-
-            <div class="row">
-                <div class="col-md-12" id="tut">
-                    <p><b>2. </b>Step 2...</p>     
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <img class="img-responsive center-block" src="img/Steps/2.png" alt="Instruction Image 2">
+                    <h1>Adding a New Filter to BrushWork</h1>
+                    <p><b>Step 1:</b><br>
+                    This filter will fall under the category of pixel-independent filters, so the tutorial will be based around looking at the threshold class and building something very similar to it that handles inverting colors.  The first step will be to create a header file invert.h, this will look very similar to threshold.h with one small change.  The invert filter only needs to be passed a pixel buffer pointer, it has no need for any extra arguments like thresh_amount.  The figure below shows a snippet of threshold.h, when writing invert.h the arguments to apply_filter should just be a pixel buffer pointer.</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/e7c34228-ae99-11e6-8268-38588dda72ae">
+                    <br>
+                    <hr>
+                    <p><b>Step 2:</b><br>
+                    Make sure to include invert.h within filter_manager.h, better to do it now before you forget and compile!  Below is a snippet from filter_manager.h that shows the include statements, one should be added for invert.h.</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/52f8f54c-ae9a-11e6-9444-bf8e9b82bcde">
+                    <br>
+                    <hr>
+                    <p><b>Step 3:</b><br>
+                    Now that the header file has been created, it is time to write the implementation details into invert.cc.  This file can be modeled from threshold.cc but remember apply_filter should have just a single argument.  The structure of apply_filter can stay very similar, the only things that need to be changed are the conditionals within the for loop.  Below is a snippet from threshold.cc, it shows the conditional statements, this is the only section that needs changing.  The inverting process is very simple and does not require any conditionals.  Within the nested for-loop you should set each of the new colors (new_red,new_green,new_blue), to be one minus the original color at that pixel.  To get the original color at that pixel you can use the same operations that are seen in the snippet below, set_pixel() and red()/blue()/green().  To set these new colors it is as simple as new_red = 1 - (p->get_pixel(i,j).red()).  This same format can be used to set new_blue and new_green.</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/7f399df4-ae9b-11e6-844c-c639b7b62193">
+                    <br>
+                    <hr>
+                    <p><b>Step 4:</b><br>
+                    Both invert.h and invert.cc have been created, so it is time to actually create calls to this filter within the app.  Within filter_manager.h you will need to write a new method ApplyInvert, it will look the same as all of the other methods already written in that file.  Below is a snippet from filter_manager.h that shows the ApplyThreshold method, make a new one for ApplyInvert.</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/38b2988a-ae9c-11e6-852c-51caa519f3d7">
+                    <br>
+                    <p>Now you will have to go into filter_manager.cc and write the details of what this method will do.  Below is a snippet from filter_manager.cc that shows the ApplyThreshold method, you will need to write the implementation details for ApplyInvert.  Remember it should look just like the ApplyThreshold method, but in this case will call Invert's apply_filter method statically.  What you are doing in this step is writing a method that will actually apply the filter.</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/82c3442e-ae9c-11e6-89b1-0560ffd64aad">
+                    <hr>
+                    <p><b>Step 5:</b><br>
+                    You have written the header/implementation details for invert, and also created a method that will apply the filter.  Now you need to actually make the call from flashphoto_app.cc.  Looking at this file there is a long list of cases for each different filter you can apply, below shows the code written for the threshold filter.  You will need to create a new case that handles when a user clicks to use the invert filter.  It should look the same as the code below but obviously call ApplyInvert instead of ApplyThreshold.</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/6570a492-ae9d-11e6-88a0-9e64b957d075">
+                    <br>
+                    <p>Now we only need to add a button to apply the filter. At the bottom of the InitGlui method in filter_manager.cc we need to add a new panel and button for the filter. Since invert only needs a single button, the code for the special filter is a perfect model to follow:</p>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/4475/files/0f86bf32-b026-11e6-872e-cfe0a799e88b">
+                    <br>
+                    <p>Instead of "Special Filter" in the second arguement of the  GLUI_Panel method, enter "Invert Colors" or what ever you want the panel to say. And the name of the GLUI_Panel should be changed to a "invert_filter" or a similarly descriptive, but unique name. The GLUI_Button on the new panel needs to be linked to the panel with the first arguement matching the name assigned to the panel object; leave the second and fourth arguements alone, but change the third one to UI_APPLY_INVERT, matching the callback we set preveously in filter_manager.h. We also need to add a matching entry to the callback in the unum type in ui_ctrl.h. 
+                    <br>
+                    <br>
+                    If these steps are executed properly you should now have a fully functioning invert filter.
+                    <br>
+                    <br>
+                    </p>   
                 </div>
             </div>
         </div>

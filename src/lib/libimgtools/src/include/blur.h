@@ -27,13 +27,20 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This is the header file for the threshold filter.
+ * @brief The Blur class is used to apply a blur filter to a 
+ * PixelBuffer object. This is a convolution based filter. The filter takes in 
+ * a parameter blur_amount, that determines the amount to blur the image.
  */
 class Blur {
  public:
   Blur();
   virtual ~Blur();
 
+  /**
+   * @brief Apply the filter to the PixelBuffer
+   * @param p The PixelBuffer that the filter will operate on
+   * @param blur_amount The amount to blur the image
+   */
   static void apply_filter(PixelBuffer* p, float blur_amount);
 };
 }  // namespace image_tools
