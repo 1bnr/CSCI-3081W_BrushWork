@@ -152,6 +152,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
       }
       free(file_io);
     }
+    return 0;
   }
 
 void MiaCli::print_help(const char *arg) {
