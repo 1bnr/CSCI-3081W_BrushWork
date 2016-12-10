@@ -74,12 +74,14 @@ class IOManager {
   /**
    * @brief Load the selected image file to the canvas
    *
+   * @return The updated PixelBuffer
    */
   PixelBuffer * LoadImageToCanvas(void);
 
   /**
    * @brief Load the selected image file to the stamp
    *
+   * @return The updated PixelBuffer
    */
   PixelBuffer * LoadImageToStamp(void);
 
@@ -90,21 +92,47 @@ class IOManager {
   void SaveCanvasToFile(const PixelBuffer *image, const std::string &file_name);
 
  protected:
+  /**
+   * @brief Adds the save canvas button UI to the GLUI panel
+   *
+   */
   void AddSaveCanvasToGLUI(GLUI_Panel* image_panel,
                            void (*s_gluicallback)(int));
+
+  /**
+   * @brief Adds the load stamp button UI to the GLUI panel
+   *
+   */
   void AddLoadStampToGLUI(GLUI_Panel* image_panel,
                           void (*s_gluicallback)(int));
+
+  /**
+   * @brief Adds the file browser UI to the GLUI panel
+   *
+   */
   void AddFileBrowserToGLUI(GLUI_Panel* image_panel,
                             void (*s_gluicallback)(int));
 
+  /**
+   * @brief Handles enabling the save canvas toggle
+   *
+   */
   void save_canvas_toggle(bool enabled) {
     UICtrl::button_toggle(save_canvas_btn_, enabled);
   }
 
+  /**
+   * @brief Handles enabling the load stamp toggle
+   *
+   */
   void load_stamp_toggle(bool enabled) {
     UICtrl::button_toggle(load_stamp_btn_, enabled);
   }
 
+  /**
+   * @brief Handles enabling the load canvas toggle
+   *
+   */
   void load_canvas_toggle(bool enabled) {
     UICtrl::button_toggle(load_canvas_btn_, enabled);
   }
@@ -140,8 +168,20 @@ class IOManager {
    * @return TRUE if yes, FALSE otherwise
    */
   bool is_valid_image_file(const std::string &name);
+  
+  /**
+   * @brief Creates the GLUI label for the save file function
+   */
   GLUI_StaticText* save_file_label(void) { return save_file_label_; }
+
+  /**
+   * @brief Creates the GLUI label for the current file
+   */
   GLUI_StaticText* current_file_label(void) { return current_file_label_; }
+
+  /**
+   * @brief Creates the editable GLUI box for the file name
+   */
   GLUI_EditText* file_name_box(void) { return file_name_box_; }
 
   std::string file_name_;
