@@ -36,7 +36,7 @@ class FileIoPng : public FileIo {
   FileIoPng(void);
   virtual ~FileIoPng(void);
   virtual PixelBuffer load_image(std::string file_name);
-  virtual void save_image(const PixelBuffer & image,
+  virtual int save_image(const PixelBuffer & image,
                          const std::string & file_name);
 };
 }  /* namespace image_tools */

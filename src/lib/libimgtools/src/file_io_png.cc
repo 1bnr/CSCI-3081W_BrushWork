@@ -71,12 +71,11 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
                       malloc(png_get_rowbytes(png_ptr, info_ptr)));
   }
   png_read_image(png_ptr, row_pointers);
-
+  int error = 0;
   // create a PixelBuffer to hold the pixel data;
   PixelBuffer new_buffer = PixelBuffer(width, height, background_color);
   // determine pixel data-block size; depends on number of channels
   int pxl_elems = (color_type < 6) ? 3 : 4;  // 3 channels for rgb, 4 for rgba
-  printf("pxl_elems: %d\n", pxl_elems);
   for (y=0; y < height; y++) {
     png_bytep row = row_pointers[y];
     for (x=0; x < width; x++) {
@@ -105,13 +104,13 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
 return new_buffer;
 }
 
-void FileIoPng::save_image(const PixelBuffer & image,
+int FileIoPng::save_image(const PixelBuffer & image,
                            const std::string & file_name) {
   png_byte color_type;
   png_byte bit_depth;
   png_structp png_ptr;
   png_infop info_ptr;
-
+  int error = 0;
   int width = image.width();
   int height = image.height();
   png_bytep * row_pointers
@@ -120,23 +119,29 @@ void FileIoPng::save_image(const PixelBuffer & image,
   color_type = 6;
   /* create file */
   FILE *outfile = fopen(file_name.c_str(), "wb");
-  if (!outfile)
-    printf("undable to print %s\n", file_name.c_str() );
+  if (!outfile) {
+    error = 1;
+    printf("unable to save as %s\n", file_name.c_str() );
+  }
 
   /* initialize stuff */
   png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 
-  if (!png_ptr)
-        printf("png_create_write_struct failed");
-
+  if (!png_ptr) {
+    error = 1;
+    printf("png_create_write_struct failed");
+  }
   info_ptr = png_create_info_struct(png_ptr);
-  if (!info_ptr)
-        printf("png_create_info_struct failed");
-
+  if (!info_ptr) {
+    error = 1;
+    printf("png_create_info_struct failed");
+  }
   png_init_io(png_ptr, outfile);
   /* write header */
-  if (setjmp(png_jmpbuf(png_ptr)))
-        printf("error during writing header");
+  if (setjmp(png_jmpbuf(png_ptr))) {
+    error = 1;
+    printf("error during writing header");
+  }
   png_set_IHDR(png_ptr, info_ptr, width, height, bit_depth, color_type,
        PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
   png_write_info(png_ptr, info_ptr);
@@ -154,14 +159,18 @@ void FileIoPng::save_image(const PixelBuffer & image,
      row_pointers[y][(x*4)+3] = static_cast<unsigned char>(pxl.alpha()*255);
     }
   }
-  if (setjmp(png_jmpbuf(png_ptr)))
-        printf("error during writing bytes");
+  if (setjmp(png_jmpbuf(png_ptr))) {
+    error = 1;
+    printf("error during writing bytes");
+    }
   /* write buffered data to file */
   png_write_image(png_ptr, row_pointers);
 
   /* end write */
-  if (setjmp(png_jmpbuf(png_ptr)))
-        printf("error during end of write");
+  if (setjmp(png_jmpbuf(png_ptr))) {
+    error = 1;
+    printf("error during end of write");
+  }
   png_write_end(png_ptr, NULL);
 
   /* cleanup heap allocation */
@@ -170,6 +179,7 @@ void FileIoPng::save_image(const PixelBuffer & image,
   free(row_pointers);
 
   fclose(outfile);
+  return error;
 }
 
 }  /* namespace image_tools */

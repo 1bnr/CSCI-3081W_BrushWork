@@ -34,7 +34,7 @@ class FileIo {
   FileIo(void);
   virtual ~FileIo(void);
   virtual PixelBuffer load_image(std::string file_name) = 0;
-  virtual void save_image(const PixelBuffer & image,
+  virtual int save_image(const PixelBuffer & image,
                           const std::string & file_name) = 0;
 };
 
