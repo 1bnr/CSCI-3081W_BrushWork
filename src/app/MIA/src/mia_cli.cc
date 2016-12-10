@@ -33,7 +33,21 @@ int MiaCli::init_cli(int argc, char ** argv) {
   if (argc == 2 && std::string(argv[1]) == "-h") {
     print_help(argv[1]);
   }
-  if (argc == 4 && std::string(argv[2]) == "-compare") {
+  else if (argc == 3) { // copy image
+    image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
+    if (pixel_buffer1 == NULL) {
+      std::cout << "coulding load image: " << argv[1] << std::endl;
+      print_help(argv[1]);
+      return 1;  // return error; one of the files didn't load
+    } else if(save_image(pixel_buffer1, argv[argc - 1])) { // file loaded
+        // save image failure
+        std::cout << "Error! '" << argv[argc - 1];
+        std::cout << "' is not a valid file name. Failed to save image.\n";
+        print_help(argv[argc - 1]);
+        return 1;
+    }
+  }
+  else if (argc == 4 && std::string(argv[2]) == "-compare") {
     // load the files to be compared
     image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
     image_tools::PixelBuffer *pixel_buffer2 = load_image(argv[argc - 1]);
@@ -56,7 +70,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
       }
     }
   }
-  if (argc >= 4 && std::string(argv[2]) != "-compare") {
+  else if (argc >= 4 && std::string(argv[2]) != "-compare") {
     // first argument is always the input file
     std::string file_in =  argv[1];
     // last argument in is always the output file
@@ -145,7 +159,8 @@ int MiaCli::init_cli(int argc, char ** argv) {
         }
         if (save_image(curr_image, file_out)) {
           // save image failure
-          std::cout << "Error! '" << file_out << "' is not a valid file name.\n";
+          std::cout << "Error! '" << file_out;
+          std::cout << "' is not a valid file name. Failed to save file.\n";
           print_help(file_out.c_str());
           return 1;
         }
