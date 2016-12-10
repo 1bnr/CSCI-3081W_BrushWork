@@ -26,14 +26,21 @@ namespace image_tools {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-/**
- * @brief This is the header file for the threshold filter.
- */
+ /**
+  * @brief The MotionBlur class is used to apply a motion blur filter to a
+  * PixelBuffer object. This is a convolution based filter.
+  */
 class MotionBlur {
  public:
   MotionBlur();
   virtual ~MotionBlur();
 
+  /**
+   * @brief Apply the filter to the PixelBuffer
+   * @param p The PixelBuffer that the filter will operate on
+   * @param motion_blur_amount a float which determines how much to blur the PixelBuffer
+   * @param direction determines which direction the user wants the blur to act in
+   */
   static void apply_filter(PixelBuffer* p, float motion_blur_amount,
                            int direction);
 };
