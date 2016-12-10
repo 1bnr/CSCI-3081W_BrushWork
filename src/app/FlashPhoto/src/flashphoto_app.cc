@@ -12,7 +12,7 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "flashphoto_app.h"
+#include "./flashphoto_app.h"
 #include <assert.h>
 #include <cmath>
 #include <iostream>

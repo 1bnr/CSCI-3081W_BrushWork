@@ -121,11 +121,11 @@ export CXXINCDIRS
 # This is specified differently depending on whether we are on linux or OSX.
 UNAME = $(shell uname)
 ifeq ($(UNAME), Darwin) # Mac OSX
-CXXLIBS += -limgtools 
-CXXLIBS += -ljpeg -lpng -lz -framework glut -framework opengl -lglui 
+CXXLIBS += -limgtools
+CXXLIBS += -ljpeg -lpng -lz -framework glut -framework opengl -lglui
 else # LINUX
-CXXLIBS += -limgtools 
-CXXLIBS +=  -lpng -ljpeg -lz -lGL -lGLU -lglui -lglut 
+CXXLIBS += -limgtools
+CXXLIBS +=  -lpng -ljpeg -lz -lGL -lGLU -lglui -lglut
 CXXFLAGS += -fopenmp
 endif
 
@@ -159,6 +159,7 @@ all: libimgtools FlashPhoto MIA
 test:
 	@echo $(BUILDROOT)
 	@echo $(EXTDIR)
+	@echo $(CXXTESTDIR)
 
 install: all
 	$(MAKE) -C$(LIBIMGTOOLS_DIR)

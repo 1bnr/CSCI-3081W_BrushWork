@@ -12,11 +12,11 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "mia_app.h"
-#include "mia_cli.h"
-#include "../../../lib/libimgtools/src/include/color_data.h"
-#include <iostream>
 #include <stdlib.h>
+#include <iostream>
+#include "include/mia_app.h"
+#include "include/mia_cli.h"
+#include "../../../lib/libimgtools/src/include/color_data.h"
 
 /*******************************************************************************
  * Non-Member Functions

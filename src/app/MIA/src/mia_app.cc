@@ -12,11 +12,11 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "mia_app.h"
-#include <string>
-#include <iostream>
 #include <assert.h>
 #include <cmath>
+#include <string>
+#include <iostream>
+#include "include/mia_app.h"
 #include "../../../lib/libimgtools/src/include/color_data.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 #include "../../../lib/libimgtools/src/include/ui_ctrl.h"
@@ -30,19 +30,20 @@ namespace image_tools {
 /*******************************************************************************
  * Constructors/Destructor
  ******************************************************************************/
-MIAApp::MIAApp(int width, int height,const std::string &marker_fname) : BaseGfxApp(width, height),
-                                                      filter_manager_(),
-                                                      io_manager_(),
-                                                      state_manager_(),
-                                                      // glui_ctrl_hooks_(),
-                                                      display_buffer_(nullptr),
-                                                      stamp_buffer_(nullptr),
-                                                      cur_tool_(0),
-                                                      tools_(),
-                                                      states_(0),
-                                                      marker_fname_(marker_fname),
-                                                      mouse_last_x_(0),
-                                                      mouse_last_y_(0) {}
+MIAApp::MIAApp(int width, int height, const std::string &marker_fname) :
+                                              BaseGfxApp(width, height),
+                                              filter_manager_(),
+                                              io_manager_(),
+                                              state_manager_(),
+                                              // glui_ctrl_hooks_(),
+                                              display_buffer_(nullptr),
+                                              stamp_buffer_(nullptr),
+                                              cur_tool_(0),
+                                              tools_(),
+                                              states_(0),
+                                              marker_fname_(marker_fname),
+                                              mouse_last_x_(0),
+                                              mouse_last_y_(0) {}
 MIAApp::~MIAApp(void) {
   if (display_buffer_) {
     delete display_buffer_;

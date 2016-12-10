@@ -12,12 +12,10 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "mia_io_manager.h"
+#include "include/mia_io_manager.h"
 #include <assert.h>
 #include <iostream>
 #include <sstream>
-
-/* FIXME: ADDITIONAL INCLUDES AS NECESSARY HERE :-) */
 
 /*******************************************************************************
  * Namespaces

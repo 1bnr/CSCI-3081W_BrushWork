@@ -14,29 +14,30 @@
  ******************************************************************************/
 #include <stdlib.h>
 #include <iostream>
-#include "mia_cli.h"
- /*******************************************************************************
-  * Namespaces
-  ******************************************************************************/
- namespace image_tools {
+#include "include/mia_cli.h"
+/*******************************************************************************
+ * Namespaces
+ ******************************************************************************/
+namespace image_tools {
 
- /*******************************************************************************
-  * Constructors/Destructor
-  ******************************************************************************/
- MiaCli::MiaCli() {}
+/*******************************************************************************
+ * Constructors/Destructor
+******************************************************************************/
+MiaCli::MiaCli() {}
 
-
+/*******************************************************************************
+ * Member Functions
+ ******************************************************************************/
 int MiaCli::init_cli(int argc, char ** argv) {
-  if (argc == 2 && std::string(argv[1]) == "-h"){
+  if (argc == 2 && std::string(argv[1]) == "-h") {
     print_help(argv[1]);
   }
   if (argc == 4 && std::string(argv[2]) == "-compare") {
     // load the files to be compared
-//    image_tools::PixelBuffer * pixel_buffer1, *pixel_buffer2;
     image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
     image_tools::PixelBuffer *pixel_buffer2 = load_image(argv[argc - 1]);
     if (pixel_buffer1 == NULL || pixel_buffer2 == NULL) {
-      return 1; // return error; one of the files didn't load
+      return 1;  // return error; one of the files didn't load
     } else {
       // the files loaded successfully
       compare_images(*pixel_buffer1, *pixel_buffer2);
@@ -64,38 +65,40 @@ int MiaCli::init_cli(int argc, char ** argv) {
 
       // applying filters, at least 1 but could possibly be multiple
       for (int i = 2; i < argc; i+=2) {
-        if ((i+1) >= argc){
+        if ((i+1) >= argc) {
           break;
         }
         std::string filter = argv[i];
-        filter = filter.erase(0,1); // deleting the dash in front of filter name
+        // deleting the dash in front of filter name
+        filter = filter.erase(0, 1);
         float filter_amount = atof(argv[i+1]);
-        if (filter == "edge"){
+        if (filter == "edge") {
           i = i-1;
         }
         std::cout << "current filter = " << filter << std::endl;
         std::cout << "filter amount = " << filter_amount << std::endl;
 
         // decide which filter to be applied
-        if (filter == "edge"){
+        if (filter == "edge") {
           image_tools::EdgeDetect::apply_filter(curr_image);
         }
-        if (filter == "quantize"){
+        if (filter == "quantize") {
           // if using quantize filter the amount must be an int
-          filter_amount = int(filter_amount);
-          image_tools::Quantize::apply_filter(curr_image,filter_amount);
+        //  filter_amount = int(filter_amount);
+          image_tools::Quantize::apply_filter(curr_image,
+                                             static_cast<int>(filter_amount));
         }
-        if (filter == "sharpen"){
-          image_tools::Sharpen::apply_filter(curr_image,filter_amount);
+        if (filter == "sharpen") {
+          image_tools::Sharpen::apply_filter(curr_image, filter_amount);
         }
-        if (filter == "blur"){
-          image_tools::Blur::apply_filter(curr_image,filter_amount);
+        if (filter == "blur") {
+          image_tools::Blur::apply_filter(curr_image, filter_amount);
         }
-        if (filter == "threshold"){
-          image_tools::Threshold::apply_filter(curr_image,filter_amount);
+        if (filter == "threshold") {
+          image_tools::Threshold::apply_filter(curr_image, filter_amount);
         }
-        if (filter == "saturate"){
-          image_tools::Saturate::apply_filter(curr_image,filter_amount);
+        if (filter == "saturate") {
+          image_tools::Saturate::apply_filter(curr_image, filter_amount);
         }
         save_image(curr_image, file_out);
       }
@@ -129,15 +132,15 @@ int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
   int i2_width = pixel_buffer2.width();
   int i2_height = pixel_buffer2.height();
   // easy check, if sizes don't match they cannot be the same image
-  if ((i1_width == i2_width) && (i1_height == i2_height)){
-    for (int i = 0; i < i1_width; i++){
-      for (int j = 0; j< i1_height; j++){
-        if ((pixel_buffer1.get_pixel(i,j).red() !=
-        pixel_buffer2.get_pixel(i,j).red()) ||
-        (pixel_buffer1.get_pixel(i,j).green() !=
-        pixel_buffer2.get_pixel(i,j).green()) ||
-        (pixel_buffer1.get_pixel(i,j).blue() !=
-        pixel_buffer2.get_pixel(i,j).blue())) {
+  if ((i1_width == i2_width) && (i1_height == i2_height)) {
+    for (int i = 0; i < i1_width; i++) {
+      for (int j = 0; j< i1_height; j++) {
+        if ((pixel_buffer1.get_pixel(i, j).red() !=
+        pixel_buffer2.get_pixel(i, j).red()) ||
+        (pixel_buffer1.get_pixel(i, j).green() !=
+        pixel_buffer2.get_pixel(i, j).green()) ||
+        (pixel_buffer1.get_pixel(i, j).blue() !=
+        pixel_buffer2.get_pixel(i, j).blue())) {
             image_compare = 0;
             break;
         }
@@ -167,7 +170,8 @@ image_tools::PixelBuffer * MiaCli::load_image(std::string file_name) {
 }
 
 /* save a PixelBuffer to either a jpg or png file; destroys pixel_buffer */
-void MiaCli::save_image(image_tools::PixelBuffer *pixel_buffer, std::string file_name) {
+void MiaCli::save_image(image_tools::PixelBuffer *pixel_buffer,
+                                                       std::string file_name) {
   image_tools::FileIo * file_io;
   std::string file_suffix = file_name.substr(file_name.find_last_of(".") + 1);
   if (file_suffix.compare("png") == 0) {
