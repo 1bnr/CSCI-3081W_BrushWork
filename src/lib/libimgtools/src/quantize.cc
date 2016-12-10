@@ -13,7 +13,7 @@
  * Includes
  ******************************************************************************/
 #include "include/quantize.h"
-#include <cmath>
+#include <math.h>
 #include <vector>
 
 /*******************************************************************************
@@ -34,24 +34,21 @@ void Quantize::apply_filter(PixelBuffer* p, int buckets) {
   int x = p->width();
   int y = p->height();
   PixelBuffer filtered_buffer = *p;
+  if (buckets < 2) buckets = 2;
   int steps = buckets - 1;
-  // create bucketlist and bound each bucket (index) with a float value
-  std::vector<float> bucket_list;
-  if (buckets > 2) {
-    for (int i = 0; i < x; i++) {
-      for (int j = 0; j < y; j++) {
-        ColorData c = p->get_pixel(i, j);
-        float red = c.red();
-        float blue = c.blue();
-        float green = c.green();
-        red = round(red*steps)/steps;
-        green = round(green*steps)/steps;
-        blue = round(blue*steps)/steps;
-        ColorData output(red, green, blue);
-        filtered_buffer.set_pixel(i, j, output);  // set new pixel
-      }
+  for (int i = 0; i < x; i++) {
+    for (int j = 0; j < y; j++) {
+      ColorData c = p->get_pixel(i, j);
+      float red = c.red();
+      float blue = c.blue();
+      float green = c.green();
+      red = round(red*steps)/steps;
+      green = round(green*steps)/steps;
+      blue = round(blue*steps)/steps;
+      ColorData output(red, green, blue);
+      filtered_buffer.set_pixel(i, j, output);  // set new pixel
     }
-    *p = filtered_buffer;
   }
+  *p = filtered_buffer;
 }
 }  // namespace image_tools
