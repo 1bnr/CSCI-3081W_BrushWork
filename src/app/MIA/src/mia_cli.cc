@@ -35,7 +35,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
   }
   else if (argc == 3) { // copy image
     image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
-    if (pixel_buffer1 == NULL) {
+    if (!pixel_buffer1->width() || !pixel_buffer1->height()) {
       std::cout << "coulding load image: " << argv[1] << std::endl;
       print_help(argv[1]);
       return 1;  // return error; one of the files didn't load
@@ -51,11 +51,11 @@ int MiaCli::init_cli(int argc, char ** argv) {
     // load the files to be compared
     image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
     image_tools::PixelBuffer *pixel_buffer2 = load_image(argv[argc - 1]);
-    if (pixel_buffer1 == NULL) {
+    if (!pixel_buffer1->width() || !pixel_buffer1->height()) {
       std::cout << "coulding load image: " << argv[1] << std::endl;
       print_help(argv[1]);
       return 1;  // return error; one of the files didn't load
-    } else if (pixel_buffer2 == NULL) {
+    } else if (!pixel_buffer2->width() || !pixel_buffer2->height()) {
       std::cout << "coulding load image: " << argv[argc - 1] << std::endl;
       print_help(argv[argc - 1]);
       return 1;  // return error; one of the files didn't load
