@@ -171,8 +171,8 @@ p.copyright {
 
 
 hr {
-    margin-left: 5%;
-    margin-right: 5%;
+    /*margin-left: 5%;*/
+    /*margin-right: 5%;*/
     border-width: 2px;
 }
 
@@ -285,7 +285,6 @@ hr {
 
 
 /******************************************************************/
-/*UMN Schedule Page*/
 /******************************************************************/
 #overview {
     text-align: center;
@@ -307,3 +306,11 @@ hr {
     padding-top: 5%;
     padding-bottom: 2%;
 }
+
+#newtool p{
+    font-size: 18px;
+    text-align: left;
+
+}
+
+
