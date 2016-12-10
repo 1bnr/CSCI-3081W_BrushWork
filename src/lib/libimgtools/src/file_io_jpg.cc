@@ -57,10 +57,8 @@ PixelBuffer FileIoJpg::load_image(std::string file_name) {
   jpeg_create_decompress(&cinfo);
   jpeg_stdio_src(&cinfo, infile);
 
-  printf("%s\n", "read header");
   (void) jpeg_read_header(&cinfo, TRUE);
   /* start decompressor */
-  printf("%s\n", "start decompression");
   (void) jpeg_start_decompress(&cinfo);
 
   height = cinfo.output_height;  // pixels per height
@@ -78,7 +76,6 @@ PixelBuffer FileIoJpg::load_image(std::string file_name) {
   }
 
   /* finish decompression */
-  printf("%s\n", "finish decompression.");
   (void) jpeg_finish_decompress(&cinfo);
   /* release JPEG decompression object */
   jpeg_destroy_decompress(&cinfo);
@@ -99,8 +96,9 @@ PixelBuffer FileIoJpg::load_image(std::string file_name) {
   return new_buffer;
 }
 /** save the given PixelBuffer image as the given FILE file_name */
-void FileIoJpg::save_image(
+int FileIoJpg::save_image(
                     const PixelBuffer & image, const std::string & file_name) {
+  int error = 0;
   struct jpeg_compress_struct cinfo;
   struct jpeg_error_mgr jerr;
   /* More stuff */
@@ -118,7 +116,8 @@ void FileIoJpg::save_image(
   /* specify data destination file */
   if ((outfile = fopen(file_name.c_str(), "wb")) == NULL) {
     fprintf(stderr, "can't open %s\n", file_name.c_str());
-    exit(1);
+    error = 1;
+    exit(error);
   }
   jpeg_stdio_dest(&cinfo, outfile);
 
@@ -162,6 +161,7 @@ void FileIoJpg::save_image(
   jpeg_destroy_compress(&cinfo);
   free(image_buffer);
   fclose(outfile);
+  return error;
 }
 
 }  /* namespace image_tools */

@@ -14,6 +14,7 @@
  ******************************************************************************/
 #include <stdlib.h>
 #include <iostream>
+#include <string>
 #include "include/mia_cli.h"
 /*******************************************************************************
  * Namespaces
@@ -36,11 +37,23 @@ int MiaCli::init_cli(int argc, char ** argv) {
     // load the files to be compared
     image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
     image_tools::PixelBuffer *pixel_buffer2 = load_image(argv[argc - 1]);
-    if (pixel_buffer1 == NULL || pixel_buffer2 == NULL) {
+    if (pixel_buffer1 == NULL) {
+      std::cout << "coulding load image: " << argv[1] << std::endl;
+      print_help(argv[1]);
+      return 1;  // return error; one of the files didn't load
+    } else if (pixel_buffer2 == NULL) {
+      std::cout << "coulding load image: " << argv[argc - 1] << std::endl;
+      print_help(argv[argc - 1]);
       return 1;  // return error; one of the files didn't load
     } else {
       // the files loaded successfully
-      compare_images(*pixel_buffer1, *pixel_buffer2);
+      if (compare_images(*pixel_buffer1, *pixel_buffer2)) {
+        std::cout << "the images " << argv[1] << " and " << argv[argc - 1];
+        std::cout << " are pixel-to-pixel identical\n";
+      } else {
+          std::cout << "the images " << argv[1] << " and " << argv[argc - 1];
+          std::cout << " are not identical\n";
+      }
     }
   }
   if (argc >= 4 && std::string(argv[2]) != "-compare") {
@@ -69,58 +82,98 @@ int MiaCli::init_cli(int argc, char ** argv) {
           break;
         }
         std::string filter = argv[i];
+        // if string 'filter' doesn't have a dash, it isn't a filter
+        if ('-' != filter.at(0)) {
+          std::cout << "Error! '" << filter << "' is not a valid command\n";
+          print_help(filter.c_str());
+          return 1;
+        }
+
         // deleting the dash in front of filter name
         filter = filter.erase(0, 1);
-        float filter_amount = atof(argv[i+1]);
+        // capture float or int argument
+        float float_arg;
+        int int_arg;
+        int foundint, foundfloat;
+        foundfloat = sscanf(argv[i+1], "%f", &float_arg);
+        foundint= sscanf(argv[i+1], "%d", &int_arg);
+
+        fprintf(stderr, "foundfloat %d\n",foundfloat );
+        fprintf(stderr, "foundint %d\n",foundint );
+
         if (filter == "edge") {
-          i = i-1;
+          i = i-1; // edge takes only one argument, the ouput file name
+        }
+        else if (!(foundint || foundfloat)) {
+          std::cout << "Error! '" << argv[i+1];
+          std::cout << "'is not valid input for -" << filter << std::endl;
+          print_help(argv[i+1]);
+          return 1;
         }
         std::cout << "current filter = " << filter << std::endl;
-        std::cout << "filter amount = " << filter_amount << std::endl;
+        std::cout << "filter amount = " << argv[i+1] << std::endl;
 
         // decide which filter to be applied
         if (filter == "edge") {
           image_tools::EdgeDetect::apply_filter(curr_image);
         }
+
         if (filter == "quantize") {
           // if using quantize filter the amount must be an int
-        //  filter_amount = int(filter_amount);
-          image_tools::Quantize::apply_filter(curr_image,
-                                             static_cast<int>(filter_amount));
+          if (foundint)
+            image_tools::Quantize::apply_filter(curr_image, int_arg);
+          else {
+            std::cout << "Error! '" << argv[i+1];
+            std::cout << "'is not valid input for -" << filter << std::endl;
+            print_help(argv[i+1]);
+            return 1;
+          }
         }
+        if (foundint && !foundfloat)
+          float_arg = static_cast<float>(int_arg);
         if (filter == "sharpen") {
-          image_tools::Sharpen::apply_filter(curr_image, filter_amount);
+          image_tools::Sharpen::apply_filter(curr_image, float_arg);
         }
         if (filter == "blur") {
-          image_tools::Blur::apply_filter(curr_image, filter_amount);
+          image_tools::Blur::apply_filter(curr_image, float_arg);
         }
         if (filter == "threshold") {
-          image_tools::Threshold::apply_filter(curr_image, filter_amount);
+          image_tools::Threshold::apply_filter(curr_image, float_arg);
         }
         if (filter == "saturate") {
-          image_tools::Saturate::apply_filter(curr_image, filter_amount);
+          image_tools::Saturate::apply_filter(curr_image, float_arg);
         }
-        save_image(curr_image, file_out);
+        if (save_image(curr_image, file_out)) {
+          // save image failure
+          std::cout << "Error! '" << file_out << "' is not a valid file name.\n";
+          print_help(file_out.c_str());
+          return 1;
+        }
       }
       free(file_io);
     }
   }
 
-void MiaCli::print_help(char *arg) {
+void MiaCli::print_help(const char *arg) {
   std::cout << "argument passed to MIA = " << arg << std::endl;
   std::cout << "MIA HELP\n"
-                "MIA can be run in graphical mode or command-line mode.\n"
-                "below are all command-line operations supported:\n"
-                "-h\n"
-                "-sharpen <float>\n"
-                "-edge\n"
-                "-threshold <float>\n"
-                "-quantize <int>\n"
-                "-blur <float>\n"
-                "-saturate <float>\n"
-                "-channel <float> <float> <float>\n"
-                "-compare"
-              << std::endl;
+  "MIA can be run in graphical mode or command-line mode.\n"
+  "below are all command-line operations supported:\n"
+  "+------------------------+-----------------------------------------------+\n"
+  "|   command              |               brief description               |\n"
+  "+------------------------+-----------------------------------------------+\n"
+  "-h                        this help message\n"
+  "-sharpen <float>          sharpen image proportional to <float>\n"
+  "-edge                     edge detection filter\n"
+  "-threshold <float>        threshold filter; <float> range [0.0-1.0] \n"
+  "-quantize <int>           reduce number of colors by 'binning' each value\n"
+  "-blur <float>             blur image proportional to <float>\n"
+  "-saturate <float>         alter color saturation by <float> value\n"
+  "-compare                  a pixel-by-pixel comparison with filename2\n\n"
+  "Usage:\n\n\tbuild/bin/MIA <filename1> "
+  "[< -command1 [com1_arg] > ... ] <filename2>\n\n"
+  "unless otherwise noted, filename1 is the input and filename2 is the output.";
+  std::cout << std::endl;
 }
 
 int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
@@ -135,21 +188,22 @@ int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
   if ((i1_width == i2_width) && (i1_height == i2_height)) {
     for (int i = 0; i < i1_width; i++) {
       for (int j = 0; j< i1_height; j++) {
-        if ((pixel_buffer1.get_pixel(i, j).red() !=
-        pixel_buffer2.get_pixel(i, j).red()) ||
-        (pixel_buffer1.get_pixel(i, j).green() !=
-        pixel_buffer2.get_pixel(i, j).green()) ||
-        (pixel_buffer1.get_pixel(i, j).blue() !=
-        pixel_buffer2.get_pixel(i, j).blue())) {
-            image_compare = 0;
-            break;
+        // fetch the two pixels to be compared
+        ColorData pixel1 = pixel_buffer1.get_pixel(i, j);
+        ColorData pixel2 = pixel_buffer2.get_pixel(i, j);
+        if ((to_int(pixel1.red())   != to_int(pixel2.red())) ||
+            (to_int(pixel1.green()) != to_int(pixel2.green())) ||
+            (to_int(pixel1.blue())  != to_int(pixel2.blue()))) {
+          image_compare = 0;
+          break;
         }
       }
     }
-  } else {
+  } else { // dimensions didn't match
     image_compare = 0;
   }
   std::cout << image_compare << std::endl;
+  return image_compare;
 }
 
 /* load an image into a PixelBuffer, returns pointer to PixelBuffer or NULL */
@@ -163,6 +217,8 @@ image_tools::PixelBuffer * MiaCli::load_image(std::string file_name) {
              (file_suffix.compare("jpeg") == 0)) {
     file_io = new image_tools::FileIoJpg();
   }
+  else
+    return NULL; // not an image file name
   image_pointer = new image_tools::PixelBuffer(file_io->load_image(file_name));
   free(file_io);
   file_io = NULL;
@@ -170,9 +226,9 @@ image_tools::PixelBuffer * MiaCli::load_image(std::string file_name) {
 }
 
 /* save a PixelBuffer to either a jpg or png file; destroys pixel_buffer */
-void MiaCli::save_image(image_tools::PixelBuffer *pixel_buffer,
+int MiaCli::save_image(image_tools::PixelBuffer *pixel_buffer,
                                                        std::string file_name) {
-  image_tools::FileIo * file_io;
+  image_tools::FileIo * file_io = NULL;
   std::string file_suffix = file_name.substr(file_name.find_last_of(".") + 1);
   if (file_suffix.compare("png") == 0) {
     file_io = new image_tools::FileIoPng();
@@ -180,11 +236,19 @@ void MiaCli::save_image(image_tools::PixelBuffer *pixel_buffer,
              (file_suffix.compare("jpeg") == 0)) {
     file_io = new image_tools::FileIoJpg();
   }
-  file_io->save_image(*pixel_buffer, file_name);
-  free(pixel_buffer);
-  pixel_buffer = NULL;
-  free(file_io);
-  file_io = NULL;
-}
+  if (file_io) {
+    file_io->save_image(*pixel_buffer, file_name);
+    free(file_io);
+    file_io = NULL;
+    free(pixel_buffer); // image saved to file, destoy buffer
+    pixel_buffer = NULL;
+    return 0;
+  } else {
+    // not a valid ouput type, file not saved
+    free(pixel_buffer); // image saved to file, destoy buffer
+    pixel_buffer = NULL;
+    return 1;
+  }
 
+}
 }  /* namespace image_tools */
