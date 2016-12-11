@@ -27,15 +27,19 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief The Sharpen class is used to apply a sharpen filter to a 
- * PixelBuffer object. This is a convolution based filter. The filter takes in 
- * a parameter sharpen_amount, that determines the amount to sharpen the image.
+ * @brief The Sharpen class is used to apply a sharpen filter to a
+ * PixelBuffer object. This is a convolution based filter.
  */
 class Sharpen {
  public:
   Sharpen();
   virtual ~Sharpen();
 
+  /**
+   * @brief Apply the filter to the PixelBuffer
+   * @param p The PixelBuffer that the filter will operate on
+   * @param sharpen_amount determines the amount to sharpen the image
+   */
   static void apply_filter(PixelBuffer* p, float sharpen_amount);
 };
 }  // namespace image_tools
