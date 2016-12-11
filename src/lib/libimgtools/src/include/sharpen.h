@@ -27,7 +27,9 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief This is the header file for the threshold filter.
+ * @brief The Sharpen class is used to apply a sharpen filter to a 
+ * PixelBuffer object. This is a convolution based filter. The filter takes in 
+ * a parameter sharpen_amount, that determines the amount to sharpen the image.
  */
 class Sharpen {
  public:
