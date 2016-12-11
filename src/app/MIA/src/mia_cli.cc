@@ -63,13 +63,14 @@ int MiaCli::init_cli(int argc, char ** argv) {
       return 1;  // return error; one of the files didn't load
     } else {
       // the files loaded successfully
-      if (compare_images(*pixel_buffer1, *pixel_buffer2)) {
-        std::cout << "the images " << argv[1] << " and " << argv[argc - 1];
-        std::cout << " are pixel-to-pixel identical\n";
-      } else {
-          std::cout << "the images " << argv[1] << " and " << argv[argc - 1];
-          std::cout << " are not identical\n";
-      }
+      compare_images(*pixel_buffer1, *pixel_buffer2);
+    //  if (compare_images(*pixel_buffer1, *pixel_buffer2)) {
+    //    std::cout << "the images " << argv[1] << " and " << argv[argc - 1];
+    //    std::cout << " are pixel-to-pixel identical\n";
+    //  } else {
+    //      std::cout << "the images " << argv[1] << " and " << argv[argc - 1];
+    //      std::cout << " are not identical\n";
+    //  }
     }
   }
   else if (argc >= 4 && std::string(argv[2]) != "-compare") {
