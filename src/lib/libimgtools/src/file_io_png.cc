@@ -31,14 +31,15 @@ FileIoPng::~FileIoPng(void) {}
  * Member Functions
  ******************************************************************************/
 PixelBuffer FileIoPng::load_image(std::string file_name) {
+  PixelBuffer null_buffer = PixelBuffer(0, 0, ColorData(0, 0, 0, 0));
   png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING,
                                   NULL, NULL, NULL);
   if (!png_ptr)
-    return PixelBuffer(0, 0, ColorData(0, 0, 0, 0));  /* out of memory */
+    return null_buffer;  /* out of memory */
   png_infop info_ptr = png_create_info_struct(png_ptr);
   if (!info_ptr) {
     png_destroy_read_struct(&png_ptr, NULL, NULL);
-    return PixelBuffer(0, 0, ColorData(0, 0, 0, 0));  /* out of memory */
+    return null_buffer;  /* out of memory */
   }
   // png_color_16p pBackground;  // unused; defaulting to black background
   unsigned int width, height, x, y;
@@ -46,6 +47,9 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
   png_bytep *row_pointers;
   // open file read only
   FILE *infile = fopen(file_name.c_str(), "rb");
+  if (!infile) {
+    return null_buffer;
+  }
   png_init_io(png_ptr, infile);
   // png_set_sig_bytes(png_ptr, 8); // unused unless reading signature bytes
   png_read_info(png_ptr, info_ptr);
