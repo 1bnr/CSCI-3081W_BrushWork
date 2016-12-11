@@ -28,7 +28,9 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief SETH FILL THIS IN
+ * @brief This tool simulates the usage of a Spray Can.
+ * It has a linear fall off mask with a radius of 15 (diameter of 30) and an opacity
+ * of 1.0 at the center and linear fall of to the edges.
  */
 class TSprayCan : public Tool {
  public:
