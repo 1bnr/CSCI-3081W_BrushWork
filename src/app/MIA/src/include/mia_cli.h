@@ -39,6 +39,7 @@ class MiaCli {
   /**
    * @brief initialize the command line interface to recieve commands.
    * commands are passed through from the command line when MIA is launced
+   * @return 0 on success, otherwise 1
    */
   int init_cli(int argc, char **argv);
   /**
@@ -51,6 +52,7 @@ class MiaCli {
    * @brief compare two images, pixel by pixel
    * @param pixel_buffer1 the PixelBuffer representation of the first image
    * @param pixel_buffer2 the PixelBuffer representation of the second image
+   * @return 1 if images are identical, otherwise 0
    */
   int compare_images(const image_tools::PixelBuffer &pixel_buffer1,
                      const image_tools::PixelBuffer &pixel_buffer2);
