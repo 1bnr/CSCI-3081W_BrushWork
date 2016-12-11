@@ -169,6 +169,10 @@ int MiaCli::init_cli(int argc, char ** argv) {
       }
       free(file_io);
     }
+    else{
+      std::cout << "Error!, your input is not supported by MIA Command Line Mode" << std::endl;
+      print_help(argv[1]);
+    }
     return 0;
   }
 
