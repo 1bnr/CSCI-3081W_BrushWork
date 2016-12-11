@@ -26,14 +26,21 @@ namespace image_tools {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-/**
- * @brief This is the header file for the threshold filter.
- */
+ /**
+  * @brief The Threshold class is used to apply a threshold filter to a
+  * PixelBuffer object. This is a pixel-independent filter.
+  */
 class Threshold {
  public:
   Threshold();
   virtual ~Threshold();
 
+  /**
+   * @brief Apply the filter to the PixelBuffer
+   * @param p The PixelBuffer that the filter will operate on
+   * @param thesh_amount color channels above this number will go to 1.0, below will go to 0.0
+
+   */
   static void apply_filter(PixelBuffer* p, float thresh_amount);
 };
 }  // namespace image_tools
