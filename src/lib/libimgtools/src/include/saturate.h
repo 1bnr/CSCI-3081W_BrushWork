@@ -26,14 +26,20 @@ namespace image_tools {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-/**
- * @brief This is the header file for the threshold filter.
- */
+ /**
+  * @brief The Saturate class is used to apply a saturate filter to a
+  * PixelBuffer object. This is a pixel-independent filter.
+  */
 class Saturate {
  public:
   Saturate();
   virtual ~Saturate();
 
+  /**
+   * @brief Apply the filter to the PixelBuffer
+   * @param p The PixelBuffer that the filter will operate on
+   * @param saturation_amount float that determines what level of saturation will be used on the PixelBuffer
+   */
   static void apply_filter(PixelBuffer* p, float saturation_amount);
 };
 }  // namespace image_tools

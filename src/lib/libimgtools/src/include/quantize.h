@@ -26,14 +26,20 @@ namespace image_tools {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-/**
- * @brief This is the header file for the quantize filter.
- */
+ /**
+  * @brief The Quantize class is used to apply a quantize filter to a
+  * PixelBuffer object. This is a pixel-independent filter.
+  */
 class Quantize {
  public:
   Quantize();
   virtual ~Quantize();
 
+  /**
+   * @brief Apply the filter to the PixelBuffer
+   * @param p The PixelBuffer that the filter will operate on
+   * @param buckets the number of buckets used to quantize the PixelBuffer
+   */
   static void apply_filter(PixelBuffer* p, int buckets);
 };
 }  // namespace image_tools
