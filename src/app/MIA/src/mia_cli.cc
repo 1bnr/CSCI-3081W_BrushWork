@@ -14,6 +14,8 @@
  ******************************************************************************/
 #include <stdlib.h>
 #include <iostream>
+#include <list>
+#include <sstream>
 #include <string>
 #include "include/mia_cli.h"
 /*******************************************************************************
@@ -32,147 +34,146 @@ MiaCli::MiaCli() {}
 int MiaCli::init_cli(int argc, char ** argv) {
   if (argc == 2 && std::string(argv[1]) == "-h") {
     print_help(argv[1]);
-  }
-  else if (argc == 3) { // copy image
-    fprintf(stderr, "%s\n", "passthrough");
-    image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
-    if (!pixel_buffer1->width() || !pixel_buffer1->height()) {
-      std::cout << "coulding load image: " << argv[1] << std::endl;
-      print_help(argv[1]);
-      return 1;  // return error; one of the files didn't load
+  } else {
+    std::string filename1 = std::string(argv[1]);
+    std::string filename2 = std::string(argv[argc - 1]);
+    int arg_count = 2;
+    while (arg_count < (argc - 1)) {
+      std::string newjob[2];
+      newjob[0] = std::string(argv[arg_count++]);
+      newjob[1] = (newjob[0] == "-compare" ||
+                   newjob[0] == "-edge") ? "" : std::string(argv[arg_count++]);
+      jobs_.push_back(newjob);
+    }
+    // if filenames contain wildcards
+    int wc_width = 0;
+    int wc_pos1 = 0;
+    int wc_pos2 =0;
 
-    } else if(save_image(pixel_buffer1, argv[argc - 1])) { // file loaded
+    if (filename2.find("#") != -1) {
+      wc_width = filename2.find_last_of("#") - filename2.find_first_of("#") + 1;
+      wc_pos1 = filename1.find_first_of("#");
+      wc_pos2 = filename2.find_first_of("#");
+
+      char format_pattern[5];
+      sprintf(format_pattern, "%%0%dd", wc_width);
+      char num[10];
+      /* process jobs for wildcard image names */
+      for (int i = 0; i < ((10^4)-1); i++) {
+        sprintf(num, format_pattern, i);
+        process_jobs(filename1.replace(wc_pos1, wc_width, num),
+                     filename2.replace(wc_pos2, wc_width, num));
+      }
+    } else { // no wildcards in names
+      process_jobs(filename1, filename2);
+    }
+  }
+}
+/* process the jobs_ list for the supplied image names */
+int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
+  image_tools::PixelBuffer * image1 = load_image(file_name1);
+  image_tools::PixelBuffer * image2;
+  if (!image1->width() || !image1->height()) {
+    // image1 failed to load_image
+    std::cout << "couldn't load image1: " << file_name1 << std::endl;
+    print_help(file_name1);
+    return 1;
+  }
+  // passthrough/copy if jobs_ is empty
+  if (jobs_.empty()) {
+    if(save_image(image2, file_name2)) {
         // save image failure
-        std::cout << "Error! '" << argv[argc - 1];
+        std::cout << "Error! '" << file_name2;
         std::cout << "' is not a valid file name. Failed to save image.\n";
-        print_help(argv[argc - 1]);
+        print_help(file_name2);
         return 1;
     }
-  }
-  else if (argc == 4 && std::string(argv[2]) == "-compare") {
-    // load the files to be compared
-    image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
-    image_tools::PixelBuffer *pixel_buffer2 = load_image(argv[argc - 1]);
-    if (!pixel_buffer1->width() || !pixel_buffer1->height()) {
-      std::cout << "coulding load image: " << argv[1] << std::endl;
-      print_help(argv[1]);
-      return 1;  // return error; one of the files didn't load
-    } else if (!pixel_buffer2->width() || !pixel_buffer2->height()) {
-      std::cout << "coulding load image: " << argv[argc - 1] << std::endl;
-      print_help(argv[argc - 1]);
-      return 1;  // return error; one of the files didn't load
-    } else {
-      // the files loaded successfully
-      if (compare_images(*pixel_buffer1, *pixel_buffer2)) {
-        std::cout << "the images " << argv[1] << " and " << argv[argc - 1];
-        std::cout << " are pixel-to-pixel identical\n";
+  } else
+  // there are jobs_ to process;
+  for (  std::list<std::string[2]>::iterator jit = MiaCli::jobs_.begin(); jit != MiaCli::jobs_.end(); ++jit) {
+    if (!(*jit)[0].compare("-compare")) {
+      // load the files to be compared
+      image2 = load_image(file_name2); // check if it loaded
+      if (!image2->width() || !image2->height()) {
+        std::cout << "couldn't load image2: " << file_name2 << std::endl;
+        print_help(file_name2);
+        return 1;  // return error; one of the files didn't load
       } else {
-          std::cout << "the images " << argv[1] << " and " << argv[argc - 1];
-          std::cout << " are not identical\n";
-      }
-    }
-  }
-  else if (argc >= 4 && std::string(argv[2]) != "-compare") {
-    // first argument is always the input file
-    std::string file_in =  argv[1];
-    // last argument in is always the output file
-    std::string file_out = argv[argc - 1];
-    std::cout << "image file in = " << file_in << std::endl;
-    std::cout << "image file out = " << file_out << std::endl;
-
-    // loading image
-    image_tools::PixelBuffer * curr_image;
-    image_tools::FileIo * file_io;
-    std::string file_suffix = file_in.substr(file_in.find_last_of(".") + 1);
-      if (file_suffix.compare("png") == 0) {
-        file_io = new image_tools::FileIoPng();
-      } else if ((file_suffix.compare("jpg") == 0) ||
-             (file_suffix.compare("jpeg") == 0)) {
-        file_io = new image_tools::FileIoJpg();
-      }
-      curr_image = load_image(file_in);
-
-      // applying filters, at least 1 but could possibly be multiple
-      for (int i = 2; i < argc; i+=2) {
-        if ((i+1) >= argc) {
-          break;
+        // the file loaded successfully
+          std::cout << "the images " << file_name1 << " and " << file_name2;
+        if (compare_images(*image1, *image2)) {
+          std::cout << " are pixel-to-pixel identical\n";
+        } else {
+            std::cout << " are different\n";
         }
-        std::string filter = argv[i];
-        // if string 'filter' doesn't have a dash, it isn't a filter
-        if ('-' != filter.at(0)) {
-          std::cout << "Error! '" << filter << "' is not a valid command\n";
-          print_help(filter.c_str());
-          return 1;
-        }
-
+      }
+    } else  // other filters
+      if ((*jit)[0] == "-edge" || (*jit)[0] == "-quantize" ||
+          (*jit)[0] == "-sharpen" || (*jit)[0] == "-blur" ||
+          (*jit)[0] == "-saturate" || (*jit)[0] == "-threshold") {
+        // these commands all produce output
+        std::string filter = (*jit)[0];
         // deleting the dash in front of filter name
         filter = filter.erase(0, 1);
         // capture float or int argument
-        float float_arg;
-        int int_arg;
-        int foundint, foundfloat;
-        foundfloat = sscanf(argv[i+1], "%f", &float_arg);
-        foundint= sscanf(argv[i+1], "%d", &int_arg);
+        float float_arg = 0.0;
+        int int_arg = 0;
+        int foundint = 0;
+        int foundfloat = 0;
+        if ((*jit)[1].find(".") == -1) // if no decimal point present
+          foundint= sscanf((*jit)[1].c_str(), "%d", &int_arg);
+        else
+          foundfloat = sscanf((*jit)[1].c_str(), "%f", &float_arg);
 
-//        fprintf(stderr, "foundfloat %d\n",foundfloat );
-//        fprintf(stderr, "foundint %d\n",foundint );
-
-        if (filter == "edge") {
-          i = i-1; // edge takes only one argument, the ouput file name
-        }
-        else if (!(foundint || foundfloat)) {
-          std::cout << "Error! '" << argv[i+1];
-          std::cout << "'is not valid input for -" << filter << std::endl;
-          print_help(argv[i+1]);
-          return 1;
-        }
         std::cout << "current filter = " << filter << std::endl;
-        std::cout << "filter amount = " << argv[i+1] << std::endl;
+        std::cout << "filter amount = " << ((foundfloat) ? float_arg : int_arg);
+        std::cout << std::endl;
 
         // decide which filter to be applied
         if (filter == "edge") {
-          image_tools::EdgeDetect::apply_filter(curr_image);
+          image_tools::EdgeDetect::apply_filter(image1);
         }
 
         if (filter == "quantize") {
           // if using quantize filter the amount must be an int
+          fprintf(stderr, "foundint %d\n", foundint );
+          fprintf(stderr, "foundfloat %d\n", foundfloat );
           if (foundint)
-            image_tools::Quantize::apply_filter(curr_image, int_arg);
+            image_tools::Quantize::apply_filter(image1, int_arg);
           else {
-            std::cout << "Error! '" << argv[i+1];
+            std::cout << "Error! '" << (*jit)[1];
             std::cout << "'is not valid input for -" << filter << std::endl;
-            print_help(argv[i+1]);
+            print_help((*jit)[1]);
             return 1;
           }
         }
         if (foundint && !foundfloat)
           float_arg = static_cast<float>(int_arg);
         if (filter == "sharpen") {
-          image_tools::Sharpen::apply_filter(curr_image, float_arg);
+          image_tools::Sharpen::apply_filter(image1, float_arg);
         }
         if (filter == "blur") {
-          image_tools::Blur::apply_filter(curr_image, float_arg);
+          image_tools::Blur::apply_filter(image1, float_arg);
         }
         if (filter == "threshold") {
-          image_tools::Threshold::apply_filter(curr_image, float_arg);
+          image_tools::Threshold::apply_filter(image1, float_arg);
         }
         if (filter == "saturate") {
-          image_tools::Saturate::apply_filter(curr_image, float_arg);
-        }
-        if (save_image(curr_image, file_out)) {
-          // save image failure
-          std::cout << "Error! '" << file_out;
-          std::cout << "' is not a valid file name. Failed to save file.\n";
-          print_help(file_out.c_str());
-          return 1;
+          image_tools::Saturate::apply_filter(image1, float_arg);
         }
       }
-      free(file_io);
+    }
+    if (save_image(image1, file_name2)) {
+      // save image failure
+      std::cout << "Error! '" << file_name2;
+      std::cout << "' is not a valid file name. Failed to save file.\n";
+      print_help(file_name2);
+      return 1;
     }
     return 0;
   }
 
-void MiaCli::print_help(const char *arg) {
+void MiaCli::print_help(std::string arg) {
   std::cout << "argument passed to MIA = " << arg << std::endl;
   std::cout << "MIA HELP\n"
   "MIA can be run in graphical mode or command-line mode.\n"
@@ -187,10 +188,10 @@ void MiaCli::print_help(const char *arg) {
   "-quantize <int>           reduce number of colors by 'binning' each value\n"
   "-blur <float>             blur image proportional to <float>\n"
   "-saturate <float>         alter color saturation by <float> value\n"
-  "-compare                  a pixel-by-pixel comparison with filename2\n\n"
-  "Usage:\n\n\tbuild/bin/MIA <filename1> "
-  "[< -command1 [com1_arg] > ... ] <filename2>\n\n"
-  "unless otherwise noted, filename1 is the input and filename2 is the output.";
+  "-compare                  a pixel-by-pixel comparison with image2\n\n"
+  "Usage:\n\n\tbuild/bin/MIA <image1> "
+  "[< -command1 [com1_arg] > ... ] <image2>\n\n"
+  "unless otherwise noted, image1 is the input and image2 is the output.";
   std::cout << std::endl;
 }
 

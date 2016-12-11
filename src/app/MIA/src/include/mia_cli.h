@@ -17,6 +17,7 @@
  ******************************************************************************/
 #include <string>
 #include <math.h>
+#include <list>
 #include "./mia_app.h"
 /*******************************************************************************
 * Namespaces
@@ -26,6 +27,7 @@ namespace image_tools {
 /*******************************************************************************
 * Class Definitions
 ******************************************************************************/
+
 /**
 * @brief The main class for MIA_CLI.
 * It is a command line interface for the MIA medical imaging application
@@ -35,11 +37,13 @@ class MiaCli {
   MiaCli();
   ~MiaCli() {}
   int init_cli(int argc, char **argv);
-  void print_help(const char *arg);
+  void print_help(std::string arg);
   int compare_images(const image_tools::PixelBuffer &pixel_buffer1,
                      const image_tools::PixelBuffer &pixel_buffer2);
 private:
+  std::list<std::string[2]> jobs_;
   int to_int(float in) {return static_cast<int>(floor(1000000 * in));}
+  int process_jobs(std::string file_name1, std::string file_name2);
   PixelBuffer * load_image(std::string file_name);
   int save_image(image_tools::PixelBuffer *pixel_buffer, std::string filename);
 };
