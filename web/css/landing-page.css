@@ -176,7 +176,7 @@ hr {
     border-width: 2px;
 }
 
-#projects {
+#projects{
     background: #1e1d1e;
 }
 /*Welcome*/
@@ -193,20 +193,9 @@ hr {
     /*background: #e3e3e3;*/
     text-align: center;
 }
-
-#projects{
-    background: #1e1d1e;
-}
-/*Welcome*/
-#projectTextContainer{
-    height: 50%;
-    color:#e3e3e3;
-    min-height: 200px;
-    /*min-width: 800px;*/
-}
-#projectText {
+#projectText2 {
     height: 100%;
-    padding-top: 15%;
+    padding-top: 10%;
     padding-bottom: 10%;
     /*background: #e3e3e3;*/
     text-align: center;
@@ -312,6 +301,11 @@ hr {
     text-align: left;
     font-weight: 300;
 
+}
+
+#design {
+    text-align: left;
+    font-weight: 300;
 }
 
 
