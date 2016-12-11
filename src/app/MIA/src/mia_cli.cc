@@ -15,7 +15,6 @@
 #include <stdlib.h>
 #include <iostream>
 #include <list>
-#include <sstream>
 #include <string>
 #include "include/mia_cli.h"
 /*******************************************************************************
@@ -49,8 +48,8 @@ int MiaCli::init_cli(int argc, char ** argv) {
     int wc_width = 0;
     int wc_pos1 = 0;
     int wc_pos2 =0;
-
-    if (filename2.find("#") != -1) {
+    unsigned wc_check = filename2.find("#");
+    if (wc_check != (-1)) {
       wc_width = filename2.find_last_of("#") - filename2.find_first_of("#") + 1;
       wc_pos1 = filename1.find_first_of("#");
       wc_pos2 = filename2.find_first_of("#");
@@ -136,14 +135,12 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
 
         if (filter == "quantize") {
           // if using quantize filter the amount must be an int
-          fprintf(stderr, "foundint %d\n", foundint );
-          fprintf(stderr, "foundfloat %d\n", foundfloat );
           if (foundint)
             image_tools::Quantize::apply_filter(image1, int_arg);
           else {
-            std::cout << "Error! '" << (*jit)[1];
+            std::cout << "Error! '" << (*jit)[0];
             std::cout << "'is not valid input for -" << filter << std::endl;
-            print_help((*jit)[1]);
+            print_help((*jit)[0]);
             return 1;
           }
         }
@@ -161,6 +158,12 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
         if (filter == "saturate") {
           image_tools::Saturate::apply_filter(image1, float_arg);
         }
+      }
+      else {
+        std::string filter = std::string((*jit)[0]);
+        std::cout << "Error! " << filter << " is not a valid command.\n";
+        print_help(filter);
+        return 1;
       }
     }
     if (save_image(image1, file_name2)) {

@@ -78,10 +78,50 @@
      <!-- Project Design Description and Content -->
     <section id="overview" class="container-fluid">
         <div class="container">
-            <div class="row">
+            <div class="row" id="design">
                 <div class="col-md-12">
                     <h1>Learn about the design decisions of the application.</h1>
-                    <p>Blah Blah Blah design stuff............</p>   
+                    <p><b>We decided to use the following file structure:</b> <br> 
+                        ./doc/<br>
+                        ./ext/<br>
+                        &emsp;&emsp;glui/<br>
+                        &emsp;&emsp;libpng-1.6.16/<br>
+                        &emsp;&emsp;jpeg-9a/<br>
+                        ./resources/<br>
+                        ./src/<br>
+                        &emsp;&emsp;app/<br>
+                            &emsp;&emsp;&emsp;&emsp;FlashPhoto/<br>
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;src/<br>
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Makefile<br>
+                            &emsp;&emsp;&emsp;&emsp;Mia/<br>
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;src/<br>
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Makefile<br>
+                        &emsp;&emsp;lib/<br>
+                            &emsp;&emsp;&emsp;&emsp;libimgtools/<br>
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;src/<br>
+                                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Makefile<br>
+                        ./templates/<br>
+                        ./tests/<br>
+                        ./web/<br>
+                        Makefile<br>
+                    </p><br>
+                    <p>
+                        <b>doc</b> - contains the Doxyfile and the design documents from iteration 1 and 2, we wanted files related to documentation to be seperate from C++ files.<br>
+                        <b>ext</b> -  contains the external jpeg and png image libraries, as well as the glui libraries. The ext directory essentially houses all external code libraries that we use in MIA and FlashPhoto.<br>
+                        <b>resources</b> - <br>
+                        <b>src</b> - <br>
+                        <b>app</b> - <br>
+                        <b>FlashPhoto</b> - <br>
+                        <b>MIA</b> - <br>
+                        <b>lib/libimgtools</b> - <br>
+                        <b>templates</b> - <br>
+                        <b>tests</b> - <br>
+                        <b>web</b> - <br>
+                        <b>Makefile</b> - <br>
+
+
+
+                    </p>  
                 </div>
             </div>
         </div>
@@ -93,7 +133,7 @@
             <div class="row">
                 <div class="col-md-12 center">
                     <div id="projectTextContainer">
-                        <h1 id="projectText">Tutorials</h1>
+                        <h1 id="projectText2">Tutorials</h1>
                     </div>
                 </div>
             </div>

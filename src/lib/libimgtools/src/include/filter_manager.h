@@ -139,6 +139,7 @@ class FilterManager {
                              void (*s_gluicallback)(int));
  
  private:
+  /* data members, input for filters */
   float channel_color_red_;
   float channel_color_green_;
   float channel_color_blue_;
