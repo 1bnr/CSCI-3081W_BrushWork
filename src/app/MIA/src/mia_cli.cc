@@ -34,11 +34,13 @@ int MiaCli::init_cli(int argc, char ** argv) {
     print_help(argv[1]);
   }
   else if (argc == 3) { // copy image
+    fprintf(stderr, "%s\n", "passthrough");
     image_tools::PixelBuffer *pixel_buffer1 = load_image(argv[1]);
     if (!pixel_buffer1->width() || !pixel_buffer1->height()) {
       std::cout << "coulding load image: " << argv[1] << std::endl;
       print_help(argv[1]);
       return 1;  // return error; one of the files didn't load
+
     } else if(save_image(pixel_buffer1, argv[argc - 1])) { // file loaded
         // save image failure
         std::cout << "Error! '" << argv[argc - 1];
@@ -112,8 +114,8 @@ int MiaCli::init_cli(int argc, char ** argv) {
         foundfloat = sscanf(argv[i+1], "%f", &float_arg);
         foundint= sscanf(argv[i+1], "%d", &int_arg);
 
-        fprintf(stderr, "foundfloat %d\n",foundfloat );
-        fprintf(stderr, "foundint %d\n",foundint );
+//        fprintf(stderr, "foundfloat %d\n",foundfloat );
+//        fprintf(stderr, "foundint %d\n",foundint );
 
         if (filter == "edge") {
           i = i-1; // edge takes only one argument, the ouput file name
@@ -253,12 +255,13 @@ int MiaCli::save_image(image_tools::PixelBuffer *pixel_buffer,
     file_io = new image_tools::FileIoJpg();
   }
   if (file_io) {
-    file_io->save_image(*pixel_buffer, file_name);
+    int error = 0;
+    error = file_io->save_image(*pixel_buffer, file_name);
     free(file_io);
     file_io = NULL;
     free(pixel_buffer); // image saved to file, destoy buffer
     pixel_buffer = NULL;
-    return 0;
+    return error;
   } else {
     // not a valid ouput type, file not saved
     free(pixel_buffer); // image saved to file, destoy buffer
