@@ -27,7 +27,7 @@ namespace image_tools {
  * Class Definitions
  ******************************************************************************/
 /**
- * @brief The Special class is used to apply a custom emboss filter to a 
+ * @brief The Special class is used to apply a custom emboss filter to a
  * PixelBuffer object. This is a convolution based filter.
  */
 class Special {
@@ -35,6 +35,10 @@ class Special {
   Special();
   virtual ~Special();
 
+  /**
+   * @brief Apply the filter to the PixelBuffer
+   * @param p The PixelBuffer that the filter will operate on
+   */
   static void apply_filter(PixelBuffer* p);
 };
 }  // namespace image_tools
