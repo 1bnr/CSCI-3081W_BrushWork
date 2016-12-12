@@ -28,14 +28,26 @@ namespace image_tools {
 /*******************************************************************************
  * Class Definitions
  ******************************************************************************/
-/**
- * @brief handles loading an image from a file to the stamp.
- */
+ /**
+  * @brief handles all file IO for png formatted image files.
+  */
 class FileIoPng : public FileIo {
  public:
   FileIoPng(void);
   virtual ~FileIoPng(void);
+  /**
+   * @brief load the image specifed into a PixelBuffer.
+   * @param file_name a string containing the path and name of the file to open
+   * @return on success a PixelBuffer representation of the image, otherwise an
+   * empty, 0 x 0 PixelBuffer
+   */
   virtual PixelBuffer load_image(std::string file_name);
+  /**
+   * @brief save an image to the path specified by the file_name string
+   * @param image the PixelBuffer pointer that will point to the loaded image
+   * @param file_name a string containing the path and name of the ouput file
+   * @return 0 on success, otherwise 1
+   * */
   virtual int save_image(const PixelBuffer & image,
                          const std::string & file_name);
 };
