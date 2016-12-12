@@ -41,7 +41,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
     // and build list of jobs
     int arg_count = 2;
     while (arg_count < (argc - 1)) {
-      std::string newjob[2];
+      std::string *newjob = new std::string[2];
       newjob[0] = std::string(argv[arg_count++]);
       newjob[1] = (newjob[0] == "-compare" ||
                    newjob[0] == "-edge") ? "" : std::string(argv[arg_count++]);
@@ -69,6 +69,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
       error = process_jobs(filename1, filename2);
     }
   }
+  jobs_.clear();
   return error;
 }  // exit init_cli
 
@@ -93,7 +94,7 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
     }
   } else {
     // there are jobs_ to process;
-    for (std::list<std::string[2]>::iterator jit = MiaCli::jobs_.begin();
+    for (std::list<std::string*>::iterator jit = MiaCli::jobs_.begin();
          jit != MiaCli::jobs_.end(); ++jit) {
       if (!(*jit)[0].compare("-compare")) {
         // load the files to be compared
@@ -235,7 +236,7 @@ int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
 /* load an image into a PixelBuffer, returns pointer to PixelBuffer or NULL */
 image_tools::PixelBuffer * MiaCli::load_image(std::string file_name) {
   image_tools::PixelBuffer *image_pointer;
-  image_tools::FileIo * file_io;
+  image_tools::FileIo * file_io = NULL;
   std::string file_suffix = file_name.substr(file_name.find_last_of(".") + 1);
   if (file_suffix.compare("png") == 0) {
     file_io = new image_tools::FileIoPng();
@@ -246,7 +247,8 @@ image_tools::PixelBuffer * MiaCli::load_image(std::string file_name) {
     return NULL;  // not a valid image file name
   }
   image_pointer = new image_tools::PixelBuffer(file_io->load_image(file_name));
-  free(file_io);
+  if (file_io)
+    free(file_io);
   file_io = NULL;
   return image_pointer;
 }

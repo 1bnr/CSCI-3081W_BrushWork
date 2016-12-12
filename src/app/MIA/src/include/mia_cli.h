@@ -58,7 +58,7 @@ class MiaCli {
                      const image_tools::PixelBuffer &pixel_buffer2);
  private:
   /// @brief a std::list of std::string tuples of filter name and filter arg
-  std::list<std::string[2]> jobs_;
+  std::list<std::string*> jobs_;
   /// @brief convert a float into an int for camparison purposes
   int to_int(float in) {return static_cast<int>(floor(1000000 * in));}
   /**
