@@ -82,6 +82,7 @@
                 <div class="col-md-12">
                     <h1>Learn about the design decisions of the application.</h1>
                     <p><b>We decided to use the following file structure:</b> <br> 
+                        ./config/<br>
                         ./doc/<br>
                         ./ext/<br>
                         &emsp;&emsp;glui/<br>
@@ -100,24 +101,23 @@
                             &emsp;&emsp;&emsp;&emsp;libimgtools/<br>
                                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;src/<br>
                                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Makefile<br>
-                        ./templates/<br>
                         ./tests/<br>
                         ./web/<br>
                         Makefile<br>
                     </p><br>
                     <p>
-                        <b>doc</b> - contains the Doxyfile and the design documents from iteration 1 and 2, we wanted files related to documentation to be seperate from C++ files.<br>
-                        <b>ext</b> -  contains the external jpeg and png image libraries, as well as the glui libraries. The ext directory essentially houses all external code libraries that we use in MIA and FlashPhoto.<br>
-                        <b>resources</b> - <br>
-                        <b>src</b> - <br>
-                        <b>app</b> - <br>
-                        <b>FlashPhoto</b> - <br>
-                        <b>MIA</b> - <br>
-                        <b>lib/libimgtools</b> - <br>
-                        <b>templates</b> - <br>
-                        <b>tests</b> - <br>
-                        <b>web</b> - <br>
-                        <b>Makefile</b> - <br>
+                        <b>config</b> - the various configuration scripts that need to be run so that the project will build.<br><br>
+                        <b>doc</b> - contains the Doxyfile and the design documents from iteration 1 and 2, we wanted files related to documentation to be seperate from C++ files.<br><br>
+                        <b>ext</b> -  contains the external jpeg and png image libraries, as well as the glui libraries. The ext directory essentially houses all external code libraries that we use in MIA and FlashPhoto.<br><br>
+                        <b>resources</b> - has the test images for the applications, as well as the image used for the marker in MIA.<br><br>
+                        <b>src</b> - contains the app/ and lib/ directory, which is all of the internal C++ files that are used to build the application. We decided that src/ should be a unified directory in which all code we have written resides.<br><br>
+                        <b>app</b> - seperates out the C++ files that are specific to FlashPhoto and MIA, this the subdirectorioes of FlashPhoto/ and MIA/<br><br>
+                        <b>FlashPhoto</b> - contains the files specific to building FlashPhoto. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The FlashPhoto Makefile is also located in FlashPhoto/. We wanted the applciation specific code to be seperate, thus the decision to make this directory.<br><br>
+                        <b>MIA</b> - contains the files specific to building MIA. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The MIA Makefile is also located in MIA/. We wanted the applciation specific code to be seperate, thus the decision to make this directory.<br><br>
+                        <b>lib/libimgtools</b> - this directory contains all the C++ files common to both MIA and FlashPhoto. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The libimgtools Makefile is also located in lib/libimgtools. We made the libimgtools/ directory because it helps guarantee that we don't have duplicate code, and that we can easily point to the centralized common code.<br><br>
+                        <b>tests</b> - holds all the test files for our test cases and scripts...<br><br>
+                        <b>web</b> - all of the website files are located in this directory. We also export the Doxygen html files to the subdirectory doxygen/. In addition to the html files, the web/ directory also contains bootstrap resources that we used to build the website documentation. It made sense for there to be a web/ directory due to the difference between the actual application files and the website files.<br><br>
+                        <b>Makefile</b> - this is the main Makefile for the whole project, thus it made sense to be at the root directory.<br><br>
 
 
 
