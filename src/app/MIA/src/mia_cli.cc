@@ -60,7 +60,8 @@ int MiaCli::init_cli(int argc, char ** argv) {
       snprintf(format_pattern, sizeof(format_pattern), "%%0%dd", wc_width);
       char num[10];
       /* process jobs for wildcard image names */
-      for (int i = 0; i < ((10^4)-1); i++) {
+      int numlimit = (pow(10,wc_width)-1);
+      for (int i = 1; i < numlimit; i++) {
         snprintf(num, sizeof(num), format_pattern, i);
         error = process_jobs(filename1.replace(wc_pos1, wc_width, num),
                      filename2.replace(wc_pos2, wc_width, num));
@@ -68,6 +69,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
     } else {  // no wildcards in names, just process_jobs once
       error = process_jobs(filename1, filename2);
     }
+    if (error) fprintf(stderr, "%s\n", "error encountered.");
   }
   jobs_.clear();
   return error;
@@ -140,7 +142,7 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
 
           if (filter == "quantize") {
             // if using quantize filter the amount must be an int
-            if (foundint) {
+            if (foundint && int_arg >= 2) {
               image_tools::Quantize::apply_filter(image1, int_arg);
             } else {
               std::cout << "Error! '" << (*jit)[0];
@@ -151,14 +153,33 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           }
           if (foundint && !foundfloat)
             float_arg = static_cast<float>(int_arg);
-          if (filter == "sharpen") {
+          if (filter == "sharpen" && float_arg >= 0) {
             image_tools::Sharpen::apply_filter(image1, float_arg);
+          } else {
+            // save image failure
+            std::cout << "Error! '" << float_arg;
+            std::cout << "' is not in the valid range for this filter.\n";
+            print_help(file_name2);
+            return 1;
           }
-          if (filter == "blur") {
+          if (filter == "blur" && float_arg >= 0) {
             image_tools::Blur::apply_filter(image1, float_arg);
+
+          } else {
+            // save image failure
+            std::cout << "Error! '" << float_arg;
+            std::cout << "' is not in the valid range for this filter.\n";
+            print_help(file_name2);
+            return 1;
           }
-          if (filter == "threshold") {
+          if (filter == "threshold" && float_arg >= 0) {
             image_tools::Threshold::apply_filter(image1, float_arg);
+          } else {
+            // save image failure
+            std::cout << "Error! '" << float_arg;
+            std::cout << "' is not in the valid range for this filter.\n";
+            print_help(file_name2);
+            return 1;
           }
           if (filter == "saturate") {
             image_tools::Saturate::apply_filter(image1, float_arg);
@@ -190,12 +211,12 @@ void MiaCli::print_help(std::string arg) {
   "|   command              |               brief description               |\n"
   "+------------------------+-----------------------------------------------+\n"
   "-h                        this help message\n"
-  "-sharpen <float>          sharpen image proportional to <float>\n"
+  "-sharpen <+float>          sharpen image proportional to <float>\n"
   "-edge                     edge detection filter\n"
-  "-threshold <float>        threshold filter; <float> range [0.0-1.0] \n"
-  "-quantize <int>           reduce number of colors by 'binning' each value\n"
-  "-blur <float>             blur image proportional to <float>\n"
-  "-saturate <float>         alter color saturation by <float> value\n"
+  "-threshold <+float>        threshold filter; <float> range [0.0-1.0] \n"
+  "-quantize <+int>           reduce number of colors to <int> bins\n"
+  "-blur <+float>             blur image proportional to <float>\n"
+  "-saturate <+/-float>         alter color saturation by <float> value\n"
   "-compare                  a pixel-by-pixel comparison with image2\n\n"
   "Usage:\n\n\tbuild/bin/MIA <image1> "
   "[< -command1 [com1_arg] > ... ] <image2>\n\n"
