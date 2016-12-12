@@ -35,7 +35,13 @@ int MiaCli::init_cli(int argc, char ** argv) {
   // if the -h help flag is given
   if (argc == 2 && std::string(argv[1]) == "-h") {
     print_help(argv[1]);
-  } else {  // collect the two file names,
+  }
+  else if (argc == 2 && std::string(argv[1]) != "-h"){
+    std::cout << "Error! Not a supported operation in MIA Command Line Mode." << std::endl;
+    print_help(argv[1]);
+  }
+
+   else {  // collect the two file names,
     std::string filename1 = std::string(argv[1]);
     std::string filename2 = std::string(argv[argc - 1]);
     // and build list of jobs
