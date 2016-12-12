@@ -39,6 +39,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
   else if (argc == 2 && std::string(argv[1]) != "-h"){
     std::cout << "Error! Not a supported operation in MIA Command Line Mode." << std::endl;
     print_help(argv[1]);
+    error += 1;
   }
 
    else {  // collect the two file names,
