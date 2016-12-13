@@ -138,6 +138,52 @@
 
     <hr>
 
+     <!-- Adding a new tool -->
+    <section id="overview" class="container-fluid">
+        <div class="container">
+            <div class="row" id="newtool">
+                <div class="col-md-12">
+                    <h1>Command Line Version</h1>
+                    <br>
+                    <p>To start this tutorial you will want a sequenced image stack saved as a set of numbered images inside a directory. This tutorial will use the brainstack directory (located in resources/test-images) but can be applied to any image stack you may want to use.  Follow these steps below to complete the task.</p>
+                    <br>
+                    <p><b>Step 1: Open Terminal</b><br>
+                    Open up a terminal on your computer and move into the project folder.  This can be done with the cd command, when you are inside the project directory you are now ready to run the program.</p>
+                    <hr>
+                    <p><b>Step 2: Understand using MIA command line mode</b><br>
+                    When running in command line mode we pass MIA multiple arguments.  We first pass it the input files (in our case this will be a directory of images), a filter to use (potentially multiple filters), and the output file (in our case we will make an output directory to store all the created images).<br>
+                    The input files can be accessed with:  <code>resources/test-images/brainstack/mrbrain-8bit###.png</code><br>
+                    The output files will be stored in a directory like so: <code>output/brain-final###.png</code><br>
+                    The filters that we will use:<br>
+                    &emsp;&emsp;blur with amount 5.0, this will slightly blur the image (reduce noise)<br>
+                    &emsp;&emsp;quantize with amount 4, sort the resulting image into 4 segments </p>
+                    <hr>
+                    <p><b>Step 3: Creating the output</b><br>
+                    You will need to create an output directory, the terminal command below will create a new directory named "output" inside the project directory:<br>
+                    <code>mkdir output</code></p>
+                    <hr>
+                    <p><b>Step 4: Running the commands</b><br>
+                    In your terminal the command below can be used to run the filters on all images inside brainstack, the ### is used to grab all images in the directory with the name "mrbrain-8bit followed by 3 digits:<br>
+                    <code>./build/bin/MIA resources/test-images/brainstack/mrbrain-8bit###.png –blur 5.0 -quantize 4 output/brain-final###.png</code><br></p>
+                    <hr>
+                    <p><b>Step 5: Check out the results</b><br>
+                    After this command executes, there should be 99 new filtered images inside of the output directory.  These images will have been applied a blur/quantize filter.  Below are two images, the first is the file mrbrain-8bit058.png (no filtering), the second is brain-final058.png (blur/quantize filtering) hopefully your output looks just like this!<br><br>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/8e2dc2a6-c096-11e6-9504-2c6a612ec951">
+                    <br>
+                    <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/c0883998-c096-11e6-9b1b-f4edfe8b5fdc">
+                    <br>
+                    <br>
+                    You have successfully processed a CT scan using MIA command line mode!
+                    <br>
+                    <br>
+                    </p>   
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
     <!-- Footer -->
     <footer>
         <div class="container">
