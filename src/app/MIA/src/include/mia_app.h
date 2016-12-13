@@ -17,8 +17,8 @@
  ******************************************************************************/
 #include <string>
 #include <vector>
-#include "./mia_filter_manager.h"
-#include "./mia_io_manager.h"
+#include "app/MIA/src/include/mia_filter_manager.h"
+#include "app/MIA/src/include/mia_io_manager.h"
 #include "../../../../lib/libimgtools/src/include/base_gfx_app.h"
 #include "../../../../lib/libimgtools/src/include/color_data.h"
 #include "../../../../lib/libimgtools/src/include/pixel_buffer.h"

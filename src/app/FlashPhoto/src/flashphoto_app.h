@@ -132,7 +132,9 @@ class FlashPhotoApp : public BaseGfxApp {
 
   /** List of Pixel Buffers for the state manager */
   std::vector<PixelBuffer*> states_;
-  unsigned int cur_state_ = 0;  // Holds the index of the PixelBuffer being displayed
+
+  /** Holds the index of the PixelBuffer being displayed */
+  unsigned int cur_state_ = 0;
 
   // Previous mouse coordinates for interpreting mouse moves
   int mouse_last_x_;
