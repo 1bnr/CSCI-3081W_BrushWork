@@ -35,14 +35,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
   // if the -h help flag is given
   if (argc == 2 && std::string(argv[1]) == "-h") {
     print_help(argv[1]);
-  }
-  else if (argc == 2 && std::string(argv[1]) != "-h"){
-    std::cout << "Error! Not a supported operation in MIA Command Line Mode.\n";
-    print_help(argv[1]);
-    error += 1;
-  }
-
-   else {  // collect the two file names,
+  } else {  // collect the two file names,
     std::string filename1 = std::string(argv[1]);
     std::string filename2 = std::string(argv[argc - 1]);
     // and build list of jobs
@@ -145,68 +138,64 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           // decide which filter to be applied
           if (filter == "edge") {
             image_tools::EdgeDetect::apply_filter(image1);
-          }
-
-          if (filter == "quantize") {
+          } else if (filter == "quantize") {
             // if using quantize filter the amount must be an int
             if (foundint && int_arg >= 2) {
               image_tools::Quantize::apply_filter(image1, int_arg);
             } else {
-              std::cout << "Error! '" << (*jit)[0];
+              std::cout << "Error! '" << int_arg;
               std::cout << "'is not valid input for -" << filter << std::endl;
               print_help((*jit)[0]);
               return 1;
             }
-          }
-          if (foundint && !foundfloat)
+          } else if (foundint && !foundfloat)
             float_arg = static_cast<float>(int_arg);
-          if (filter == "sharpen" && float_arg >= 0) {
-            image_tools::Sharpen::apply_filter(image1, float_arg);
-          } else {
-            // save image failure
-            std::cout << "Error! '" << float_arg;
-            std::cout << "' is not in the valid range for this filter.\n";
-            print_help(file_name2);
-            return 1;
-          }
-          if (filter == "blur" && float_arg >= 0) {
+          if (filter == "sharpen") {
+            if (float_arg >= 0) {
+              image_tools::Sharpen::apply_filter(image1, float_arg);
+            } else {
+              std::cout << "Error! '" << float_arg;
+              std::cout << "'is not valid input for -" << filter << std::endl;
+              print_help(file_name2);
+              return 1;
+            }
+          } else if (filter == "blur") {
+            if (float_arg >= 0) {
             image_tools::Blur::apply_filter(image1, float_arg);
-
-          } else {
-            // save image failure
-            std::cout << "Error! '" << float_arg;
-            std::cout << "' is not in the valid range for this filter.\n";
-            print_help(file_name2);
-            return 1;
-          }
-          if (filter == "threshold" && float_arg >= 0) {
+            } else {
+              std::cout << "Error! '" << float_arg;
+              std::cout << "'is not valid input for -" << filter << std::endl;
+              print_help(file_name2);
+              return 1;
+            }
+          } else if (filter == "threshold") {
+            if (float_arg >= 0 && float_arg <= 1) {
             image_tools::Threshold::apply_filter(image1, float_arg);
           } else {
-            // save image failure
             std::cout << "Error! '" << float_arg;
-            std::cout << "' is not in the valid range for this filter.\n";
+            std::cout << "'is not valid input for -" << filter << std::endl;
             print_help(file_name2);
             return 1;
           }
-          if (filter == "saturate") {
+        } else if (filter == "saturate") {
             image_tools::Saturate::apply_filter(image1, float_arg);
           }
-        } else {
+        } else {  // an invalid command was entered
           std::string filter = std::string((*jit)[0]);
           std::cout << "Error! " << filter << " is not a valid command.\n";
           print_help(filter);
           return 1;
         }
-      }
+      }  // exit iterated loop, save produced output
       if (save_image(image1, file_name2)) {
         // save image failure
         std::cout << "Error! '" << file_name2;
         std::cout << "' is not a valid file name. Failed to save file.\n";
         print_help(file_name2);
         return 1;
-      }  // exit iterated loop, save produced output
+      }
     }
-    return 0;
+    return 0; // return without errors
   }
 
 void MiaCli::print_help(std::string arg) {
