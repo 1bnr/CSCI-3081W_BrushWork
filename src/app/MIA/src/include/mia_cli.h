@@ -18,7 +18,7 @@
 #include <math.h>
 #include <string>
 #include <list>
-#include "./mia_app.h"
+#include "app/MIA/src/include/mia_app.h"
 /*******************************************************************************
 * Namespaces
 ******************************************************************************/
@@ -56,6 +56,7 @@ class MiaCli {
    */
   int compare_images(const image_tools::PixelBuffer &pixel_buffer1,
                      const image_tools::PixelBuffer &pixel_buffer2);
+
  private:
   /// @brief a std::list of std::string tuples of filter name and filter arg
   std::list<std::string*> jobs_;

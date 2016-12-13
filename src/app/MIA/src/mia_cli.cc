@@ -12,11 +12,11 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
+#include "app/MIA/src/include/mia_cli.h"
 #include <stdlib.h>
 #include <iostream>
 #include <list>
 #include <string>
-#include "include/mia_cli.h"
 /*******************************************************************************
  * Namespaces
  ******************************************************************************/
@@ -60,7 +60,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
       snprintf(format_pattern, sizeof(format_pattern), "%%0%dd", wc_width);
       char num[10];
       /* process jobs for wildcard image names */
-      int numlimit = (pow(10,wc_width)-1);
+      int numlimit = (pow(10, wc_width)-1);
       for (int i = 1; i < numlimit; i++) {
         snprintf(num, sizeof(num), format_pattern, i);
         error = process_jobs(filename1.replace(wc_pos1, wc_width, num),
@@ -151,8 +151,9 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
               print_help((*jit)[0]);
               return 1;
             }
-          } else if (foundint && !foundfloat)
+          } else if (foundint && !foundfloat) {
             float_arg = static_cast<float>(int_arg);
+          }
           if (filter == "sharpen") {
             if (float_arg >= 0) {
               image_tools::Sharpen::apply_filter(image1, float_arg);
@@ -198,7 +199,7 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
         return 1;
       }
     }
-    return 0; // return without errors
+    return 0;  // return without errors
   }
 
 void MiaCli::print_help(std::string arg) {
