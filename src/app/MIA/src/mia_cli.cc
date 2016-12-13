@@ -113,6 +113,9 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           } else {
               std::cout << " are different\n";
           }
+          free(image1);
+          free(image2);
+          return 0;
         }
       } else if ((*jit)[0] == "-edge" || (*jit)[0] == "-quantize" ||
             (*jit)[0] == "-sharpen" || (*jit)[0] == "-blur" ||
@@ -186,14 +189,17 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           print_help(filter);
           return 1;
         }
-      }  // exit iterated loop, save produced output
-      if (save_image(image1, file_name2)) {
-        // save image failure
-        std::cout << "Error! '" << file_name2;
-        std::cout << "' is not a valid file name. Failed to save file.\n";
-        print_help(file_name2);
-        return 1;
-      }
+        if (jit != MiaCli::jobs_.end()) { // if last iteration, save image
+          // if save_image returns an error, report it.
+          if (save_image(image1, file_name2)) {
+            // save image failure
+            std::cout << "Error! '" << file_name2;
+            std::cout << "' is not a valid file name. Failed to save file.\n";
+            print_help(file_name2);
+            return 1;
+          }
+        }
+      }  // exit iterated loop,
     }
     return 0; // return without errors
   }
