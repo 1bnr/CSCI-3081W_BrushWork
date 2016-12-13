@@ -106,13 +106,7 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           print_help(file_name2);
           return 1;  // return error; one of the files didn't load
         } else {
-          // the file loaded successfully
-            std::cout << "the images " << file_name1 << " and " << file_name2;
-          if (compare_images(*image1, *image2)) {
-            std::cout << " are pixel-to-pixel identical\n";
-          } else {
-              std::cout << " are different\n";
-          }
+          compare_images(*image1, *image2);
         }
       } else if ((*jit)[0] == "-edge" || (*jit)[0] == "-quantize" ||
             (*jit)[0] == "-sharpen" || (*jit)[0] == "-blur" ||
