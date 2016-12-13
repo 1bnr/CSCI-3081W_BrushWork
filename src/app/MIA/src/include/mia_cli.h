@@ -60,7 +60,7 @@ class MiaCli {
   /// @brief a std::list of std::string tuples of filter name and filter arg
   std::list<std::string*> jobs_;
   /// @brief convert a float into an int for camparison purposes
-  int to_int(float in) {return static_cast<int>(floor(1000000 * in));}
+  int to_int(float in) {return static_cast<int>(floor(10000 * in));}
   /**
    * @brief process the list of operations in jobs_
    * @param file_name1 string containing path to input file
