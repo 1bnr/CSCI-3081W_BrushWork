@@ -15,8 +15,8 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
-#include "color_data.h"
-#include "pixel_buffer.h"
+#include "lib/libimgtools/src/include/color_data.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
 
  /*******************************************************************************
  * Namespaces

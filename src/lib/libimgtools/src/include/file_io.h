@@ -16,7 +16,7 @@
  * Includes
  ******************************************************************************/
 #include <string>
-#include "pixel_buffer.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces

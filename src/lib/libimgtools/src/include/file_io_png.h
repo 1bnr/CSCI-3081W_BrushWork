@@ -17,8 +17,8 @@
  ******************************************************************************/
 #include <png.h>
 #include <string>
-#include "file_io.h"
-#include "pixel_buffer.h"
+#include "lib/libimgtools/src/include/file_io.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces

@@ -16,9 +16,9 @@
  * Includes
  ******************************************************************************/
 #include <string>
-#include "pixel_buffer.h"
-#include "color_data.h"
-#include "mask.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
+#include "lib/libimgtools/src/include/color_data.h"
+#include "lib/libimgtools/src/include/mask.h"
 
 /*******************************************************************************
  * Namespace Definitions

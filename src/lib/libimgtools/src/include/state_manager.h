@@ -18,8 +18,8 @@
 #include <string>
 #include <vector>
 #include "GL/glui.h"
-#include "ui_ctrl.h"
-#include "pixel_buffer.h"
+#include "lib/libimgtools/src/include/ui_ctrl.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
