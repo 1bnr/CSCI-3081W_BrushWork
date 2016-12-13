@@ -16,8 +16,8 @@
  * Includes
  ******************************************************************************/
 #include <string>
-#include "tool.h"
-#include "m_linear.h"
+#include "lib/libimgtools/src/include/tool.h"
+#include "lib/libimgtools/src/include/m_linear.h"
 
 /*******************************************************************************
  * Namespace Definitions

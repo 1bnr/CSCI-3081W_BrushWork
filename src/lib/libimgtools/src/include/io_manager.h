@@ -18,8 +18,8 @@
 #include <png.h>
 #include <string>
 #include "GL/glui.h"
-#include "ui_ctrl.h"
-#include "pixel_buffer.h"
+#include "lib/libimgtools/src/include/ui_ctrl.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
 
 /*******************************************************************************
  * Namespaces
@@ -168,7 +168,6 @@ class IOManager {
    * @return TRUE if yes, FALSE otherwise
    */
   bool is_valid_image_file(const std::string &name);
-  
   /**
    * @brief Creates the GLUI label for the save file function
    */
@@ -185,6 +184,7 @@ class IOManager {
   GLUI_EditText* file_name_box(void) { return file_name_box_; }
 
   std::string file_name_;
+
  private:
   /* Copy/move assignment/construction disallowed */
   IOManager(const IOManager &rhs) = delete;
@@ -198,9 +198,8 @@ class IOManager {
   GLUI_StaticText *current_file_label_;
   GLUI_EditText *file_name_box_;
   GLUI_StaticText *save_file_label_;
-
 };
 
 }  /* namespace image_tools */
 
-#endif  /* SRC_APP_FLASHPHOTO_SRC_IO_MANAGER_H_ */
+#endif  /* SRC_LIB_LIBIMGTOOLS_SRC_INCLUDE_IO_MANAGER_H_ */

@@ -12,11 +12,11 @@
 /*******************************************************************************
  * Includes
  ******************************************************************************/
+#include "app/MIA/src/include/mia_app.h"
 #include <assert.h>
 #include <cmath>
 #include <string>
 #include <iostream>
-#include "include/mia_app.h"
 #include "../../../lib/libimgtools/src/include/color_data.h"
 #include "../../../lib/libimgtools/src/include/pixel_buffer.h"
 #include "../../../lib/libimgtools/src/include/ui_ctrl.h"

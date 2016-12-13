@@ -16,7 +16,7 @@
  * Include Definitions
  ******************************************************************************/
 #include <string>
-#include "tool.h"
+#include "lib/libimgtools/src/include/tool.h"
 
 /*******************************************************************************
  * Namespace Definitions

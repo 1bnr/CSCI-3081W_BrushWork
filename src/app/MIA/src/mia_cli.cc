@@ -189,17 +189,14 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           print_help(filter);
           return 1;
         }
-        if (jit != MiaCli::jobs_.end()) { // if last iteration, save image
-          // if save_image returns an error, report it.
-          if (save_image(image1, file_name2)) {
-            // save image failure
-            std::cout << "Error! '" << file_name2;
-            std::cout << "' is not a valid file name. Failed to save file.\n";
-            print_help(file_name2);
-            return 1;
-          }
-        }
-      }  // exit iterated loop,
+      }  // exit iterated loop, save produced output
+      if (save_image(image1, file_name2)) {
+        // save image failure
+        std::cout << "Error! '" << file_name2;
+        std::cout << "' is not a valid file name. Failed to save file.\n";
+        print_help(file_name2);
+        return 1;
+      }
     }
     return 0; // return without errors
   }

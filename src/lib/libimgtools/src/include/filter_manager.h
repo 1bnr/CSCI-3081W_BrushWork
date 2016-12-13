@@ -16,17 +16,17 @@
  * Includes
  ******************************************************************************/
 #include "GL/glui.h"
-#include "pixel_buffer.h"
-#include "ui_ctrl.h"
-#include "threshold.h"
-#include "saturate.h"
-#include "rgb.h"
-#include "quantize.h"
-#include "edge_detect.h"
-#include "blur.h"
-#include "motion_blur.h"
-#include "sharpen.h"
-#include "special.h"
+#include "lib/libimgtools/src/include/pixel_buffer.h"
+#include "lib/libimgtools/src/include/ui_ctrl.h"
+#include "lib/libimgtools/src/include/threshold.h"
+#include "lib/libimgtools/src/include/saturate.h"
+#include "lib/libimgtools/src/include/rgb.h"
+#include "lib/libimgtools/src/include/quantize.h"
+#include "lib/libimgtools/src/include/edge_detect.h"
+#include "lib/libimgtools/src/include/blur.h"
+#include "lib/libimgtools/src/include/motion_blur.h"
+#include "lib/libimgtools/src/include/sharpen.h"
+#include "lib/libimgtools/src/include/special.h"
 
 /*******************************************************************************
  * Namespaces
@@ -137,7 +137,7 @@ class FilterManager {
                         void (*s_gluicallback)(int));
   void AddQuantizationToGLUI(GLUI_Panel *filter_panel,
                              void (*s_gluicallback)(int));
- 
+
  private:
   /* data members, input for filters */
   float channel_color_red_;

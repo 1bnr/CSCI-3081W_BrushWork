@@ -14,8 +14,8 @@
  ******************************************************************************/
 #include <stdlib.h>
 #include <iostream>
-#include "include/mia_app.h"
-#include "include/mia_cli.h"
+#include "app/MIA/src/include/mia_app.h"
+#include "app/MIA/src/include/mia_cli.h"
 #include "../../../lib/libimgtools/src/include/color_data.h"
 
 /*******************************************************************************
