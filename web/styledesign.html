@@ -80,8 +80,8 @@
         <div class="container">
             <div class="row" id="design">
                 <div class="col-md-12">
-                    <h1>Learn about the design decisions of the application.</h1>
-                    <p><b>We decided to use the following file structure:</b> <br> 
+                    <h1>Learn about the design decisions we made for FlashPhoto/MIA.</h1>
+                    <p><b>We decided to use the following file structure:</b> <br>
                         ./config/<br>
                         ./doc/<br>
                         ./ext/<br>
@@ -107,13 +107,13 @@
                     </p><br>
                     <p>
                         <b>config</b> - the various configuration scripts that need to be run so that the project will build.<br><br>
-                        <b>doc</b> - contains the Doxyfile and the design documents from iteration 1 and 2, we wanted files related to documentation to be seperate from C++ files.<br><br>
+                        <b>doc</b> - contains the Doxyfile and the design documents from iteration 1 and 2, we wanted files related to documentation to be separate from C++ files.<br><br>
                         <b>ext</b> -  contains the external jpeg and png image libraries, as well as the glui libraries. The ext directory essentially houses all external code libraries that we use in MIA and FlashPhoto.<br><br>
-                        <b>resources</b> - has the test images for the applications, as well as the image used for the marker in MIA.<br><br>
-                        <b>src</b> - contains the app/ and lib/ directory, which is all of the internal C++ files that are used to build the application. We decided that src/ should be a unified directory in which all code we have written resides.<br><br>
-                        <b>app</b> - seperates out the C++ files that are specific to FlashPhoto and MIA, this the subdirectorioes of FlashPhoto/ and MIA/<br><br>
-                        <b>FlashPhoto</b> - contains the files specific to building FlashPhoto. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The FlashPhoto Makefile is also located in FlashPhoto/. We wanted the applciation specific code to be seperate, thus the decision to make this directory.<br><br>
-                        <b>MIA</b> - contains the files specific to building MIA. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The MIA Makefile is also located in MIA/. We wanted the applciation specific code to be seperate, thus the decision to make this directory.<br><br>
+                        <b>resources</b> - has the test images for the applications (including an image-stack for use in MIA), as well as the image used for the marker in MIA.<br><br>
+                        <b>src</b> - contains the app/ and lib/ directories, these hold all of the internal C++ files that are used to build the applications. We decided that src/ should be a unified directory in which all code we have written resides.<br><br>
+                        <b>app</b> - separates out the C++ files that are specific to FlashPhoto and MIA, placing them in their respective directory (FlashPhoto/ or MIA/).<br><br>
+                        <b>FlashPhoto</b> - contains the files specific to building FlashPhoto. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The FlashPhoto Makefile is also located in FlashPhoto/. We wanted the application specific code to be separate, thus the decision to make this directory.<br><br>
+                        <b>MIA</b> - contains the files specific to building MIA. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The MIA Makefile is also located in MIA/. We wanted the application specific code to be separate, thus the decision to make this directory.<br><br>
                         <b>lib/libimgtools</b> - this directory contains all the C++ files common to both MIA and FlashPhoto. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The libimgtools Makefile is also located in lib/libimgtools. We made the libimgtools/ directory because it helps guarantee that we don't have duplicate code, and that we can easily point to the centralized common code.<br><br>
                         <b>test</b> - holds all the test files for our test cases as well as the actual Makefile for running the tests. It made sense to have all the files related to testing stored in the same directory.<br><br>
                         <b>web</b> - all of the website files are located in this directory. We also export the Doxygen html files to the subdirectory doxygen/. In addition to the html files, the web/ directory also contains bootstrap resources that we used to build the website documentation. It made sense for there to be a web/ directory due to the difference between the actual application files and the website files.<br><br>
@@ -121,7 +121,7 @@
 
 
 
-                    </p>  
+                    </p>
                 </div>
             </div>
         </div>
@@ -179,7 +179,7 @@
                     <img class="img-responsive" src="https://media.github.umn.edu/user/5831/files/1d89d4ec-9592-11e6-9e58-c31368cf30a5">
                     <br>
                     <p>If all this is done correctly, you should have a fully functioning pencil tool.
-                    </p>   
+                    </p>
                 </div>
             </div>
         </div>
@@ -222,13 +222,13 @@
                     <p>Now we only need to add a button to apply the filter. At the bottom of the InitGlui method in filter_manager.cc we need to add a new panel and button for the filter. Since invert only needs a single button, the code for the special filter is a perfect model to follow:</p>
                     <img class="img-responsive" src="https://media.github.umn.edu/user/4475/files/0f86bf32-b026-11e6-872e-cfe0a799e88b">
                     <br>
-                    <p>Instead of "Special Filter" in the second arguement of the  GLUI_Panel method, enter "Invert Colors" or what ever you want the panel to say. And the name of the GLUI_Panel should be changed to a "invert_filter" or a similarly descriptive, but unique name. The GLUI_Button on the new panel needs to be linked to the panel with the first arguement matching the name assigned to the panel object; leave the second and fourth arguements alone, but change the third one to UI_APPLY_INVERT, matching the callback we set preveously in filter_manager.h. We also need to add a matching entry to the callback in the unum type in ui_ctrl.h. 
+                    <p>Instead of "Special Filter" in the second arguement of the  GLUI_Panel method, enter "Invert Colors" or what ever you want the panel to say. And the name of the GLUI_Panel should be changed to a "invert_filter" or a similarly descriptive, but unique name. The GLUI_Button on the new panel needs to be linked to the panel with the first arguement matching the name assigned to the panel object; leave the second and fourth arguements alone, but change the third one to UI_APPLY_INVERT, matching the callback we set preveously in filter_manager.h. We also need to add a matching entry to the callback in the unum type in ui_ctrl.h.
                     <br>
                     <br>
                     If these steps are executed properly you should now have a fully functioning invert filter.
                     <br>
                     <br>
-                    </p>   
+                    </p>
                 </div>
             </div>
         </div>
