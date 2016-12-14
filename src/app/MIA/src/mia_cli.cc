@@ -108,7 +108,7 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
         } else {
           // the file loaded successfully
             std::cout << "the images [" << file_name1 << "] and [" << file_name2;
-          if (int comp = compare_images(*image1, *image2)) {  // returns 0 on identical
+          if (compare_images(*image1, *image2)) {  // returns 0 on identical
             std::cout << "] are different\n";
           } else {
               std::cout << "] are pixel-to-pixel identical\n";
