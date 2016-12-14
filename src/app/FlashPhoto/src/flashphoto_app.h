@@ -148,7 +148,7 @@ class FlashPhotoApp : public BaseGfxApp {
   GLUI_Spinner *spinner_b_; /**< Hook for accessing the UI blue amount  */
 
   /** TODO implement undo queue */
-  void add_buffer_to_undo_stack(PixelBuffer* &current_buffer);
+  void add_buffer_to_undo_stack();
 
   void maintain_states_stack(unsigned int cur_state);
 

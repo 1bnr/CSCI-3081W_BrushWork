@@ -142,7 +142,7 @@ void FlashPhotoApp::MouseDragged(int x, int y) {
 
 void FlashPhotoApp::LeftMouseDown(int x, int y) {
   maintain_states_stack(cur_state_);
-  add_buffer_to_undo_stack(display_buffer_);
+  add_buffer_to_undo_stack();
   tools_[cur_tool_]->ApplyToBuffer(x, height()-y,
                                    ColorData(cur_color_red_,
                                              cur_color_green_,
@@ -290,60 +290,60 @@ void FlashPhotoApp::GluiControl(int control_id) {
     case UICtrl::UI_APPLY_BLUR:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SHARP:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplySharpen(display_buffer_);
       break;
     case UICtrl::UI_APPLY_MOTION_BLUR:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyMotionBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_EDGE:
       maintain_states_stack(cur_state_);
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyEdgeDetect(display_buffer_);
       break;
     case UICtrl::UI_APPLY_THRESHOLD:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyThreshold(display_buffer_);  // updating new buffer
       break;
     case UICtrl::UI_APPLY_DITHER:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyThreshold(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SATURATE:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplySaturate(display_buffer_);
       break;
     case UICtrl::UI_APPLY_CHANNEL:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyChannel(display_buffer_);
       break;
     case UICtrl::UI_APPLY_QUANTIZE:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyQuantize(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SPECIAL_FILTER:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplySpecial(display_buffer_);
       break;
     case UICtrl::UI_FILE_BROWSER:
@@ -361,7 +361,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
         // Handle the case which we are not at the end of the undo stack
         maintain_states_stack(cur_state_);
         // Save the new buffer with the image to the undo state
-        add_buffer_to_undo_stack(display_buffer_);
+        add_buffer_to_undo_stack();
       }
       break;
     case UICtrl::UI_LOAD_STAMP_BUTTON:
@@ -383,8 +383,9 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_name());
       break;
     case UICtrl::UI_UNDO:
+      printStack();
       std::cout << "UNDO CLICKED" << std::endl;
-      state_manager_.UndoOperation(display_buffer_, states_, cur_state_);
+      display_buffer_ = states_[cur_state_-1];
       cur_state_-= 1;  // Decrement the current index after undoing
       // Set the window dimensions to the state that was just restored
       SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
@@ -400,10 +401,12 @@ void FlashPhotoApp::GluiControl(int control_id) {
       } else {
         state_manager_.redo_toggle(false);
       }
+      printStack();
       break;
     case UICtrl::UI_REDO:
+      printStack();
       std::cout << "REDO CLICKED" << std::endl;
-      state_manager_.RedoOperation(display_buffer_, states_, cur_state_);
+      display_buffer_ = states_[cur_state_+1];
       cur_state_ += 1;
       SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
       // Check if the redo button should be enabled
@@ -418,6 +421,7 @@ void FlashPhotoApp::GluiControl(int control_id) {
       } else {
         state_manager_.undo_toggle(false);
       }
+      printStack();
       break;
     default:
       break;
@@ -449,14 +453,17 @@ void FlashPhotoApp::InitGraphics(void) {
   glViewport(0, 0, width(), height());
 }
 // Handles adding states to the states_ stack and incrementing the cur_state_
-void FlashPhotoApp::add_buffer_to_undo_stack(PixelBuffer* &current_buffer) {
-  PixelBuffer* old_buffer = new PixelBuffer(*current_buffer);
+void FlashPhotoApp::add_buffer_to_undo_stack() {
+  PixelBuffer* old_buffer = new PixelBuffer(*display_buffer_);
   states_.push_back(old_buffer);
   cur_state_ += 1;  // Update index
-  current_buffer = states_[cur_state_];
+  std::cout << states_[cur_state_] << std::endl;
+  std::cout << display_buffer_ << std::endl;
+  display_buffer_ = states_[cur_state_];
   if (cur_state_ > 0) {
     state_manager_.undo_toggle(true);
   }
+  printStack();
 }
 
 // Handles the case in which we undo and then draw, we need to erase
