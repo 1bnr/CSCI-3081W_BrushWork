@@ -101,7 +101,7 @@
                             &emsp;&emsp;&emsp;&emsp;libimgtools/<br>
                                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;src/<br>
                                 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Makefile<br>
-                        ./tests/<br>
+                        ./test/<br>
                         ./web/<br>
                         Makefile<br>
                     </p><br>
@@ -115,7 +115,7 @@
                         <b>FlashPhoto</b> - contains the files specific to building FlashPhoto. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The FlashPhoto Makefile is also located in FlashPhoto/. We wanted the applciation specific code to be seperate, thus the decision to make this directory.<br><br>
                         <b>MIA</b> - contains the files specific to building MIA. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The MIA Makefile is also located in MIA/. We wanted the applciation specific code to be seperate, thus the decision to make this directory.<br><br>
                         <b>lib/libimgtools</b> - this directory contains all the C++ files common to both MIA and FlashPhoto. The subdirectory src/ contains the .cc files and src/include/ contains the .h files. The libimgtools Makefile is also located in lib/libimgtools. We made the libimgtools/ directory because it helps guarantee that we don't have duplicate code, and that we can easily point to the centralized common code.<br><br>
-                        <b>tests</b> - holds all the test files for our test cases and scripts...<br><br>
+                        <b>test</b> - holds all the test files for our test cases as well as the actual Makefile for running the tests. It made sense to have all the files related to testing stored in the same directory.<br><br>
                         <b>web</b> - all of the website files are located in this directory. We also export the Doxygen html files to the subdirectory doxygen/. In addition to the html files, the web/ directory also contains bootstrap resources that we used to build the website documentation. It made sense for there to be a web/ directory due to the difference between the actual application files and the website files.<br><br>
                         <b>Makefile</b> - this is the main Makefile for the whole project, thus it made sense to be at the root directory.<br><br>
 
