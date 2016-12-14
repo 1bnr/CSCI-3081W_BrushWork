@@ -28,7 +28,7 @@ TEST_IMGS += $(wildcard $(TESTDIR)*.png)
 TEST_IMGS += $(wildcard $(TESTDIR)*.jpg)
 rootdir =
 
-all: build_floats build_ints build_filter_chains run_tests
+all: run_tests
 
 
 golden: gold_floats gold_ints gold_filter_chains| $(GOLDIR)
@@ -189,7 +189,7 @@ test_filter_chains:
 		for filter in $(FILTERS_FLT); do \
 				testfile=$(TESTDIR)-$$filter-0_3$(FILTERS_INT)_7-$$filter$$ext; \
 				goldfile=$(GOLDIR)$(GOLDPRE)-$$filter-0_3$(FILTERS_INT)_7-$$filter$$ext; \
-				$(MIA) $$testfile -compare $$goldfile; \
+				$(MIA) $$testfile -compare $$goldfile;  \
 		done ; \
 	done
 

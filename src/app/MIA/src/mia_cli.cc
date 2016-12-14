@@ -193,7 +193,7 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
       }  // exit iterated loop, save produced output
       if (save_image(image1, file_name2)) {
         // save image failure
-        std::cout << "Error! '" << file_name2;
+        std::cout << "Error! '" << file_name2  << std::endl;
         std::cout << "' is not a valid file name. Failed to save file.\n";
         print_help(file_name2);
         return 1;
@@ -227,7 +227,7 @@ void MiaCli::print_help(std::string arg) {
 int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
                    const image_tools::PixelBuffer &pixel_buffer2) {
   // running image buffer comparison
-  int image_compare = 1;
+  int image_compare = 0;
   int i1_width = pixel_buffer1.width();
   int i1_height = pixel_buffer1.height();
   int i2_width = pixel_buffer2.width();
@@ -242,13 +242,13 @@ int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
         if ((to_int(pixel1.red())   != to_int(pixel2.red())) ||
             (to_int(pixel1.green()) != to_int(pixel2.green())) ||
             (to_int(pixel1.blue())  != to_int(pixel2.blue()))) {
-          image_compare = 0;
+          image_compare = 1;
           break;
         }
       }
     }
   } else {  // dimensions didn't match
-    image_compare = 0;
+    image_compare = 1;
   }
   std::cout << image_compare << std::endl;
   return image_compare;
