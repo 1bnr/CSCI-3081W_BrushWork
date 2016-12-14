@@ -33,11 +33,6 @@ MiaCli::MiaCli() : jobs_() {}
 int MiaCli::init_cli(int argc, char ** argv) {
   int error = 0;  // record any errors
   // if the -h help flag is given
-  if (argc == 2 && std::string(argv[1]) != "-h") {
-    std::cout << "Error!, this command is not supported by MIA." << std::endl;
-    print_help(argv[1]);
-    return 1;
-  }
   if (argc == 2 && std::string(argv[1]) == "-h") {
     print_help(argv[1]);
   } else {  // collect the two file names,
@@ -112,7 +107,12 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           return 1;  // return error; one of the files didn't load
         } else {
           // the file loaded successfully
-          compare_images(*image1, *image2);
+            std::cout << "the images [" << file_name1 << "] and [" << file_name2;
+          if (compare_images(*image1, *image2)) {  // returns 0 on identical
+            std::cout << "] are different\n";
+          } else {
+              std::cout << "] are pixel-to-pixel identical\n";
+          }
           free(image1);
           free(image2);
           return 0;
@@ -193,7 +193,7 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
       }  // exit iterated loop, save produced output
       if (save_image(image1, file_name2)) {
         // save image failure
-        std::cout << "Error! '" << file_name2;
+        std::cout << "Error! '" << file_name2  << std::endl;
         std::cout << "' is not a valid file name. Failed to save file.\n";
         print_help(file_name2);
         return 1;
@@ -227,7 +227,7 @@ void MiaCli::print_help(std::string arg) {
 int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
                    const image_tools::PixelBuffer &pixel_buffer2) {
   // running image buffer comparison
-  int image_compare = 1;
+  int image_compare = 0;
   int i1_width = pixel_buffer1.width();
   int i1_height = pixel_buffer1.height();
   int i2_width = pixel_buffer2.width();
@@ -242,15 +242,14 @@ int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
         if ((to_int(pixel1.red())   != to_int(pixel2.red())) ||
             (to_int(pixel1.green()) != to_int(pixel2.green())) ||
             (to_int(pixel1.blue())  != to_int(pixel2.blue()))) {
-          image_compare = 0;
+          image_compare = 1;
           break;
         }
       }
     }
   } else {  // dimensions didn't match
-    image_compare = 0;
+    image_compare = 1;
   }
-  std::cout << image_compare << std::endl;
   return image_compare;
 }
 
