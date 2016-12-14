@@ -107,11 +107,11 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           return 1;  // return error; one of the files didn't load
         } else {
           // the file loaded successfully
-            std::cout << "the images " << file_name1 << " and " << file_name2;
-          if (compare_images(*image1, *image2)) {
-            std::cout << " are pixel-to-pixel identical\n";
+            std::cout << "the images [" << file_name1 << "] and [" << file_name2;
+          if (int comp = compare_images(*image1, *image2)) {  // returns 0 on identical
+            std::cout << "] are different\n";
           } else {
-              std::cout << " are different\n";
+              std::cout << "] are pixel-to-pixel identical\n";
           }
           free(image1);
           free(image2);
@@ -250,7 +250,6 @@ int MiaCli::compare_images(const image_tools::PixelBuffer &pixel_buffer1,
   } else {  // dimensions didn't match
     image_compare = 1;
   }
-  std::cout << image_compare << std::endl;
   return image_compare;
 }
 
