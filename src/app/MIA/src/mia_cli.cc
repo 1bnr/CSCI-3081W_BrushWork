@@ -107,7 +107,7 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           return 1;  // return error; one of the files didn't load
         } else {
           // the file loaded successfully
-            std::cout << "the images [" << file_name1 
+            std::cout << "the images [" << file_name1
                       << "] and [" << file_name2;
           if (compare_images(*image1, *image2)) {  // returns 0 on identical
             std::cout << "] are different\n";
