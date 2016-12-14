@@ -21,6 +21,9 @@
  * Namespaces
  ******************************************************************************/
 namespace image_tools {
+/**
+ * @brief Holds the UI definitions for MIA and FlashPhoto
+ */
 class UICtrl {
  public:
   static void button_toggle(GLUI_Button *button, bool enabled) {

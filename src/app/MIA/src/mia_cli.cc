@@ -78,7 +78,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
 int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
   image_tools::PixelBuffer * image1 = load_image(file_name1);
   image_tools::PixelBuffer * image2;
-  if (0 == image1->width() || 0 == image1->height()) {
+  if (!image1->width() || !image1->height()) {
     // image1 failed to load_image
     std::cout << "couldn't load image1: " << file_name1 << std::endl;
     print_help(file_name1);

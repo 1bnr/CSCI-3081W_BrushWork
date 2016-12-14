@@ -133,7 +133,7 @@ class MIAApp : public BaseGfxApp {
   /** @brief add a PixelBuffer to the undo queue
    * @param current_buffer a PixelBuffer containing current state of image
    */
-  void add_buffer_to_undo_stack(PixelBuffer* &current_buffer);
+  void add_buffer_to_undo_stack();
 
   /** @brief perform bookkeeping for the undo queue
    *  @param cur_state the index of the current PixelBuffer in the undo queue

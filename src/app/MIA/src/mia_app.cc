@@ -141,7 +141,7 @@ void MIAApp::MouseDragged(int x, int y) {
 void MIAApp::LeftMouseDown(int x, int y) {
   std::cout << cur_tool_ << std::endl;
   maintain_states_stack(cur_state_);
-  add_buffer_to_undo_stack(display_buffer_);
+  add_buffer_to_undo_stack();
   tools_[cur_tool_]->ApplyToBuffer(x, height()-y,
                                    ColorData(1, 0, 0),
                                    display_buffer_,
@@ -200,42 +200,42 @@ void MIAApp::GluiControl(int control_id) {
     case UICtrl::UI_APPLY_BLUR:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_SHARP:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplySharpen(display_buffer_);
       break;
     case UICtrl::UI_APPLY_MOTION_BLUR:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyMotionBlur(display_buffer_);
       break;
     case UICtrl::UI_APPLY_EDGE:
       maintain_states_stack(cur_state_);
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyEdgeDetect(display_buffer_);
       break;
     case UICtrl::UI_APPLY_THRESHOLD:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyThreshold(display_buffer_);  // updating new buffer
       break;
     case UICtrl::UI_APPLY_SATURATE:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyGrayscale(display_buffer_);
       break;
     case UICtrl::UI_APPLY_QUANTIZE:
       maintain_states_stack(cur_state_);
       // Save the new buffer with the image to the undo state
-      add_buffer_to_undo_stack(display_buffer_);
+      add_buffer_to_undo_stack();
       filter_manager_.ApplyQuantize(display_buffer_);
       break;
     case UICtrl::UI_FILE_BROWSER:
@@ -253,7 +253,7 @@ void MIAApp::GluiControl(int control_id) {
         // Handle the case which we are not at the end of the undo stack
         maintain_states_stack(cur_state_);
         // Save the new buffer with the image to the undo state
-        add_buffer_to_undo_stack(display_buffer_);
+        add_buffer_to_undo_stack();
       }
       break;
     case UICtrl::UI_SAVE_CANVAS_BUTTON:
@@ -273,7 +273,7 @@ void MIAApp::GluiControl(int control_id) {
         // Handle the case which we are not at the end of the undo stack
         maintain_states_stack(cur_state_);
         // Save the new buffer with the image to the undo state
-        add_buffer_to_undo_stack(display_buffer_);
+        add_buffer_to_undo_stack();
       }
       break;
     case UICtrl::UI_PREV_IMAGE_BUTTON:
@@ -288,7 +288,7 @@ void MIAApp::GluiControl(int control_id) {
         // Handle the case which we are not at the end of the undo stack
         maintain_states_stack(cur_state_);
         // Save the new buffer with the image to the undo state
-        add_buffer_to_undo_stack(display_buffer_);
+        add_buffer_to_undo_stack();
       }
       break;
     case UICtrl::UI_FILE_NAME:
@@ -296,7 +296,7 @@ void MIAApp::GluiControl(int control_id) {
       break;
     case UICtrl::UI_UNDO:
       std::cout << "UNDO CLICKED" << std::endl;
-      state_manager_.UndoOperation(display_buffer_, states_, cur_state_);
+      display_buffer_ = states_[cur_state_-1];
       cur_state_-= 1;  // Decrement the current index after undoing
       // Set the window dimensions to the state that was just restored
       SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
@@ -315,7 +315,7 @@ void MIAApp::GluiControl(int control_id) {
       break;
     case UICtrl::UI_REDO:
       std::cout << "REDO CLICKED" << std::endl;
-      state_manager_.RedoOperation(display_buffer_, states_, cur_state_);
+      display_buffer_ = states_[cur_state_+1];
       cur_state_ += 1;
       SetWindowDimensions(display_buffer_->width(), display_buffer_->height());
       // Check if the redo button should be enabled
@@ -356,11 +356,11 @@ void MIAApp::InitGraphics(void) {
   glViewport(0, 0, width(), height());
 }
 // Handles adding states to the states_ stack and incrementing the cur_state_
-void MIAApp::add_buffer_to_undo_stack(PixelBuffer* &current_buffer) {
-  PixelBuffer* old_buffer = new PixelBuffer(*current_buffer);
+void MIAApp::add_buffer_to_undo_stack() {
+  PixelBuffer* old_buffer = new PixelBuffer(*display_buffer_);
   states_.push_back(old_buffer);
   cur_state_ += 1;  // Update index
-  current_buffer = states_[cur_state_];
+  display_buffer_ = states_[cur_state_];
   if (cur_state_ > 0) {
     state_manager_.undo_toggle(true);
   }
