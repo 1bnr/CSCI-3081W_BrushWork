@@ -1,0 +1,19 @@
+var searchData=
+[
+  ['add_5fbuffer_5fto_5fundo_5fstack',['add_buffer_to_undo_stack',['../classimage__tools_1_1FlashPhotoApp.html#a8399a3f70f561225e8aea12989579a5a',1,'image_tools::FlashPhotoApp::add_buffer_to_undo_stack()'],['../classimage__tools_1_1MIAApp.html#ac624a8039dce2a55ee0541023b54977f',1,'image_tools::MIAApp::add_buffer_to_undo_stack()']]],
+  ['addfilebrowsertoglui',['AddFileBrowserToGLUI',['../classimage__tools_1_1IOManager.html#a078d05c79a2a954c38050aa4f4985768',1,'image_tools::IOManager']]],
+  ['addloadstamptoglui',['AddLoadStampToGLUI',['../classimage__tools_1_1IOManager.html#a39e6a658f7d97741e09c1cec9ad08396',1,'image_tools::IOManager']]],
+  ['addsavecanvastoglui',['AddSaveCanvasToGLUI',['../classimage__tools_1_1IOManager.html#a600cf7d9a1b1a86cbb2201fc7ec7b528',1,'image_tools::IOManager']]],
+  ['apply_5ffilter',['apply_filter',['../classimage__tools_1_1Blur.html#a45b67e38f269c2df28bed58985ba7cab',1,'image_tools::Blur::apply_filter()'],['../classimage__tools_1_1EdgeDetect.html#a0dbd847ca3a4ab2e2465c0f9a9d810af',1,'image_tools::EdgeDetect::apply_filter()'],['../classimage__tools_1_1MotionBlur.html#acb2e9d9dd426bf3e6029c3fafef52bc9',1,'image_tools::MotionBlur::apply_filter()'],['../classimage__tools_1_1Quantize.html#a6ff9caf04a7042f2d35b09200d87e1f3',1,'image_tools::Quantize::apply_filter()'],['../classimage__tools_1_1RGB.html#a70b95680ec9d992baf1592dfc08596ac',1,'image_tools::RGB::apply_filter()'],['../classimage__tools_1_1Saturate.html#ae97eb0c20f813f6f15cc60cbf2dffb59',1,'image_tools::Saturate::apply_filter()'],['../classimage__tools_1_1Sharpen.html#add919ea5fd180fb806f8fce0d64e5f3b',1,'image_tools::Sharpen::apply_filter()'],['../classimage__tools_1_1Special.html#a3c540c19f5dc91516cd465c596582d6a',1,'image_tools::Special::apply_filter()'],['../classimage__tools_1_1Threshold.html#aef4d6836c6a3d279e5dc49edfc3f78d4',1,'image_tools::Threshold::apply_filter()']]],
+  ['applyblur',['ApplyBlur',['../classimage__tools_1_1FilterManager.html#a65c72ebb82b004fa28c4db6aabc04a91',1,'image_tools::FilterManager']]],
+  ['applychannel',['ApplyChannel',['../classimage__tools_1_1FilterManager.html#a058cd1c3029e09a862ccc0dbb77e8c6c',1,'image_tools::FilterManager']]],
+  ['applyedgedetect',['ApplyEdgeDetect',['../classimage__tools_1_1FilterManager.html#a623327276b7fff16ae8df8078df94aac',1,'image_tools::FilterManager']]],
+  ['applygrayscale',['ApplyGrayscale',['../classimage__tools_1_1MIAFilterManager.html#a6b9f9e936a8510e0e79e92bc60e4b228',1,'image_tools::MIAFilterManager']]],
+  ['applymotionblur',['ApplyMotionBlur',['../classimage__tools_1_1FilterManager.html#ae49c56b1c809f702c279aea9b180d448',1,'image_tools::FilterManager']]],
+  ['applyquantize',['ApplyQuantize',['../classimage__tools_1_1FilterManager.html#a6df91349447dd31495ea50399c84ee68',1,'image_tools::FilterManager']]],
+  ['applysaturate',['ApplySaturate',['../classimage__tools_1_1FilterManager.html#a0abac6c133eded041329ddcc86702e3a',1,'image_tools::FilterManager']]],
+  ['applysharpen',['ApplySharpen',['../classimage__tools_1_1FilterManager.html#a64286c695298177088eab44cb233f5a7',1,'image_tools::FilterManager']]],
+  ['applyspecial',['ApplySpecial',['../classimage__tools_1_1FilterManager.html#a4255b153521fc3b953462f0f4a5766b8',1,'image_tools::FilterManager']]],
+  ['applythreshold',['ApplyThreshold',['../classimage__tools_1_1FilterManager.html#a8e60def402855235f2a64c210616b0ce',1,'image_tools::FilterManager']]],
+  ['applytobuffer',['ApplyToBuffer',['../classimage__tools_1_1TBlur.html#abfd42d15dd1129a8c0d6f0cf182c1498',1,'image_tools::TBlur::ApplyToBuffer()'],['../classimage__tools_1_1TStamp.html#a881593f641ba04bd5ddb3cf2f5862cb6',1,'image_tools::TStamp::ApplyToBuffer()'],['../classimage__tools_1_1Tool.html#ac939f5f1d05b7009844e3277e726970e',1,'image_tools::Tool::ApplyToBuffer()']]]
+];

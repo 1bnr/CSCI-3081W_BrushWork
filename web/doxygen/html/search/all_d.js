@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['name',['name',['../classimage__tools_1_1TBlur.html#ae9f4b2ce3319aa37097a69741ffe45e5',1,'image_tools::TBlur::name()'],['../classimage__tools_1_1TCalligraphyPen.html#adcc77e8eaf9fbd8d03eeba73f6f51f7b',1,'image_tools::TCalligraphyPen::name()'],['../classimage__tools_1_1TChalk.html#a74f65065dbc618e5f30089597d39bb46',1,'image_tools::TChalk::name()'],['../classimage__tools_1_1TEraser.html#a81b041c9389e310fa446fc9e69d2a82f',1,'image_tools::TEraser::name()'],['../classimage__tools_1_1THighlighter.html#a741f3c465603450d443f7445ec87c670',1,'image_tools::THighlighter::name()'],['../classimage__tools_1_1TPen.html#ace8f722fce340f23894f12ada93e2e8b',1,'image_tools::TPen::name()'],['../classimage__tools_1_1TSprayCan.html#a550d5510cdf8dc826560dcbca9bedbd9',1,'image_tools::TSprayCan::name()'],['../classimage__tools_1_1TStamp.html#abc6b8bd3f9aa61fcbaba7753d5eac1dd',1,'image_tools::TStamp::name()'],['../classimage__tools_1_1Tool.html#a251c179e3ac9756d08fbcd082750f8a9',1,'image_tools::Tool::name()']]],
+  ['num_5ftools',['num_tools',['../classimage__tools_1_1ToolFactory.html#a365cd7d26afa67a4d5b2e730f585df90',1,'image_tools::ToolFactory']]]
+];
