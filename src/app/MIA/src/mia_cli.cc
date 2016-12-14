@@ -33,6 +33,11 @@ MiaCli::MiaCli() : jobs_() {}
 int MiaCli::init_cli(int argc, char ** argv) {
   int error = 0;  // record any errors
   // if the -h help flag is given
+  if (argc == 2 && std::string(argv[1]) != "-h") {
+    std::cout << "Error!, this command is not supported by MIA." << std::endl;
+    print_help(argv[1]);
+    return 1;
+  }
   if (argc == 2 && std::string(argv[1]) == "-h") {
     print_help(argv[1]);
   } else {  // collect the two file names,
