@@ -138,7 +138,7 @@ create_test_images:
 	echo "\ncreating test images with chained filters using\n"; \
 	for ext in $(FEXT); do \
 		for filter in $(FILTERS_FLT); do \
-			testfile=$(TESTIMGS)-$$filter-0_3$(FILTERS_INT)_7-$$filter-0_3-edge$$ext; \
+			testfile=$(TESTIMGS)$$filter-0_3$(FILTERS_INT)_7-$$filter-0_3-edge$$ext; \
 			$(MIA) $(SRCJPG) -$(FILTERS_INT) 7 -$$filter 0.3 -edge $$testfile; \
 		done; \
 	done; \
@@ -148,7 +148,7 @@ create_test_images:
 		$(MIA) $(SRCPNG) $(TESTIMGS)srcpng$$ext; \
 	done; \
 
-
+command=
 # run comparison tests
 comparison_tests:
 	cd ../; \
@@ -159,21 +159,26 @@ comparison_tests:
 				goldfile=`echo $(GOLDIMG)$$filter-$$num$$ext | sed "s/\./_/ 2"`; \
 				if [ "$$filter" = "sharpen" ]; then \
 					if [ $$(echo "$$num >= 0" | bc -l) -ne 0 ]; then \
+						echo "$(MIA) $$goldfile -compare $$testfile" >> test/test_log.txt; \
 						$(MIA) $$goldfile -compare $$testfile >> test/test_log.txt; \
 					fi; \
 				elif [ "$$filter" = "threshold" ]; then \
 					if [ $$(echo "$$num <= 1 && $$num >= 0" | bc -l) -ne 0 ]; then \
+						echo "$(MIA) $$goldfile -compare $$testfile" >> test/test_log.txt; \
 						$(MIA) $$goldfile -compare $$testfile >> test/test_log.txt; \
 					fi; \
 				elif [ "$$filter" = "quantize" ]; then \
 					if [ $$(echo "$$num >= 2" | bc -l) -ne 0 ]; then \
+						echo "$(MIA) $$goldfile -compare $$testfile" >> test/test_log.txt; \
 						$(MIA) $$goldfile -compare $$testfile >> test/test_log.txt; \
 					fi; \
 				elif [ "$$filter" = "blur" ]; then \
 					if [ $$(echo "$$num >= 0" | bc -l) -ne 0 ]; then \
+						echo "$(MIA) $$goldfile -compare $$testfile" >> test/test_log.txt; \
 						$(MIA) $$goldfile -compare $$testfile >> test/test_log.txt; \
 					fi; \
 				elif  [ "$$filter" = "saturate" ]; then \
+						echo "$(MIA) $$goldfile -compare $$testfile" >> test/test_log.txt; \
 					$(MIA) $$testfile -compare $$goldfile >> test/test_log.txt; \
 				fi; \
 			done; \
@@ -183,18 +188,22 @@ comparison_tests:
 		for num in $(INT_ARGS); do \
 			testfile=$(TESTIMGS)$(FILTERS_INT)-$$num$$ext; \
 			goldfile=$(GOLDIMG)$(FILTERS_INT)-$$num$$ext; \
+				echo "$(MIA) $$goldfile -compare $$testfile" >> test/test_log.txt; \
 				$(MIA) $$goldfile -compare $$testfile >> test/test_log.txt; \
 		done; \
 	done; \
 	for ext in $(FEXT); do \
 		for filter in $(FILTERS_FLT); do \
-				testfile=$(TESTIMGS)-$$filter-0_3$(FILTERS_INT)_7-$$filter-0_3-edge$$ext; \
+				testfile=$(TESTIMGS)$$filter-0_3$(FILTERS_INT)_7-$$filter-0_3-edge$$ext; \
 				goldfile=$(GOLDIMG)$$filter-0_3$(FILTERS_INT)_7-$$filter-0_3-edge$$ext; \
+					echo "$(MIA) $$goldfile -compare $$testfile" >> test/test_log.txt; \
 					$(MIA) $$goldfile -compare $$testfile >> test/test_log.txt; \
 		done; \
 	done; \
 	for ext in $(FEXT); do \
+		echo "$(MIA) $(GOLDIMG)srcjpg$$ext -compare $(TESTIMGS)srcjpg$$ext" >> test/test_log.txt; \
 		$(MIA) $(GOLDIMG)srcjpg$$ext -compare $(TESTIMGS)srcjpg$$ext >> test/test_log.txt; \
+		echo "$(MIA) $(GOLDIMG)srcpng$$ext -compare $(TESTIMGS)srcpng$$ext" >> test/test_log.txt; \
 		$(MIA) $(GOLDIMG)srcpng$$ext -compare $(TESTIMGS)srcpng$$ext >> test/test_log.txt; \
 	done
 
@@ -202,30 +211,44 @@ comparison_tests:
 batch_test:
 	cd ../; \
 	echo "batch testing edge detection filter"; \
+	echo 'build/MIA/bin/MIA resources/test-images/brainstack/mrbrain-8bit0\#\#.png -edge $(TESTIMGS)brainstack-edge0\#\#.png'; \
 	build/MIA/bin/MIA resources/test-images/brainstack/mrbrain-8bit0\#\#.png -edge $(TESTIMGS)brainstack-edge0\#\#.png; \
 	echo "batch testing quantize filter"; \
+	echo 'build/MIA/bin/MIA resources/test-images/brainstack/mrbrain-8bit0\#\#.png -quantize 3 $(TESTIMGS)brainstack-quantize0\#\#.png'; \
 	build/MIA/bin/MIA resources/test-images/brainstack/mrbrain-8bit0\#\#.png -quantize 3 $(TESTIMGS)brainstack-quantize0\#\#.png; \
-	echo "batch testing image comparison"; \
+	echo "batch testing image comparison; 0 is pass 1 is fail"; \
+	echo 'build/MIA/bin/MIA resources/test-images/brainstack/mrbrain-8bit0\#\#.png -compare resources/test-images/brainstack/mrbrain-8bit0\#\#.png'; \
 	build/MIA/bin/MIA resources/test-images/brainstack/mrbrain-8bit0\#\#.png -compare resources/test-images/brainstack/mrbrain-8bit0\#\#.png; \
 
 bad_commands:
 	cd ../; \
+	echo 'build/MIA/bin/MIA resources/test-images/snaily.foo bad-input-extension.jpg'; \
 	build/MIA/bin/MIA resources/test-images/snaily.foo bad-input-extension.jpg; \
+	echo 'build/MIA/bin/MIA does/not/exist.jpg input-does-not-exist.jpg'; \
 	build/MIA/bin/MIA does/not/exist.jpg input-does-not-exist.jpg; \
-	build/MIA/bin/MIA resources/test-images/colorCircles.png color-circles.foo; \
+	echo 'build/MIA/bin/MIA resources/test-images/colorCircles.png color-circles.foo'; \
 	build/MIA/bin/MIA resources/test-images/colorCircles.png does/not/exist.png; \
+	echo 'build/MIA/bin/MIA -sharpen 5.0 missing-input-file.png'; \
 	build/MIA/bin/MIA -sharpen 5.0 missing-input-file.png; \
+	echo 'build/MIA/bin/MIA resources/test-images/snaily.jpg -sharpen 5.0'; \
 	build/MIA/bin/MIA resources/test-images/snaily.jpg -sharpen 5.0; \
+	echo 'build/MIA/bin/MIA resources/test-images/snaily.jpg -compare 17 resources/test-images/snaily.jpg'; \
 	build/MIA/bin/MIA resources/test-images/snaily.jpg -compare 17 resources/test-images/snaily.jpg; \
+	echo 'build/MIA/bin/MIA resources/test-images/snaily.jpg -channel 1.0 1.0bad-channel-parameters.png'; \
 	build/MIA/bin/MIA resources/test-images/snaily.jpg -channel 1.0 1.0bad-channel-parameters.png; \
+	echo 'build/MIA/bin/MIA resources/test-images/snaily.jpg -edge 5.0 bad-edge-parameters.png'; \
 	build/MIA/bin/MIA resources/test-images/snaily.jpg -edge 5.0 bad-edge-parameters.png; \
-	build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit#\#.png bad-brainstack1/mr-brain8bit#\#.png
-	build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit#\#\#.png bad-brainstack2/mr-brain8bit#\#.png
-	build/MIA/bin/MIA resources/test-images/brainstack/bad-brainstack3/mr-brain8bit#\#\#.png
-	build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit#\#\#.pngbad-brainstack4/
+	echo'build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit\#\#\#.png bad-brainstack2/mr-brain8bit\#\#.png'; \
+	build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit\#\#.png bad-brainstack1/mr-brain8bit\#\#.png; \
+	echo 'build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit\#\#\#.png bad-brainstack2/mr-brain8bit\#\#.png'; \
+	build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit\#\#\#.png bad-brainstack2/mr-brain8bit\#\#.png; \
+	echo 'build/MIA/bin/MIA resources/test-images/brainstack/bad-brainstack3/mr-brain8bit\#\#\#.png'; \
+	build/MIA/bin/MIA resources/test-images/brainstack/bad-brainstack3/mr-brain8bit\#\#\#.png; \
+	echo 'build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit\#\#\#.pngbad-brainstack4/'; \
+	build/MIA/bin/MIA resources/test-images/brainstack/mr-brain-8bit\#\#\#.pngbad-brainstack4/; \
 
-
-fails = ""
+pass=
+fails =
 # run all the tests
 run_tests: move_log
 	@make comparison_tests
@@ -265,22 +288,24 @@ removegolden:
 	done;
 
 read_log:
-	echo `pwd`;
-	sed -n '/different/p' test_log.txt;
-	echo "comparison tests run: " `grep -c '' test_log.txt`;
-	fails=`grep -o 'different' test_log.txt | wc -l`; \
-	echo $$fails; \
+	pass=`sed -n '/^0/p' ./test_log.txt | wc -l`; \
+	echo "comparison tests passed: " $$pass; \
+	fails=`sed -n '/^1/p' ./test_log.txt | wc -l`; \
 	if [ "$$fails" = "0" ]; then \
 		echo "all comparison tests passed."; \
-	elif [ "$$fails" = "1" ]; then \
-		echo "$$fails comparison test failed :"; \
 	else \
-		echo "$$fails comparison tests failed: "; \
-	fi;
-	sed -n '/different/p' test_log.txt; \
+		echo "comparison tests failed: "$$fails; \
+		echo "the following files failed comparison with golden images"; \
+	fi;\
+	sed -n '/^1/{x;p;d;}; x' test_log.txt; \
 	sleep 2
 
 move_log:
 	if [ -f ./test_log.txt ]; then \
     $$(mv ./test_log.txt ./test_log.txt.$$(date +%M%H%S)); \
   fi
+
+compartest:
+	cd ../;\
+	build/MIA/bin/MIA resources/test-images/snaily.png -compare resources/test-images/snaily.jpg; \
+	build/MIA/bin/MIA resources/test-images/peppers.png -compare resources/test-images/peppers.jpg; \

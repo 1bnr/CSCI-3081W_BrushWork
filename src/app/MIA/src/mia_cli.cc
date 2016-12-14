@@ -69,7 +69,6 @@ int MiaCli::init_cli(int argc, char ** argv) {
     } else {  // no wildcards in names, just process_jobs once
       error = process_jobs(filename1, filename2);
     }
-    if (error) fprintf(stderr, "%s\n", "error encountered.");
   }
   jobs_.clear();
   return error;
@@ -79,7 +78,7 @@ int MiaCli::init_cli(int argc, char ** argv) {
 int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
   image_tools::PixelBuffer * image1 = load_image(file_name1);
   image_tools::PixelBuffer * image2;
-  if (!image1->width() || !image1->height()) {
+  if (0 == image1->width() || 0 == image1->height()) {
     // image1 failed to load_image
     std::cout << "couldn't load image1: " << file_name1 << std::endl;
     print_help(file_name1);
@@ -107,11 +106,10 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           return 1;  // return error; one of the files didn't load
         } else {
           // the file loaded successfully
-            std::cout << "the images [" << file_name1 << "] and [" << file_name2;
-          if (compare_images(*image1, *image2)) {  // returns 0 on identical
-            std::cout << "] are different\n";
+          if (int comp = compare_images(*image1, *image2)) {
+            std::cout << "1\n";  // *prints* 1 on different
           } else {
-              std::cout << "] are pixel-to-pixel identical\n";
+            std::cout << "0\n";  // *prints* 0 on identical
           }
           free(image1);
           free(image2);
@@ -134,10 +132,11 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
           else
             foundfloat = sscanf((*jit)[1].c_str(), "%f", &float_arg);
 
-          std::cout << "current filter = " << filter << std::endl
-           << "filter amount = " << ((foundfloat) ? float_arg : int_arg)
-           << std::endl;
-
+          std::cout << "current filter = " << filter << std::endl;
+          if (filter != "edge") {
+             std::cout << "filter amount = " << ((foundfloat) ? float_arg : int_arg)
+             << std::endl;
+           }
           // decide which filter to be applied
           if (filter == "edge") {
             image_tools::EdgeDetect::apply_filter(image1);
