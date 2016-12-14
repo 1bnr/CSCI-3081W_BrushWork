@@ -156,11 +156,6 @@ export CXXLIBS
 # target name
 all: libimgtools FlashPhoto MIA
 
-test:
-	@echo $(BUILDROOT)
-	@echo $(EXTDIR)
-	@echo $(CXXTESTDIR)
-
 install: all
 	$(MAKE) -C$(LIBIMGTOOLS_DIR)
 	$(MAKE) -Csrc/app/MIA install

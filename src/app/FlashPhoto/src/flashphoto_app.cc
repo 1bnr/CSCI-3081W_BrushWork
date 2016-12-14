@@ -383,7 +383,6 @@ void FlashPhotoApp::GluiControl(int control_id) {
       io_manager_.set_image_file(io_manager_.file_name());
       break;
     case UICtrl::UI_UNDO:
-      printStack();
       std::cout << "UNDO CLICKED" << std::endl;
       display_buffer_ = states_[cur_state_-1];
       cur_state_-= 1;  // Decrement the current index after undoing
@@ -401,10 +400,8 @@ void FlashPhotoApp::GluiControl(int control_id) {
       } else {
         state_manager_.redo_toggle(false);
       }
-      printStack();
       break;
     case UICtrl::UI_REDO:
-      printStack();
       std::cout << "REDO CLICKED" << std::endl;
       display_buffer_ = states_[cur_state_+1];
       cur_state_ += 1;
@@ -421,7 +418,6 @@ void FlashPhotoApp::GluiControl(int control_id) {
       } else {
         state_manager_.undo_toggle(false);
       }
-      printStack();
       break;
     default:
       break;
@@ -457,13 +453,10 @@ void FlashPhotoApp::add_buffer_to_undo_stack() {
   PixelBuffer* old_buffer = new PixelBuffer(*display_buffer_);
   states_.push_back(old_buffer);
   cur_state_ += 1;  // Update index
-  std::cout << states_[cur_state_] << std::endl;
-  std::cout << display_buffer_ << std::endl;
   display_buffer_ = states_[cur_state_];
   if (cur_state_ > 0) {
     state_manager_.undo_toggle(true);
   }
-  printStack();
 }
 
 // Handles the case in which we undo and then draw, we need to erase
