@@ -48,8 +48,7 @@ PixelBuffer *FileIoJpg::load_image(std::string file_name) {
   // printf("%s\n", "opening file\n");
   if ((infile = fopen(file_name.c_str(), "r")) == NULL) {
     fprintf(stderr, "can't open %s\n", file_name.c_str());
-  //  return PixelBuffer(0, 0, ColorData(0, 0, 0, 0));  // error condition
-    return NULL;
+    return NULL;  // error condition
   }
 
   cinfo.err = jpeg_std_error(&jerr.pub);

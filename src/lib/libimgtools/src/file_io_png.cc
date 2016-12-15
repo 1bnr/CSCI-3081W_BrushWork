@@ -31,7 +31,7 @@ FileIoPng::~FileIoPng(void) {}
  * Member Functions
  ******************************************************************************/
 PixelBuffer *FileIoPng::load_image(std::string file_name) {
-  PixelBuffer * null_buffer = NULL;  //PixelBuffer(0, 0, ColorData(0, 0, 0, 0));
+  PixelBuffer * null_buffer = NULL;
   png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING,
                                   NULL, NULL, NULL);
   if (!png_ptr)
