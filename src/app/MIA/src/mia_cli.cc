@@ -134,8 +134,8 @@ int MiaCli::process_jobs(std::string file_name1, std::string file_name2) {
 
           std::cout << "current filter = " << filter << std::endl;
           if (filter != "edge") {
-             std::cout << "filter amount = "
-             << ((foundfloat) ? float_arg : int_arg) << std::endl;
+             std::cout << "filter amount = " << ((foundfloat) ? float_arg : int_arg)
+             << std::endl;
            }
           // decide which filter to be applied
           if (filter == "edge") {
