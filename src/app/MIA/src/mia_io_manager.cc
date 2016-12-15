@@ -68,7 +68,7 @@ PixelBuffer * MIAIOManager::InitStamp(std::string stamp) {
   } else {  // wrong file type;
     return NULL;  // check for null on return
   }
-  new_buffer = new PixelBuffer(file_io->load_image(stamp));
+  new_buffer = file_io->load_image(stamp);
   free(file_io);
   return new_buffer;
 }
@@ -96,7 +96,7 @@ PixelBuffer * MIAIOManager::LoadImageToCanvas(void) {
   } else {  // wrong file type;
     return NULL;  // check for null on return
   }
-  new_buffer = new PixelBuffer(file_io->load_image(file_name_));
+  new_buffer = file_io->load_image(file_name_);
   free(file_io);
   // Determining whether there are next or previous images
   next_file_name_ = image_name_plus_seq_offset(file_name_, 1);

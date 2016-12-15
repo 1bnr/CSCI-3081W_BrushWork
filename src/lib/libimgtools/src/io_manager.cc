@@ -203,7 +203,7 @@ PixelBuffer * IOManager::LoadImageToCanvas(void) {
   } else {  // wrong file type;
     return NULL;  // check for null on return
   }
-  new_buffer = new PixelBuffer(file_io->load_image(file_name_));
+  new_buffer = file_io->load_image(file_name_);
   free(file_io);
   return new_buffer;
 }
@@ -222,7 +222,7 @@ PixelBuffer * IOManager::LoadImageToStamp() {
   } else {  // wrong file type;
     return NULL;  // check for null on return
   }
-  new_buffer = new PixelBuffer(file_io->load_image(file_name_));
+  new_buffer = file_io->load_image(file_name_);
   free(file_io);
   return new_buffer;
 }

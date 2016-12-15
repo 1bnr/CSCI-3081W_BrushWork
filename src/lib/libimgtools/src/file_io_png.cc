@@ -30,8 +30,8 @@ FileIoPng::~FileIoPng(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-PixelBuffer FileIoPng::load_image(std::string file_name) {
-  PixelBuffer null_buffer = PixelBuffer(0, 0, ColorData(0, 0, 0, 0));
+PixelBuffer *FileIoPng::load_image(std::string file_name) {
+  PixelBuffer * null_buffer = NULL;  //PixelBuffer(0, 0, ColorData(0, 0, 0, 0));
   png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING,
                                   NULL, NULL, NULL);
   if (!png_ptr)
@@ -76,7 +76,7 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
   }
   png_read_image(png_ptr, row_pointers);
   // create a PixelBuffer to hold the pixel data;
-  PixelBuffer new_buffer = PixelBuffer(width, height, background_color);
+  PixelBuffer *new_buffer = new PixelBuffer(width, height, background_color);
   // determine pixel data-block size; depends on number of channels
   int pxl_elems = (color_type < 6) ? 3 : 4;  // 3 channels for rgb, 4 for rgba
   for (y=0; y < height; y++) {
@@ -85,9 +85,9 @@ PixelBuffer FileIoPng::load_image(std::string file_name) {
       png_bytep px = &(row[x * pxl_elems]);
       int b_divisor = (1 << bit_depth) -1;
       if ((pxl_elems == 4) && (px[3] == 0))
-        new_buffer.set_pixel(x, height - y - 1, background_color);
+        new_buffer->set_pixel(x, height - y - 1, background_color);
       else
-        new_buffer.set_pixel(x, height - y - 1, ColorData(
+        new_buffer->set_pixel(x, height - y - 1, ColorData(
                               static_cast<float>(px[0])/b_divisor,   // red
                               static_cast<float>(px[1])/b_divisor,   // green
                               static_cast<float>(px[2])/b_divisor,   // blue

@@ -31,7 +31,7 @@ FileIoJpg::~FileIoJpg(void) {}
 /*******************************************************************************
  * Member Functions
  ******************************************************************************/
-PixelBuffer FileIoJpg::load_image(std::string file_name) {
+PixelBuffer *FileIoJpg::load_image(std::string file_name) {
   /* This struct contains the JPEG decompression parameters and pointers to
   * working space (which is allocated as needed by the JPEG library).
   */
@@ -48,7 +48,8 @@ PixelBuffer FileIoJpg::load_image(std::string file_name) {
   // printf("%s\n", "opening file\n");
   if ((infile = fopen(file_name.c_str(), "r")) == NULL) {
     fprintf(stderr, "can't open %s\n", file_name.c_str());
-    return PixelBuffer(0, 0, ColorData(0, 0, 0, 0));  // error condition
+  //  return PixelBuffer(0, 0, ColorData(0, 0, 0, 0));  // error condition
+    return NULL;
   }
 
   cinfo.err = jpeg_std_error(&jerr.pub);
@@ -80,11 +81,11 @@ PixelBuffer FileIoJpg::load_image(std::string file_name) {
   /* release JPEG decompression object */
   jpeg_destroy_decompress(&cinfo);
   fclose(infile);
-  PixelBuffer new_buffer = PixelBuffer(width, height, ColorData(0, 0, 0));
+  PixelBuffer *new_buffer = new PixelBuffer(width, height, ColorData(0, 0, 0));
   for (int y = 0; y < height; y++) {
     for (int x = 0; x < width; x++) {
       pxl = &read_buffer[(y*row_stride)+(x*c_ch)];  // 1 pixel
-       new_buffer.set_pixel(x, height - y -1, ColorData(
+       new_buffer->set_pixel(x, height - y -1, ColorData(
        static_cast<float>(pxl[0])/b_divisor,  /* red channel */
        static_cast<float>(pxl[1])/b_divisor,  /* green channel */
        static_cast<float>(pxl[2])/b_divisor,  /* blue channel */

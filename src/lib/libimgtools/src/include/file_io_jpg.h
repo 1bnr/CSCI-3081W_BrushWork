@@ -40,9 +40,9 @@ class FileIoJpg : public FileIo {
    * @brief load the image specifed into a PixelBuffer.
    * @param file_name a string containing the path and name of the file to open
    * @return on success a PixelBuffer representation of the image, otherwise an
-   * empty, 0 x 0 PixelBuffer 
+   * empty, 0 x 0 PixelBuffer
    */
-  virtual PixelBuffer load_image(std::string file_name);
+  virtual PixelBuffer *load_image(std::string file_name);
   /**
    * @brief save an image to the path specified by the file_name string
    * @param image the PixelBuffer pointer that will point to the loaded image

@@ -39,7 +39,7 @@ class FileIo {
    * @return on success a PixelBuffer representation of the image, otherwise an
    * empty, 0 x 0 PixelBuffer
    */
-  virtual PixelBuffer load_image(std::string file_name) = 0;
+  virtual PixelBuffer* load_image(std::string file_name) = 0;
   /**
    * @brief save an image to the path specified by the file_name string
    * @param image the PixelBuffer pointer that will point to the loaded image

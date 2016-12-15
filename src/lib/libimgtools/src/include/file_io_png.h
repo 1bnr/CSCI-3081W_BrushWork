@@ -41,7 +41,7 @@ class FileIoPng : public FileIo {
    * @return on success a PixelBuffer representation of the image, otherwise an
    * empty, 0 x 0 PixelBuffer
    */
-  virtual PixelBuffer load_image(std::string file_name);
+  virtual PixelBuffer* load_image(std::string file_name);
   /**
    * @brief save an image to the path specified by the file_name string
    * @param image the PixelBuffer pointer that will point to the loaded image
